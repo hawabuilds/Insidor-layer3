@@ -89,8 +89,6 @@ let tradesPollTimer=null,lastQuote=null,walletBalance={sol:null,token:null};
 let tradesLoading=false,tradersLoading=false,tradersFetchedAt=null,tradersStale=false,tradersLabel='',tradersCaption='',tokAccumulating=[];
 const tradesCache=new Map();
 const tradersSessionFetched=new Set();
-async function fetchJson(url,ms=15000){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),ms);
-  try{const r=await fetch(url,{signal:ac.signal});return await r.json();}catch(_){return null;}finally{clearTimeout(t);}}
 function cacheHit(map,mint,maxAge){const hit=map.get(mint);return hit&&Date.now()-hit.at<maxAge?hit.data:null;}
 function cacheSet(map,mint,data){map.set(mint,{data,at:Date.now()});}
 async function fetchTradesPanel(t,{silent=false,force=false}={}){if(!isL3()||!t?.ca||chartToken?.ca!==t.ca)return;
