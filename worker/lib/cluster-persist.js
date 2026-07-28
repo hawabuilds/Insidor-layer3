@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, row: dbRow, onConflictCols, REL } = require('../../lib/db-schema');
 const { embedText } = require('./embeddings');
 const { extractSubjectEntity } = require('./subject-entity');
 const { scanPostSignals } = require('./ticker-proposals');
@@ -26,19 +27,19 @@ function cleanText(s, maxLen) {
 
 async function ensureEmbedding(sb, postId, text) {
   const { data: existing } = await sb
-    .from('post_embeddings')
-    .select('post_id')
-    .eq('post_id', postId)
+    .from(t('post_embeddings'))
+    .select(c('post_embeddings', 'post_id'))
+    .eq(c('post_embeddings', 'post_id'), postId)
     .maybeSingle();
 
   if (existing) return;
 
   const embedding = embedText(text);
-  const { error } = await sb.from('post_embeddings').upsert({
+  const { error } = await sb.from(t('post_embeddings')).upsert(dbRow('post_embeddings', {
     post_id: postId,
     embedding,
     updated_at: new Date().toISOString(),
-  });
+  }));
   if (error) throw new Error('post_embeddings: ' + error.message);
 }
 
@@ -46,9 +47,9 @@ async function upsertNarrative(sb, narr) {
   let lead_time_min = narr.lead_time_min;
   if (narr.display_eligible) {
     const { data: existing } = await sb
-      .from('narratives')
-      .select('lead_time_min')
-      .eq('id', narr.id)
+      .from(t('narratives'))
+      .select(c('narratives', 'lead_time_min'))
+      .eq(c('narratives', 'id'), narr.id)
       .maybeSingle();
     if (existing?.lead_time_min != null && existing.lead_time_min > 0) {
       lead_time_min = existing.lead_time_min;
@@ -57,7 +58,7 @@ async function upsertNarrative(sb, narr) {
     }
   }
 
-  const row = {
+  const row = dbRow('narratives', {
     id: narr.id,
     title: cleanText(narr.title, 80),
     blurb: cleanText(narr.blurb, 160),
@@ -89,9 +90,11 @@ async function upsertNarrative(sb, narr) {
     author_velocity: fin(narr.author_velocity),
     ticker_proposals: fin(narr.ticker_proposals),
     ct_pickup: !!narr.ct_pickup,
-  };
+  });
 
-  const { error } = await sb.from('narratives').upsert(row, { onConflict: 'id' });
+  const { error } = await sb
+    .from(t('narratives'))
+    .upsert(row, { onConflict: onConflictCols('narratives', 'id') });
   if (error) {
     throw new Error(`narratives upsert (${narr.id}): ${error.message}${error.details ? ` — ${error.details}` : ''}`);
   }
@@ -117,9 +120,9 @@ async function assignPosts(sb, narrativeId, posts) {
   for (let i = 0; i < sorted.length; i++) {
     const p = sorted[i];
     const { error } = await sb
-      .from('narrative_posts')
-      .update({ narrative_id: narrativeId, sort_order: 100000 + i })
-      .eq('id', p.id);
+      .from(t('narrative_posts'))
+      .update(dbRow('narrative_posts', { narrative_id: narrativeId, sort_order: 100000 + i }))
+      .eq(c('narrative_posts', 'id'), p.id);
     if (error) throw new Error(`assign post temp ${p.id}: ${error.message}`);
   }
 
@@ -129,8 +132,8 @@ async function assignPosts(sb, narrativeId, posts) {
     const signals = scanPostSignals(p);
     const subjectEntity = extractSubjectEntity(p);
     const { error } = await sb
-      .from('narrative_posts')
-      .update({
+      .from(t('narrative_posts'))
+      .update(dbRow('narrative_posts', {
         narrative_id: narrativeId,
         sort_order: i,
         cluster_match: p.cluster_match || null,
@@ -142,8 +145,8 @@ async function assignPosts(sb, narrativeId, posts) {
         subject_entity: subjectEntity,
         ct_pickup: signals.ct_pickup,
         ticker_proposal_count: signals.ticker_proposal_count,
-      })
-      .eq('id', p.id);
+      }))
+      .eq(c('narrative_posts', 'id'), p.id);
 
     if (error) throw new Error(`assign post ${p.id}: ${error.message}`);
     await ensureEmbedding(sb, p.id, p.text);
@@ -151,25 +154,30 @@ async function assignPosts(sb, narrativeId, posts) {
 }
 
 async function upsertTickers(sb, narrativeId, tickers) {
-  await sb.from('narrative_tickers').delete().eq('narrative_id', narrativeId);
+  await sb
+    .from(t('narrative_tickers'))
+    .delete()
+    .eq(c('narrative_tickers', 'narrative_id'), narrativeId);
 
   if (!tickers.length) return;
 
-  const rows = tickers.map(t => ({
+  const rows = tickers.map(tk => dbRow('narrative_tickers', {
     narrative_id: narrativeId,
-    ticker: t.ticker,
-    name: t.name,
+    ticker: tk.ticker,
+    name: tk.name,
     mcap: 0,
     liquidity: 0,
     vol24h: 0,
     holders: 0,
     age_min: 0,
     first_deployed: false,
-    endorsed_by: t.endorsedBy,
-    canonical: !!t.canonical,
+    endorsed_by: tk.endorsedBy,
+    canonical: !!tk.canonical,
   }));
 
-  const { error } = await sb.from('narrative_tickers').upsert(rows, { onConflict: 'narrative_id,ticker' });
+  const { error } = await sb
+    .from(t('narrative_tickers'))
+    .upsert(rows, { onConflict: onConflictCols('narrative_tickers', 'narrative_id', 'ticker') });
   if (error) throw new Error('narrative_tickers: ' + error.message);
 }
 
@@ -187,15 +195,15 @@ async function closeAgedOutNarratives(sb, narratives, opts = {}) {
     if (newestAge == null || newestAge <= maxAge) continue;
 
     const { error } = await sb
-      .from('narratives')
-      .update({
+      .from(t('narratives'))
+      .update(dbRow('narratives', {
         status: 'closed',
         display_eligible: false,
         gate_reason: 'too_old',
         updated_at: nowIso,
-      })
-      .eq('id', narr.id)
-      .eq('status', 'open');
+      }))
+      .eq(c('narratives', 'id'), narr.id)
+      .eq(c('narratives', 'status'), 'open');
 
     if (error) {
       console.warn(`[cluster] close aged ${narr.id}:`, error.message);
@@ -209,10 +217,10 @@ async function closeAgedOutNarratives(sb, narratives, opts = {}) {
 
 async function closeEmptyNarratives(sb) {
   const { data: open, error } = await sb
-    .from('narratives')
-    .select('id, narrative_posts!narrative_posts_narrative_id_fkey(id)')
-    .eq('source', 'cluster')
-    .eq('status', 'open');
+    .from(t('narratives'))
+    .select(`id, narrative_posts!${REL.narrative_posts_narrative_id_fkey}(id)`)
+    .eq(c('narratives', 'source'), 'cluster')
+    .eq(c('narratives', 'status'), 'open');
 
   if (error) throw new Error('close empty select: ' + error.message);
 
@@ -223,9 +231,9 @@ async function closeEmptyNarratives(sb) {
   if (!emptyIds.length) return 0;
 
   const { error: upErr } = await sb
-    .from('narratives')
-    .update({ status: 'closed' })
-    .in('id', emptyIds);
+    .from(t('narratives'))
+    .update(dbRow('narratives', { status: 'closed' }))
+    .in(c('narratives', 'id'), emptyIds);
 
   if (upErr) throw new Error('close empty: ' + upErr.message);
   return emptyIds.length;

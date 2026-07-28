@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, cs, row: dbRow } = require('../../lib/db-schema');
 const { lookupTicker } = require('../../lib/token-lookup');
 const { sleep } = require('./retry');
 
@@ -30,16 +31,16 @@ async function updateTickerRow(sb, narrativeId, sym, result) {
   const core = rowPatch(result);
   const full = { ...core, ...rowPatchExtended(result) };
   let { error } = await sb
-    .from('narrative_tickers')
-    .update(full)
-    .eq('narrative_id', narrativeId)
-    .eq('ticker', sym);
+    .from(t('narrative_tickers'))
+    .update(dbRow('narrative_tickers', full))
+    .eq(c('narrative_tickers', 'narrative_id'), narrativeId)
+    .eq(c('narrative_tickers', 'ticker'), sym);
   if (error && /column/i.test(error.message)) {
     ({ error } = await sb
-      .from('narrative_tickers')
-      .update(core)
-      .eq('narrative_id', narrativeId)
-      .eq('ticker', sym));
+      .from(t('narrative_tickers'))
+      .update(dbRow('narrative_tickers', core))
+      .eq(c('narrative_tickers', 'narrative_id'), narrativeId)
+      .eq(c('narrative_tickers', 'ticker'), sym));
   }
   if (error) throw new Error(`enrich ${sym}: ${error.message}`);
 }
@@ -83,9 +84,9 @@ async function enrichNarrativeTickers(sb, narrativeId, tickers, opts = {}) {
 
 async function enrichAllOpenTickers(sb, opts = {}) {
   const { data, error } = await sb
-    .from('narrative_tickers')
-    .select('narrative_id, ticker, first_deployed, canonical')
-    .order('canonical', { ascending: false });
+    .from(t('narrative_tickers'))
+    .select(cs('narrative_tickers', 'narrative_id', 'ticker', 'first_deployed', 'canonical'))
+    .order(c('narrative_tickers', 'canonical'), { ascending: false });
 
   if (error) throw new Error('enrich select: ' + error.message);
 

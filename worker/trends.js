@@ -7,6 +7,7 @@
  */
 
 const { getServiceClient } = require('./lib/supabase');
+const { t, c, cs, row: dbRow, REL } = require('../lib/db-schema');
 const { enrichPost, buildViewSeries, aggregateViewsMetrics, gain24hFromSeries } = require('./lib/cluster-engine');
 const { lifecycleFromViewsMetrics } = require('./lib/velocity');
 const { oldestPostCreatedMs } = require('./lib/posted-at');
@@ -28,17 +29,17 @@ const RECENT_MS = 6 * 60 * 60 * 1000;
 
 async function loadOpenNarratives(sb) {
   const { data, error } = await sb
-    .from('narratives')
+    .from(t('narratives'))
     .select(`
-      id,
-      narrative_posts!narrative_posts_narrative_id_fkey (
-        id, text, handle, platform, first_seen_at, posted_at, views,
-        post_meme_scores ( meme_score, suggested_ticker, suggested_name ),
-        post_snapshots ( captured_at, views, likes, retweets, replies, quotes, unavailable )
+      ${c('narratives', 'id')},
+      narrative_posts!${REL.narrative_posts_narrative_id_fkey} (
+        ${cs('narrative_posts', 'id', 'text', 'handle', 'platform', 'first_seen_at', 'posted_at', 'views')},
+        post_meme_scores ( ${cs('post_meme_scores', 'meme_score', 'suggested_ticker', 'suggested_name')} ),
+        post_snapshots ( ${cs('post_snapshots', 'captured_at', 'views', 'likes', 'retweets', 'replies', 'quotes', 'unavailable')} )
       )
     `)
-    .eq('source', 'cluster')
-    .eq('status', 'open');
+    .eq(c('narratives', 'source'), 'cluster')
+    .eq(c('narratives', 'status'), 'open');
 
   if (error) throw new Error('trends select: ' + error.message);
   return data || [];
@@ -47,10 +48,10 @@ async function loadOpenNarratives(sb) {
 async function loadTrendCandidates(sb) {
   const sinceMs = Date.now() - RECENT_MS;
   const { data, error } = await sb
-    .from('narratives')
-    .select('id, title, combined_views, display_eligible, created_at')
+    .from(t('narratives'))
+    .select(cs('narratives', 'id', 'title', 'combined_views', 'display_eligible', 'created_at'))
     .or(`display_eligible.eq.true,created_at.gte.${sinceMs}`)
-    .order('combined_views', { ascending: false, nullsFirst: false });
+    .order(c('narratives', 'combined_views'), { ascending: false, nullsFirst: false });
 
   if (error) throw new Error('trend candidates: ' + error.message);
   return data || [];
@@ -82,8 +83,8 @@ async function refreshVelocityMetrics(sb, opts = {}) {
     const age_min = Math.max(1, Math.round((Date.now() - oldest) / 60000));
 
     const { error } = await sb
-      .from('narratives')
-      .update({
+      .from(t('narratives'))
+      .update(dbRow('narratives', {
         combined_views,
         gain_24h,
         views_velocity,
@@ -92,8 +93,8 @@ async function refreshVelocityMetrics(sb, opts = {}) {
         lifecycle,
         age_min,
         updated_at: nowIso,
-      })
-      .eq('id', row.id);
+      }))
+      .eq(c('narratives', 'id'), row.id);
 
     if (error) {
       console.warn(`[trends] velocity ${row.id}:`, error.message);
@@ -108,29 +109,29 @@ async function refreshVelocityMetrics(sb, opts = {}) {
 async function writeTrendFailure(sb, id, term, reason) {
   console.warn(`[trends] "${term}" (${id}): ${reason}`);
   const { error } = await sb
-    .from('narratives')
-    .update({
+    .from(t('narratives'))
+    .update(dbRow('narratives', {
       trend_term: term || null,
       search_series: null,
       trend_peak: null,
       trend_direction: null,
       updated_at: new Date().toISOString(),
-    })
-    .eq('id', id);
+    }))
+    .eq(c('narratives', 'id'), id);
   if (error) console.warn(`[trends] failure write ${id}:`, error.message);
 }
 
 async function writeTrendSuccess(sb, id, term, result) {
   const { error } = await sb
-    .from('narratives')
-    .update({
+    .from(t('narratives'))
+    .update(dbRow('narratives', {
       trend_term: term,
       search_series: result.series,
       trend_peak: result.peak,
       trend_direction: result.direction,
       updated_at: new Date().toISOString(),
-    })
-    .eq('id', id);
+    }))
+    .eq(c('narratives', 'id'), id);
   if (error) throw new Error(error.message);
 }
 

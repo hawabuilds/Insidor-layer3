@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, row: dbRow } = require('../../lib/db-schema');
 const { utcDateStr, msUntilUtcMidnight } = require('./budget');
 
 const CONFIG = {
@@ -47,23 +48,23 @@ function runsToday(usage) {
 async function loadUsage(sb, source = CONFIG.SOURCE) {
   const today = utcDateStr();
   const { data, error } = await sb
-    .from('worker_usage')
+    .from(t('worker_usage'))
     .select('*')
-    .eq('source', source)
-    .eq('utc_date', today)
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), today)
     .maybeSingle();
 
   if (error) throw new Error(`worker_usage load (${source}): ` + error.message);
 
   if (!data) {
-    const row = {
+    const row = dbRow('worker_usage', {
       source,
       utc_date: today,
       reads_today: 0,
       cost_usd: 0,
       updated_at: new Date().toISOString(),
-    };
-    const { error: insErr } = await sb.from('worker_usage').insert(row);
+    });
+    const { error: insErr } = await sb.from(t('worker_usage')).insert(row);
     if (insErr) throw new Error(`worker_usage insert (${source}): ` + insErr.message);
     return row;
   }
@@ -80,14 +81,14 @@ async function recordRun(sb, meta = {}, source = CONFIG.SOURCE) {
   const nextCost = costToday(usage) + cost;
 
   const { data, error } = await sb
-    .from('worker_usage')
-    .update({
+    .from(t('worker_usage'))
+    .update(dbRow('worker_usage', {
       reads_today: nextRuns,
       cost_usd: nextCost,
       updated_at: new Date().toISOString(),
-    })
-    .eq('source', source)
-    .eq('utc_date', usage.utc_date)
+    }))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), usage.utc_date)
     .select('*')
     .single();
 

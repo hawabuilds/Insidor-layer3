@@ -8,6 +8,7 @@
  */
 
 const { getServiceClient } = require('./lib/supabase');
+const { t, c, cs, row: dbRow, REL } = require('../lib/db-schema');
 const {
   enrichPost,
   matchPostToNarrative,
@@ -55,16 +56,15 @@ const CONFIG = {
 
 async function loadScoredPosts(sb, sinceIso) {
   const { data, error } = await sb
-    .from('narrative_posts')
+    .from(t('narrative_posts'))
     .select(`
-      id, text, handle, platform, filter_label, first_seen_at, posted_at,
-      narrative_id, views, replies, quotes, likes, retweets, sound_id, sample_replies, raw,
-      post_meme_scores!inner ( meme_score, suggested_ticker, suggested_name, scored_at ),
-      post_snapshots ( captured_at, views, likes, retweets, replies, quotes, unavailable )
+      ${cs('narrative_posts', 'id', 'text', 'handle', 'platform', 'filter_label', 'first_seen_at', 'posted_at', 'narrative_id', 'views', 'replies', 'quotes', 'likes', 'retweets', 'sound_id', 'sample_replies', 'raw')},
+      post_meme_scores!inner ( ${cs('post_meme_scores', 'meme_score', 'suggested_ticker', 'suggested_name', 'scored_at')} ),
+      post_snapshots ( ${cs('post_snapshots', 'captured_at', 'views', 'likes', 'retweets', 'replies', 'quotes', 'unavailable')} )
     `)
-    .in('platform', ['x', 'tt'])
-    .not('platform_post_id', 'is', null)
-    .gte('first_seen_at', sinceIso);
+    .in(c('narrative_posts', 'platform'), ['x', 'tt'])
+    .not(c('narrative_posts', 'platform_post_id'), 'is', null)
+    .gte(c('narrative_posts', 'first_seen_at'), sinceIso);
 
   if (error) throw new Error('load scored posts: ' + error.message);
 
@@ -78,17 +78,17 @@ async function loadScoredPosts(sb, sinceIso) {
 
 async function loadOpenNarratives(sb) {
   const { data, error } = await sb
-    .from('narratives')
+    .from(t('narratives'))
     .select(`
-      id, title, blurb, source, status,
-      narrative_posts!narrative_posts_narrative_id_fkey (
-        id, text, handle, platform, first_seen_at, posted_at, views, sound_id, sample_replies, raw,
-        post_meme_scores ( meme_score, suggested_ticker, suggested_name ),
-        post_snapshots ( captured_at, views, likes, retweets, replies, quotes, unavailable )
+      ${cs('narratives', 'id', 'title', 'blurb', 'source', 'status')},
+      narrative_posts!${REL.narrative_posts_narrative_id_fkey} (
+        ${cs('narrative_posts', 'id', 'text', 'handle', 'platform', 'first_seen_at', 'posted_at', 'views', 'sound_id', 'sample_replies', 'raw')},
+        post_meme_scores ( ${cs('post_meme_scores', 'meme_score', 'suggested_ticker', 'suggested_name')} ),
+        post_snapshots ( ${cs('post_snapshots', 'captured_at', 'views', 'likes', 'retweets', 'replies', 'quotes', 'unavailable')} )
       )
     `)
-    .eq('source', 'cluster')
-    .eq('status', 'open');
+    .eq(c('narratives', 'source'), 'cluster')
+    .eq(c('narratives', 'status'), 'open');
 
   if (error) throw new Error('load open narratives: ' + error.message);
 

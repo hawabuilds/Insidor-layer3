@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, cs, row: dbRow, onConflictCols } = require('../../lib/db-schema');
 const { withRetry } = require('./retry');
 
 const CACHE_TTL_MS = 45 * 60_000;
@@ -17,10 +18,10 @@ function utcDateStr(d = new Date()) {
 async function loadSerpUsage(sb) {
   const today = utcDateStr();
   const { data, error } = await sb
-    .from('worker_usage')
-    .select('reads_today')
-    .eq('source', 'serpapi')
-    .eq('utc_date', today)
+    .from(t('worker_usage'))
+    .select(c('worker_usage', 'reads_today'))
+    .eq(c('worker_usage', 'source'), 'serpapi')
+    .eq(c('worker_usage', 'utc_date'), today)
     .maybeSingle();
   if (error && !/worker_usage|schema cache/i.test(error.message)) {
     throw new Error('loadSerpUsage: ' + error.message);
@@ -31,13 +32,15 @@ async function loadSerpUsage(sb) {
 async function recordSerpUsage(sb) {
   const today = utcDateStr();
   const current = await loadSerpUsage(sb);
-  const row = {
+  const row = dbRow('worker_usage', {
     source: 'serpapi',
     utc_date: today,
     reads_today: current + 1,
     updated_at: new Date().toISOString(),
-  };
-  const { error } = await sb.from('worker_usage').upsert(row, { onConflict: 'source,utc_date' });
+  });
+  const { error } = await sb
+    .from(t('worker_usage'))
+    .upsert(row, { onConflict: onConflictCols('worker_usage', 'source', 'utc_date') });
   if (error && !/worker_usage|schema cache/i.test(error.message)) {
     throw new Error('recordSerpUsage: ' + error.message);
   }
@@ -67,9 +70,9 @@ async function getCachedTrend(sb, term) {
   if (!key) return null;
 
   const { data, error } = await sb
-    .from('worker_trend_cache')
-    .select('result, fetched_at')
-    .eq('term', key)
+    .from(t('worker_trend_cache'))
+    .select(cs('worker_trend_cache', 'result', 'fetched_at'))
+    .eq(c('worker_trend_cache', 'term'), key)
     .maybeSingle();
 
   if (error && !/worker_trend_cache|schema cache/i.test(error.message)) {
@@ -78,7 +81,7 @@ async function getCachedTrend(sb, term) {
   }
   if (!data?.result) return null;
   if (Date.now() - Date.parse(data.fetched_at) > CONFIG.CACHE_TTL_MS) {
-    await sb.from('worker_trend_cache').delete().eq('term', key).then(() => {});
+    await sb.from(t('worker_trend_cache')).delete().eq(c('worker_trend_cache', 'term'), key).then(() => {});
     return null;
   }
   return data.result;
@@ -87,12 +90,14 @@ async function getCachedTrend(sb, term) {
 async function setCachedTrend(sb, term, result) {
   const key = (term || '').trim().toLowerCase();
   if (!key || !result) return;
-  const row = {
+  const row = dbRow('worker_trend_cache', {
     term: key,
     result,
     fetched_at: new Date().toISOString(),
-  };
-  const { error } = await sb.from('worker_trend_cache').upsert(row, { onConflict: 'term' });
+  });
+  const { error } = await sb
+    .from(t('worker_trend_cache'))
+    .upsert(row, { onConflict: onConflictCols('worker_trend_cache', 'term') });
   if (error && !/worker_trend_cache|schema cache/i.test(error.message)) {
     console.warn('[serp-trends] cache write failed:', error.message);
   }

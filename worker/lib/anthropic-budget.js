@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, cs, row: dbRow } = require('../../lib/db-schema');
 const INTERVALS = require('./pipeline-intervals');
 const { costFromUsage } = require('./anthropic-pricing');
 const { utcDateStr, msUntilUtcMidnight } = require('./budget');
@@ -140,10 +141,10 @@ async function load7DayIngestStats(sb) {
 
   const sinceDate = dateDaysAgo(INGEST_LOOKBACK_DAYS);
   const { data, error } = await sb
-    .from('worker_usage')
-    .select('utc_date, source, posts_ingested')
-    .in('source', ['x', 'tiktok'])
-    .gte('utc_date', sinceDate);
+    .from(t('worker_usage'))
+    .select(cs('worker_usage', 'utc_date', 'source', 'posts_ingested'))
+    .in(c('worker_usage', 'source'), ['x', 'tiktok'])
+    .gte(c('worker_usage', 'utc_date'), sinceDate);
 
   if (!error && data?.length) {
     const byDate = new Map();
@@ -169,10 +170,10 @@ async function load7DayIngestStats(sb) {
 
   const sinceIso = new Date(Date.now() - INGEST_LOOKBACK_DAYS * 86_400_000).toISOString();
   const { data: cycles, error: cErr } = await sb
-    .from('worker_cycle_log')
-    .select('worker, ingested, ran_at')
-    .in('worker', ['ingest', 'ingest-tiktok'])
-    .gte('ran_at', sinceIso);
+    .from(t('worker_cycle_log'))
+    .select(cs('worker_cycle_log', 'worker', 'ingested', 'ran_at'))
+    .in(c('worker_cycle_log', 'worker'), ['ingest', 'ingest-tiktok'])
+    .gte(c('worker_cycle_log', 'ran_at'), sinceIso);
 
   if (cErr || !cycles?.length) {
     return { avgDailyX: 0, avgDailyTt: 0, avgDailyTotal: 0, source: 'none' };
@@ -199,10 +200,10 @@ async function load7DayAnthropicStats(sb) {
 
   const sinceDate = dateDaysAgo(INGEST_LOOKBACK_DAYS);
   const { data, error } = await sb
-    .from('worker_usage')
-    .select('utc_date, cost_breakdown')
-    .eq('source', CONFIG.SOURCE)
-    .gte('utc_date', sinceDate);
+    .from(t('worker_usage'))
+    .select(cs('worker_usage', 'utc_date', 'cost_breakdown'))
+    .eq(c('worker_usage', 'source'), CONFIG.SOURCE)
+    .gte(c('worker_usage', 'utc_date'), sinceDate);
 
   if (error || !data?.length) {
     return { avgDailyTitleCalls: 0, avgDailyScoreTtCalls: 0, ttVisionRate: DEFAULT_TT_VISION_RATE };
@@ -382,24 +383,24 @@ function printExhaustionBanner(usage, reason = 'anthropic_daily_budget') {
 async function loadUsage(sb, source = CONFIG.SOURCE) {
   const today = utcDateStr();
   const { data, error } = await sb
-    .from('worker_usage')
+    .from(t('worker_usage'))
     .select('*')
-    .eq('source', source)
-    .eq('utc_date', today)
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), today)
     .maybeSingle();
 
   if (error) throw new Error(`worker_usage load (${source}): ` + error.message);
 
   if (!data) {
-    const row = {
+    const row = dbRow('worker_usage', {
       source,
       utc_date: today,
       reads_today: 0,
       cost_usd: 0,
       cost_breakdown: DEFAULT_BREAKDOWN(),
       updated_at: new Date().toISOString(),
-    };
-    const { error: insErr } = await sb.from('worker_usage').insert(row);
+    });
+    const { error: insErr } = await sb.from(t('worker_usage')).insert(row);
     if (insErr) throw new Error(`worker_usage insert (${source}): ` + insErr.message);
     return row;
   }
@@ -431,15 +432,15 @@ async function recordCall(sb, callType, apiPayload, source = CONFIG.SOURCE) {
   const nextCalls = callsToday(row) + 1;
 
   const { data, error } = await sb
-    .from('worker_usage')
-    .update({
+    .from(t('worker_usage'))
+    .update(dbRow('worker_usage', {
       reads_today: nextCalls,
       cost_usd: nextCost,
       cost_breakdown: breakdown,
       updated_at: new Date().toISOString(),
-    })
-    .eq('source', source)
-    .eq('utc_date', row.utc_date)
+    }))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), row.utc_date)
     .select('*')
     .single();
 
@@ -463,10 +464,14 @@ async function recordSpend(sb, usd, calls = 1, source = CONFIG.SOURCE) {
   const nextCost = costToday(usage) + usd;
   const nextCalls = callsToday(usage) + calls;
   const { data, error } = await sb
-    .from('worker_usage')
-    .update({ reads_today: nextCalls, cost_usd: nextCost, updated_at: new Date().toISOString() })
-    .eq('source', source)
-    .eq('utc_date', usage.utc_date)
+    .from(t('worker_usage'))
+    .update(dbRow('worker_usage', {
+      reads_today: nextCalls,
+      cost_usd: nextCost,
+      updated_at: new Date().toISOString(),
+    }))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), usage.utc_date)
     .select('*')
     .single();
   if (error) throw new Error(`worker_usage record (${source}): ` + error.message);
@@ -478,7 +483,7 @@ async function setScoringPaused(sb, paused, reason = null, extra = {}) {
     ? { cost_usd: extra.spent, cost_breakdown: extra.cost_breakdown || DEFAULT_BREAKDOWN() }
     : await loadUsage(sb).catch(() => null);
   const projection = extra.projection || (sb ? await buildFullProjection(sb, usage || {}).catch(() => null) : null);
-  const row = {
+  const row = dbRow('worker_pipeline_state', {
     id: 1,
     scoring_paused: !!paused,
     pause_reason: paused ? (reason || 'anthropic_paused') : null,
@@ -486,9 +491,9 @@ async function setScoringPaused(sb, paused, reason = null, extra = {}) {
     anthropic_budget_usd: CONFIG.DAILY_BUDGET_USD,
     projected_daily_usd: projection?.projectedIngest ?? null,
     updated_at: new Date().toISOString(),
-  };
+  });
 
-  const { error } = await sb.from('worker_pipeline_state').upsert(row);
+  const { error } = await sb.from(t('worker_pipeline_state')).upsert(row);
   if (error) {
     console.warn('[anthropic] worker_pipeline_state upsert failed:', error.message);
     return false;

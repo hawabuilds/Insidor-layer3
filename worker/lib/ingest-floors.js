@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, row: dbRow } = require('../../lib/db-schema');
 const { CONFIG: BUDGET } = require('./budget');
 
 const LANES = {
@@ -95,9 +96,9 @@ async function persistFloors(sb, state, floors, extra = {}) {
   delete row.decayFloorMin;
 
   const { data, error } = await sb
-    .from('worker_budget_state')
-    .update(row)
-    .eq('id', 1)
+    .from(t('worker_budget_state'))
+    .update(dbRow('worker_budget_state', row))
+    .eq(c('worker_budget_state', 'id'), 1)
     .select('*')
     .single();
 
@@ -113,14 +114,15 @@ async function persistFloors(sb, state, floors, extra = {}) {
 
 /** Pre-migration fallback when per-lane columns are not applied yet. */
 async function persistFloorsLegacy(sb, state, floors, floorMin) {
+  const rowLegacy = dbRow('worker_budget_state', {
+    adaptive_floor: floors['catch-all'],
+    floor_min: floorMin,
+    updated_at: new Date().toISOString(),
+  });
   const { data, error } = await sb
-    .from('worker_budget_state')
-    .update({
-      adaptive_floor: floors['catch-all'],
-      floor_min: floorMin,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', 1)
+    .from(t('worker_budget_state'))
+    .update(rowLegacy)
+    .eq(c('worker_budget_state', 'id'), 1)
     .select('*')
     .single();
   if (error) throw new Error('persist lane floors (legacy): ' + error.message);
@@ -169,10 +171,10 @@ async function maybeDecayFloorsForUnderutilisation(sb, state) {
   const spendPct = (state.reads_today || 0) / BUDGET.DAILY_TWEET_BUDGET;
   if (spendPct >= 0.5) {
     if (state.floor_min_decay_at || state.ingest_underutilised_since) {
-      await sb.from('worker_budget_state').update({
+      await sb.from(t('worker_budget_state')).update(dbRow('worker_budget_state', {
         floor_min_decay_at: null,
         updated_at: new Date().toISOString(),
-      }).eq('id', 1).then(({ error }) => {
+      })).eq(c('worker_budget_state', 'id'), 1).then(({ error }) => {
         if (error && !/ingest_underutilised|floor_min_decay/i.test(error.message)) {
           console.warn('[budget] clear decay markers failed:', error.message);
         }
@@ -243,10 +245,10 @@ async function checkIngestHealthAlarm(sb, state) {
   if (spendPct >= UNDERUTILISED_WARN_PCT) {
     underutilisedSinceMs = null;
     if (hasLaneColumns && state.ingest_underutilised_since) {
-      await sb.from('worker_budget_state').update({
+      await sb.from(t('worker_budget_state')).update(dbRow('worker_budget_state', {
         ingest_underutilised_since: null,
         updated_at: new Date().toISOString(),
-      }).eq('id', 1).then(({ error }) => {
+      })).eq(c('worker_budget_state', 'id'), 1).then(({ error }) => {
         if (error && !/ingest_underutilised/i.test(error.message)) {
           console.warn('[budget] clear underutilised marker failed:', error.message);
         }
@@ -268,10 +270,10 @@ async function checkIngestHealthAlarm(sb, state) {
     : null;
 
   if (!sinceMs || !Number.isFinite(sinceMs)) {
-    await sb.from('worker_budget_state').update({
+    await sb.from(t('worker_budget_state')).update(dbRow('worker_budget_state', {
       ingest_underutilised_since: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-    }).eq('id', 1).then(({ error }) => {
+    })).eq(c('worker_budget_state', 'id'), 1).then(({ error }) => {
       if (error && !/ingest_underutilised/i.test(error.message)) {
         console.warn('[budget] set underutilised marker failed:', error.message);
       }

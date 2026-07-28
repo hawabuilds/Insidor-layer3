@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c, cs, row: dbRow, onConflictCols } = require('../../lib/db-schema');
 const { normalizePostedAt } = require('./posted-at');
 const { scanPostSignals } = require('./ticker-proposals');
 
@@ -9,10 +10,10 @@ async function upsertIngestedPost(sb, parsed, sourceLabel) {
   const postedMs = normalizePostedAt(parsed.postedAt);
 
   const { data: existing, error: selErr } = await sb
-    .from('narrative_posts')
-    .select('id, first_seen_at, tracking_status')
-    .eq('platform', parsed.platform)
-    .eq('platform_post_id', parsed.platformPostId)
+    .from(t('narrative_posts'))
+    .select(cs('narrative_posts', 'id', 'first_seen_at', 'tracking_status'))
+    .eq(c('narrative_posts', 'platform'), parsed.platform)
+    .eq(c('narrative_posts', 'platform_post_id'), parsed.platformPostId)
     .maybeSingle();
 
   if (selErr) throw new Error('select post: ' + selErr.message);
@@ -24,7 +25,7 @@ async function upsertIngestedPost(sb, parsed, sourceLabel) {
     sample_replies: parsed.sampleReplies,
   });
 
-  const row = {
+  const fields = {
     platform: parsed.platform,
     platform_post_id: parsed.platformPostId,
     sort_order: 0,
@@ -52,16 +53,18 @@ async function upsertIngestedPost(sb, parsed, sourceLabel) {
   };
 
   if (!existing) {
-    row.narrative_id = null;
-    row.tracking_status = 'active';
+    fields.narrative_id = null;
+    fields.tracking_status = 'active';
   } else if (existing.tracking_status === 'pruned') {
     return null;
   }
 
+  const row = dbRow('narrative_posts', fields);
+
   const { data: upserted, error: upErr } = await sb
-    .from('narrative_posts')
-    .upsert(row, { onConflict: 'platform,platform_post_id' })
-    .select('id')
+    .from(t('narrative_posts'))
+    .upsert(row, { onConflict: onConflictCols('narrative_posts', 'platform', 'platform_post_id') })
+    .select(c('narrative_posts', 'id'))
     .single();
 
   if (upErr) throw new Error('upsert post: ' + upErr.message);

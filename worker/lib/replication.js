@@ -1,5 +1,6 @@
 'use strict';
 
+const { t, c } = require('../../lib/db-schema');
 const { searchTweets } = require('./x-reader');
 const { normalizeHandle } = require('./text-utils');
 const { buildEntitySearchQuery, extractSubjectEntity } = require('./subject-entity');
@@ -77,11 +78,11 @@ async function countTikTokSoundAuthors(sb, soundId) {
 
   const sinceIso = new Date(Date.now() - REPLICATION_WINDOW_MIN * 60 * 1000).toISOString();
   const { data, error } = await sb
-    .from('narrative_posts')
-    .select('handle')
-    .eq('platform', 'tt')
-    .eq('sound_id', String(soundId))
-    .gte('first_seen_at', sinceIso);
+    .from(t('narrative_posts'))
+    .select(c('narrative_posts', 'handle'))
+    .eq(c('narrative_posts', 'platform'), 'tt')
+    .eq(c('narrative_posts', 'sound_id'), String(soundId))
+    .gte(c('narrative_posts', 'first_seen_at'), sinceIso);
 
   if (error) {
     console.warn('[replication] tt sound count:', error.message);

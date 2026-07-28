@@ -33,7 +33,8 @@
     "trends:once": "node worker/trends.js --once",
     "pipeline": "node worker/index.js",
     "pipeline:supervisor": "node worker/supervisor.js",
-    "pipeline:worker": "node worker/index.js"
+    "pipeline:worker": "node worker/index.js",
+    "schema:constants": "node worker/generate-schema-constants.js"
   },
   "dependencies": {
     "@privy-io/js-sdk-core": "^0.68.3",

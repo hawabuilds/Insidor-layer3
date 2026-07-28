@@ -8,6 +8,7 @@
  * DAILY_TWEET_BUDGET counts tweets. MAX_TWEETS_PER_HOUR = DAILY/12 caps burn rate (~12h runway at peg).
  */
 
+const { t, c, cs, row: dbRow, REL } = require('../../lib/db-schema');
 const { loadEnvLocal } = require('./env');
 loadEnvLocal();
 
@@ -264,13 +265,17 @@ function buildBudgetMeta(state, cycleTweets, apiCalls) {
 
 async function loadState(sb) {
   const today = utcDateStr();
-  const { data, error } = await sb.from('worker_budget_state').select('*').eq('id', 1).maybeSingle();
+  const { data, error } = await sb
+    .from(t('worker_budget_state'))
+    .select('*')
+    .eq(c('worker_budget_state', 'id'), 1)
+    .maybeSingle();
   if (error) throw new Error('budget state: ' + error.message);
 
   const { normalizeStateFloors, DEFAULTS: FLOOR_DEFAULTS } = require('./ingest-floors');
 
   if (!data) {
-    const row = {
+    const row = dbRow('worker_budget_state', {
       id: 1,
       utc_date: today,
       reads_today: 0,
@@ -283,8 +288,8 @@ async function loadState(sb) {
       floor_media: FLOOR_DEFAULTS['media-lane'],
       media_lane_pct: CONFIG.MEDIA_LANE_PCT_DEFAULT,
       updated_at: new Date().toISOString(),
-    };
-    await sb.from('worker_budget_state').insert(row);
+    });
+    await sb.from(t('worker_budget_state')).insert(row);
     return normalizeStateFloors(row);
   }
 
@@ -292,15 +297,15 @@ async function loadState(sb) {
 
   if (data.utc_date !== today) {
     const { data: reset, error: upErr } = await sb
-      .from('worker_budget_state')
-      .update({
+      .from(t('worker_budget_state'))
+      .update(dbRow('worker_budget_state', {
         utc_date: today,
         reads_today: 0,
         hourly_tweets: 0,
         hourly_window_start: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      })
-      .eq('id', 1)
+      }))
+      .eq(c('worker_budget_state', 'id'), 1)
       .select('*')
       .single();
     if (upErr) throw new Error('budget reset: ' + upErr.message);
@@ -326,14 +331,14 @@ async function recordReads(sb, tweetCount, worker = 'unknown', meta = {}) {
   const hourlyTweetsNext = (hourly.hourly_tweets || 0) + tweetCount;
 
   const { data, error } = await sb
-    .from('worker_budget_state')
-    .update({
+    .from(t('worker_budget_state'))
+    .update(dbRow('worker_budget_state', {
       reads_today: tweetsToday,
       hourly_tweets: hourlyTweetsNext,
       hourly_window_start: hourly.hourly_window_start,
       updated_at: new Date().toISOString(),
-    })
-    .eq('id', 1)
+    }))
+    .eq(c('worker_budget_state', 'id'), 1)
     .select('*')
     .single();
   if (error) throw new Error(`budget record (${worker}): ` + error.message);
@@ -378,32 +383,32 @@ async function recordSourceUsage(sb, tweets, source) {
   const cost = tweets * CONFIG.COST_PER_TWEET;
 
   const { data: existing } = await sb
-    .from('worker_usage')
-    .select('reads_today, cost_usd')
-    .eq('source', source)
-    .eq('utc_date', today)
+    .from(t('worker_usage'))
+    .select(cs('worker_usage', 'reads_today', 'cost_usd'))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), today)
     .maybeSingle();
 
   if (!existing) {
-    await sb.from('worker_usage').insert({
+    await sb.from(t('worker_usage')).insert(dbRow('worker_usage', {
       source,
       utc_date: today,
       reads_today: tweets,
       cost_usd: cost,
       updated_at: new Date().toISOString(),
-    });
+    }));
     return;
   }
 
   await sb
-    .from('worker_usage')
-    .update({
+    .from(t('worker_usage'))
+    .update(dbRow('worker_usage', {
       reads_today: (existing.reads_today || 0) + tweets,
       cost_usd: (Number(existing.cost_usd) || 0) + cost,
       updated_at: new Date().toISOString(),
-    })
-    .eq('source', source)
-    .eq('utc_date', today);
+    }))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), today);
 }
 
 async function recordPostsIngested(sb, source, n) {
@@ -411,32 +416,32 @@ async function recordPostsIngested(sb, source, n) {
   const today = utcDateStr();
 
   const { data: existing } = await sb
-    .from('worker_usage')
-    .select('posts_ingested, reads_today, cost_usd')
-    .eq('source', source)
-    .eq('utc_date', today)
+    .from(t('worker_usage'))
+    .select(cs('worker_usage', 'posts_ingested', 'reads_today', 'cost_usd'))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), today)
     .maybeSingle();
 
   if (!existing) {
-    await sb.from('worker_usage').insert({
+    await sb.from(t('worker_usage')).insert(dbRow('worker_usage', {
       source,
       utc_date: today,
       reads_today: 0,
       cost_usd: 0,
       posts_ingested: n,
       updated_at: new Date().toISOString(),
-    });
+    }));
     return;
   }
 
   await sb
-    .from('worker_usage')
-    .update({
+    .from(t('worker_usage'))
+    .update(dbRow('worker_usage', {
       posts_ingested: (existing.posts_ingested || 0) + n,
       updated_at: new Date().toISOString(),
-    })
-    .eq('source', source)
-    .eq('utc_date', today);
+    }))
+    .eq(c('worker_usage', 'source'), source)
+    .eq(c('worker_usage', 'utc_date'), today);
 }
 
 function spendPct(state) {
@@ -450,10 +455,13 @@ function isWarn(state) {
 async function setAdaptiveFloor(sb, floor, reason) {
   const clamped = Math.max(CONFIG.FLOOR_MIN, Math.min(CONFIG.FLOOR_MAX, Math.round(floor)));
   const { data, error } = await sb
-    .from('worker_budget_state')
-    .update({ adaptive_floor: clamped, updated_at: new Date().toISOString() })
-    .eq('id', 1)
-    .select('adaptive_floor')
+    .from(t('worker_budget_state'))
+    .update(dbRow('worker_budget_state', {
+      adaptive_floor: clamped,
+      updated_at: new Date().toISOString(),
+    }))
+    .eq(c('worker_budget_state', 'id'), 1)
+    .select(c('worker_budget_state', 'adaptive_floor'))
     .single();
   if (error) throw new Error('set adaptive floor: ' + error.message);
   console.log(`[budget] adaptive_floor → ${clamped} (${reason})`);
@@ -486,7 +494,10 @@ async function adjustAdaptiveFloor(sb, state, returnedCount, targetReads, extraR
 async function raiseFloorMin(sb, state, factor = 1.2) {
   const next = Math.min(CONFIG.FLOOR_MAX, Math.ceil((state.floor_min || CONFIG.FLOOR_MIN) * factor));
   if (next === state.floor_min) return next;
-  await sb.from('worker_budget_state').update({ floor_min: next, updated_at: new Date().toISOString() }).eq('id', 1);
+  await sb
+    .from(t('worker_budget_state'))
+    .update(dbRow('worker_budget_state', { floor_min: next, updated_at: new Date().toISOString() }))
+    .eq(c('worker_budget_state', 'id'), 1);
   console.warn(`[budget] floor_min raised → ${next} (>70% view drops)`);
   return next;
 }
@@ -500,10 +511,10 @@ function mediaLanePct(state) {
 async function adjustMediaLaneBudget(sb, state) {
   const since = new Date(Date.now() - 7 * 86_400_000).toISOString();
   const { data, error } = await sb
-    .from('narrative_posts')
-    .select('filter_label, narrative_id, narratives!narrative_posts_narrative_id_fkey ( display_eligible )')
-    .gte('first_seen_at', since)
-    .not('narrative_id', 'is', null);
+    .from(t('narrative_posts'))
+    .select(`${cs('narrative_posts', 'filter_label', 'narrative_id')}, narratives!${REL.narrative_posts_narrative_id_fkey} ( ${c('narratives', 'display_eligible')} )`)
+    .gte(c('narrative_posts', 'first_seen_at'), since)
+    .not(c('narrative_posts', 'narrative_id'), 'is', null);
 
   if (error) {
     console.warn('[budget] media_lane_pct check failed:', error.message);
@@ -547,9 +558,12 @@ async function adjustMediaLaneBudget(sb, state) {
 
   if (reason && next !== current) {
     const { error: upErr } = await sb
-      .from('worker_budget_state')
-      .update({ media_lane_pct: next, updated_at: new Date().toISOString() })
-      .eq('id', 1);
+      .from(t('worker_budget_state'))
+      .update(dbRow('worker_budget_state', {
+        media_lane_pct: next,
+        updated_at: new Date().toISOString(),
+      }))
+      .eq(c('worker_budget_state', 'id'), 1);
     if (upErr) console.warn('[budget] media_lane_pct update failed:', upErr.message);
     else console.log(`[budget] media_lane_pct → ${(next * 100).toFixed(0)}% (${reason})`);
   }
@@ -560,10 +574,10 @@ async function adjustMediaLaneBudget(sb, state) {
 async function getHistory(sb, days = 7) {
   const since = new Date(Date.now() - days * 86_400_000).toISOString();
   const { data, error } = await sb
-    .from('worker_cycle_log')
-    .select('worker, ran_at, reads_consumed, ingested, snapshots_written')
-    .gte('ran_at', since)
-    .order('ran_at', { ascending: false });
+    .from(t('worker_cycle_log'))
+    .select(cs('worker_cycle_log', 'worker', 'ran_at', 'reads_consumed', 'ingested', 'snapshots_written'))
+    .gte(c('worker_cycle_log', 'ran_at'), since)
+    .order(c('worker_cycle_log', 'ran_at'), { ascending: false });
   if (error) throw new Error('budget history: ' + error.message);
   return data || [];
 }

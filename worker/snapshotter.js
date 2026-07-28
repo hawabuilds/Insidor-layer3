@@ -9,6 +9,7 @@
  */
 
 const { getServiceClient } = require('./lib/supabase');
+const { t, c, cs, row: dbRow } = require('../lib/db-schema');
 const { getTweetsByIds, tweetsInResponse } = require('./lib/x-reader');
 const { getTikTokVideosByUrls } = require('./lib/tiktok-reader');
 const { engagementFromRaw, mediaFromRaw } = require('./lib/parse-raw-post');
@@ -124,9 +125,9 @@ async function pruneColdDead(sb, posts) {
   if (!toPrune.length) return { count: 0, ids: [] };
   const nowIso = new Date().toISOString();
   const { error } = await sb
-    .from('narrative_posts')
-    .update({ tracking_status: 'pruned', pruned_at: nowIso })
-    .in('id', toPrune);
+    .from(t('narrative_posts'))
+    .update(dbRow('narrative_posts', { tracking_status: 'pruned', pruned_at: nowIso }))
+    .in(c('narrative_posts', 'id'), toPrune);
   if (error) throw new Error('prune cold: ' + error.message);
   return { count: toPrune.length, ids: toPrune };
 }
@@ -134,15 +135,15 @@ async function pruneColdDead(sb, posts) {
 async function loadActivePosts(sb) {
   const since = new Date(Date.now() - CONFIG.WINDOW_MS).toISOString();
   const { data, error } = await sb
-    .from('narrative_posts')
+    .from(t('narrative_posts'))
     .select(`
-      id, platform, platform_post_id, handle, raw, views, first_seen_at, last_snapshot_at, snapshot_tier,
-      post_snapshots ( captured_at, views, likes, retweets, replies, unavailable )
+      ${cs('narrative_posts', 'id', 'platform', 'platform_post_id', 'handle', 'raw', 'views', 'first_seen_at', 'last_snapshot_at', 'snapshot_tier')},
+      post_snapshots ( ${cs('post_snapshots', 'captured_at', 'views', 'likes', 'retweets', 'replies', 'unavailable')} )
     `)
-    .in('platform', ['x', 'tt'])
-    .eq('tracking_status', 'active')
-    .not('platform_post_id', 'is', null)
-    .gte('first_seen_at', since);
+    .in(c('narrative_posts', 'platform'), ['x', 'tt'])
+    .eq(c('narrative_posts', 'tracking_status'), 'active')
+    .not(c('narrative_posts', 'platform_post_id'), 'is', null)
+    .gte(c('narrative_posts', 'first_seen_at'), since);
 
   if (error) throw new Error('select posts: ' + error.message);
   return data || [];
@@ -222,21 +223,24 @@ async function applySnapshotBatch(sb, posts, resolveRaw) {
     try {
       const { raw, eng, mediaFn } = resolveRaw(post);
       await insertPostSnapshot(sb, post.id, eng);
-      const patch = { last_snapshot_at: nowIso, snapshot_tier: post._tier || post.snapshot_tier };
+      const patchFields = { last_snapshot_at: nowIso, snapshot_tier: post._tier || post.snapshot_tier };
       if (raw && !eng.unavailable) {
-        patch.views = eng.views ?? 0;
-        patch.replies = eng.replies ?? 0;
-        patch.quotes = eng.quotes ?? 0;
-        patch.likes = eng.likes ?? 0;
-        patch.retweets = eng.retweets ?? 0;
-        patch.raw = raw;
+        patchFields.views = eng.views ?? 0;
+        patchFields.replies = eng.replies ?? 0;
+        patchFields.quotes = eng.quotes ?? 0;
+        patchFields.likes = eng.likes ?? 0;
+        patchFields.retweets = eng.retweets ?? 0;
+        patchFields.raw = raw;
         const media = mediaFn(raw);
         if (media?.mediaUrl) {
-          patch.media_url = media.mediaUrl;
-          patch.media_type = media.mediaType;
+          patchFields.media_url = media.mediaUrl;
+          patchFields.media_type = media.mediaType;
         }
       }
-      await sb.from('narrative_posts').update(patch).eq('id', post.id);
+      await sb
+        .from(t('narrative_posts'))
+        .update(dbRow('narrative_posts', patchFields))
+        .eq(c('narrative_posts', 'id'), post.id);
       written += 1;
     } catch (e) {
       failures += 1;

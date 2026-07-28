@@ -7,6 +7,7 @@
  */
 
 const { getServiceClient } = require('./lib/supabase');
+const { t, c, cs, row: dbRow, REL } = require('../lib/db-schema');
 const { viewsVelocity, engagementVelocity, missingViewsStats } = require('./lib/velocity');
 const { formatViewsVelocityDist } = require('./lib/dist-stats');
 const { memeScore, MODEL, MODEL_TT } = require('./lib/meme-score');
@@ -56,7 +57,9 @@ function rankScore(entry) {
 }
 
 async function loadScoredPostIds(sb) {
-  const { data, error } = await sb.from('post_meme_scores').select('post_id');
+  const { data, error } = await sb
+    .from(t('post_meme_scores'))
+    .select(c('post_meme_scores', 'post_id'));
   if (error) throw new Error('load scored ids: ' + error.message);
   return new Set((data || []).map(r => r.post_id));
 }
@@ -64,25 +67,22 @@ async function loadScoredPostIds(sb) {
 async function loadCandidatePosts(sb) {
   const since = new Date(Date.now() - FRESHNESS_MS).toISOString();
   const { data, error } = await sb
-    .from('narrative_posts')
+    .from(t('narrative_posts'))
     .select(`
-      id, text, handle, platform, filter_label, first_seen_at, posted_at,
-      platform_post_id, views, media_url, sound_id, sample_replies, raw,
-      post_snapshots (
-        captured_at, views, likes, retweets, replies, unavailable
-      )
+      ${cs('narrative_posts', 'id', 'text', 'handle', 'platform', 'filter_label', 'first_seen_at', 'posted_at', 'platform_post_id', 'views', 'media_url', 'sound_id', 'sample_replies', 'raw')},
+      post_snapshots ( ${cs('post_snapshots', 'captured_at', 'views', 'likes', 'retweets', 'replies', 'unavailable')} )
     `)
-    .in('platform', ['x', 'tt'])
-    .not('platform_post_id', 'is', null)
-    .gte('first_seen_at', since)
-    .order('first_seen_at', { ascending: false });
+    .in(c('narrative_posts', 'platform'), ['x', 'tt'])
+    .not(c('narrative_posts', 'platform_post_id'), 'is', null)
+    .gte(c('narrative_posts', 'first_seen_at'), since)
+    .order(c('narrative_posts', 'first_seen_at'), { ascending: false });
 
   if (error) throw new Error('load posts: ' + error.message);
   return data || [];
 }
 
 async function persistScore(sb, postId, viewsVel, engVel, result) {
-  const row = {
+  const insertRow = dbRow('post_meme_scores', {
     post_id: postId,
     meme_score: result.meme_score,
     reason: result.reason,
@@ -94,14 +94,17 @@ async function persistScore(sb, postId, viewsVel, engVel, result) {
     scored_at: new Date().toISOString(),
     model: result.model || MODEL,
     raw: result.raw || null,
-  };
+  });
 
-  const { error } = await sb.from('post_meme_scores').insert(row);
+  const { error } = await sb.from(t('post_meme_scores')).insert(insertRow);
   if (error) throw new Error('insert score: ' + error.message);
 
   const entity = normalizeTicker(result.suggested_ticker);
   if (entity) {
-    await sb.from('narrative_posts').update({ subject_entity: entity.toLowerCase() }).eq('id', postId);
+    await sb
+      .from(t('narrative_posts'))
+      .update(dbRow('narrative_posts', { subject_entity: entity.toLowerCase() }))
+      .eq(c('narrative_posts', 'id'), postId);
   }
 }
 

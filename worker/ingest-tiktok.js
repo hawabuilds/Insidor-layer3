@@ -8,6 +8,7 @@
  */
 
 const { getServiceClient } = require('./lib/supabase');
+const { t, c, cs, REL } = require('../lib/db-schema');
 const { fetchHashtagVideos, fetchSearchVideos } = require('./lib/tiktok-reader');
 const { parseTikTokPost } = require('./lib/parse-tiktok-post');
 const { insertPostSnapshot } = require('./lib/snapshots');
@@ -87,17 +88,17 @@ function pickHashtagBatch(maxTags) {
 
 async function loadXConfirmationQueries(sb, limit = CONFIG.CONFIRMATION_QUERIES) {
   const { data, error } = await sb
-    .from('narratives')
+    .from(t('narratives'))
     .select(`
-      id, title, trend_term, platforms,
-      narrative_posts!narrative_posts_narrative_id_fkey (
-        platform,
-        post_meme_scores ( suggested_ticker, suggested_name )
+      ${cs('narratives', 'id', 'title', 'trend_term', 'platforms')},
+      narrative_posts!${REL.narrative_posts_narrative_id_fkey} (
+        ${c('narrative_posts', 'platform')},
+        post_meme_scores ( ${cs('post_meme_scores', 'suggested_ticker', 'suggested_name')} )
       )
     `)
-    .eq('source', 'cluster')
-    .eq('status', 'open')
-    .order('updated_at', { ascending: false })
+    .eq(c('narratives', 'source'), 'cluster')
+    .eq(c('narratives', 'status'), 'open')
+    .order(c('narratives', 'updated_at'), { ascending: false })
     .limit(25);
 
   if (error) {
