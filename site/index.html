@@ -247,22 +247,15 @@
   <button class="rail-reopen" id="railReopen" title="Show live feed" aria-label="Show live feed"><span class="chev">‹</span><span>Live feed</span></button>
 </div>
 <script>
-/* ============ DEPLOY TARGET (Layer 2 default; layer3 branch sets meta tag) ============ */
-const isL3=()=>window.InsidorConfig?.isLayer3?.()??false;
+/* ============ DEPLOY TARGET (Layer 3 production) ============ */
+const isL3=()=>true;
 
-/* ============ DATA ============ */
-const NARR=[
-  {plat:'x',badge:'X',lead:'+31m',txt:"A retiring ferry captain blew the horn one last time and the whole harbor blew theirs back. $FERRY i'm not okay",views:'2.4M',posts:'8,210',accts:'6,900',peak:'14:20',vel:94,who:'nordkyst',at:'@nordkyst_ferge',t:'14:20',pal:2,media:'video'},
-  {plat:'tt',badge:'TikTok',lead:'+27m',txt:"grandma found out the plant she'd been watering for 3 years was plastic. her face. $PLANT",views:'1.9M',posts:'6,540',accts:'5,100',peak:'11:05',vel:89,who:'Small Leaf',at:'@plantmum',t:'11:05',pal:1,media:'photo'},
-  {plat:'rd',badge:'Reddit',lead:'+44m',txt:"TIL a town in Norway pays people to move there and nobody talks about it $NORWAY",views:'1.1M',posts:'4,020',accts:'3,700',peak:'09:41',vel:82,who:'Nordic Notes',at:'@nordic_notes',t:'09:41',pal:3,media:'link'},
-  {plat:'x',badge:'X',lead:'+19m',txt:"he named the office stapler and now HR has to refer to it by name in the memo $STAPLR",views:'980K',posts:'3,880',accts:'3,210',peak:'16:02',vel:78,who:'Desk Life',at:'@desklife',t:'16:02',pal:6,media:'none'},
-  {plat:'fc',badge:'Farcaster',lead:'+52m',txt:"the frog that shows up on my porch every rainstorm has a name now. it's Gerald. $FROG",views:'740K',posts:'2,910',accts:'2,540',peak:'20:15',vel:71,who:'Porch Frog',at:'@geraldwatch',t:'20:15',pal:5,media:'photo'},
-  {plat:'tg',badge:'Telegram',lead:'+23m',txt:"a chess grandmaster lost to a pigeon and wrote a 4-page essay about it $PIGEON",views:'690K',posts:'2,700',accts:'2,300',peak:'13:33',vel:68,who:'Board State',at:'@boardstate',t:'13:33',pal:4,media:'reply'},
-  {plat:'tt',badge:'TikTok',lead:'+38m',txt:"barista wrote the wrong name so consistently the guy legally considered changing it",views:'610K',posts:'2,410',accts:'2,010',peak:'08:50',vel:63,who:'Cup Names',at:'@cupnames',t:'08:50',pal:1,media:'none'},
-  {plat:'x',badge:'X',lead:'+15m',txt:"the vending machine at my gym only accepts compliments now. i don't make the rules $VEND",views:'520K',posts:'2,090',accts:'1,880',peak:'18:44',vel:58,who:'Gym Machine',at:'@gymvend',t:'18:44',pal:2,media:'photo'},
-  {plat:'rd',badge:'Reddit',lead:'+41m',txt:"my dad has been feuding with a specific cloud for two summers. i have proof.",views:'430K',posts:'1,740',accts:'1,520',peak:'12:12',vel:51,who:'Sky Beef',at:'@skybeef',t:'12:12',pal:5,media:'none'},
-  {plat:'fc',badge:'Farcaster',lead:'+29m',txt:"someone built a tiny door in the subway wall and mice are actually using it $MOUSE",views:'380K',posts:'1,510',accts:'1,340',peak:'21:08',vel:46,who:'Tiny Door',at:'@subwaymouse',t:'21:08',pal:3,media:'photo'},
-];
+/* ============ DATA (live — Supabase + DexScreener via live.js) ============ */
+const NARR=[];
+const TOKENS=[];
+const PENDING={};
+const NARRATIVES=[];
+const NOW=Date.now(),NH=3600000;
 /* thumbnail gradient palettes (ion/ash monochrome) + media chip labels */
 const PAL={
   1:['rgba(61,224,255,.32)','rgba(61,224,255,.14)','rgba(120,140,150,.16)'],
@@ -288,12 +281,7 @@ function postEngagement(p){
   };}
 function postMetrics(n){
   const e=postEngagement(n);
-  const views=e.views||(typeof n.views==='number'?n.views:parseCount(n.views)||parseCount(n.posts)*40);
-  if(!narrLive()){
-    const s=pseed((n.txt||'')+(n.who||''));
-    const j=i=>0.72+(((s>>(i*4))&255)/255)*0.56;
-    if(n.plat==='tt')return[['shares',views*0.009*j(1)],['saves',views*0.013*j(2)],['views',views]];
-    return[['reposts',views*0.006*j(1)],['replies',views*0.004*j(2)],['views',views]];}
+  const views=e.views||(typeof n.views==='number'?n.views:parseCount(n.views)||0);
   if(n.plat==='tt')return[['shares',e.retweets],['likes',e.likes],['views',views]];
   return[['reposts',e.retweets+e.quotes],['replies',e.replies],['views',views]];}
 function qmetaHTML(n){return postMetrics(n).map(([k,v])=>`<span>${k} <b>${fmtCount(v)}</b></span>`).join('');}
@@ -316,7 +304,7 @@ const SOC={
   dex:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg>',
   pump:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>'
 };
-const SYMCOLOR={FERRY:'#3DE0FF',PLANT:'#9BF03C',STAPLR:'#ffb84c',PIGEON:'#a78bfa',VEND:'#4cc4ff',MOUSE:'#ff8a4c',FROG:'#7fe07f',NORWAY:'#6db3ff',HORN:'#5ec4ff',FERN:'#8fd46a'};
+const SYMCOLOR={};
 function genCA(s){const h='0123456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';let o='';let x=s*9301+49297;
   for(let i=0;i<44;i++){x=(x*9301+49297)%233280;o+=h[x%h.length];}return o;}
 function mkToken(sym,name,seed,narrIdx,lead){const price=seed*0.0000123+0.00004;const ca=genCA(seed);const lc=sym.toLowerCase();
@@ -326,90 +314,6 @@ function mkToken(sym,name,seed,narrIdx,lead){const price=seed*0.0000123+0.00004;
     socials:{web:seed%2?`https://${lc}.fun`:'',x:`https://x.com/search?q=%24${sym}`,tg:seed%3?`https://t.me/${lc}portal`:''},
     dex:`https://dexscreener.com/solana/${ca}`,pump:`https://pump.fun/${ca}`,
     mintRevoked:true,freezeRevoked:true,lpBurned:seed%4!==0,top10:(18+seed%22)};}
-/* live tokens (have a coin) vs candidate tickers (no coin yet) */
-const TOKENS=[
-  mkToken('FERRY','Last Horn',7,0,'+31m'),
-  mkToken('PLANT','Plastic Fern',12,1,'+27m'),
-  mkToken('STAPLR','Named Stapler',4,3,'+19m'),
-  mkToken('PIGEON','Grandmaster',9,5,'+23m'),
-  mkToken('VEND','Compliments Only',6,7,'+15m'),
-  mkToken('MOUSE','Subway Door',10,9,'+29m'),
-  mkToken('FROG','Porch Gerald',5,4,'+52m'),
-  mkToken('NORWAY','Nordic Move',3,2,'+44m'),
-  mkToken('HORN','Harbor Horn',13,0,'+12m'),
-  mkToken('FERN','Fake Fern',14,1,'+8m'),
-];
-const PENDING={}; // candidate tickers with no coin yet (session deploy fills these)
-
-/* narrative clusters (mock) — X/TikTok only in posts */
-const NOW=Date.now(),NH=3600000;
-function mkSeries(seed,trend){const n=18,pts=[];let v=18+seed%22; // search interest index over ~3h — SIMULATED — real source: Google Trends / X search API
-  for(let i=0;i<n;i++){if(trend==='heat')v+=2.2+Math.sin(i*.55)*1.4+(seed%4)*.3;
-    else if(trend==='peak')v+=i<n/2?2.8:-2.1+(seed%3)*.2;else v+=i<n*.55?1.1:-1.6;
-    v=Math.max(6,Math.min(94,v));pts.push(Math.round(v*12000*(1+i*.07)));}return pts;}
-function mkSafety(seed,risk){return{mintRevoked:seed%5!==0,lpBurned:seed%3!==0,topHolderPct:8+seed%22,devHoldingPct:seed%8,
-  sniperPct:4+seed%14,bundledPct:seed%11,devSelling:seed%13===0,riskLabel:risk||(['low','med','high'][seed%3])};} // SIMULATED — real source: RugCheck / GMGN
-function mkSmartMoney(seed){return{smartWalletsIn:10+seed*4,holderGrowth1h:(seed%18)-4,
-  topTraders:[{handle:'@alpha'+seed,pnl:'+'+(seed*1100)+' SOL'},{handle:'@whale'+(seed+2),pnl:'+'+(seed*740)+' SOL'}]};} // SIMULATED — real source: Helius + wallet-labeling API
-function seedPost(plat,handle,text,views,o={}){return{platform:plat,handle,followers:o.followers||Math.round(40000+views/80),text,
-  image:o.image!==false,views:Math.round(views),replies:o.replies||Math.round(views*.0045),quotes:o.quotes||Math.round(views*.0022),
-  notable:!!o.notable,sampleReplies:o.sampleReplies||[],postedAt:o.postedAt||null};} // postedAt SIMULATED — real source: X/TikTok API
-function seedTok(ticker,name,o={}){const t=TOKENS.find(x=>x.sym===ticker),seed=pseed(ticker);
-  return{ticker,name,mcap:t?t.mc:(o.mcap||0),liquidity:t?t.liq:(o.liq||22000+seed*900),vol24h:t?t.vol:(o.vol24h||70000+seed*4200),
-    holders:t?t.holders:(o.holders||180+seed*11),ageMin:t?t.ageM:(o.ageMin||38+seed*6),firstDeployed:!!o.firstDeployed,
-    endorsedBy:o.endorsedBy||null,canonical:!!o.canonical,safety:o.safety||mkSafety(seed,o.risk),smartMoney:o.smartMoney||mkSmartMoney(seed)};} // mcap/liquidity/vol SIMULATED — real source: DexScreener / Birdeye
-function mkNar(o){return{id:o.id,title:o.title,blurb:o.blurb,image:o.imgSeed,createdAt:o.createdAt,narrIdx:o.narrIdx??-1,imgSeed:o.imgSeed,
-  searchSeries:o.viewsSeries||o.searchSeries,viewsSeries:o.viewsSeries||o.searchSeries,leadTimeMin:o.leadTimeMin,organicScore:o.organicScore,posts:o.posts,tokens:o.tokens||[]};}
-const NARRATIVES=[
-  mkNar({id:'ferry-horn',title:'Harbor Last Horn',blurb:'Retiring captain, whole harbor responds',narrIdx:0,imgSeed:0,createdAt:NOW-4*NH,leadTimeMin:31,organicScore:88,
-    viewsSeries:mkSeries(7,'heat'),posts:[seedPost('x','@nordkyst_ferge',NARR[0].txt,2400000,{notable:true,replies:9800,quotes:4200,sampleReplies:['i am not okay 😭','harbor ASMR','$FERRY is the ticker']})],
-    tokens:[seedTok('FERRY','Last Horn',{canonical:true,firstDeployed:true,endorsedBy:'@nordkyst_ferge',risk:'low'}),
-      seedTok('HORN','Harbor Horn',{mcap:42000,firstDeployed:false,risk:'high'})]}),
-  mkNar({id:'plastic-plant',title:'Plastic Plant Grandma',blurb:'Three years watering a fake fern',narrIdx:1,imgSeed:1,createdAt:NOW-6*NH,leadTimeMin:27,organicScore:91,
-    viewsSeries:mkSeries(12,'peak'),posts:[seedPost('tt','@plantmum',NARR[1].txt,1900000,{notable:true,replies:7200,quotes:3100,sampleReplies:['the WATER sound 😭','grandma core','fake plant meta']})],
-    tokens:[seedTok('PLANT','Plastic Fern',{canonical:true,firstDeployed:true,endorsedBy:'@plantmum',risk:'low'}),
-      seedTok('FERN','Fake Fern',{mcap:18000,risk:'med'})]}),
-  mkNar({id:'norway-move',title:'Paid to Move to Norway',blurb:'Town pays newcomers — nobody talks about it',narrIdx:2,imgSeed:2,createdAt:NOW-2*NH,leadTimeMin:44,organicScore:79,
-    viewsSeries:mkSeries(3,'heat'),posts:[seedPost('x','@nordic_notes',NARR[2].txt,720000,{notable:true,replies:4100,quotes:1900,sampleReplies:['wait this is real?','moving tomorrow','$NORWAY when']}),
-      seedPost('tt','@nordic_notes',NARR[2].txt,390000,{replies:2800,quotes:900,sampleReplies:['Nordic arc','visa arc incoming']})],tokens:[]}),
-  mkNar({id:'stapler-hr',title:'Named Office Stapler',blurb:'HR memo must use the stapler\'s name',narrIdx:3,imgSeed:3,createdAt:NOW-9*NH,leadTimeMin:19,organicScore:72,
-    viewsSeries:mkSeries(4,'cool'),posts:[seedPost('x','@desklife',NARR[3].txt,980000,{replies:5200,quotes:2100,sampleReplies:['meet Stapler Steve','corporate dystopia']})],
-    tokens:[seedTok('STAPLR','Named Stapler',{canonical:true,firstDeployed:true,endorsedBy:'@desklife',risk:'med'}),
-      seedTok('STEVE','Stapler Steve',{mcap:9500,risk:'high'})]}),
-  mkNar({id:'pigeon-chess',title:'Grandmaster vs Pigeon',blurb:'Four-page essay after a loss to a bird',narrIdx:5,imgSeed:5,createdAt:NOW-11*NH,leadTimeMin:23,organicScore:84,
-    viewsSeries:mkSeries(9,'heat'),posts:[seedPost('x','@boardstate',NARR[5].txt,690000,{notable:true,replies:6100,quotes:2800,sampleReplies:['the essay link','bird ELO?']}),
-      seedPost('tt','@boardstate',NARR[5].txt,420000,{replies:3400,quotes:1200,sampleReplies:['pigeon meta','$PIGEON lfg']})],
-    tokens:[seedTok('PIGEON','Grandmaster',{canonical:true,firstDeployed:true,endorsedBy:'@boardstate',risk:'low'})]}),
-  mkNar({id:'gym-vend',title:'Compliments-Only Vending',blurb:'Gym machine changed the rules',narrIdx:7,imgSeed:7,createdAt:NOW-14*NH,leadTimeMin:15,organicScore:76,
-    viewsSeries:mkSeries(6,'peak'),posts:[seedPost('x','@gymvend',NARR[7].txt,520000,{replies:3900,quotes:1500,sampleReplies:['you look strong today','vending machine PvP']})],
-    tokens:[seedTok('VEND','Compliments Only',{canonical:true,firstDeployed:true,endorsedBy:'@gymvend',risk:'med'})]}),
-  mkNar({id:'subway-mouse',title:'Subway Mouse Door',blurb:'Tiny door in the wall — mice use it',narrIdx:9,imgSeed:9,createdAt:NOW-18*NH,leadTimeMin:29,organicScore:93,
-    viewsSeries:mkSeries(10,'cool'),posts:[seedPost('tt','@subwaymouse',NARR[9].txt,380000,{notable:true,replies:2900,quotes:800,sampleReplies:['tiny door tour','mouse gentrification']})],
-    tokens:[seedTok('MOUSE','Subway Door',{canonical:true,firstDeployed:true,endorsedBy:'@subwaymouse',risk:'low'})]}),
-  mkNar({id:'wrong-name',title:'Barista Name Lock-In',blurb:'Wrong cup name so long he considered legal change',narrIdx:6,imgSeed:6,createdAt:NOW-7*NH,leadTimeMin:38,organicScore:86,
-    viewsSeries:mkSeries(6,'heat'),posts:[seedPost('tt','@cupnames',NARR[6].txt,610000,{replies:4400,quotes:1700,sampleReplies:['name change arc','barista villain']})],tokens:[]}),
-  mkNar({id:'dad-cloud',title:'Dad vs One Cloud',blurb:'Two summers feuding with a specific cloud',narrIdx:8,imgSeed:8,createdAt:NOW-20*NH,leadTimeMin:41,organicScore:68,
-    viewsSeries:mkSeries(8,'cool'),posts:[seedPost('x','@skybeef',NARR[8].txt,430000,{replies:2100,quotes:900,sampleReplies:['cloud beef lore']}),
-      seedPost('tt','@skybeefclips',NARR[8].txt,280000,{replies:1800,quotes:600,sampleReplies:['dad vs cloud pt 2']})],tokens:[]}),
-  mkNar({id:'porch-frog',title:'Porch Frog Gerald',blurb:'Rainstorm visitor now has a name',narrIdx:4,imgSeed:4,createdAt:NOW-5*NH,leadTimeMin:52,organicScore:90,
-    viewsSeries:mkSeries(5,'heat'),posts:[seedPost('tt','@geraldwatch',NARR[4].txt,510000,{notable:true,replies:3800,quotes:1400,sampleReplies:['gerald updates','rain frog']}),
-      seedPost('x','@geraldwatch',NARR[4].txt,230000,{replies:1200,quotes:500,sampleReplies:['$FROG when']})],tokens:[]}),
-  mkNar({id:'ferry-duet',title:'Ferry Horn Duet',blurb:'TikTok stitch of the harbor moment',narrIdx:0,imgSeed:10,createdAt:NOW-3*NH,leadTimeMin:18,organicScore:74,
-    viewsSeries:mkSeries(11,'peak'),posts:[seedPost('tt','@harborclips','every boat answered the horn. i cried. $FERRY',890000,{replies:8100,quotes:3600,sampleReplies:['full harbor clip','goosebumps']})],
-    tokens:[seedTok('FERRY','Last Horn',{canonical:true,endorsedBy:'@nordkyst_ferge',risk:'low'})]}),
-  mkNar({id:'plant-stitch',title:'Plant TikTok Stitch',blurb:'Reaction videos to the plastic plant reveal',narrIdx:1,imgSeed:11,createdAt:NOW-8*NH,leadTimeMin:22,organicScore:82,
-    viewsSeries:mkSeries(11,'heat'),posts:[seedPost('tt','@plantmum','stitch: grandma still watering it. $PLANT',640000,{replies:5500,quotes:2200,sampleReplies:['stitch chain']}),
-      seedPost('x','@plantmum','the plastic plant saga continues',210000,{replies:900,quotes:400})],
-    tokens:[seedTok('PLANT','Plastic Fern',{canonical:true,endorsedBy:'@plantmum',risk:'low'})]}),
-  mkNar({id:'office-meme',title:'Office Meme Hour',blurb:'Stapler lore crosses into TikTok',narrIdx:3,imgSeed:12,createdAt:NOW-22*NH,leadTimeMin:14,organicScore:65,
-    viewsSeries:mkSeries(12,'cool'),posts:[seedPost('tt','@desklife','POV: HR calls the stapler by name in the memo',340000,{replies:1600,quotes:700,sampleReplies:['office tok']})],tokens:[]}),
-  mkNar({id:'vending-tt',title:'Vending Machine Lore',blurb:'Compliment-only machine hits TikTok FYP',narrIdx:7,imgSeed:13,createdAt:NOW-12*NH,leadTimeMin:16,organicScore:77,
-    viewsSeries:mkSeries(6,'peak'),posts:[seedPost('tt','@gymvend','you must compliment the machine to get a snack $VEND',470000,{replies:3200,quotes:1100,sampleReplies:['compliment meta']})],
-    tokens:[seedTok('VEND','Compliments Only',{canonical:true,endorsedBy:'@gymvend',risk:'med'})]}),
-];
-(function initNarrPostTimes(){if(window.InsidorConfig?.isLayer3?.())return;NARRATIVES.forEach(n=>{n.posts.forEach((p,i)=>{if(p.postedAt==null)p.postedAt=n.createdAt+i*NH*2;});});})();
-(function syncNarTokens(){NARRATIVES.forEach(n=>n.tokens.forEach(tok=>{const t=TOKENS.find(x=>x.sym===tok.ticker);
-  if(t){tok.mcap=t.mc;tok.liquidity=t.liq;tok.vol24h=t.vol;tok.holders=t.holders;tok.ageMin=t.ageM;}}));})();
 
 /* ============ HELPERS ============ */
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
@@ -661,8 +565,7 @@ function narrViralGain24h(n){
   if(s&&s.length>=2){
     const start=Math.max(0,s.length-25);
     return Math.max(0,s[s.length-1]-s[start]);}
-  if(narrLive())return 0;
-  return Math.round(narrCombinedViews(n)*.14);}
+  return 0;}
 function narrSearchSeries(n){return n.searchSeries||n.viewsSeries||[];}
 function narrLifecycle(n){
   if(n.lifecycle)return n.lifecycle;
@@ -711,7 +614,7 @@ function narrSparkSVG(series,tall){if(!series||!series.length)return'';
   return`<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="0,${H} ${pts} ${W},${H}" fill="${fill}" stroke="none"/><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;}
 function narrPulseSub(n){
   if(n.trendTerm)return `Google Trends · "${n.trendTerm}"`;
-  return narrLive()?'Google Trends · search interest':'Google Trends · demo';}
+  return narrLive()?'Google Trends · search interest':'Google Trends';}
 function narrPulseHTML(n,tall){return`<div class="nm-pulse-block${tall?' tall':''}"><div class="nm-pulse-hd"><span class="nm-pulse-lbl">Google trend</span><span class="nm-pulse-sub">${narrPulseSub(n)}</span></div>${narrSparkSVG(narrSearchSeries(n),tall)}</div>`;}
 function narrPulseCell(n){return`<div class="nm-pulse" title="Google Trends search interest">${narrSparkSVG(narrSearchSeries(n),false)}</div>`;}
 function narrTrendExplain(n){const timing=narrTiming(n),plats=narrPlatforms(n).map(p=>PLATNAME[p]||p).join(' & ');
@@ -1323,7 +1226,7 @@ function openPostDetail(idx){const n=NARR[idx];if(!n)return;const tks=extractTic
 /* ============ LIVE ACTIVITY RAIL (Trades · Launches · Viral) ============ */
 const FEED_PLATS=['x','tt'];
 let railMode='viral';
-let streamPool=NARR.filter(n=>FEED_PLATS.includes(n.plat));
+let streamPool=[];
 let tapePool=[];
 window.VIRAL_STREAM=[];
 function streamLiveCard(p,animate=false){
@@ -1585,7 +1488,7 @@ function streamCard(n){
   </div>`;
 }
 /* --- Trades tape --- */
-function genTape(){const t=TOKENS[Math.floor(Math.random()*TOKENS.length)];const buy=Math.random()>0.45;
+function genTape(){if(!TOKENS.length)return null;const t=TOKENS[Math.floor(Math.random()*TOKENS.length)];const buy=Math.random()>0.45;
   const sol=+(Math.random()*6+0.05).toFixed(2);return{sym:t.sym,buy,sol,t:Date.now(),fresh:!!t.justDeployed};}
 function tapeCard(x){const col=SYMCOLOR[x.sym]||'#3DE0FF',tk=TOKENS.find(z=>z.sym===x.sym);
   return`<div class="tape-row" data-token="${x.sym}">
@@ -1620,7 +1523,7 @@ function renderStream(){const box=$('#stream'),title=$('#railTitle'),cnt=$('#str
     const live=[...TOKENS].sort((a,b)=>a.ageM-b.ageM);
     box.innerHTML=Object.keys(PENDING).map(launchPendCard).join('')+live.map(launchCard).join('');return;}
   if(title)title.textContent='Live trades';
-  if(!tapePool.length)tapePool=Array.from({length:14},genTape).sort((a,b)=>b.t-a.t);
+  if(!tapePool.length)tapePool=Array.from({length:14},genTape).filter(Boolean).sort((a,b)=>b.t-a.t);
   box.innerHTML=tapePool.map(tapeCard).join('');}
 function pushStream(){const box=$('#stream');if(!box)return;
   if(railMode==='viral'){
@@ -1633,7 +1536,7 @@ function pushStream(){const box=$('#stream');if(!box)return;
     box.insertAdjacentHTML('afterbegin',streamCard(n));
     while(box.children.length>14)box.removeChild(box.lastChild);return;}
   if(railMode==='launches')return; // launches change on deploy, not per tick
-  const x=genTape();tapePool.unshift(x);if(tapePool.length>14)tapePool.pop();
+  const x=genTape();if(!x)return;tapePool.unshift(x);if(tapePool.length>14)tapePool.pop();
   box.insertAdjacentHTML('afterbegin',tapeCard(x));
   while(box.children.length>14)box.removeChild(box.lastChild);}
 function setRail(m){railMode=m;$$('#railTabs button').forEach(b=>b.classList.toggle('on',b.dataset.rail===m));renderStream();}
@@ -1931,8 +1834,8 @@ function openDeploy(idx){
 function deployFiled(){
   const tick=($('#dtick').value||'').toUpperCase()||'COIN',name=$('#dname').value||titlecase(tick);
   const ca=genCA(tick.length*37+(tick.charCodeAt(0)||65));
-  const n=deployCluster?null:(NARR[deployIdx]||NARR[0]);
-  const lead=deployCluster?'simulated':(n?n.lead:'+0m');
+  const n=deployCluster?null:null;
+  const lead=deployCluster?'simulated':'+0m';
   const narrIdx=deployCluster?(deployCluster.narrIdx>=0?deployCluster.narrIdx:0):(deployIdx>=0?deployIdx:0);
   // materialize the coin so it shows up live in the filtered feed the moment it launches
   if(!TOKENS.find(x=>x.sym===tick)){
@@ -1947,7 +1850,7 @@ function deployFiled(){
   if(activeTickers&&!activeTickers.includes(tick))activeTickers.push(tick);
   NARRATIVES.forEach(n=>n.tokens.forEach(tok=>{if(tok.ticker===tick){const t=TOKENS.find(x=>x.sym===tick);if(t){tok.mcap=t.mc;tok.name=t.name;}}}));
   renderTokens();renderNew();renderTrending();renderNarratives();if(railMode!=='viral')renderStream();
-  const srcTxt=deployCluster?deployCluster.title:(n?n.txt.slice(0,40):'narrative');
+  const srcTxt=deployCluster?deployCluster.title:'narrative';
   deployCluster=null;
   $('#modalRoot').querySelector('.sheet').innerHTML=`
     <div class="done">
@@ -2656,8 +2559,6 @@ if(isL3()){
   renderTokens();
   setView('trending');
   setRail('viral');
-}else{
-  renderTrending();renderNarratives();renderStream();renderTokens();setView('trending');
   syncNarrSoundToggle();
 }
 setInterval(pushStream,2600); // live rail keeps streaming on every tab
@@ -2666,182 +2567,7 @@ window.addEventListener('insidor-wallet',()=>{if(chartToken&&isL3())fetchWalletB
 setInterval(()=>{const u=$('#tokUpd');if(u&&$('#v-tokens').classList.contains('on'))u.textContent='now';},4000);
 </script>
 
-<script type="module">
-/* Privy React SDK → opens the official Privy modal on Connect.
-   A plain Connect button is always rendered first so it can never disappear;
-   the React root only replaces it once it has actually mounted. */
-const slot = document.getElementById('userAuth');
-const APP_ID = document.querySelector('meta[name="privy-app-id"]')?.content?.trim() || '';
-const CLIENT_ID = document.querySelector('meta[name="privy-client-id"]')?.content?.trim() || '';
-
-function fallbackConnect(msg){
-  if (!slot) return;
-  slot.innerHTML = '<button type="button" class="wallet-btn" id="connectFallback">Connect</button>';
-  const b = slot.querySelector('#connectFallback');
-  if (b) b.addEventListener('click', () => alert(msg || 'Wallet connect is unavailable right now. Serve this file over http (npx serve . -p 3456) and add the origin under Privy Dashboard → Allowed origins.'));
-}
-
-if (slot) fallbackConnect(); // visible + clickable immediately
-
-(async function(){
-  if (!slot) return;
-  if (!APP_ID){ fallbackConnect('Add a Privy App ID to the <meta name="privy-app-id"> tag.'); return; }
-  if (location.protocol === 'file:'){ fallbackConnect('Privy needs an http origin. Run: npx serve . -p 3456  then open the served URL.'); return; }
-  const D = 'react@18.3.1,react-dom@18.3.1';
-  const withTimeout = (p, ms, what) => Promise.race([
-    p,
-    new Promise((_, rej) => setTimeout(() => rej(new Error('Timed out loading ' + what)), ms))
-  ]);
-  try {
-    const React = (await import('https://esm.sh/react@18.3.1')).default;
-    const { createRoot } = await import('https://esm.sh/react-dom@18.3.1/client');
-    /* ?bundle collapses Privy's dependency graph into one file so the loader
-       can't stall on a hanging sub-request; 25s timeout fails loudly if it does. */
-    const { PrivyProvider, usePrivy } = await withTimeout(
-      import('https://esm.sh/@privy-io/react-auth@1?bundle&deps=' + D),
-      25000, 'Privy'
-    );
-    let useSolWallets = null;
-    let toSolanaWalletConnectors = null;
-    try {
-      const solMod = await import('https://esm.sh/@privy-io/react-auth@1/solana?bundle&deps=' + D);
-      useSolWallets = solMod.useSolanaWallets || solMod.useWallets;
-      toSolanaWalletConnectors = solMod.toSolanaWalletConnectors;
-    } catch (e) { console.warn('Privy Solana module unavailable:', e); }
-    const solanaConnectors = toSolanaWalletConnectors
-      ? toSolanaWalletConnectors({ shouldAutoConnect: false })
-      : undefined;
-    const h = React.createElement;
-    const { useEffect } = React;
-
-    const CONNECT_OPTS = {
-      walletList: ['phantom', 'solflare', 'backpack', 'detected_solana_wallets'],
-      description: 'Connect your Solana wallet to trade on Insidor',
-    };
-
-    function walletLabel(user, addr){
-      if (addr) return addr.slice(0, 4) + '…' + addr.slice(-4);
-      if (!user) return 'Account';
-      if (user.google && user.google.name) return user.google.name;
-      if (user.email && user.email.address) return user.email.address.split('@')[0];
-      if (user.wallet && user.wallet.address) return user.wallet.address.slice(0, 4) + '…' + user.wallet.address.slice(-4);
-      const la = (user.linkedAccounts || [])[0];
-      if (la && la.address) return la.address.slice(0, 4) + '…' + la.address.slice(-4);
-      return 'Insidor user';
-    }
-    const OUT_ICON = { __html: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>' };
-
-    /* Error boundary so a Privy render failure never blanks the nav */
-    class Boundary extends React.Component{
-      constructor(p){ super(p); this.state = { err:false }; }
-      static getDerivedStateFromError(){ return { err:true }; }
-      componentDidCatch(e){ console.error('Privy render error:', e); }
-      render(){
-        if (this.state.err) return h('button', { type:'button', className:'wallet-btn', onClick: () => alert('Wallet connect hit an error. Check the console and that this origin is allowed in the Privy Dashboard.') }, 'Connect');
-        return this.props.children;
-      }
-    }
-
-    function WalletBridge(){
-      const { ready, authenticated, user, logout } = usePrivy();
-      const solHook = useSolWallets ? useSolWallets() : { wallets: [] };
-      const solWallet = (solHook.wallets || [])[0] || null;
-      const addr = solWallet?.address || user?.wallet?.address || null;
-      const connected = !!(authenticated || addr);
-      useEffect(() => {
-        window.InsidorWallet = {
-          ready,
-          authenticated: connected,
-          address: addr,
-          logout,
-          async sendVersionedTransaction(vtx, conn) {
-            if (!solWallet) throw new Error('No Solana wallet connected — click Connect and choose Phantom');
-            const { Connection } = await import('https://esm.sh/@solana/web3.js@1');
-            const connection = conn || new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-            if (typeof solWallet.signAndSendTransaction === 'function') {
-              const r = await solWallet.signAndSendTransaction({ transaction: vtx, connection });
-              return r?.signature || r;
-            }
-            if (typeof solWallet.sendTransaction === 'function') return solWallet.sendTransaction(vtx, connection);
-            if (typeof solWallet.signTransaction === 'function') {
-              const signed = await solWallet.signTransaction(vtx);
-              return connection.sendRawTransaction(signed.serialize(), { skipPreflight: true });
-            }
-            throw new Error('Wallet cannot send transactions');
-          },
-        };
-        window.dispatchEvent(new Event('insidor-wallet'));
-      }, [ready, authenticated, user, solWallet, addr, connected, logout]);
-      return null;
-    }
-
-    function Auth(){
-      const { ready, authenticated, user, logout, login, connectWallet } = usePrivy();
-      const solHook = useSolWallets ? useSolWallets() : { wallets: [] };
-      const solWallet = (solHook.wallets || [])[0] || null;
-      const addr = solWallet?.address || null;
-      const connected = !!(authenticated || addr);
-      if (!connected) {
-        return h('button', {
-          type: 'button',
-          className: 'wallet-btn',
-          onClick: () => {
-            if (!ready) return;
-            if (authenticated) {
-              if (!solanaConnectors) {
-                alert('Solana wallet support failed to load. Try disabling ad blockers and refreshing.');
-                return;
-              }
-              connectWallet(CONNECT_OPTS);
-            } else {
-              login();
-            }
-          },
-          disabled: !ready,
-        }, ready ? 'Connect' : 'Loading…');
-      }
-      return h('div', { className: 'user-chip' },
-        h('span', { className: 'user-name' }, walletLabel(user, addr)),
-        h('button', {
-          type: 'button',
-          className: 'icon-btn user-logout',
-          'aria-label': 'Disconnect',
-          onClick: async () => {
-            try { if (solWallet?.disconnect) await solWallet.disconnect(); } catch (_) {}
-            logout();
-          },
-          dangerouslySetInnerHTML: OUT_ICON,
-        })
-      );
-    }
-    function App(){
-      const privyConfig = {
-        appearance: {
-          theme: 'dark',
-          accentColor: '#3DE0FF',
-          walletChainType: 'solana-only',
-          showWalletLoginFirst: true,
-          walletList: CONNECT_OPTS.walletList,
-        },
-        loginMethods: ['wallet', 'email'],
-        embeddedWallets: { createOnLogin: 'users-without-wallets' },
-      };
-      if (solanaConnectors) {
-        privyConfig.externalWallets = { solana: { connectors: solanaConnectors } };
-      }
-      return h(Boundary, null, h(PrivyProvider, {
-        appId: APP_ID,
-        clientId: CLIENT_ID || undefined,
-        config: privyConfig,
-      }, h(WalletBridge), h(Auth)));
-    }
-    createRoot(slot).render(h(App));
-  } catch (e) {
-    console.error('Privy React SDK failed to load:', e);
-    fallbackConnect('Wallet SDK failed to load (network/origin). Check the console. Ensure this origin is allowed in the Privy Dashboard.');
-  }
-})();
-</script>
+<script type="module" src="features/wallet/privy.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
 <script src="live.js"></script>
 <script src="tokenpage.js"></script>
