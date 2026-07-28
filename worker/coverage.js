@@ -9,7 +9,7 @@
 
 const { getServiceClient } = require('./lib/supabase');
 const { t, c, cs } = require('../lib/db-schema');
-const { loadState } = require('./lib/budget');const { loadEnvLocal } = require('./lib/env');
+const { loadState } = require('./adapters/x/budget');const { loadEnvLocal } = require('./lib/env');
 
 const MIN_INGEST_VIEWS = Number(process.env.MIN_INGEST_VIEWS) || 30_000;
 

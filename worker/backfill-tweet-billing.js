@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const { t, c, cs, row: dbRow } = require('../lib/db-schema');
 const { loadEnvLocal } = require('./lib/env');
-const { CONFIG } = require('./lib/budget');
+const { CONFIG } = require('./adapters/x/budget');
 
 async function main() {
   loadEnvLocal();
