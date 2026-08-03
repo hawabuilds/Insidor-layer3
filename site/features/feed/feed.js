@@ -1109,7 +1109,7 @@ function restoreViralFeedCacheEarly(){
     if(!raw)return;
     const parsed=JSON.parse(raw);
     if(!parsed?.items?.length||Date.now()-parsed.at>30*60*1000)return;
-    const minX=Number(window.MEME_MIN_X)||0.6;
+    const minX=Number(window.MEME_MIN_X)||0.7;
     const minTt=Number(window.MEME_MIN_TT)||0.75;
     const eligible=parsed.items.filter(p=>{
       const score=Number(p.memeScore);

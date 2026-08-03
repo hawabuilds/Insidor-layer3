@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * Meme gate — top N posts by views velocity → Claude scoring.
+ * Meme gate — top N posts by views velocity → Claude coinability scoring.
  * Run: node worker/score.js
  */
 
@@ -253,6 +253,11 @@ async function runCycle(sb, opts = {}) {
 
 async function main() {
   loadEnvLocal();
+  if (process.argv.includes('--rescore')) {
+    const { main: runRescoreValidate } = require('./rescore-validate');
+    await runRescoreValidate();
+    return;
+  }
   if (process.argv.includes('--dry-run-cost')) {
     const { runDryRunCost } = require('../adapters/anthropic/budget');
     await runDryRunCost(getServiceClient());

@@ -14,48 +14,60 @@ const {
 const MODEL = process.env.SCORE_MODEL || 'claude-haiku-4-5-20251001';
 const MODEL_TT = process.env.SCORE_MODEL_TT || process.env.SCORE_VISION_MODEL || MODEL;
 
-const SYSTEM_PROMPT_X = `You score X (Twitter) posts for meme-coin potential on Solana.
+const COINABILITY_CORE = `You score posts for COINABILITY — whether people would actually deploy a memecoin from this content.
 
-Score meme-ability from 0.0 to 1.0 for the Solana memecoin market:
-- HIGH (0.7–1.0): absurd, visual, one clear concept, screenshot-able, ironic, instantly quotable, organic viral energy, easy ticker/name
-- LOW (0.0–0.3): earnest credible news, corporate PR, nuanced policy, dry statistics, no visual hook, not deployable as a joke coin
+You are NOT predicting whether a coin would succeed, moon, or be funny. You are NOT preferring funny over wholesome, or absurd over sincere. Both funny and wholesome things get coined. The only gate: is there a THING someone could put on a coin, or is it just a topic?
 
-Respond with ONLY valid JSON, no markdown:
-{"meme_score":0.0,"reason":"one short sentence","suggested_ticker":"TICKER","suggested_name":"Coin Name"}
+SUBJECT vs STORY (the core test):
+- SUBJECT (coinable — score high): a named or nameable entity — an animal, creature, character, object, or person. Wholesome, funny, absurd, or striking all pass if the content centers the THING.
+- STORY (not coinable — score low): an event, argument, opinion, or news narrative with no deployable subject as the focus. Industry takes, policy debates, match RESULTS, award snubs, transfer news as headline — not the person/group as meme.
 
-Rules:
-- meme_score must be a number 0–1
-- suggested_ticker: 2–10 uppercase letters, no $
-- suggested_name: short human name for the coin
-- If the post is not meme-worthy, meme_score should be below 0.3
-- If you cannot name the subject in one word that would work as a ticker, score below 0.3`;
+NAMED PEOPLE & FANDOMS (always subjects when named):
+A named, recognisable PERSON with a fanbase is a coinable subject — K-pop idols, athletes, streamers, actors, political figures memed as characters. Fandoms deploy coins on their faves constantly. Score these PASS (0.7+).
+- Applies to: individual idols/members, named athletes, streamers, named fictional characters, named groups/bands when the group or member is the focus.
+- suggested_ticker = the person's or group's name (JUNGKOOK, STRAY, MESSI, RM, ENHYPEN).
+- Do NOT downgrade because the post describes something they did — the PERSON/GROUP is still the subject.
 
-const SYSTEM_PROMPT_TT = `You score TikTok videos for meme-coin potential on Solana.
+Examples:
+- "Porch Frog Gerald" → subject (a frog) → HIGH
+- "Cat wearing VR headset" → subject (a cat) → HIGH
+- "Jungkook [does thing]" / "Yoongi roasts Jungkook" → person → HIGH (ticker JUNGKOOK or YOONGI)
+- "Stray Kids win award" / "Stray Kids unveil single" → group is the focus → HIGH (ticker STRAY or group name)
+- "Where is RM" / "Lee Know kdrama casting" → named idol → HIGH
+- "Messi [as meme/character]" → named person → HIGH
+- "Messi's team lost the final" → sports RESULT, not Messi-as-subject → LOW
+- "Therapy industry criticized" / "K-pop industry faces criticism" → argument about industry → LOW
+- "Therapy industry criticized as ineffective" → an argument → LOW
+- "Biden tapes about classified documents" → NEWS EVENT focus → LOW; Biden memed AS character → HIGH
 
-You receive the video THUMBNAIL (cover frame) plus the caption. The meme usually lives in the VIDEO, not the caption — captions are often hashtags and emojis only. Judge meme-ability from what is actually depicted in the image.
-
-Score LOW (0.0–0.35) for content that goes viral on TikTok but almost never becomes a coin:
-- dances, lip-syncs, thirst traps, product hauls, recipes, GRWM, shopping hauls
-- tutorials, generic reaction videos, sponsored/brand content, trend-chasing without a subject
-
-Score HIGH (0.7–1.0) for:
-- a single absurd creature or character viewers can name
-- an unexpected real-world moment frozen in one frame
-- a nameable recurring subject (person, animal, object) with obvious ticker energy
-- visual absurdity that survives being screenshotted with a name attached
-
-Key test (apply explicitly): "Would this still be funny or deployable as a still image with a name attached?"
-If it only works as motion/video choreography and dies as a screenshot, score below 0.4.
+Score meme_score 0.0–1.0 (coinability, not success odds):
+- 0.7–1.0: clear nameable subject (person, group, animal, character, object)
+- 0.0–0.3: story/event/argument/opinion with no named subject as focus
+- 0.4–0.6: borderline — only when genuinely unclear whether a named subject exists
 
 Respond with ONLY valid JSON, no markdown:
 {"meme_score":0.0,"reason":"one short sentence","suggested_ticker":"TICKER","suggested_name":"Coin Name"}
 
 Rules:
-- meme_score must be a number 0–1
-- suggested_ticker: 2–10 uppercase letters, no $
-- suggested_name: short human name for the coin
-- Entertainment-by-default: most TikToks should score below 0.5 unless the thumbnail shows a clear coinable subject
-- If you cannot name the subject in one word that would work as a ticker, score below 0.3`;
+- meme_score must be a number 0–1 (coinability gate)
+- suggested_ticker: 2–10 uppercase letters for the SUBJECT (person name, group, creature), not the headline event
+- suggested_name: short coin name for the subject
+- Named person/group with fanbase visible in post: meme_score 0.7+ even if the post is about something they did
+- Story/topic-only (no named subject focus): meme_score below 0.3
+- If you cannot name the coinable subject in one word that would work as a ticker, score below 0.3`;
+
+const SYSTEM_PROMPT_X = `${COINABILITY_CORE}
+
+Platform: X (Twitter). Score from the post text.`;
+
+const SYSTEM_PROMPT_TT = `${COINABILITY_CORE}
+
+Platform: TikTok. You receive the video THUMBNAIL (cover frame) plus the caption. The coinable subject usually lives in the VIDEO — judge from what you SEE in the image, not hashtag spam in the caption.
+
+TikTok notes:
+- Format alone does not fail: a dance, lip-sync, or wholesome clip WITH a visible nameable subject (animal, creature, character, distinct person-as-meme) can score high
+- Generic choreography, hauls, tutorials, or trend formats with NO distinct subject score low — not because of entertainment type, but because there is no THING to coin
+- Key test: "Is there a THING in this frame someone could name and put on a coin?" — not "is this viral" or "would this coin succeed"`;
 
 function buildUserPromptX(post) {
   return [
@@ -73,7 +85,7 @@ function buildUserPromptTt(post) {
     `Caption: ${post.text || '(empty)'}`,
     post.filter_label ? `Discovered via filter: ${post.filter_label}` : '',
     '',
-    'The attached image is the video cover/thumbnail. Score from what you SEE, not hashtag spam in the caption.',
+    'The attached image is the video cover/thumbnail. Score coinability from what you SEE — is there a nameable SUBJECT in the frame?',
   ].filter(Boolean).join('\n');
 }
 

@@ -37,7 +37,7 @@ function isSentenceDerivedTicker(ticker, postText) {
 }
 
 /**
- * Cap meme_score when ticker is not nameable as a one-word subject.
+ * Cap meme_score when ticker is not a one-word nameable SUBJECT (coinability gate).
  * Returns updated result object.
  */
 function applyNameabilityCap(result, postText) {

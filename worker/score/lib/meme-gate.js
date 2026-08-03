@@ -1,6 +1,7 @@
 'use strict';
 
-const MEME_MIN_X = Number(process.env.MEME_MIN_X) || 0.6;
+/** Calibrated from rescore validation (v2 prompt, Aug 2026). See docs/rescore-threshold-analysis.md */
+const MEME_MIN_X = Number(process.env.MEME_MIN_X) || 0.7;
 const MEME_MIN_TT = Number(process.env.MEME_MIN_TT) || 0.75;
 const CROSS_PLATFORM_DISCOUNT = Number(process.env.CROSS_PLATFORM_DISCOUNT) || 0.1;
 const TT_NO_THUMB_CAP = 0.4;

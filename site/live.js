@@ -383,7 +383,7 @@
   window.MIN_INGEST_VIEWS = MIN_INGEST_VIEWS;
   window.VIRAL_FEED_MAX_AGE_MS_X = VIRAL_FEED_MAX_AGE_MS_X;
   window.VIRAL_FEED_MAX_AGE_MS_TT = VIRAL_FEED_MAX_AGE_MS_TT;
-  const MEME_MIN_X = Number(window.MEME_MIN_X) || 0.6;
+  const MEME_MIN_X = Number(window.MEME_MIN_X) || 0.7;
   const MEME_MIN_TT = Number(window.MEME_MIN_TT) || 0.75;
   window.MEME_MIN_X = MEME_MIN_X;
   window.MEME_MIN_TT = MEME_MIN_TT;

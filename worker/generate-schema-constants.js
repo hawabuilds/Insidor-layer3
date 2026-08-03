@@ -71,6 +71,25 @@ const SCHEMA = {
     'cost_breakdown', 'cost_usd', 'posts_ingested', 'reads_today', 'source', 'updated_at',
     'utc_date',
   ],
+  backtest_runs: ['config', 'finished_at', 'id', 'stage', 'started_at', 'stats', 'status'],
+  backtest_tokens: [
+    'created_at', 'current_mcap', 'holders', 'id', 'launch_at', 'liquidity_dead_within_24h',
+    'liquidity_exists', 'mint', 'name', 'narrative_cohort', 'outcome', 'peak_liquidity', 'peak_mcap',
+    'peak_multiple', 'raw', 'run_id', 'source', 'ticker',
+  ],
+  backtest_candidates: [
+    'created_at', 'id', 'match_confidence', 'match_reason', 'matched_platform_post_id',
+    'matched_post_at', 'matched_post_raw', 'matched_post_text', 'matched_post_url', 'name_pass',
+    'name_reject_reason', 'narrative_cohort', 'outcome', 'post_search_queries', 'run_id', 'status',
+    'token_id', 'x_queries_run', 'x_tweets_read',
+  ],
+  backtest_post_features: [
+    'acceleration_t', 'age_min_when_seen', 'author_followers', 'candidate_id', 'created_at',
+    'distinct_authors_t', 'engagement_rate_t', 'feature_window_min', 'had_media', 'id',
+    'in_narrative_posts', 'meme_score', 'narrative_post_id', 'outcome', 'raw', 'run_id',
+    'ticker_proposed_in_replies', 'view_velocity_t', 'views_at_t',
+  ],
+  backtest_spend_log: ['cost_usd', 'id', 'logged_at', 'note', 'run_id', 'stage', 'tweets_read'],
 };
 
 const REL = {
