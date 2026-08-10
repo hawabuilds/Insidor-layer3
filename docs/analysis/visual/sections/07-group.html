@@ -1,0 +1,440 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document
+   supplies the same rules from the shell head, so the build strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+.mock{margin:26px 0 6px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+/* ── 07. HOW POSTS BECOME STORIES ──────────────────────────────────── */
+.grp-mock{
+  background:#0C0C0E; border:1px solid #212127; border-radius:12px;
+  padding:20px 18px 14px; margin:26px 0 10px;
+}
+.grp-mock + .cap{ margin-top:0; }
+.grp-mock svg{ width:100%; height:auto; display:block; }
+.grp-mocktitle{
+  font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:10px; text-transform:uppercase; letter-spacing:.1em;
+  color:#5A5A62; margin:0 0 16px 2px;
+}
+.grp-mocktitle b{ color:#8A8A93; font-weight:500; }
+
+/* two-panel hypothesis illustration */
+.grp-split{ display:flex; gap:14px; }
+.grp-pane{ flex:1; background:#131316; border:1px solid #212127; border-radius:10px; padding:14px 15px 15px; }
+.grp-pane .grp-ph{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:9.5px;
+  letter-spacing:.13em; text-transform:uppercase; margin-bottom:12px;
+}
+.grp-pane.grp-news .grp-ph{ color:#5A5A62; }
+.grp-pane.grp-meme .grp-ph{ color:#9BF03C; }
+.grp-row{ display:flex; align-items:center; gap:9px; padding:7px 0; border-bottom:1px solid #1A1A1E; }
+.grp-row:last-child{ border-bottom:none; }
+.grp-av{ width:22px; height:22px; border-radius:50%; background:#222228; flex:0 0 22px; }
+.grp-av.a1{ background:linear-gradient(135deg,#2b3d4a,#16323f); }
+.grp-av.a2{ background:linear-gradient(135deg,#3f2b3d,#251a2e); }
+.grp-av.a3{ background:linear-gradient(135deg,#2e3a26,#1b2a18); }
+.grp-av.a4{ background:linear-gradient(135deg,#43382a,#2a2018); }
+.grp-av.a5{ background:linear-gradient(135deg,#26323f,#1a2434); }
+.grp-hand{ font-size:12px; color:#F4F5F7; flex:1; }
+.grp-hand em{ display:block; font-style:normal; font-size:11px; color:#5A5A62; }
+.grp-num{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;
+  font-size:11.5px; color:#8A8A93; white-space:nowrap;
+}
+.grp-foot{
+  margin-top:13px; padding-top:11px; border-top:1px solid #212127;
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:11px;
+  font-variant-numeric:tabular-nums;
+}
+.grp-foot.grp-zero{ color:#FF5C6E; }
+.grp-foot.grp-many{ color:#9BF03C; }
+
+/* the four carriers table */
+table.grp-tbl{
+  width:100%; border-collapse:collapse; background:#0C0C0E;
+  border:1px solid #212127; border-radius:12px; overflow:hidden;
+  margin:22px 0 8px; break-inside:avoid; page-break-inside:avoid;
+}
+table.grp-tbl th{
+  font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:#5A5A62;
+  font-weight:500; text-align:left; padding:11px 16px;
+  border-bottom:1px solid #2E2E36; background:#131316;
+}
+table.grp-tbl td{
+  font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:12.5px; color:#8A8A93; line-height:1.5;
+  padding:12px 16px; border-bottom:1px solid #212127; vertical-align:top;
+}
+table.grp-tbl tr:last-child td{ border-bottom:none; }
+table.grp-tbl td.grp-c1{ color:#F4F5F7; font-weight:500; width:22%; }
+table.grp-tbl td.grp-cnum{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-variant-numeric:tabular-nums; font-size:11.5px; color:#3DE0FF;
+  white-space:nowrap; width:14%;
+}
+
+/* red callout for the current failure */
+.grp-shout{
+  border:1px solid #212127; border-left:3px solid #FF5C6E; background:#0C0C0E;
+  border-radius:0 12px 12px 0; padding:20px 24px; margin:24px 0 28px;
+  max-width:96ch; break-inside:avoid; page-break-inside:avoid;
+}
+.grp-shout .grp-lb{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:10px;
+  letter-spacing:.13em; text-transform:uppercase; color:#FF5C6E; margin-bottom:10px;
+}
+.grp-shout p{ margin:0; font-size:17px; line-height:1.5; color:#F4F5F7; max-width:none; }
+.grp-shout p + p{ margin-top:10px; font-size:14.5px; color:#8A8A93; }
+
+/* amber callout */
+.grp-shout.grp-amber{ border-left-color:#FFB84D; }
+.grp-shout.grp-amber .grp-lb{ color:#FFB84D; }
+
+/* the 91% bar */
+.grp-bars{ margin:4px 0 2px; }
+.grp-bar{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.grp-bar .grp-bl{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:11px;
+  color:#8A8A93; width:230px; flex:0 0 230px; text-align:right;
+}
+.grp-bar .grp-btrack{ flex:1; height:22px; background:#131316; border-radius:4px; overflow:hidden; }
+.grp-bar .grp-bfill{ height:100%; border-radius:4px; }
+.grp-bar .grp-bv{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;
+  font-size:12px; width:96px; flex:0 0 96px; color:#F4F5F7;
+}
+
+/* grouped story card */
+.grp-card{ background:#0C0C0E; border:1px solid #212127; border-radius:12px; overflow:hidden; max-width:640px; }
+.grp-thumb{ height:118px; background:linear-gradient(135deg,#123040 0%,#0d2230 45%,#1a2b1c 100%); position:relative; }
+.grp-thumb .grp-tag{
+  position:absolute; left:12px; bottom:11px;
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; color:#F4F5F7; background:rgba(6,6,7,.66);
+  border:1px solid #2E2E36; border-radius:5px; padding:4px 8px;
+}
+.grp-cbody{ padding:15px 17px 16px; }
+.grp-ctitle{ font-family:"Clash Display",system-ui,sans-serif; font-size:19px; font-weight:600; margin:0 0 7px; }
+.grp-two{ font-size:14.5px; line-height:1.5; color:#8A8A93; margin:0 0 13px; max-width:none; }
+.grp-meta{ display:flex; flex-wrap:wrap; gap:6px 8px; margin-bottom:13px; }
+.grp-chip{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;
+  font-size:10.5px; color:#8A8A93; background:#131316; border:1px solid #212127;
+  border-radius:5px; padding:4px 8px;
+}
+.grp-chip b{ color:#F4F5F7; font-weight:500; }
+.grp-src{ border-top:1px solid #212127; padding-top:11px; }
+.grp-srcl{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:#5A5A62; margin-bottom:9px;
+}
+.grp-srcrow{ display:flex; align-items:center; gap:9px; padding:5px 0; }
+.grp-srcrow .grp-hand{ font-size:12px; }
+</style>
+
+<section class="sec">
+  <h2>07. How posts become stories</h2>
+
+  <p class="lede">One person posting a video of a Norwegian ferry captain is luck. Twenty
+  unrelated people posting their own version of it, on two platforms, inside an hour, is a meme
+  forming. The part of the system that notices the difference is called the Grouper, and it is
+  not a tidying step that bundles duplicates together neatly. It is the detector.</p>
+
+  <p>Everything upstream of this operates on one post at a time, and one post at a time cannot
+  tell a hit from an accident. Plenty of single posts get eight million views. Almost none become
+  coins that clear a million dollars. What separates them is whether other people started making
+  their own versions.</p>
+
+  <h3>The hypothesis this whole product rests on</h3>
+
+  <p><strong>Memes get copied. News gets consumed.</strong> A plane crash gets millions of views
+  and nobody makes their own plane crash — people watch it, react, move on. A ferry captain
+  blowing his horn one last time gets re-cut, screenshotted, drawn and parodied by people who have
+  never heard of each other. A view counter cannot tell those apart; both are a big number going
+  up. Counting how many independent people made their own version tells them apart instantly.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="grp-mock">
+      <div class="grp-mocktitle">The same view count, two completely different futures — <b>consumption on the left, replication on the right</b></div>
+      <div class="grp-split">
+        <div class="grp-pane grp-news">
+          <div class="grp-ph">Consumed · a news event</div>
+          <div class="grp-row"><div class="grp-av a1"></div><div class="grp-hand">@reuters<em>original bulletin</em></div><div class="grp-num">8.2M</div></div>
+          <div class="grp-row"><div class="grp-av a5"></div><div class="grp-hand">@bbcbreaking<em>same footage, credited</em></div><div class="grp-num">3.1M</div></div>
+          <div class="grp-row"><div class="grp-av a2"></div><div class="grp-hand">@skynews<em>same footage, credited</em></div><div class="grp-num">1.4M</div></div>
+          <div class="grp-foot grp-zero">0 independent versions · 3 outlets carrying one clip</div>
+        </div>
+        <div class="grp-pane grp-meme">
+          <div class="grp-ph">Copied · Harbor Last Horn</div>
+          <div class="grp-row"><div class="grp-av a3"></div><div class="grp-hand">@nordkyst_ferge<em>the original, on X</em></div><div class="grp-num">2.4M</div></div>
+          <div class="grp-row"><div class="grp-av a4"></div><div class="grp-hand">@harbourclips<em>re-cut on TikTok</em></div><div class="grp-num">890K</div></div>
+          <div class="grp-row"><div class="grp-av a2"></div><div class="grp-hand">@saltvann<em>his own boat answering</em></div><div class="grp-num">412K</div></div>
+          <div class="grp-row"><div class="grp-av a1"></div><div class="grp-hand">@deckhandsam<em>drawn version</em></div><div class="grp-num">168K</div></div>
+          <div class="grp-foot grp-many">14 posts · 11 unrelated authors · 2 platforms · 47 min</div>
+        </div>
+      </div>
+    </div>
+    <p class="cap">Illustration of the hypothesis, using the canonical example. The left column is
+    a bigger number and a worse signal. Nothing in a view count distinguishes them; the author
+    count does it in one glance.</p>
+  </div>
+
+  <h3>The four signals that something is being copied</h3>
+
+  <p>Copying leaves physical traces, and most cost nothing to find. <strong>The same image</strong>
+  reposted by an unrelated account: the fingerprint is identical whether it was posted in Oslo or
+  Ohio, on X or on TikTok. <strong>The crowd naming it in the replies</strong> — "$FERRY",
+  "that's the one" — which is the crowd telling us which ticker the story has actually attached
+  itself to, and is how the real coin gets told apart from the others minted off the same post.
+  <strong>Variations appearing</strong>: the same joke with new footage, a
+  drawing, another language. And <strong>crossing platforms</strong>, the strongest of the four,
+  because it means the thing escaped the algorithm that launched it.</p>
+
+  <table class="grp-tbl">
+    <thead><tr><th>Signal</th><th>What actually gets compared</th><th>Cost per check</th><th>Needs a model?</th></tr></thead>
+    <tbody>
+      <tr><td class="grp-c1">Same picture</td><td>A 256-bit fingerprint of the image, allowing for crops, filters and re-encoding</td><td class="grp-cnum">~2 ms</td><td>No</td></tr>
+      <tr><td class="grp-c1">Near-identical wording</td><td>A 64-bit fingerprint of the text; catches copy-paste and light edits</td><td class="grp-cnum">~50 µs</td><td>No</td></tr>
+      <tr><td class="grp-c1">Same sound or template</td><td>The platform's own id for the audio, effect or format</td><td class="grp-cnum">free</td><td>No</td></tr>
+      <tr><td class="grp-c1">Explicit pointer</td><td>A quote, stitch or crosspost that names the post it came from</td><td class="grp-cnum">free</td><td>No</td></tr>
+      <tr><td class="grp-c1">Same meaning, new words</td><td>A sentence-meaning comparison — different footage, different language, same moment</td><td class="grp-cnum">$0.11/day</td><td>Yes</td></tr>
+    </tbody>
+  </table>
+  <p class="cap">The first four are free, deterministic and language-blind. They ship first, and
+  alone. The fifth is the one that needs buying, and it costs about eleven cents a day across
+  nine thousand items.</p>
+
+  <h3>How a post joins a story</h3>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="grp-mock">
+      <div class="grp-mocktitle">One incoming post, three ways out — <b>free checks first, the paid one only for what they miss</b></div>
+      <svg viewBox="0 0 1000 592" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Diagram: a new post is tested against free fingerprint checks, then against a meaning check, and either joins an existing story or starts one of its own.">
+        <defs>
+          <marker id="grp-ar" markerWidth="9" markerHeight="9" refX="6.8" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#3DE0FF"/>
+          </marker>
+          <marker id="grp-arg" markerWidth="9" markerHeight="9" refX="6.8" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#5A5A62"/>
+          </marker>
+        </defs>
+
+        <!-- incoming post -->
+        <rect x="16" y="238" width="176" height="104" rx="10" fill="#131316" stroke="#2E2E36"/>
+        <text x="30" y="264" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.2" fill="#5A5A62">NEW POST</text>
+        <circle cx="38" cy="290" r="10" fill="#222228"/>
+        <text x="56" y="288" font-family="General Sans, sans-serif" font-size="12" fill="#F4F5F7">@saltvann</text>
+        <text x="56" y="303" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62">TikTok · 412K views</text>
+        <text x="30" y="328" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">“my boat answered too”</text>
+
+        <!-- arrows to lanes -->
+        <path d="M196 268 C 232 268 232 118 262 118" fill="none" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#grp-ar)"/>
+        <path d="M196 290 C 232 290 232 316 262 316" fill="none" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#grp-ar)"/>
+        <path d="M196 318 C 232 318 232 486 262 486" fill="none" stroke="#5A5A62" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#grp-arg)"/>
+
+        <!-- LANE 1 : carrier join -->
+        <rect x="268" y="34" width="430" height="176" rx="10" fill="#0C0C0E" stroke="#212127"/>
+        <rect x="268" y="34" width="430" height="30" rx="10" fill="#131316"/>
+        <rect x="268" y="54" width="430" height="10" fill="#131316"/>
+        <text x="284" y="54" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#9BF03C">STEP 1 · FINGERPRINT MATCH — FREE, NO MODEL, NO LANGUAGE</text>
+        <rect x="284" y="78" width="196" height="52" rx="7" fill="#131316" stroke="#212127"/>
+        <text x="296" y="98" font-family="General Sans, sans-serif" font-size="11.5" fill="#F4F5F7">Same picture</text>
+        <text x="296" y="115" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">256-bit · differs by ≤ 31</text>
+        <rect x="490" y="78" width="196" height="52" rx="7" fill="#131316" stroke="#212127"/>
+        <text x="502" y="98" font-family="General Sans, sans-serif" font-size="11.5" fill="#F4F5F7">Same wording</text>
+        <text x="502" y="115" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">64-bit · differs by ≤ 3</text>
+        <rect x="284" y="140" width="196" height="52" rx="7" fill="#131316" stroke="#212127"/>
+        <text x="296" y="160" font-family="General Sans, sans-serif" font-size="11.5" fill="#F4F5F7">Same sound / template</text>
+        <text x="296" y="177" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">platform’s own id · exact</text>
+        <rect x="490" y="140" width="196" height="52" rx="7" fill="#131316" stroke="#212127"/>
+        <text x="502" y="160" font-family="General Sans, sans-serif" font-size="11.5" fill="#F4F5F7">Quote / stitch / repost</text>
+        <text x="502" y="177" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">points at the post it copied</text>
+
+        <!-- LANE 2 : meaning -->
+        <rect x="268" y="238" width="430" height="140" rx="10" fill="#0C0C0E" stroke="#212127"/>
+        <rect x="268" y="238" width="430" height="30" rx="10" fill="#131316"/>
+        <rect x="268" y="258" width="430" height="10" fill="#131316"/>
+        <text x="284" y="258" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#3DE0FF">STEP 2 · MEANING MATCH — ONLY FOR WHAT STEP 1 MISSED</text>
+        <text x="284" y="292" font-family="General Sans, sans-serif" font-size="12" fill="#F4F5F7">Different footage, different words, different language —</text>
+        <text x="284" y="310" font-family="General Sans, sans-serif" font-size="12" fill="#F4F5F7">same real-world moment.</text>
+        <text x="284" y="336" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">“hver eneste båt i havna svarte” → Harbor Last Horn</text>
+        <text x="284" y="360" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">sentence meaning · ~$0.11/day across 9,000 items</text>
+
+        <!-- LANE 3 : new story -->
+        <rect x="268" y="452" width="430" height="68" rx="10" fill="#0C0C0E" stroke="#212127" stroke-dasharray="5 4"/>
+        <text x="284" y="480" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#5A5A62">NO MATCH</text>
+        <text x="284" y="503" font-family="General Sans, sans-serif" font-size="12" fill="#8A8A93">The post starts a story of its own, and waits for company.</text>
+
+        <!-- arrows into outcomes -->
+        <path d="M698 122 C 740 122 740 176 776 176" fill="none" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#grp-ar)"/>
+        <path d="M698 308 C 740 308 740 232 776 232" fill="none" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#grp-ar)"/>
+        <path d="M698 486 C 740 486 740 470 776 470" fill="none" stroke="#5A5A62" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#grp-arg)"/>
+
+        <!-- OUTCOME A : joins the story -->
+        <rect x="782" y="96" width="202" height="212" rx="10" fill="#0C0C0E" stroke="#2E2E36"/>
+        <rect x="782" y="96" width="202" height="46" rx="10" fill="#131316"/>
+        <rect x="782" y="126" width="202" height="16" fill="#131316"/>
+        <text x="796" y="118" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.2" fill="#9BF03C">JOINS AN EXISTING STORY</text>
+        <text x="796" y="135" font-family="Clash Display, sans-serif" font-size="13" font-weight="600" fill="#F4F5F7">Harbor Last Horn</text>
+        <circle cx="806" cy="170" r="9" fill="#222228"/><text x="822" y="174" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">@nordkyst_ferge</text>
+        <circle cx="806" cy="196" r="9" fill="#222228"/><text x="822" y="200" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">@harbourclips</text>
+        <circle cx="806" cy="222" r="9" fill="#222228"/><text x="822" y="226" font-family="General Sans, sans-serif" font-size="11" fill="#9BF03C">@saltvann</text>
+        <circle cx="806" cy="248" r="9" fill="#222228"/><text x="822" y="252" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">@deckhandsam</text>
+        <text x="796" y="284" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#F4F5F7">14 posts · 11 authors</text>
+        <text x="796" y="299" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#5A5A62">2 platforms · 47 min</text>
+
+        <!-- OUTCOME B : story of one -->
+        <rect x="782" y="430" width="202" height="86" rx="10" fill="#0C0C0E" stroke="#212127" stroke-dasharray="5 4"/>
+        <text x="796" y="456" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.2" fill="#5A5A62">A STORY OF ONE</text>
+        <text x="796" y="478" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">1 post · 1 author</text>
+        <text x="796" y="500" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF5C6E">91% of stories today</text>
+
+        <!-- footnote -->
+        <text x="16" y="566" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">A post is tested against the free checks first. The paid check only ever runs on what survives them.</text>
+      </svg>
+    </div>
+    <p class="cap">Two tiers, in cost order. The cheap tier does most of the work and is the reason
+    the Grouper can be multilingual and cross-platform before any model exists at all.</p>
+  </div>
+
+  <h3>What it does today, stated plainly</h3>
+
+  <div class="grp-shout">
+    <div class="grp-lb">The failure</div>
+    <p>982 of the 1,079 stories that have any posts in them contain exactly one post, by exactly
+    one author. That is 91%.</p>
+    <p>The product's premise is that people are making their own versions. The Grouper, as
+    written, cannot see a second version.</p>
+  </div>
+
+  <p>The cause is a single file. What the code calls <em>embeddings</em> is not embeddings — it is
+  a word-count map. "Captain", "ferry" and "horn" have to literally appear in both posts for them
+  to be joined. A Norwegian post about the same captain shares no words. A TikTok with no caption
+  shares nothing at all. And "every boat answered him" shares nothing with "the whole harbour blew
+  back", though any human reads them as the same moment.</p>
+
+  <p>Worse, there is redundancy nobody had noticed. There are three matching passes, and the third
+  is the second with different weights: any pair the keyword pass accepts, the word-count pass has
+  already accepted. It contributes zero additional matches, at the cost of a third of the code.
+  Meanwhile the word-count pass, with no sense of which words are rare and no penalty for length,
+  invents joins — "Behind-the-scenes of Adwoa Aboah's…" and "Behind the scenes with the champs"
+  score 0.436, over the 0.42 line, and become one story.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="grp-mock">
+      <div class="grp-mocktitle">Stories by how many separate authors are in them — <b>live database, all 1,079 populated stories</b></div>
+      <div class="grp-bars">
+        <div class="grp-bar"><div class="grp-bl">1 post, 1 author</div><div class="grp-btrack"><div class="grp-bfill" style="width:91%;background:#FF5C6E"></div></div><div class="grp-bv">982</div></div>
+        <div class="grp-bar"><div class="grp-bl">2–4 authors</div><div class="grp-btrack"><div class="grp-bfill" style="width:6.4%;background:#FFB84D"></div></div><div class="grp-bv">69</div></div>
+        <div class="grp-bar"><div class="grp-bl">5+ authors — the product</div><div class="grp-btrack"><div class="grp-bfill" style="width:2.6%;background:#9BF03C"></div></div><div class="grp-bv">28</div></div>
+      </div>
+    </div>
+    <p class="cap">The bottom bar is the only one that is a meme forming. It is 2.6% of what the
+    system produces. Everything the feed shows is drawn from a population that is almost entirely
+    single posts wearing the word “story”.</p>
+  </div>
+
+  <h3>The fix, and the four small things that must ship with it</h3>
+
+  <p><strong>Real sentence meaning, in place of word counting, is the highest-leverage single
+  change in the entire system.</strong> Not a research project — a well-understood bought
+  capability at about eleven cents a day. But dropping it in alone would make things worse, and
+  four small things have to go with it.</p>
+
+  <ol>
+    <li><strong>Stop only reading English.</strong> The collector asks X for English posts only.
+    No meaning model can group across languages while the front door is English-only. Moo Deng's
+    earliest signal was a Thai post at 4.6M views, seven to eleven days before the English
+    wave.</li>
+    <li><strong>Do not reuse the old cut-off.</strong> The 0.42 line was tuned for word counting.
+    Sentence-meaning scores sit on a different scale, where unrelated sentences routinely clear
+    0.42. Leaving the number would merge nearly everything into one story.</li>
+    <li><strong>Ignore the words that are always there.</strong> One story swallowed 39 unrelated
+    posts because they all mentioned <code>$SOL</code>. A list of 45 such words already exists in
+    the codebase, imported by three other modules and by nothing in the grouping path. One import
+    line — the highest value per line of code in the repository.</li>
+    <li><strong>Weight words by how new they are, not how rare.</strong> The standard technique
+    punishes any word that suddenly appears everywhere, which is exactly what a brand-new ticker
+    does at the moment it matters. The right measure is how many of the last fourteen days a word
+    has been common: <code>$SOL</code> every day, so it counts for nothing; yesterday's ticker
+    counts for almost everything. <strong>That history only accrues forward — if the daily table
+    is not being written today, this feature does not exist in November.</strong></li>
+  </ol>
+
+  <div class="grp-shout grp-amber">
+    <div class="grp-lb">A related bug worth naming here</div>
+    <p>Quotes — someone reposting with their own commentary — is the clearest reproduction signal
+    we have, and the one the product rests on.</p>
+    <p>The TikTok reader hardcodes <code>quotes = 0</code>, because TikTok has no quote feature.
+    So for every TikTok post the core replication signal reads as an honest zero, and nothing
+    objects. Cross-platform copying is currently invisible in one direction.</p>
+  </div>
+
+  <p>One cheap experiment should run first: a column already exists that records which pass made
+  each match, and it is empty on every row. Fixing that one write answers which pass earns its
+  keep. It is an afternoon.</p>
+
+  <p>Then rules first, a model later. Once the fingerprint tier runs and the meaning tier sits
+  behind a calibrated line, the way to improve it is three hours of hand-labelling — three hundred
+  pairs, "same real-world moment, yes or no" — and fitting a small model to the six match signals
+  in place of hand-set weights. No research, no new service: fingerprints and meaning vectors are
+  both columns in the Postgres database that already runs.</p>
+
+  <h3>What the user sees when this works</h3>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="grp-card">
+      <div class="grp-thumb"><div class="grp-tag">14 posts · 2 platforms</div></div>
+      <div class="grp-cbody">
+        <div class="grp-ctitle">Harbor Last Horn</div>
+        <p class="grp-two">A retiring ferry captain blew his horn one last time, and every boat in
+        the harbour blew back.</p>
+        <div class="grp-meta">
+          <span class="grp-chip"><b>2.4M</b> views on the original</span>
+          <span class="grp-chip"><b>4h</b> old</span>
+          <span class="grp-chip"><b>11</b> separate authors</span>
+          <span class="grp-chip">X · TikTok</span>
+          <span class="grp-chip">$HORN <b>$1.2M</b></span>
+        </div>
+        <div class="grp-src">
+          <div class="grp-srcl">The posts behind it</div>
+          <div class="grp-srcrow"><div class="grp-av a3"></div><div class="grp-hand">@nordkyst_ferge · X<em>the original · 4h ago</em></div><div class="grp-num">2.4M</div></div>
+          <div class="grp-srcrow"><div class="grp-av a4"></div><div class="grp-hand">@harbourclips · TikTok<em>re-cut · 3h ago</em></div><div class="grp-num">890K</div></div>
+          <div class="grp-srcrow"><div class="grp-av a2"></div><div class="grp-hand">@saltvann · TikTok<em>his own boat · 2h ago</em></div><div class="grp-num">412K</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="cap">Every number on this card would still be true if Insidor did not exist: views,
+    age, author count, platforms, market cap. Nothing about how those posts were joined, how
+    confident we are, or what was filtered out ever appears on screen. “11 separate authors” is a
+    fact about the world. It is also the entire reason the story is here.</p>
+  </div>
+
+</section>

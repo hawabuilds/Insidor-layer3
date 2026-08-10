@@ -1,0 +1,558 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document supplies
+   the same rules from the shell, so the build script strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+a{color:#3DE0FF;text-decoration:none;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+.wcl{
+  --bg0:#060607; --bg1:#0C0C0E; --bg2:#131316; --bg3:#1A1A1E; --bg4:#222228;
+  --ln:#212127; --ln2:#2E2E36;
+  --ink:#F4F5F7; --muted:#8A8A93; --dim:#5A5A62;
+  --ion:#3DE0FF; --lime:#9BF03C; --red:#FF5C6E; --amber:#FFB84D;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --body:"General Sans",-apple-system,system-ui,sans-serif;
+  --head:"Clash Display",-apple-system,system-ui,sans-serif;
+  font-family:var(--body); color:var(--ink);
+}
+.wcl *{box-sizing:border-box}
+.wcl-m{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* ---------- panels ---------- */
+.wcl-panel{background:var(--bg1); border:1px solid var(--ln); border-radius:10px; overflow:hidden; margin:8px 0 0}
+.wcl-phdr{display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:10px 16px; background:var(--bg2); border-bottom:1px solid var(--ln)}
+.wcl-phdr .l{font-size:9.5px; text-transform:uppercase; letter-spacing:.12em; color:var(--dim)}
+.wcl-phdr .r{font-family:var(--mono); font-size:10.5px; color:var(--dim); letter-spacing:.05em}
+.wcl-pbody{padding:20px 22px}
+
+/* ---------- the tree ---------- */
+.wcl-tree{
+  background:var(--bg1); border:1px solid var(--ln); border-radius:10px; overflow:hidden;
+}
+.wcl-tree .rows{padding:16px 0 18px}
+.wcl-row{
+  display:grid; grid-template-columns:262px 18px 1fr; align-items:baseline;
+  padding:1.5px 20px; column-gap:0;
+}
+.wcl-row .t{
+  font-family:var(--mono); font-size:12.2px; line-height:1.72; white-space:pre;
+  color:var(--muted); letter-spacing:-.01em;
+}
+.wcl-row .s{font-family:var(--mono); font-size:10px; color:var(--ion); line-height:1.72}
+.wcl-row .e{font-size:12.6px; line-height:1.72; color:var(--dim)}
+.wcl-row.pkg .t{color:var(--ink); font-weight:600}
+.wcl-row.pkg .e{color:var(--muted)}
+.wcl-row.hot{background:rgba(61,224,255,.055)}
+.wcl-row.hot .t{color:var(--ion)}
+.wcl-row.hot .e{color:#A9AAB2}
+.wcl-row.gap{height:9px; padding:0}
+.wcl-row.gap .t{line-height:9px}
+.wcl-row .e b{color:var(--ink); font-weight:600}
+.wcl-row .e em{font-style:normal; color:var(--amber)}
+
+/* ---------- dependency rule ---------- */
+.wcl-dep{display:grid; grid-template-columns:1fr; gap:0; margin-top:2px}
+.wcl-dr{display:grid; grid-template-columns:112px 26px 1fr 200px; align-items:center;
+  gap:0; padding:8px 0; border-bottom:1px solid var(--ln)}
+.wcl-dr:last-child{border-bottom:0}
+.wcl-dr .from{font-family:var(--mono); font-size:12.5px; color:var(--ink); font-weight:500}
+.wcl-dr .ar{font-family:var(--mono); font-size:12px; color:var(--dim); text-align:center}
+.wcl-dr .to{display:flex; flex-wrap:wrap; gap:6px}
+.wcl-dr .never{font-family:var(--mono); font-size:10.5px; color:var(--red); text-align:right; letter-spacing:.01em}
+.wcl-chip{font-family:var(--mono); font-size:11px; padding:2.5px 8px; border-radius:5px;
+  background:var(--bg3); border:1px solid var(--ln2); color:var(--muted)}
+.wcl-chip.none{background:transparent; border-style:dashed; color:var(--dim)}
+.wcl-chip.all{background:rgba(155,240,60,.10); border-color:rgba(155,240,60,.32); color:var(--lime)}
+.wcl-chip.one{background:rgba(61,224,255,.10); border-color:rgba(61,224,255,.34); color:var(--ion)}
+
+/* ---------- three reasons ---------- */
+.wcl-why{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px}
+.wcl-why .c{background:var(--bg2); border:1px solid var(--ln); border-radius:9px; padding:14px 15px}
+.wcl-why .c .k{font-family:var(--mono); font-size:11px; color:var(--red); margin-bottom:7px; letter-spacing:.01em}
+.wcl-why .c p{margin:0; font-size:13px; line-height:1.55; color:var(--muted); max-width:none}
+.wcl-why .c p b{color:var(--ink)}
+
+/* ---------- enforcement layers ---------- */
+.wcl-lay{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px}
+.wcl-lay .c{background:var(--bg2); border:1px solid var(--ln); border-radius:9px; padding:14px 15px}
+.wcl-lay .c .n{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--dim); margin-bottom:8px}
+.wcl-lay .c .h{font-family:var(--mono); font-size:12.5px; color:var(--ion); margin-bottom:8px; line-height:1.35}
+.wcl-lay .c p{margin:0; font-size:12.5px; line-height:1.55; color:var(--muted); max-width:none}
+.wcl-lay .c p b{color:var(--ink)}
+
+.wcl-ci{margin-top:14px; background:#08080A; border:1px solid var(--ln2); border-radius:9px;
+  padding:14px 16px; font-family:var(--mono); font-size:12px; line-height:1.85; color:var(--muted)}
+.wcl-ci .p{color:var(--dim)}
+.wcl-ci .g{color:var(--lime)}
+.wcl-ci .c{color:var(--ion)}
+.wcl-ci .note{color:var(--dim); font-size:11px}
+
+/* ---------- the 11-second test ---------- */
+.wcl-clock{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:4px;
+  border:1px solid var(--ln); border-radius:10px; overflow:hidden; background:var(--bg1)}
+.wcl-clock .st{padding:16px 16px 18px; border-right:1px solid var(--ln)}
+.wcl-clock .st:last-child{border-right:0; background:rgba(155,240,60,.05)}
+.wcl-clock .st .t{font-family:var(--mono); font-size:23px; color:var(--ion); letter-spacing:-.02em; margin-bottom:9px}
+.wcl-clock .st:last-child .t{color:var(--lime)}
+.wcl-clock .st .h{font-size:13.5px; font-weight:600; color:var(--ink); margin-bottom:6px; line-height:1.35}
+.wcl-clock .st p{margin:0; font-size:12.4px; line-height:1.55; color:var(--dim); max-width:none}
+.wcl-clock .st code{font-family:var(--mono); font-size:11.5px; background:var(--bg3); color:var(--ion);
+  padding:1px 5px; border-radius:4px}
+
+/* ---------- then vs now ---------- */
+.wcl-vs{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px}
+.wcl-vs .col{border:1px solid var(--ln); border-radius:10px; overflow:hidden; background:var(--bg1)}
+.wcl-vs .col.bad{border-color:rgba(255,92,110,.3)}
+.wcl-vs .col.good{border-color:rgba(155,240,60,.28)}
+.wcl-vs .col .hd{padding:10px 15px; background:var(--bg2); border-bottom:1px solid var(--ln);
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim)}
+.wcl-vs .col.bad .hd{color:var(--red)}
+.wcl-vs .col.good .hd{color:var(--lime)}
+.wcl-vs .col .bd{padding:15px 16px 17px}
+.wcl-vs .col .bd p{margin:0 0 10px; font-size:13px; line-height:1.58; color:var(--muted); max-width:none}
+.wcl-vs .col .bd p:last-child{margin-bottom:0}
+.wcl-vs .col .bd b{color:var(--ink)}
+.wcl-path{font-family:var(--mono); font-size:11.5px; line-height:1.75; color:var(--muted);
+  background:#08080A; border:1px solid var(--ln); border-radius:7px; padding:10px 12px; margin:0 0 11px;
+  white-space:pre-wrap; word-break:break-word}
+.wcl-path .hi{color:var(--red)}
+.wcl-path .ok{color:var(--lime)}
+.wcl-path .d{color:var(--dim)}
+
+/* ---------- callout ---------- */
+.wcl-callout{margin-top:26px; background:linear-gradient(180deg,rgba(61,224,255,.055),rgba(61,224,255,0) 70%),var(--bg1);
+  border:1px solid rgba(61,224,255,.3); border-radius:11px; padding:20px 24px 22px}
+.wcl-callout .k{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ion); margin-bottom:9px}
+.wcl-callout h3{margin:0 0 10px; font-family:var(--head); font-size:21px; font-weight:600; letter-spacing:-.01em}
+.wcl-callout p{margin:0 0 10px; color:var(--muted); font-size:14px; max-width:none}
+.wcl-callout p:last-child{margin-bottom:0}
+.wcl-callout b{color:var(--ink)}
+</style>
+
+<section class="sec wcl">
+  <h2>12. Where the code lives</h2>
+
+  <p class="lede">You told us you could not find the logic in the build we have. That is not a
+  documentation problem, and no README fixes it. The folder names have to answer the question on
+  their own — so the shape below is designed around one measurable test: how long it takes a person
+  who has never seen this repository to open the right file.</p>
+
+  <p>The current build fails that test for a specific reason. The place where a post is judged
+  worth coining is <code>worker/adapters/anthropic/meme-score.js</code> — a file inside a folder
+  named after a vendor. It reaches back into <code>worker/score/lib/meme-gate</code> and
+  <code>worker/score/lib/nameability</code>, and it writes the number <code>0.4</code> out as a
+  final verdict at four separate line numbers. So the product decision lives in the API-client
+  folder, the thresholds live somewhere else again, and there is nowhere you could have looked
+  that would have been wrong to look. Elsewhere in the same tree, a vendor file and a policy file
+  import each other in a circle, and somebody has already hidden one of those imports inside a
+  function to stop Node complaining. That is not sloppiness. It is the absence of a boundary.</p>
+
+  <h3>Three layers, and only one of them thinks</h3>
+
+  <p>The replacement has exactly three layers, and the whole design is one sentence:
+  <strong>logic never knows who it is talking to, and vendors never know what the logic decides.</strong></p>
+
+  <p><strong>Adapters sit at the edge.</strong> Every outside thing — X, TikTok, Reddit, the Solana
+  chain, pump.fun, Dexscreener, Jupiter, Rugcheck, Claude, the embedding model — gets exactly one
+  folder, and that folder's only job is translation: take whatever that service hands back and
+  restate it in our words. An adapter holds no thresholds, makes no product decisions, and contains
+  no SQL. Adding a platform means writing one folder and one line in a registry, instead of forking
+  the pipeline the way TikTok was forked into a second 340-line copy today.</p>
+
+  <p><strong>The core holds all the logic, and is pure.</strong> No network, no clock, no database,
+  no random numbers, no npm dependencies, and — this is the one that matters most — no platform
+  names anywhere in it. Not <em>views</em>, not <em>retweets</em>, not <em>playCount</em>. Those are
+  X's words and TikTok's words, and the moment they appear in the core, every future platform has to
+  pretend it has them. That is precisely how TikTok's share count ended up in a column called
+  <em>retweets</em> and how quotes — the reproduction signal the whole product rests on — became an
+  honest-looking zero. Pure also means the core is the only part of the system you can replay: hand
+  it yesterday's recorded inputs and it produces yesterday's answer, every time, with no key and no
+  internet.</p>
+
+  <p><strong>The record sits underneath.</strong> One database, one folder that is allowed to contain
+  SQL, and every decision the core made written down as it happens. And one more wall past that: the
+  app reads a separate, deliberately duplicated wire vocabulary that has no internal field in it, so
+  it is not that the app <em>should not</em> show a score — it structurally cannot obtain one.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+  <svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" role="img"
+       aria-label="Three-layer architecture: adapters at the edge, a pure core, the record underneath, and the wire vocabulary the app reads.">
+    <defs>
+      <marker id="wclArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3DE0FF"/>
+      </marker>
+      <style>
+        .wt{font-family:"Clash Display",system-ui,sans-serif;font-size:15px;font-weight:600;fill:#F4F5F7}
+        .ws{font-family:"General Sans",system-ui,sans-serif;font-size:11.5px;fill:#8A8A93}
+        .wl{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.14em;fill:#5A5A62}
+        .wc{font-family:"JetBrains Mono",monospace;font-size:10px;fill:#8A8A93}
+        .wn{font-family:"JetBrains Mono",monospace;font-size:9.5px;fill:#5A5A62}
+        .wsg{font-family:"Clash Display",system-ui,sans-serif;font-size:12px;font-weight:600;fill:#F4F5F7}
+        .wsb{font-family:"General Sans",system-ui,sans-serif;font-size:9.5px;fill:#5A5A62}
+      </style>
+    </defs>
+
+    <!-- contracts rail -->
+    <rect x="8" y="24" width="112" height="596" rx="9" fill="#131316" stroke="#2E2E36"/>
+    <text transform="rotate(-90 50 322)" x="50" y="322" text-anchor="middle"
+          font-family="Clash Display,system-ui" font-size="15" font-weight="600" fill="#3DE0FF">CONTRACTS</text>
+    <text transform="rotate(-90 72 322)" x="72" y="322" text-anchor="middle" class="wn">the shared words: Item · Observation · Decision</text>
+    <text transform="rotate(-90 90 322)" x="90" y="322" text-anchor="middle" class="wn">every threshold · the shape of every adapter</text>
+
+    <!-- ADAPTERS band -->
+    <rect x="140" y="24" width="852" height="126" rx="10" fill="#0C0C0E" stroke="#212127"/>
+    <text x="158" y="48" class="wt">ADAPTERS <tspan class="wl">— THE EDGE</tspan></text>
+    <text x="158" y="68" class="ws">One folder per outside thing. Its only job is to say what came back, in our words.</text>
+    <g>
+      <rect x="158" y="82" width="24" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="170" y="97" text-anchor="middle" class="wc">X</text>
+      <rect x="192" y="82" width="54" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="219" y="97" text-anchor="middle" class="wc">TikTok</text>
+      <rect x="256" y="82" width="54" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="283" y="97" text-anchor="middle" class="wc">Reddit</text>
+      <rect x="320" y="82" width="54" height="22" rx="5" fill="#1A1A1E" stroke="rgba(61,224,255,.4)"/><text x="347" y="97" text-anchor="middle" class="wc" fill="#3DE0FF">Replay</text>
+      <rect x="384" y="82" width="66" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="417" y="97" text-anchor="middle" class="wc">pump.fun</text>
+      <rect x="460" y="82" width="60" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="490" y="97" text-anchor="middle" class="wc">Raydium</text>
+      <rect x="530" y="82" width="84" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="572" y="97" text-anchor="middle" class="wc">Dexscreener</text>
+      <rect x="624" y="82" width="60" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="654" y="97" text-anchor="middle" class="wc">Jupiter</text>
+      <rect x="694" y="82" width="66" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="727" y="97" text-anchor="middle" class="wc">Rugcheck</text>
+      <rect x="770" y="82" width="54" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="797" y="97" text-anchor="middle" class="wc">Claude</text>
+      <rect x="834" y="82" width="54" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="861" y="97" text-anchor="middle" class="wc">Gemini</text>
+    </g>
+    <text x="158" y="128" class="wn">no thresholds · no product decisions · no SQL · cannot import the core — the package manager refuses</text>
+    <text x="158" y="142" class="wn">adding a platform = one folder + one line in registry.ts</text>
+
+    <!-- arrow down -->
+    <line x1="360" y1="152" x2="360" y2="192" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#wclArr)"/>
+    <text x="376" y="176" class="wn" fill="#8A8A93">observations, already translated into our vocabulary</text>
+
+    <!-- CORE band -->
+    <rect x="140" y="196" width="852" height="170" rx="10" fill="#0C0C0E" stroke="rgba(61,224,255,.34)"/>
+    <text x="158" y="220" class="wt">CORE <tspan class="wl">— ALL THE LOGIC, PURE</tspan></text>
+    <text x="158" y="240" class="ws">The only place in the repository that makes a judgement. Seven verbs, seven folders.</text>
+    <g>
+      <rect x="158" y="254" width="108" height="54" rx="7" fill="#131316" stroke="#2E2E36"/>
+      <text x="212" y="274" text-anchor="middle" class="wsg">ADMIT</text><text x="212" y="291" text-anchor="middle" class="wsb">worth paying to watch?</text>
+      <rect x="278" y="254" width="108" height="54" rx="7" fill="#131316" stroke="#2E2E36"/>
+      <text x="332" y="274" text-anchor="middle" class="wsg">TRACK</text><text x="332" y="291" text-anchor="middle" class="wsb">when do we look again?</text>
+      <rect x="398" y="254" width="108" height="54" rx="7" fill="#131316" stroke="#2E2E36"/>
+      <text x="452" y="274" text-anchor="middle" class="wsg">DETECT</text><text x="452" y="291" text-anchor="middle" class="wsb">is it accelerating?</text>
+      <rect x="518" y="254" width="108" height="54" rx="7" fill="#131316" stroke="#2E2E36"/>
+      <text x="572" y="274" text-anchor="middle" class="wsg">GROUP</text><text x="572" y="291" text-anchor="middle" class="wsb">which story is this?</text>
+      <rect x="638" y="254" width="108" height="54" rx="7" fill="#131316" stroke="rgba(61,224,255,.55)"/>
+      <text x="692" y="274" text-anchor="middle" class="wsg" fill="#3DE0FF">QUALIFY</text><text x="692" y="291" text-anchor="middle" class="wsb" fill="#8A8A93">is it coinable?</text>
+      <rect x="758" y="254" width="108" height="54" rx="7" fill="#131316" stroke="#2E2E36"/>
+      <text x="812" y="274" text-anchor="middle" class="wsg">RESOLVE</text><text x="812" y="291" text-anchor="middle" class="wsb">which coin is real?</text>
+      <rect x="878" y="254" width="108" height="54" rx="7" fill="#131316" stroke="#2E2E36"/>
+      <text x="932" y="274" text-anchor="middle" class="wsg">RANK</text><text x="932" y="291" text-anchor="middle" class="wsb">what goes on top?</text>
+    </g>
+    <rect x="158" y="318" width="828" height="30" rx="6" fill="#131316" stroke="#212127"/>
+    <text x="170" y="337" class="wc" fill="#3DE0FF">features/</text>
+    <text x="238" y="337" class="wc">one set of builders — the live system and the model trainer call the exact same function</text>
+    <text x="158" y="360" class="wn">no network · no clock · no database · no randomness · no npm dependencies · no platform words, ever</text>
+
+    <!-- arrow down -->
+    <line x1="360" y1="368" x2="360" y2="408" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#wclArr)"/>
+    <text x="376" y="392" class="wn" fill="#8A8A93">every decision, written down as it is made — inputs, verdict, reason, cost</text>
+
+    <!-- STORE band -->
+    <rect x="140" y="412" width="852" height="96" rx="10" fill="#0C0C0E" stroke="#212127"/>
+    <text x="158" y="436" class="wt">STORE <tspan class="wl">— THE RECORD</tspan></text>
+    <text x="158" y="456" class="ws">The only place SQL exists. One Postgres, three schemas, numbered forward-only migrations.</text>
+    <g>
+      <rect x="158" y="468" width="48" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="182" y="483" text-anchor="middle" class="wc">items</text>
+      <rect x="216" y="468" width="90" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="261" y="483" text-anchor="middle" class="wc">observations</text>
+      <rect x="316" y="468" width="60" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="346" y="483" text-anchor="middle" class="wc">stories</text>
+      <rect x="386" y="468" width="54" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="413" y="483" text-anchor="middle" class="wc">assets</text>
+      <rect x="450" y="468" width="72" height="22" rx="5" fill="#1A1A1E" stroke="rgba(155,240,60,.4)"/><text x="486" y="483" text-anchor="middle" class="wc" fill="#9BF03C">decisions</text>
+      <rect x="532" y="468" width="54" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="559" y="483" text-anchor="middle" class="wc">labels</text>
+      <rect x="596" y="468" width="66" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="629" y="483" text-anchor="middle" class="wc">carriers</text>
+      <rect x="672" y="468" width="66" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="705" y="483" text-anchor="middle" class="wc">policies</text>
+      <rect x="748" y="468" width="78" height="22" rx="5" fill="#1A1A1E" stroke="#2E2E36"/><text x="787" y="483" text-anchor="middle" class="wc">stage_runs</text>
+    </g>
+
+    <!-- arrow down -->
+    <line x1="360" y1="510" x2="360" y2="546" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#wclArr)"/>
+    <text x="376" y="532" class="wn" fill="#8A8A93">one translation module turns our words into the public ones</text>
+
+    <!-- VIEW / APP band -->
+    <rect x="140" y="550" width="852" height="70" rx="10" fill="#0C0C0E" stroke="#212127"/>
+    <text x="158" y="574" class="wt">VIEW + APP <tspan class="wl">— WHAT THE OUTSIDE WORLD SEES</tspan></text>
+    <text x="158" y="594" class="ws">A separate wire vocabulary with no internal field in it. The app imports that and nothing else.</text>
+    <text x="158" y="610" class="wn" fill="#9BF03C">the app cannot render a score because it has no way to obtain one</text>
+  </svg>
+  </div>
+  <p class="cap">Reading down: the outside world comes in on the left of the top band, gets restated
+  in our vocabulary, is judged once in the middle, is written down, and only then is translated back
+  out. The rail down the left is the set of words all four layers agree on. Nothing skips a band.</p>
+
+  <h3>The whole tree, and what every folder is for</h3>
+
+  <p>Nine packages. There is no <code>utils/</code>, no <code>helpers/</code>, no
+  <code>types.ts</code> — a junk drawer with a respectable name is still a junk drawer, and within a
+  year nobody can safely delete anything from it. Two naming rules do almost all of the work. First,
+  <strong>every stage folder contains a file literally called <code>stage.ts</code></strong>, so
+  "where is the admit logic" has a mechanical answer requiring no search and no memory. Second,
+  <strong>every number in the system lives in one file</strong>, <code>contracts/policy.ts</code>,
+  and a bare number typed anywhere in the core fails the build. That one is a direct response to the
+  finding that made the last six months unauditable: every threshold in the current system is a
+  number somebody typed, somewhere, and there is no list of them.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+  <div class="wcl-tree">
+    <div class="wcl-phdr"><span class="l">The repository, top to bottom</span><span class="r">9 packages · ★ = the ones that carry the rule</span></div>
+    <div class="rows">
+      <div class="wcl-row pkg"><span class="t">insidor/</span><span class="s"></span><span class="e">One repository. The name of a folder is the answer to a question.</span></div>
+      <div class="wcl-row"><span class="t">├─ README.md</span><span class="s"></span><span class="e">Forty lines maximum, and it is a lookup table: question → directory.</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg hot"><span class="t">├─ contracts/</span><span class="s">★</span><span class="e"><b>The words everyone must use.</b> Definitions only — no working parts.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ vocabulary.ts</span><span class="s"></span><span class="e">The three nouns: an Item, an Observation of it, a Decision about it.</span></div>
+      <div class="wcl-row hot"><span class="t">│   ├─ policy.ts</span><span class="s">★</span><span class="e"><b>Every threshold in the system,</b> in one frozen object. Nowhere else.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ reasons.ts</span><span class="s"></span><span class="e">The closed list of reasons anything was rejected — about sixty of them.</span></div>
+      <div class="wcl-row"><span class="t">│   └─ ports/</span><span class="s"></span><span class="e">The shape an adapter has to fill: platform, venue, judge, store.</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg hot"><span class="t">├─ core/</span><span class="s">★</span><span class="e"><b>ALL THE LOGIC.</b> Nothing else in the repository makes a judgement.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ admit/stage.ts</span><span class="s"></span><span class="e">Is this post worth spending money to keep watching?</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ track/stage.ts</span><span class="s"></span><span class="e">When do we look at it again — in ninety seconds, or in an hour?</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ detect/stage.ts</span><span class="s"></span><span class="e">Is it speeding up compared with how it was behaving an hour ago?</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ group/stage.ts</span><span class="s"></span><span class="e">Is this the same story as something we are already watching?</span></div>
+      <div class="wcl-row hot"><span class="t">│   ├─ qualify/stage.ts</span><span class="s">★</span><span class="e"><b>Is there a nameable, coinable thing here?</b> ← the file in the test below.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ resolve/stage.ts</span><span class="s"></span><span class="e">Of the 306 coins named for this meme, which one is the real one?</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ rank/stage.ts</span><span class="s"></span><span class="e">What goes on top of the board — and does it stay still while you read it?</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ kinetics/</span><span class="s"></span><span class="e">Speed and acceleration maths, shared by every stage above.</span></div>
+      <div class="wcl-row hot"><span class="t">│   ├─ features/</span><span class="s">★</span><span class="e"><b>One set of feature builders.</b> Live system and trainer call the same code.</span></div>
+      <div class="wcl-row"><span class="t">│   └─ decide.ts</span><span class="s"></span><span class="e">The Decision object every stage has to return. This is how we learn.</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg hot"><span class="t">├─ adapters/</span><span class="s">★</span><span class="e"><b>ALL vendor code.</b> No thresholds, no SQL, and it cannot see the core.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ platform/x/</span><span class="s"></span><span class="e">X: search it, read it, restate what came back in our words.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ platform/tiktok/</span><span class="s"></span><span class="e">TikTok. Where plays became "views" and shares became "retweets".</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ platform/reddit/</span><span class="s"></span><span class="e">Reddit. Same six files as the other two. That is the point.</span></div>
+      <div class="wcl-row hot"><span class="t">│   ├─ platform/replay/</span><span class="s">★</span><span class="e">A "platform" backed by recorded files. Ships day one, costs nothing.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ venue/solana/</span><span class="s"></span><span class="e">The chain: pump.fun and the exchanges coins graduate onto.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ market/</span><span class="s"></span><span class="e">Dexscreener, Jupiter, Rugcheck — price, liquidity, and safety checks.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ judge/anthropic/</span><span class="s"></span><span class="e">Claude. The prompts live here as .txt files, never as inline strings.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ meter/</span><span class="s"></span><span class="e">One cost wrapper every paid call passes through. Nothing bills silently.</span></div>
+      <div class="wcl-row"><span class="t">│   └─ tape.ts</span><span class="s"></span><span class="e">Record a vendor's answer once; replay it forever in tests.</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg hot"><span class="t">├─ store/</span><span class="s">★</span><span class="e"><b>THE ONLY PLACE SQL EXISTS.</b> One database, three schemas.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ migrations/</span><span class="s"></span><span class="e">Numbered and forward-only. 0001 through 0014. Never edited in place.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ repo/</span><span class="s"></span><span class="e">One small file per table. Nothing else in the repo writes rows.</span></div>
+      <div class="wcl-row hot"><span class="t">│   └─ projections/</span><span class="s">★</span><span class="e">The single module allowed to see both vocabularies, and translate.</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg hot"><span class="t">├─ view/</span><span class="s">★</span><span class="e"><b>The public wire vocabulary.</b> Duplicated on purpose — the duplication is the wall.</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg"><span class="t">├─ services/</span><span class="s"></span><span class="e">The running processes. Thin wiring: adapters → core → store. No logic.</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ runner/</span><span class="s"></span><span class="e">Six supervised loops in one process. About forty lines each. → Railway</span></div>
+      <div class="wcl-row"><span class="t">│   ├─ chainwatch/</span><span class="s"></span><span class="e">Watches new mints and owns a cursor that survives a restart. → Railway</span></div>
+      <div class="wcl-row"><span class="t">│   └─ watchdog/</span><span class="s"></span><span class="e">Watches the other two. Deliberately on a different vendor. → Fly.io</span></div>
+      <div class="wcl-row gap"><span class="t"> </span><span class="s"></span><span class="e"></span></div>
+
+      <div class="wcl-row pkg"><span class="t">├─ app/</span><span class="s"></span><span class="e">The website. Imports <b>view/</b> and nothing else of ours. → Vercel</span></div>
+      <div class="wcl-row pkg"><span class="t">├─ ml/train/</span><span class="s"></span><span class="e">The only Python in the repository. Runs weekly, offline, never in the app.</span></div>
+      <div class="wcl-row pkg"><span class="t">├─ eval/</span><span class="s"></span><span class="e">Replays and blind tests. Forbidden from touching the network at all.</span></div>
+      <div class="wcl-row pkg"><span class="t">├─ tools/</span><span class="s"></span><span class="e">The six checks below. Plain scripts, no framework, run in about a second.</span></div>
+      <div class="wcl-row pkg"><span class="t">├─ tapes/</span><span class="s"></span><span class="e">Recorded vendor responses, committed to the repo. Roughly 40 MB.</span></div>
+      <div class="wcl-row pkg hot"><span class="t">└─ legacy/</span><span class="s">★</span><span class="e"><b>The current build, moved here whole and frozen.</b> Bug fixes only. Still running.</span></div>
+    </div>
+  </div>
+  </div>
+  <p class="cap">Nothing here is a category ("services", "components", "lib"). Every name is either
+  a layer or a verb. The seven verbs in core/ are the seven questions the product asks, in the order
+  it asks them.</p>
+
+  <h3>The rule, and the fact that a machine checks it</h3>
+
+  <p>A layered diagram is a wish unless something enforces it, and diagrams like this one have been
+  drawn before and then quietly violated. So the rule is written as a list of who may import whom,
+  and six separate mechanisms refuse a build that breaks it.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+  <div class="wcl-panel">
+    <div class="wcl-phdr"><span class="l">Who is allowed to import whom</span><span class="r">read once — the shape is the whole design</span></div>
+    <div class="wcl-pbody">
+      <div class="wcl-dep">
+        <div class="wcl-dr"><span class="from">contracts</span><span class="ar">→</span><span class="to"><span class="wcl-chip none">nothing at all</span></span><span class="never"></span></div>
+        <div class="wcl-dr"><span class="from">core</span><span class="ar">→</span><span class="to"><span class="wcl-chip one">contracts</span></span><span class="never">never a vendor, never a database</span></div>
+        <div class="wcl-dr"><span class="from">adapters</span><span class="ar">→</span><span class="to"><span class="wcl-chip one">contracts</span></span><span class="never">never core</span></div>
+        <div class="wcl-dr"><span class="from">store</span><span class="ar">→</span><span class="to"><span class="wcl-chip one">contracts</span><span class="wcl-chip">view</span></span><span class="never">never core, never adapters</span></div>
+        <div class="wcl-dr"><span class="from">view</span><span class="ar">→</span><span class="to"><span class="wcl-chip none">nothing at all</span></span><span class="never"></span></div>
+        <div class="wcl-dr"><span class="from">services</span><span class="ar">→</span><span class="to"><span class="wcl-chip all">everything — this is the only place things get wired together</span></span><span class="never"></span></div>
+        <div class="wcl-dr"><span class="from">app</span><span class="ar">→</span><span class="to"><span class="wcl-chip one">view</span></span><span class="never">never core / adapters / store</span></div>
+        <div class="wcl-dr"><span class="from">eval</span><span class="ar">→</span><span class="to"><span class="wcl-chip">contracts</span><span class="wcl-chip">core</span><span class="wcl-chip">store</span><span class="wcl-chip">view</span></span><span class="never">never adapters</span></div>
+        <div class="wcl-dr"><span class="from">watchdog</span><span class="ar">→</span><span class="to"><span class="wcl-chip">contracts</span><span class="wcl-chip">store</span></span><span class="never">never another service</span></div>
+      </div>
+
+      <div class="wcl-why">
+        <div class="c">
+          <div class="k">app must never import core</div>
+          <p>The product rule is that our reasoning is never on screen. <b>Six surfaces leaked scoring in the last build</b>, and three of them were reasonable-looking UI written against data the browser happened to already have. If the app cannot reach the scoring code, it cannot render a score.</p>
+        </div>
+        <div class="c">
+          <div class="k">eval must never import adapters</div>
+          <p>A replay that can reach the internet can look up what happened afterwards. <b>That is exactly how the last validation harness marked its own homework.</b> Removing the ability is cheaper and more reliable than remembering not to.</p>
+        </div>
+        <div class="c">
+          <div class="k">watchdog must stand alone</div>
+          <p>The process that tells you the system died must not share code with the system. <b>It runs on a different vendor</b> for the same reason: an observer that shares a failure with the thing it observes tells you nothing at the moment you need it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <p class="cap">Nine lines. If a new person reads only one thing about this codebase, it should be
+  this table — it says both what the pieces are and what they are forbidden to know.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+  <div class="wcl-panel">
+    <div class="wcl-phdr"><span class="l">How it is enforced — four layers, cheapest first</span><span class="r">all six checks run in under a second</span></div>
+    <div class="wcl-pbody">
+      <div class="wcl-lay">
+        <div class="c">
+          <div class="n">Layer 1</div>
+          <div class="h">the package manager</div>
+          <p>The adapters package simply does not list the core as a dependency, so the import fails on the developer's own laptop. <b>This was measured:</b> under npm it silently worked anyway. Under pnpm it dies. That is why the stack says pnpm.</p>
+        </div>
+        <div class="c">
+          <div class="n">Layer 2</div>
+          <div class="h">the type checker</div>
+          <p>One line of config stops someone routing around the rule with a relative path like <b>../../core</b>. The compiler you already run reports it as an error, with a file and a line number.</p>
+        </div>
+        <div class="c">
+          <div class="n">Layer 3</div>
+          <div class="h">the import map</div>
+          <p>A tool walks every import in the repository against an allow-list — not a list of forbidden pairs, which always misses one, but a list of what each package <b>may</b> reach. It also fails on circles, the exact defect in the build today.</p>
+        </div>
+        <div class="c">
+          <div class="n">Layer 4</div>
+          <div class="h">the word check</div>
+          <p>A leak usually arrives as a <b>field name</b>, not an import. So a script fails the build on any platform, chain or vendor word inside core or contracts — <b>views</b>, <b>retweet</b>, <b>playCount</b>, <b>pump.fun</b>, <b>solana</b>, <b>claude</b>.</p>
+        </div>
+      </div>
+
+      <div class="wcl-ci">
+        <div><span class="p">$</span> <span class="c">pnpm check</span>&nbsp;&nbsp;<span class="note">— types → words → purity → numbers → python → boundaries</span></div>
+        <div><span class="p">$</span> <span class="c">pnpm test</span>&nbsp;&nbsp;<span class="note">— including a frozen set of past coins that must still resolve the same way</span></div>
+        <div><span class="p">$</span> <span class="c">pnpm graph &amp;&amp; git diff --exit-code docs/graph.svg</span></div>
+        <div class="note" style="margin-top:8px">&nbsp;&nbsp;&nbsp;The last line draws the picture at the top of this section from the actual code and fails if it
+        changed. <span class="g">A changed diagram in a pull request is a signal a non-engineer can read.</span></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <p class="cap">The greps stop accidents, not adversaries — which is the correct threat model for a
+  two-person team. The real guarantees are the three layers behind them.</p>
+
+  <h3>The test: how many seconds to the right file</h3>
+
+  <p>Here is the actual measure of whether any of this worked. A developer — or you, or a person
+  hired next year — wants to change how a post is judged worth making a coin out of. No README, no
+  search, no asking anybody.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+  <div class="wcl-clock">
+    <div class="st">
+      <div class="t">0s</div>
+      <div class="h">It is a judgement.</div>
+      <p>Judgements live in one place and that place is called <code>core/</code>. Adapters cannot make one; the store cannot make one; the app cannot see one.</p>
+    </div>
+    <div class="st">
+      <div class="t">3s</div>
+      <div class="h">The folders are the verbs.</div>
+      <p>admit · track · detect · group · <b style="color:#3DE0FF">qualify</b> · resolve · rank. "Is there a coinable thing here" is qualify. There is nowhere else it could be.</p>
+    </div>
+    <div class="st">
+      <div class="t">7s</div>
+      <div class="h">Every stage has a stage.ts.</div>
+      <p>Not <code>index.ts</code>, not <code>qualifier.ts</code>, not <code>helpers.ts</code>. The rule holds in all seven folders, so it needs no memory.</p>
+    </div>
+    <div class="st">
+      <div class="t">11s</div>
+      <div class="h">Open it.</div>
+      <p><code>core/qualify/stage.ts</code> — about 120 lines, no network calls, no numbers in it. The numbers it uses are named, and they are all in <code>contracts/policy.ts</code>.</p>
+    </div>
+  </div>
+  </div>
+  <p class="cap">Eleven seconds, three decisions, zero searches. The same walk finds every other
+  judgement in the system, because the tree has exactly one shape.</p>
+
+  <p>And two things follow that are worth more than the eleven seconds. Because the file has no
+  numbers in it, changing a threshold is a one-line edit in a file that lists every threshold in the
+  product side by side — you can see what else you are near. Because the file has no network calls in
+  it, you can run the change against every decision the system has already made and see what would
+  have changed, before shipping it. Neither is possible today.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+  <div class="wcl-vs">
+    <div class="col bad">
+      <div class="hd">The same question, in the build we have</div>
+      <div class="bd">
+        <div class="wcl-path"><span class="d">worker/</span>adapters/<span class="hi">anthropic</span>/meme-score.js   <span class="d">← a vendor folder</span>
+  ├─ requires <span class="d">worker/</span>score/lib/meme-gate
+  ├─ requires <span class="d">worker/</span>score/lib/nameability
+  └─ writes <span class="hi">0.4</span> as a final verdict <span class="d">at 4 line numbers</span></div>
+        <p>The product decision is inside the folder named after the model provider. The thresholds it
+        applies live in a third place. <b>Nothing in the folder names points here.</b></p>
+        <p>Meanwhile a vendor file and a policy file import each other in a circle, and one of those
+        imports has been hidden inside a function to keep Node from noticing.</p>
+      </div>
+    </div>
+    <div class="col good">
+      <div class="hd">The same question, after</div>
+      <div class="bd">
+        <div class="wcl-path"><span class="ok">core/qualify/stage.ts</span>
+  ├─ imports <span class="d">contracts</span>  <span class="d">← types and thresholds only</span>
+  ├─ no fetch · no clock · no database · no vendor
+  └─ every number named, defined in <span class="ok">contracts/policy.ts</span></div>
+        <p>The model's opinion arrives as an ordinary field, handed in by the service that called it.
+        <b>If it is missing, the stage abstains with a named reason</b> rather than guessing.</p>
+        <p>Which means the same file can be replayed over months of past decisions with no key and no
+        internet, and give the same answer every time.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <p class="cap">This is the difference the whole section is about. Not tidiness — findability, and
+  the ability to change one number and know what it does.</p>
+
+  <div class="wcl-callout">
+    <div class="k">Why this is worth the discipline</div>
+    <h3>The tree is the documentation, and it is the only documentation that cannot go stale.</h3>
+    <p>A README drifts from the code within weeks. Folder names cannot: the build fails if the code
+    stops matching them. <b>Adapters that import the core do not compile. Numbers typed into the core
+    do not compile. Platform words inside the core do not compile.</b> A person joining in a year
+    reads the tree, not a document, and the tree is true by construction.</p>
+    <p>None of this is extra work bolted onto the schedule. It is the same code, in different
+    folders, with six one-second checks in front of it — and it is the difference between "add
+    Reddit" being a folder and a registry line, versus what adding TikTok actually cost: a second
+    pipeline, a second set of parsing bugs, and a core signal quietly reading zero.</p>
+  </div>
+</section>

@@ -1,0 +1,460 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document
+   supplies the same rules from the shell head, so the build strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+.mock{margin:26px 0 6px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+/* ── 06. HOW WE FIND VIRAL POSTS ────────────────────────────────────── */
+.det-mock{
+  background:#0C0C0E; border:1px solid #212127; border-radius:12px;
+  padding:20px 18px 14px; margin:26px 0 10px;
+}
+.det-mock + .cap{ margin-top:0; }
+.det-mock svg{ width:100%; height:auto; display:block; }
+.det-mocktitle{
+  font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:10px; text-transform:uppercase; letter-spacing:.1em;
+  color:#5A5A62; margin:0 0 16px 2px;
+}
+.det-mocktitle b{ color:#8A8A93; font-weight:500; }
+
+.det-shout{
+  border:1px solid #212127; border-left:3px solid #3DE0FF; background:#0C0C0E;
+  border-radius:0 12px 12px 0; padding:20px 24px; margin:26px 0 28px;
+  max-width:96ch; break-inside:avoid; page-break-inside:avoid;
+}
+.det-shout .det-lb{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-size:10px;
+  letter-spacing:.13em; text-transform:uppercase; color:#3DE0FF; margin-bottom:10px;
+}
+.det-shout p{ margin:0; font-size:17px; line-height:1.5; color:#F4F5F7; max-width:none; }
+.det-shout p + p{ margin-top:10px; font-size:14.5px; color:#8A8A93; }
+
+.det-warn{ border-left-color:#FFB84D; }
+.det-warn .det-lb{ color:#FFB84D; }
+
+table.det-tbl{
+  width:100%; border-collapse:collapse; background:#0C0C0E;
+  border:1px solid #212127; border-radius:12px; overflow:hidden;
+  margin:22px 0 8px; break-inside:avoid; page-break-inside:avoid;
+}
+table.det-tbl th{
+  font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:#5A5A62;
+  font-weight:500; text-align:left; padding:11px 16px;
+  border-bottom:1px solid #2E2E36; background:#131316;
+}
+table.det-tbl td{
+  font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:12.5px; color:#8A8A93; line-height:1.5;
+  padding:12px 16px; border-bottom:1px solid #212127; vertical-align:top;
+}
+table.det-tbl tr:last-child td{ border-bottom:none; }
+table.det-tbl td.det-c1{ color:#F4F5F7; font-weight:500; width:23%; }
+table.det-tbl td.det-cw{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-variant-numeric:tabular-nums; font-size:11px; color:#3DE0FF;
+  width:16%; white-space:nowrap;
+}
+table.det-tbl td.det-cc{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-variant-numeric:tabular-nums; font-size:11px; color:#9BF03C;
+  width:14%; white-space:nowrap;
+}
+</style>
+
+<section class="sec">
+  <h2>06. How we find viral posts</h2>
+
+  <p class="lede">About half a billion posts go up on X every day. We can pay to look at roughly
+  thirty thousand of them, and to look twice at about nine thousand. Everything in this section
+  is about how the machine chooses which nine thousand — and why waiting for a post to get big
+  is the one strategy guaranteed to be too late.</p>
+
+  <p>Reading a post costs money — fifteen hundredths of a cent. That sounds like nothing until
+  you notice that a post worth following has to be read eight or nine times, because you cannot
+  tell whether something is speeding up from a single look. So a budget of thirty-three thousand
+  reads a day does not buy thirty-three thousand posts. It buys about nine thousand watched
+  properly, out of half a billion. One post in fifty thousand. Every other post is a decision
+  made without ever seeing what happened next.</p>
+
+  <p>Which is the honest way to describe this part of Insidor: not a detector, a
+  <em>chooser</em>. The funnel below is all of it, and the brutal steps are the first two, not
+  the last two.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="det-mock">
+      <div class="det-mocktitle">What survives each step — <b>a day in the life of the machine</b></div>
+      <svg viewBox="0 0 1000 340" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Funnel: about 500 million posts a day worldwide, 30,000 returned by our searches, 9,000 watched more than once, 900 accelerating enough to read, 40 reaching the board.">
+        <!-- row 1 -->
+        <text x="20" y="49" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">EVERYTHING</text>
+        <text x="20" y="65" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">posted on X, worldwide</text>
+        <rect x="300" y="34" width="560" height="36" rx="5" fill="#1A1A1E" stroke="#212127"/>
+        <text x="874" y="57" font-family="JetBrains Mono, monospace" font-size="12" fill="#5A5A62">500,000,000</text>
+
+        <!-- row 2 -->
+        <text x="20" y="111" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">WHAT WE EVER SEE</text>
+        <text x="20" y="127" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">returned by our searches</text>
+        <rect x="300" y="96" width="310" height="36" rx="5" fill="#222228" stroke="#2E2E36"/>
+        <text x="624" y="119" font-family="JetBrains Mono, monospace" font-size="12" fill="#8A8A93">30,000</text>
+
+        <!-- row 3 -->
+        <text x="20" y="173" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">WHAT WE CAN AFFORD</text>
+        <text x="20" y="189" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">watched more than once</text>
+        <rect x="300" y="158" width="195" height="36" rx="5" fill="#2E2E36" stroke="#2E2E36"/>
+        <text x="509" y="181" font-family="JetBrains Mono, monospace" font-size="12" fill="#F4F5F7">9,000</text>
+
+        <!-- row 4 -->
+        <text x="20" y="235" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">WHAT WE READ</text>
+        <text x="20" y="251" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">speeding up enough to be worth a Claude call</text>
+        <rect x="300" y="220" width="108" height="36" rx="5" fill="#123840" stroke="#1d5964"/>
+        <text x="422" y="243" font-family="JetBrains Mono, monospace" font-size="12" fill="#3DE0FF">900</text>
+
+        <!-- row 5 -->
+        <text x="20" y="297" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">WHAT A PERSON SEES</text>
+        <text x="20" y="313" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">a story with a name, on the board</text>
+        <rect x="300" y="282" width="58" height="36" rx="5" fill="#3DE0FF"/>
+        <text x="372" y="305" font-family="JetBrains Mono, monospace" font-size="12" fill="#3DE0FF">40</text>
+
+      </svg>
+    </div>
+  </div>
+  <p class="cap">Each step has to throw away at least 90% of what it received, or it is not a
+  step — it is a rename. The one place the current build fails that test is grouping: 1,200
+  posts in, 1,289 stories out. That is section 08's problem.</p>
+
+  <h3>Why "show me posts over 100K views" is structurally too late</h3>
+
+  <p>The obvious build is a search: give me every post above a hundred thousand views. It is
+  obvious, it is cheap, and it cannot work — for three separate reasons, any one of which is
+  fatal.</p>
+
+  <p><strong>A threshold is a queue.</strong> The number is public, anyone can run that query,
+  and the people running it fastest are not people. Using the timestamp X hides inside every
+  post's ID, we measured the gap between a post going up and a coin being minted from it:
+  median <strong>3.8 minutes</strong>, and it gets <em>shorter</em> the better the coin does —
+  1.2 minutes for coins that peaked above a million dollars. A post takes most of an hour to
+  reach a hundred thousand views. By the time the threshold fires, the coin has existed for
+  fifty minutes.</p>
+
+  <p><strong>A threshold is a level, and a level is history.</strong> Five hundred thousand views
+  is a statement about what already happened, not about whether anything is still happening. Two
+  posts can sit on the same number for opposite reasons, and the chart below is that fact drawn
+  out.</p>
+
+  <p><strong>A threshold means different things to different accounts.</strong> A hundred
+  thousand views on an account with two million followers is a quiet afternoon. The same number
+  on an account with four thousand followers is a structural event — it means the post left the
+  building.</p>
+
+  <div class="det-shout">
+    <div class="det-lb">The mechanic everything else hangs off</div>
+    <p>Virality begins at the moment a post escapes its author's own followers. Not when it gets
+    big — when the engagement starts arriving from strangers.</p>
+    <p>Everything before that point is an account talking to the audience it already has, which
+    is predictable from follower count alone. The first quote or repost from somebody with no
+    connection to the author is the earliest evidence that anything unusual is happening, and it
+    arrives minutes before the view count says anything at all.</p>
+  </div>
+
+  <p>This is not a metaphor about how the internet feels. It is how X is built. Posts reach you
+  through two pipes: one seeded from the accounts you follow, and one that searches the whole
+  site for things it thinks you would like regardless of who wrote them. The second pipe is
+  where reach comes from, and it does <em>not</em> wait for a post to accumulate engagement
+  before it starts distributing. Being early is technically possible rather than merely
+  aspirational.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="det-mock">
+      <div class="det-mocktitle">The crossing — <b>the same post, thirty minutes apart</b></div>
+      <svg viewBox="0 0 1000 372" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Two panels. Left: all engagement on a post comes from inside the author's own follower circle. Right: engagement arriving from outside the circle, from accounts with no connection to the author.">
+        <defs>
+          <marker id="det-in" markerWidth="8" markerHeight="8" refX="6" refY="2.6" orient="auto">
+            <path d="M0,0 L6,2.6 L0,5.2 Z" fill="#9BF03C"/>
+          </marker>
+        </defs>
+        <line x1="487" y1="14" x2="487" y2="352" stroke="#212127" stroke-width="1"/>
+
+        <!-- PANEL A -->
+        <text x="34" y="26" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">BEFORE — NOTHING TO SEE</text>
+        <circle cx="255" cy="175" r="95" fill="none" stroke="#2E2E36" stroke-width="1" stroke-dasharray="3 4"/>
+        <circle cx="255" cy="175" r="16" fill="#131316" stroke="#3DE0FF" stroke-width="1.5"/>
+        <text x="255" y="179" font-family="JetBrains Mono, monospace" font-size="9" fill="#3DE0FF" text-anchor="middle">post</text>
+        <g fill="#5A5A62">
+          <circle cx="292.6" cy="161.3" r="3.5"/><circle cx="255" cy="120" r="3.5"/>
+          <circle cx="194.4" cy="140" r="3.5"/><circle cx="216" cy="197.5" r="3.5"/>
+          <circle cx="241.1" cy="253.8" r="3.5"/><circle cx="301" cy="213.6" r="3.5"/>
+          <circle cx="315.1" cy="114.9" r="3.5"/><circle cx="225" cy="175" r="3.5"/>
+          <circle cx="229.3" cy="104.5" r="3.5"/><circle cx="280" cy="218.3" r="3.5"/>
+          <circle cx="172.3" cy="205.1" r="3.5"/><circle cx="319" cy="186.3" r="3.5"/>
+        </g>
+        <text x="255" y="290" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#5A5A62" text-anchor="middle">the author's own 4,100 followers</text>
+        <text x="255" y="326" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93" text-anchor="middle">Every like, reply and repost comes from</text>
+        <text x="255" y="344" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93" text-anchor="middle">inside the circle. Ordinary. Predictable.</text>
+
+        <!-- PANEL B -->
+        <text x="530" y="26" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#9BF03C">THE CROSSING — 09:41, T+6 MIN</text>
+        <circle cx="720" cy="175" r="95" fill="none" stroke="#2E2E36" stroke-width="1" stroke-dasharray="3 4"/>
+        <circle cx="720" cy="175" r="16" fill="#131316" stroke="#3DE0FF" stroke-width="1.5"/>
+        <text x="720" y="179" font-family="JetBrains Mono, monospace" font-size="9" fill="#3DE0FF" text-anchor="middle">post</text>
+        <g fill="#5A5A62">
+          <circle cx="759" cy="152.5" r="3.5"/><circle cx="654.2" cy="151.1" r="3.5"/>
+          <circle cx="701.2" cy="226.7" r="3.5"/><circle cx="799.9" cy="204.1" r="3.5"/>
+          <circle cx="713.9" cy="140.5" r="3.5"/>
+        </g>
+        <g fill="#9BF03C">
+          <circle cx="845.6" cy="141.4" r="4.5"/><circle cx="795" cy="45.1" r="4.5"/>
+          <circle cx="672.1" cy="43.4" r="4.5"/><circle cx="589.6" cy="140.1" r="4.5"/>
+          <circle cx="601.2" cy="258.2" r="4.5"/><circle cx="720" cy="300" r="4.5"/>
+          <circle cx="819.6" cy="293.7" r="4.5"/><circle cx="832.8" cy="216" r="4.5"/>
+        </g>
+        <g stroke="#9BF03C" stroke-width="1.4" marker-end="url(#det-in)" opacity="0.85">
+          <line x1="837.9" y1="143.5" x2="814.7" y2="149.7"/>
+          <line x1="674.8" y1="50.9" x2="683.0" y2="73.5"/>
+          <line x1="607.8" y1="253.6" x2="627.4" y2="239.8"/>
+          <line x1="814.5" y1="287.6" x2="799.0" y2="269.2"/>
+        </g>
+        <text x="720" y="290" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#5A5A62" text-anchor="middle">same 4,100 followers</text>
+        <text x="720" y="326" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93" text-anchor="middle">Eight quotes from accounts that do not follow</text>
+        <text x="720" y="344" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93" text-anchor="middle">the author. View count has barely moved yet.</text>
+      </svg>
+    </div>
+  </div>
+  <p class="cap">X does not publish a follower / non-follower split on its view count — it is one
+  aggregate number. So the crossing is measured by proxy, from things that do ship free with
+  every post.</p>
+
+  <p>Four proxies do most of the work, and the important thing about all four is that they cost
+  nothing extra. They are already sitting in the data we paid for when we read the post the
+  first time.</p>
+
+  <table class="det-tbl">
+    <tr><th>What we read</th><th>Why it means "strangers"</th><th>Readable from</th><th>Cost</th></tr>
+    <tr>
+      <td class="det-c1">Quotes versus reposts</td>
+      <td>A repost is one more viewer. A quote is one more <em>version</em>, written by a
+        different person, which X's feed treats as a brand-new item with its own author and its
+        own audience. A thousand reposts collapse into one thing in the feed; a thousand quotes
+        stay a thousand things. This is "people are making their own" expressed in the
+        platform's own plumbing.</td>
+      <td class="det-cw">the first quote</td>
+      <td class="det-cc">free</td>
+    </tr>
+    <tr>
+      <td class="det-c1">Reach against the author's own ceiling</td>
+      <td>Views compared with what this specific account's own audience has produced on its own
+        past posts. Four thousand views on a four-thousand-follower account is not noise, it is
+        a ceiling being broken.</td>
+      <td class="det-cw">first reading</td>
+      <td class="det-cc">free</td>
+    </tr>
+    <tr>
+      <td class="det-c1">Distinct unconnected authors</td>
+      <td>How many separate people, with no follow relationship to the original, have posted
+        their own version. Not how many posts — how many <em>people</em>. That is the difference
+        between a meme and a video everyone watched.</td>
+      <td class="det-cw">second version</td>
+      <td class="det-cc">free</td>
+    </tr>
+    <tr>
+      <td class="det-c1">Work per view</td>
+      <td>Replies and quotes per thousand views. Needing fewer impressions to provoke one
+        reproduction is the reach-normalised version of "this is good", and it keeps meaning the
+        same thing when the platform changes how it distributes.</td>
+      <td class="det-cw">first reading</td>
+      <td class="det-cc">free</td>
+    </tr>
+  </table>
+
+  <h3>The snapshot grid</h3>
+
+  <p>Once a post is admitted, we go back and look at it again on a fixed schedule — dense at the
+  start, thinning out as it ages, because all the interesting change happens in the first half
+  hour.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="det-mock">
+      <div class="det-mocktitle">When we look again — <b>eight readings in the first eighty minutes</b></div>
+      <svg viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Timeline of snapshot times at 4, 9, 14, 21, 30, 42, 58 and 78 minutes after first sight.">
+        <line x1="90" y1="110" x2="950" y2="110" stroke="#212127" stroke-width="1"/>
+        <g fill="#131316" stroke="#3DE0FF" stroke-width="1.5">
+          <circle cx="133" cy="110" r="6"/><circle cx="186.75" cy="110" r="6"/>
+          <circle cx="240.5" cy="110" r="6"/><circle cx="315.75" cy="110" r="6"/>
+          <circle cx="412.5" cy="110" r="6"/><circle cx="541.5" cy="110" r="6"/>
+          <circle cx="713.5" cy="110" r="6"/><circle cx="928.5" cy="110" r="6"/>
+        </g>
+        <circle cx="90" cy="110" r="6.5" fill="#3DE0FF"/>
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8A93" text-anchor="middle">
+          <text x="90" y="136">0</text><text x="133" y="136">4</text>
+          <text x="186.75" y="136">9</text><text x="240.5" y="136">14</text>
+          <text x="315.75" y="136">21</text><text x="412.5" y="136">30</text>
+          <text x="541.5" y="136">42</text><text x="713.5" y="136">58</text>
+          <text x="928.5" y="136">78</text>
+        </g>
+        <text x="90" y="164" font-family="General Sans, sans-serif" font-size="11.5" fill="#5A5A62">minutes after we first saw the post</text>
+
+        <path d="M90,80 L90,68 L186.75,68 L186.75,80" fill="none" stroke="#9BF03C" stroke-width="1.2"/>
+        <text x="138" y="56" font-family="General Sans, sans-serif" font-size="12" fill="#9BF03C" text-anchor="middle">first speed at 4 min · first curve at 9 min</text>
+        <path d="M541.5,80 L541.5,68 L928.5,68 L928.5,80" fill="none" stroke="#2E2E36" stroke-width="1.2"/>
+        <text x="735" y="56" font-family="General Sans, sans-serif" font-size="12" fill="#5A5A62" text-anchor="middle">gaps widen — by now the story is public anyway</text>
+      </svg>
+    </div>
+  </div>
+  <p class="cap">A fixed 2% of everything that arrives runs this full grid regardless of score.
+  That slice is expensive and it is not optional: without it, how long a post's history is
+  depends on how well the post did, and anything we later learn from that history is really just
+  learning "posts we watched a lot did well."</p>
+
+  <p>Two readings give a speed, and speed normalises in a way a level cannot: divide by the
+  author's own recent baseline and by what is normal for that platform at that hour, and a tiny
+  account and a huge one land on the same scale. One caution. An author's baseline is under that
+  author's control — push it down with filler posts, then buy engagement on the one that matters.
+  So the per-author comparison only ever re-orders candidates that have already cleared a hard
+  absolute floor. A gate an attacker can open by buying a hundred likes is worse than no gate.</p>
+
+  <p>Three readings would tell us whether it is speeding up or slowing down, but three readings
+  is fourteen minutes, and by fourteen minutes the coins have been minted for ten of them and the
+  argument about which one is real is already running without us. So instead we keep two running
+  averages of the same counter — one that reacts in twenty minutes, one over six hours — and
+  compare them. The ratio stands in for the curve, and it exists at the <em>second</em> reading.
+  Five minutes earlier, on a product whose whole job is naming the real coin while most of the
+  six-day run is still ahead of it.</p>
+
+  <h3>Why one reading tells you nothing</h3>
+
+  <p>This is the chart that justifies the whole apparatus. Two posts. Same platform, same
+  afternoon. At fifty-eight minutes both of them read exactly five hundred thousand views.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="det-mock">
+      <div class="det-mocktitle">Two posts, 500,000 views each — <b>and only one of them is still happening</b></div>
+      <svg viewBox="0 0 1000 470" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Line chart. Post A rises steeply then flattens at about 500,000 views. Post B rises slowly then steepens, crossing 500,000 at the same moment and continuing to 840,000. At 58 minutes both read 500,000.">
+        <!-- gridlines -->
+        <g stroke="#212127" stroke-width="1">
+          <line x1="90" y1="380" x2="950" y2="380"/>
+          <line x1="90" y1="266.7" x2="950" y2="266.7"/>
+          <line x1="90" y1="153.3" x2="950" y2="153.3"/>
+          <line x1="90" y1="40" x2="950" y2="40"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="#5A5A62" text-anchor="end">
+          <text x="78" y="384">0</text><text x="78" y="270.7">300K</text>
+          <text x="78" y="157.3">600K</text><text x="78" y="44">900K</text>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="#5A5A62" text-anchor="middle">
+          <text x="90" y="400">0</text><text x="305" y="400">20</text>
+          <text x="520" y="400">40</text><text x="735" y="400">60</text>
+          <text x="950" y="400">80</text>
+        </g>
+        <text x="520" y="422" font-family="General Sans, sans-serif" font-size="11.5" fill="#5A5A62" text-anchor="middle">minutes since the post went up</text>
+
+        <!-- the reading line -->
+        <line x1="713.5" y1="40" x2="713.5" y2="380" stroke="#5A5A62" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="713.5" y="32" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#8A8A93" text-anchor="middle">58 min</text>
+
+        <!-- post A -->
+        <polyline fill="none" stroke="#FF5C6E" stroke-width="2.4" stroke-linejoin="round"
+          points="90,380 133,308.2 186.75,262.9 240.5,237.2 315.75,216.8 412.5,204 541.5,196 713.5,191.1 928.5,188.8"/>
+        <g fill="#FF5C6E">
+          <circle cx="133" cy="308.2" r="3"/><circle cx="186.75" cy="262.9" r="3"/>
+          <circle cx="240.5" cy="237.2" r="3"/><circle cx="315.75" cy="216.8" r="3"/>
+          <circle cx="412.5" cy="204" r="3"/><circle cx="541.5" cy="196" r="3"/>
+          <circle cx="928.5" cy="188.8" r="3"/>
+        </g>
+
+        <!-- post B -->
+        <polyline fill="none" stroke="#9BF03C" stroke-width="2.4" stroke-linejoin="round"
+          points="90,380 133,376.6 186.75,371.7 240.5,363.4 315.75,346.8 412.5,317.7 541.5,266.7 713.5,191.1 928.5,62.7"/>
+        <g fill="#9BF03C">
+          <circle cx="133" cy="376.6" r="3"/><circle cx="186.75" cy="371.7" r="3"/>
+          <circle cx="240.5" cy="363.4" r="3"/><circle cx="315.75" cy="346.8" r="3"/>
+          <circle cx="412.5" cy="317.7" r="3"/><circle cx="541.5" cy="266.7" r="3"/>
+          <circle cx="928.5" cy="62.7" r="3"/>
+        </g>
+
+        <!-- crossing marker -->
+        <circle cx="713.5" cy="191.1" r="6.5" fill="#060607" stroke="#F4F5F7" stroke-width="2"/>
+
+        <!-- callout -->
+        <rect x="104" y="52" width="268" height="72" rx="8" fill="#131316" stroke="#2E2E36"/>
+        <text x="120" y="72" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#5A5A62">AT 58 MINUTES</text>
+        <text x="120" y="92" font-family="General Sans, sans-serif" font-size="13.5" fill="#F4F5F7">Both posts read 500,000 views.</text>
+        <text x="120" y="111" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93">One number cannot tell them apart.</text>
+
+        <!-- B label -->
+        <text x="440" y="88" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#9BF03C">POST B — @nordkyst_ferge, 4,100 followers</text>
+        <text x="440" y="106" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93">"Harbor Last Horn" · +340,000 views in the last 20 minutes</text>
+        <text x="440" y="124" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93">11 quotes, 9 of them from accounts that do not follow him</text>
+
+        <!-- A label -->
+        <text x="944" y="238" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.1" fill="#FF5C6E" text-anchor="end">POST A — a 1.9M-follower news account</text>
+        <text x="944" y="256" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93" text-anchor="end">+13,000 views in the same 20 minutes · 2 quotes, both followers</text>
+        <text x="944" y="274" font-family="General Sans, sans-serif" font-size="12.5" fill="#8A8A93" text-anchor="end">This post finished twenty minutes ago and does not know it</text>
+
+        <!-- legend -->
+        <g font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">
+          <rect x="90" y="440" width="22" height="3" rx="1.5" fill="#FF5C6E"/>
+          <text x="120" y="447">Post A — already over</text>
+          <rect x="300" y="440" width="22" height="3" rx="1.5" fill="#9BF03C"/>
+          <text x="330" y="447">Post B — still climbing</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <p class="cap">Post A's shape is what a big account's own audience looks like: a fast start
+  from people who were already there, then nothing. Post B's shape is what strangers look like:
+  almost invisible for half an hour, then steeper every time we check.</p>
+
+  <p>Post A got its five hundred thousand from the 1.9 million people who already follow it,
+  reached that number in fourteen minutes, and has added thirteen thousand views since. Post B
+  belongs to a Norwegian ferry account with four thousand followers. It could not physically
+  have produced five hundred thousand views from its own audience, so nearly all of them came
+  from strangers — and it is getting faster, not slower. A threshold search would have returned
+  both, and it would have returned Post A first, because Post A crossed the line first.</p>
+
+  <div class="det-shout det-warn">
+    <div class="det-lb">What this buys, stated honestly</div>
+    <p>This produces candidates, not certainties. It will not beat a bot to a mint — nothing
+    will, and we stopped trying.</p>
+    <p>What it buys is position. Coins that clear a million dollars take about six days to peak,
+    and <strong>none of them peaked inside the first hour</strong>. So the winnable claim is not
+    "we saw this before the coin existed". It is "of the things minted in the last hour, this is
+    the real narrative, and it is still climbing." Everything on this page exists to make that
+    second sentence true.</p>
+  </div>
+
+  <p>The published ceiling on this kind of prediction is a real ceiling: once you control for how
+  early you are — exactly our situation, since every candidate is already fast — accuracy across
+  four independent research domains falls below 65%. We will miss things. The 2% slice we track
+  regardless of score is how we find out <em>what</em> we missed, and whether the fault was the
+  chooser or the judge.</p>
+
+</section>

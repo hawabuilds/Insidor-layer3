@@ -1,0 +1,780 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document supplies
+   the same rules from the shell head, so the build script strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+em{font-style:italic;color:#F4F5F7;}
+.mock{margin:26px 0 6px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+/* ── 16. ONE STORY, END TO END ─────────────────────────────────────── */
+
+.e16-frame{background:#0C0C0E;border:1px solid #212127;border-radius:12px;
+  padding:16px 14px 12px;margin:26px 0 8px;overflow:hidden}
+.e16-frame + .cap{margin-top:0}
+.e16-frame svg{display:block;width:100%;height:auto;margin:0 auto}
+.e16-ftitle{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding:0 4px 12px;margin-bottom:4px;border-bottom:1px solid #212127}
+.e16-ftitle .t{font-family:"Clash Display",-apple-system,system-ui,sans-serif;
+  font-size:14px;font-weight:600;color:#F4F5F7}
+.e16-ftitle .s{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:#5A5A62;text-align:right}
+
+.e16-mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:.9em;color:#3DE0FF}
+.e16-lime{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:.9em;color:#9BF03C}
+.e16-red{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:.9em;color:#FF5C6E}
+
+/* shared svg text styles */
+.e16-svg text{font-family:"General Sans",-apple-system,system-ui,sans-serif;fill:#F4F5F7}
+.e16-svg .hd{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:10px;
+  fill:#5A5A62;letter-spacing:.14em}
+.e16-svg .tt{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:12.5px;
+  font-weight:600;fill:#F4F5F7}
+.e16-svg .bd{font-size:9.5px;fill:#8A8A93}
+.e16-svg .bdd{font-size:9.5px;fill:#5A5A62}
+.e16-svg .lb {font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:8.5px;fill:#5A5A62;letter-spacing:.11em}
+.e16-svg .lbc{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:8.5px;fill:#3DE0FF;letter-spacing:.11em}
+.e16-svg .lbl{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:8.5px;fill:#9BF03C;letter-spacing:.11em}
+.e16-svg .lbr{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:8.5px;fill:#FF5C6E;letter-spacing:.11em}
+.e16-svg .lba{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:8.5px;fill:#FFB84D;letter-spacing:.11em}
+.e16-svg .tm{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:15px;font-weight:500;fill:#F4F5F7}
+.e16-svg .mn {font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:9.5px;fill:#8A8A93}
+.e16-svg .mnc{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:9.5px;fill:#3DE0FF}
+.e16-svg .mnl{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:9.5px;fill:#9BF03C}
+.e16-svg .mnr{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:9.5px;fill:#FF5C6E}
+.e16-svg .mna{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:9.5px;fill:#FFB84D}
+.e16-svg .rule{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:9.5px;fill:#5A5A62;letter-spacing:.08em}
+.e16-svg .lane{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:10px;font-weight:500;
+  fill:#F4F5F7;letter-spacing:.1em}
+.e16-svg .lanesub{font-size:9px;fill:#5A5A62}
+.e16-svg .card{fill:#131316;stroke:#212127;stroke-width:1}
+.e16-svg .lead{fill:none;stroke:#2E2E36;stroke-width:1}
+.e16-svg .guide{stroke:#17171B;stroke-width:1}
+.e16-svg .guideb{stroke:#2E2E36;stroke-width:1}
+.e16-svg .tick{fill:#26262C}
+
+/* the "what today's build keeps" table */
+.e16-keep{border:1px solid #212127;border-radius:11px;overflow:hidden;margin:24px 0 8px;background:#0C0C0E}
+.e16-keep-hd,.e16-keep-row{display:grid;grid-template-columns:1.05fr 1.25fr 1.5fr;gap:0}
+.e16-keep-hd{background:#131316;border-bottom:1px solid #212127}
+.e16-keep-hd div{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:9.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:#5A5A62;padding:11px 16px}
+.e16-keep-row{border-bottom:1px solid #17171B}
+.e16-keep-row:last-child{border-bottom:0}
+.e16-keep-row > div{padding:14px 16px;font-size:13px;line-height:1.5;color:#8A8A93}
+.e16-keep-row .m{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:11.5px;color:#F4F5F7;letter-spacing:.02em}
+.e16-keep-row .m span{display:block;color:#5A5A62;font-size:10px;letter-spacing:.1em;margin-top:5px}
+.e16-keep-row .g{border-left:1px solid #17171B}
+.e16-keep-row .bad{color:#FF5C6E}
+.e16-keep-row .warn{color:#FFB84D}
+
+/* the screen */
+.e16-screenwrap{display:flex;gap:18px;align-items:flex-start;margin:26px 0 8px}
+.e16-screen{flex:1;background:#0C0C0E;border:1px solid #212127;border-radius:14px;overflow:hidden}
+.e16-scr-bar{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-bottom:1px solid #212127;background:#09090B}
+.e16-scr-bar .l{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:9.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:#5A5A62}
+.e16-scr-bar .r{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:9.5px;
+  letter-spacing:.1em;color:#5A5A62;font-variant-numeric:tabular-nums}
+.e16-scr-top{display:flex;gap:16px;padding:18px 18px 16px}
+.e16-thumb{width:112px;height:112px;border-radius:9px;flex:none;position:relative;overflow:hidden;
+  background:linear-gradient(158deg,#123 0%,#1b3b4a 34%,#2b5c66 60%,#5d7a5e 82%,#8a8f5a 100%);
+  border:1px solid #2E2E36}
+.e16-thumb:after{content:"";position:absolute;left:0;right:0;bottom:0;height:44%;
+  background:linear-gradient(180deg,rgba(6,6,7,0) 0%,rgba(6,6,7,.72) 100%)}
+.e16-twoline{font-size:17px;line-height:1.34;color:#F4F5F7;font-weight:500;margin:2px 0 10px;max-width:52ch}
+.e16-src{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;line-height:1.75;
+  color:#8A8A93;font-variant-numeric:tabular-nums}
+.e16-src .d{color:#3A3A42}
+.e16-src .q{color:#5A5A62}
+.e16-coins-hd{display:grid;grid-template-columns:1.35fr .78fr .72fr .62fr .58fr 84px;
+  gap:10px;padding:9px 18px;background:#09090B;border-top:1px solid #212127;border-bottom:1px solid #17171B}
+.e16-coins-hd div{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;color:#5A5A62}
+.e16-coin{display:grid;grid-template-columns:1.35fr .78fr .72fr .62fr .58fr 84px;
+  gap:10px;align-items:center;padding:12px 18px;border-bottom:1px solid #131316}
+.e16-coin:last-of-type{border-bottom:0}
+.e16-tick{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600;
+  color:#F4F5F7;letter-spacing:.02em}
+.e16-badge{display:inline-block;margin-left:8px;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-size:8.5px;letter-spacing:.12em;padding:2px 6px;border-radius:4px;vertical-align:2px}
+.e16-badge.first{color:#3DE0FF;background:rgba(61,224,255,.10);border:1px solid rgba(61,224,255,.35)}
+.e16-badge.big{color:#9BF03C;background:rgba(155,240,60,.09);border:1px solid rgba(155,240,60,.32)}
+.e16-badge.unv{color:#FFB84D;background:rgba(255,184,77,.08);border:1px solid rgba(255,184,77,.30)}
+.e16-num{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+  font-size:12.5px;color:#F4F5F7}
+.e16-num.s{color:#8A8A93;font-size:11.5px}
+.e16-buy{display:block;text-align:center;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-size:11px;letter-spacing:.08em;padding:8px 0;border-radius:7px;
+  background:#3DE0FF;color:#060607;font-weight:600}
+.e16-later{display:flex;gap:0;border-top:1px solid #212127;background:#09090B}
+.e16-later div{flex:1;padding:11px 18px;border-right:1px solid #131316;
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:10.5px;color:#5A5A62;
+  font-variant-numeric:tabular-nums}
+.e16-later div:last-child{border-right:0}
+.e16-later b{display:block;color:#8A8A93;font-weight:500;font-size:12px;margin-top:4px}
+.e16-later .up{color:#9BF03C}
+
+/* two columns */
+.e16-split{display:flex;gap:14px;margin:24px 0 8px;align-items:stretch}
+.e16-col{flex:1;background:#0C0C0E;border:1px solid #212127;border-radius:10px;padding:16px 18px 6px}
+.e16-col h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid #212127}
+.e16-col.a h4{color:#3DE0FF}
+.e16-col.b h4{color:#5A5A62}
+.e16-col ul{list-style:none;margin:0;padding:0}
+.e16-col li{font-size:13.5px;line-height:1.5;color:#8A8A93;padding:0 0 11px 16px;position:relative;margin:0}
+.e16-col li:before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:#2E2E36}
+.e16-col.a li:before{background:#3DE0FF}
+.e16-col li strong{color:#F4F5F7;font-weight:600}
+</style>
+
+<section class="sec">
+  <h2>16. One story, end to end</h2>
+
+  <p class="lede">One morning, minute by minute, with the machine from Part Three running underneath
+  it. The version of this section in the last deck had the user minting the first coin. The timing
+  measurements killed that. Here is the same morning told honestly: the coins already existed before
+  we had even seen the post, and it made no difference at all to what the user made.</p>
+
+  <p>At 09:00 a Norwegian account called <span class="e16-mono">@nordkyst_ferge</span> posts forty
+  seconds of video. A retiring ferry captain blows his horn one last time, and every other boat in
+  the harbour blows theirs back. It is a lovely thing and nobody in crypto is looking at it.</p>
+
+  <p>Sixty-eight seconds later somebody's bot mints <span class="e16-red">$FERRY</span>. At 09:03 a
+  different bot mints <span class="e16-red">$HORN</span>. By 09:06 there are a dozen coins off that
+  one clip. None of them was made by a person who watched the video and thought it was funny; they
+  were made by software that saw a view count climbing and fired. Our collector does not see the
+  post until <span class="e16-mono">09:04</span> — by which point two coins are already trading.</p>
+
+  <p>That is the part that used to be the pitch and is now just background weather. The interesting
+  question is what happens next, because the coin that eventually matters does not peak for another
+  six days.</p>
+
+  <div class="mock e16-frame" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="e16-ftitle">
+      <span class="t">Harbor Last Horn &mdash; two clocks, one story</span>
+      <span class="s">the twenty minutes we lose &middot; the six days we do not</span>
+    </div>
+
+    <svg class="e16-svg" viewBox="0 0 1000 812" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Two timelines. The first shows twenty minutes from the post at nine o'clock: coins are minted within minutes, Insidor sees the post at 09:04, checks it again at 09:09, finds a TikTok clip at 09:12, shows it at 09:13, and the user buys at 09:20. The second shows the following fourteen days: the coin peaks around day six at 1.2 million dollars and then gives back over ninety-nine percent.">
+
+      <defs>
+        <linearGradient id="e16mc" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#9BF03C" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#9BF03C" stop-opacity="0.00"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ══════════════ PANEL A · THE FIRST TWENTY MINUTES ══════════════ -->
+      <text class="hd" x="36" y="24">PANEL ONE &#183; 09:00 TO 09:21, DRAWN TO SCALE</text>
+      <circle cx="626" cy="20" r="4" fill="#FF5C6E"/><text class="lbr" x="636" y="23">THE WORLD AND ITS BOTS</text>
+      <circle cx="792" cy="20" r="4" fill="#3DE0FF"/><text class="lbc" x="802" y="23">INSIDOR</text>
+      <circle cx="874" cy="20" r="4" fill="#9BF03C"/><text class="lbl" x="884" y="23">THE USER</text>
+
+      <!-- event cards, evenly spaced; leaders fan out to true time -->
+
+      <!-- 1 · 09:00 the post -->
+      <g>
+        <rect class="card" x="36" y="44" width="120" height="170" rx="7"/>
+        <rect x="36" y="44" width="120" height="2.5" fill="#5A5A62"/>
+        <text class="lb"  x="47" y="64">THE WORLD</text>
+        <text class="tm"  x="47" y="89">09:00</text>
+        <text class="tt"  x="47" y="114">The post</text>
+        <text class="bd"  x="47" y="142">@nordkyst_ferge</text>
+        <text class="bd"  x="47" y="154">puts the clip on X.</text>
+        <text class="bd"  x="47" y="166">Nothing exists to</text>
+        <text class="bd"  x="47" y="178">trade, and nobody</text>
+        <text class="bd"  x="47" y="190">is looking.</text>
+        <text class="mn"  x="47" y="205">0 VIEWS</text>
+        <path class="lead" d="M96,214 L96,240 L90,268 L90,290"/>
+      </g>
+
+      <!-- 2 · the mints -->
+      <g>
+        <rect class="card" x="172" y="44" width="120" height="170" rx="7"/>
+        <rect x="172" y="44" width="120" height="2.5" fill="#FF5C6E"/>
+        <text class="lbr" x="183" y="64">BOTS</text>
+        <text class="tm"  x="183" y="89">09:01</text>
+        <text class="tt"  x="183" y="114">The coins</text>
+        <text class="bd"  x="183" y="142">$FERRY at 09:01.</text>
+        <text class="bd"  x="183" y="154">$HORN at 09:03.</text>
+        <text class="bd"  x="183" y="166">$BOAT and nine</text>
+        <text class="bd"  x="183" y="178">more by 09:06. No</text>
+        <text class="bd"  x="183" y="190">human involved.</text>
+        <text class="mnr" x="183" y="205">12 COINS, 1 CLIP</text>
+        <path class="lead" d="M232,214 L232,240 L130,268 L130,290"/>
+      </g>
+
+      <!-- 3 · 09:04 collector -->
+      <g>
+        <rect class="card" x="308" y="44" width="120" height="170" rx="7"/>
+        <rect x="308" y="44" width="120" height="2.5" fill="#3DE0FF"/>
+        <text class="lbc" x="319" y="64">THE COLLECTOR</text>
+        <text class="tm"  x="319" y="89">09:04</text>
+        <text class="tt"  x="319" y="114">We see it</text>
+        <text class="bd"  x="319" y="142">The two-minute</text>
+        <text class="bd"  x="319" y="154">sweep finds it</text>
+        <text class="bd"  x="319" y="166">among the day&#8217;s</text>
+        <text class="bd"  x="319" y="178">loudest posts.</text>
+        <text class="bdd" x="319" y="190">Two coins already.</text>
+        <text class="mnc" x="319" y="205">41,000 VIEWS</text>
+        <path class="lead" d="M368,214 L368,240 L250,268 L250,290"/>
+      </g>
+
+      <!-- 4 · 09:09 measurer -->
+      <g>
+        <rect class="card" x="444" y="44" width="120" height="170" rx="7"/>
+        <rect x="444" y="44" width="120" height="2.5" fill="#3DE0FF"/>
+        <text class="lbc" x="455" y="64">THE MEASURER</text>
+        <text class="tm"  x="455" y="89">09:09</text>
+        <text class="tt"  x="455" y="114">We look</text>
+        <text class="tt"  x="455" y="129">again</text>
+        <text class="bd"  x="455" y="152">The same post, five</text>
+        <text class="bd"  x="455" y="164">minutes on. Nearly</text>
+        <text class="bd"  x="455" y="176">triple. It is still</text>
+        <text class="bd"  x="455" y="188">going up.</text>
+        <text class="mnc" x="455" y="205">118,000 VIEWS</text>
+        <path class="lead" d="M504,214 L504,240 L450,268 L450,290"/>
+      </g>
+
+      <!-- 5 · 09:12 grouper -->
+      <g>
+        <rect class="card" x="580" y="44" width="120" height="170" rx="7"/>
+        <rect x="580" y="44" width="120" height="2.5" fill="#3DE0FF"/>
+        <text class="lbc" x="591" y="64">THE GROUPER</text>
+        <text class="tm"  x="591" y="89">09:12</text>
+        <text class="tt"  x="591" y="114">A second</text>
+        <text class="tt"  x="591" y="129">source</text>
+        <text class="bd"  x="591" y="152">@harbourclips puts</text>
+        <text class="bd"  x="591" y="164">the same moment on</text>
+        <text class="bd"  x="591" y="176">TikTok. One post is</text>
+        <text class="bd"  x="591" y="188">luck. Two is a meme.</text>
+        <text class="mnc" x="591" y="205">890,000 PLAYS</text>
+        <path class="lead" d="M640,214 L640,240 L570,268 L570,290"/>
+      </g>
+
+      <!-- 6 · 09:13 app -->
+      <g>
+        <rect class="card" x="716" y="44" width="120" height="170" rx="7"/>
+        <rect x="716" y="44" width="120" height="2.5" fill="#3DE0FF"/>
+        <text class="lbc" x="727" y="64">THE APP</text>
+        <text class="tm"  x="727" y="89">09:13</text>
+        <text class="tt"  x="727" y="114">On screen</text>
+        <text class="bd"  x="727" y="142">One sentence, both</text>
+        <text class="bd"  x="727" y="154">clips, and the coins</text>
+        <text class="bd"  x="727" y="166">that already exist,</text>
+        <text class="bd"  x="727" y="178">labelled first,</text>
+        <text class="bd"  x="727" y="190">biggest, unverified.</text>
+        <text class="mnc" x="727" y="205">3 COINS SHOWN</text>
+        <path class="lead" d="M776,214 L776,240 L610,268 L610,290"/>
+      </g>
+
+      <!-- 7 · 09:20 user -->
+      <g>
+        <rect class="card" x="852" y="44" width="120" height="170" rx="7"/>
+        <rect x="852" y="44" width="120" height="2.5" fill="#9BF03C"/>
+        <text class="lbl" x="863" y="64">THE USER</text>
+        <text class="tm"  x="863" y="89">09:20</text>
+        <text class="tt"  x="863" y="114">They buy</text>
+        <text class="bd"  x="863" y="142">Reads the sentence,</text>
+        <text class="bd"  x="863" y="154">watches the clip,</text>
+        <text class="bd"  x="863" y="166">picks $HORN out of</text>
+        <text class="bd"  x="863" y="178">twelve. Seven</text>
+        <text class="bd"  x="863" y="190">minutes, total.</text>
+        <text class="mnl" x="863" y="205">$HORN AT $86.9K</text>
+        <path class="lead" d="M912,214 L912,240 L890,268 L890,290"/>
+      </g>
+
+      <!-- the axis -->
+      <line x1="60" y1="290" x2="956" y2="290" stroke="#2E2E36" stroke-width="1"/>
+
+      <!-- red pre-sight band -->
+      <rect x="90" y="290" width="160" height="16" fill="#FF5C6E" fill-opacity="0.07"/>
+      <line x1="90"  y1="284" x2="90"  y2="306" stroke="#FF5C6E" stroke-opacity="0.45"/>
+      <line x1="250" y1="284" x2="250" y2="306" stroke="#FF5C6E" stroke-opacity="0.45"/>
+
+      <!-- axis markers -->
+      <circle cx="90"  cy="290" r="5"   fill="#0C0C0E" stroke="#8A8A93" stroke-width="1.6"/>
+      <circle cx="130" cy="290" r="4.5" fill="#FF5C6E"/>
+      <circle cx="210" cy="290" r="4.5" fill="#FF5C6E"/>
+      <circle cx="330" cy="290" r="4.5" fill="#FF5C6E"/>
+      <circle cx="170" cy="290" r="2.4" fill="#FF5C6E" fill-opacity="0.5"/>
+      <circle cx="270" cy="290" r="2.4" fill="#FF5C6E" fill-opacity="0.5"/>
+      <circle cx="300" cy="290" r="2.4" fill="#FF5C6E" fill-opacity="0.5"/>
+      <circle cx="250" cy="290" r="5"   fill="#3DE0FF"/>
+      <circle cx="450" cy="290" r="5"   fill="#3DE0FF"/>
+      <circle cx="570" cy="290" r="5"   fill="#3DE0FF"/>
+      <circle cx="610" cy="290" r="7.5" fill="#0C0C0E" stroke="#3DE0FF" stroke-width="2"/>
+      <circle cx="610" cy="290" r="2.8" fill="#3DE0FF"/>
+      <circle cx="890" cy="290" r="6"   fill="#9BF03C"/>
+
+      <!-- brackets -->
+      <rect x="90" y="316" width="160" height="26" rx="5" fill="#FF5C6E" fill-opacity="0.10"
+            stroke="#FF5C6E" stroke-opacity="0.36"/>
+      <text x="170" y="333" text-anchor="middle"
+            style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.10em;fill:#FF5C6E">2 COINS ALREADY</text>
+
+      <rect x="250" y="316" width="360" height="26" rx="5" fill="#3DE0FF" fill-opacity="0.09"
+            stroke="#3DE0FF" stroke-opacity="0.36"/>
+      <text x="430" y="333" text-anchor="middle"
+            style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.10em;fill:#3DE0FF">NINE MINUTES: SEE, MEASURE, GROUP, EXPLAIN</text>
+
+      <rect x="610" y="316" width="280" height="26" rx="5" fill="#9BF03C" fill-opacity="0.07"
+            stroke="#9BF03C" stroke-opacity="0.30"/>
+      <text x="750" y="333" text-anchor="middle"
+            style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.10em;fill:#9BF03C">THE USER READS, THINKS, BUYS</text>
+
+      <!-- span rule -->
+      <rect x="90" y="350" width="520" height="20" rx="5" fill="#131316" stroke="#212127"/>
+      <text x="350" y="364" text-anchor="middle" class="rule">POST TO ON-SCREEN: 13 MINUTES</text>
+      <rect x="610" y="350" width="280" height="20" rx="5" fill="#131316" stroke="#212127"/>
+      <text x="750" y="364" text-anchor="middle" class="rule">ON-SCREEN TO BOUGHT: 7 MINUTES</text>
+
+      <!-- ruler A -->
+      <g stroke="#2E2E36">
+        <line x1="90"  y1="380" x2="90"  y2="386"/>
+        <line x1="290" y1="380" x2="290" y2="386"/>
+        <line x1="490" y1="380" x2="490" y2="386"/>
+        <line x1="690" y1="380" x2="690" y2="386"/>
+        <line x1="890" y1="380" x2="890" y2="386"/>
+      </g>
+      <text class="rule" x="90"  y="400" text-anchor="middle">09:00</text>
+      <text class="rule" x="290" y="400" text-anchor="middle">09:05</text>
+      <text class="rule" x="490" y="400" text-anchor="middle">09:10</text>
+      <text class="rule" x="690" y="400" text-anchor="middle">09:15</text>
+      <text class="rule" x="890" y="400" text-anchor="middle">09:20</text>
+
+      <!-- ══════════════ SCALE BREAK ══════════════ -->
+      <line x1="36" y1="432" x2="376" y2="432" stroke="#212127" stroke-dasharray="3 5"/>
+      <line x1="624" y1="432" x2="964" y2="432" stroke="#212127" stroke-dasharray="3 5"/>
+      <text class="lba" x="500" y="436" text-anchor="middle">SAME STORY &#183; THE CLOCK NOW RUNS IN DAYS</text>
+
+      <!-- ══════════════ PANEL B · THE NEXT SIX DAYS ══════════════ -->
+      <text class="hd" x="36" y="474">PANEL TWO &#183; WHERE THE MONEY ACTUALLY MOVES</text>
+      <text class="lb" x="964" y="474" text-anchor="end">TIME SQUASHED AFTER DAY SIX</text>
+
+      <!-- market cap of $HORN -->
+      <path d="M160,738 C 230,732 265,724 300,712 C 345,700 370,690 390,680
+               C 440,660 470,645 520,614 C 580,578 640,548 700,528
+               L 700,740 L 160,740 Z" fill="url(#e16mc)"/>
+      <path d="M160,738 C 230,732 265,724 300,712 C 345,700 370,690 390,680
+               C 440,660 470,645 520,614 C 580,578 640,548 700,528
+               C 745,600 790,668 830,700 C 870,722 905,733 930,737"
+            fill="none" stroke="#9BF03C" stroke-opacity="0.85" stroke-width="2"/>
+
+      <line x1="60" y1="740" x2="956" y2="740" stroke="#2E2E36" stroke-width="1"/>
+
+      <!-- the callout card -->
+      <rect x="84" y="520" width="292" height="94" rx="7" fill="#0C0C0E" stroke="#3DE0FF" stroke-opacity="0.40"/>
+      <text class="lbr" x="98" y="542">09:03 &#8212; $HORN IS MINTED BY A BOT</text>
+      <text x="98" y="566" style="font-family:'Clash Display',system-ui,sans-serif;font-size:14px;font-weight:600;fill:#3DE0FF">09:13 &#8212; we put it on screen</text>
+      <text class="bd" x="98" y="586">Ten minutes after the mint, and six days</text>
+      <text class="bd" x="98" y="600">before this coin reaches its top.</text>
+      <path class="lead" d="M110,614 L110,700 L104,738" stroke-dasharray="3 4"/>
+      <circle cx="90" cy="740" r="5" fill="#FF5C6E"/>
+      <circle cx="104" cy="740" r="4.5" fill="#3DE0FF"/>
+
+      <!-- hour one marker -->
+      <line x1="160" y1="628" x2="160" y2="740" stroke="#2E2E36" stroke-dasharray="3 4"/>
+      <text class="lb"  x="168" y="646">ONE HOUR IN</text>
+      <text class="bdd" x="168" y="662">Not one coin that ever cleared $1M</text>
+      <text class="bdd" x="168" y="676">had already peaked by this line.</text>
+
+      <!-- peak -->
+      <circle cx="700" cy="528" r="6" fill="#9BF03C"/>
+      <circle cx="700" cy="528" r="12" fill="none" stroke="#9BF03C" stroke-opacity="0.32"/>
+      <text class="lbl" x="716" y="518">DAY 6 &#183; THE PEAK</text>
+      <text x="716" y="538" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;font-weight:500;fill:#F4F5F7">$1.2M</text>
+      <text class="bdd" x="716" y="554">$HORN &#8212; the biggest of the twelve</text>
+
+      <!-- give-back -->
+      <text class="mn"  x="930" y="606" text-anchor="end">AND THEN IT GOES</text>
+      <text x="930" y="626" text-anchor="end" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;fill:#FF5C6E">back to about $3K</text>
+      <text class="bdd" x="930" y="642" text-anchor="end">gives back over 99%</text>
+
+      <!-- ruler B -->
+      <g stroke="#2E2E36">
+        <line x1="90"  y1="740" x2="90"  y2="746"/>
+        <line x1="160" y1="740" x2="160" y2="746"/>
+        <line x1="300" y1="740" x2="300" y2="746"/>
+        <line x1="390" y1="740" x2="390" y2="746"/>
+        <line x1="470" y1="740" x2="470" y2="746"/>
+        <line x1="700" y1="740" x2="700" y2="746"/>
+        <line x1="930" y1="740" x2="930" y2="746"/>
+      </g>
+      <text class="rule" x="90"  y="758" text-anchor="middle">post</text>
+      <text class="rule" x="160" y="758" text-anchor="middle">1 hr</text>
+      <text class="rule" x="300" y="758" text-anchor="middle">day 1</text>
+      <text class="rule" x="390" y="758" text-anchor="middle">day 2</text>
+      <text class="rule" x="470" y="758" text-anchor="middle">day 3</text>
+      <text class="rule" x="700" y="758" text-anchor="middle">day 6</text>
+      <text class="rule" x="930" y="758" text-anchor="middle">day 14</text>
+
+      <!-- window bars -->
+      <rect x="90"  y="770" width="70"  height="18" rx="4" fill="#FF5C6E" fill-opacity="0.10" stroke="#FF5C6E" stroke-opacity="0.32"/>
+      <rect x="160" y="770" width="540" height="18" rx="4" fill="#9BF03C" fill-opacity="0.08" stroke="#9BF03C" stroke-opacity="0.32"/>
+      <text x="430" y="783" text-anchor="middle"
+            style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.10em;fill:#9BF03C">HOUR ONE TO DAY SIX &#8212; THE WINDOW A PERSON CAN STILL WIN</text>
+      <rect x="700" y="770" width="230" height="18" rx="4" fill="#131316" stroke="#212127"/>
+      <text x="815" y="783" text-anchor="middle"
+            style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.10em;fill:#5A5A62">THE GIVE-BACK</text>
+      <text class="mnr" x="125" y="804" text-anchor="middle">all twelve minted in here</text>
+    </svg>
+  </div>
+
+  <p class="cap">Two clocks, because one clock cannot hold both truths. Panel one is twenty minutes
+  drawn honestly: the red dots are coins, and three of them exist before the first cyan dot. Panel
+  two is the same story over a fortnight. The thing worth being early to is not the mint &mdash; it
+  is the six days between the mint and the top.</p>
+
+  <h3>Which part of the machine was doing what</h3>
+
+  <p>At <strong>09:04</strong> the collector did what it does every two minutes: asked our data
+  reseller for posts pulling unusual attention right now. The ferry clip came back at 41,000 views.
+  On its own that number is worthless. It could be a post that exploded in four minutes or one that
+  crawled there over two days, and nothing in the reply tells you which.</p>
+
+  <p>So the measurer put it on a list and asked again. At <strong>09:09</strong> the same post read
+  118,000. That second reading is the whole trick, and it is the one thing on this page nobody will
+  sell us later. A view count is a snapshot anyone can buy; two view counts on the same post at two
+  known times is a fact about the world that only exists if we were standing there writing it down.</p>
+
+  <p>The judge &mdash; Claude, reading the post, not a model we trained &mdash; answered one
+  question at <strong>09:10</strong>: could a person plausibly make a coin out of this? Most
+  fast-climbing posts fail that. Politics, sport, a plane crash. A retiring captain and a harbour
+  full of horns passes easily and arrives with its own names attached. At <strong>09:12</strong>
+  the TikTok clip surfaced and the grouper tied the two into one story.</p>
+
+  <p>Then the part that is genuinely new. Twelve coins had been minted off this clip, and this is
+  the problem the deck used to skip: a pump.fun search for "chill guy" returns <strong>306
+  tokens</strong>, and only about 5% of coins over $50K declare which post they came from. So the
+  matcher does not read metadata, because there is none. It works from mint time against post time,
+  ticker against the words in the clip, and the shape of the money. It came back with three worth
+  showing and nine not worth the row.</p>
+
+  <div class="mock e16-frame" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="e16-ftitle">
+      <span class="t">The machine, mapped onto the same twenty minutes</span>
+      <span class="s">seven parts &middot; what each one was doing, and when</span>
+    </div>
+
+    <svg class="e16-svg" viewBox="0 0 1000 396" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Seven horizontal lanes showing which component of the system was active at each minute between nine o'clock and nine twenty-one.">
+
+      <!-- alternating lane backgrounds -->
+      <rect x="36" y="82"  width="928" height="38" fill="#09090B"/>
+      <rect x="36" y="158" width="928" height="38" fill="#09090B"/>
+      <rect x="36" y="234" width="928" height="38" fill="#09090B"/>
+      <rect x="36" y="310" width="928" height="38" fill="#09090B"/>
+      <line x1="36" y1="44"  x2="964" y2="44"  stroke="#212127"/>
+      <line x1="36" y1="348" x2="964" y2="348" stroke="#212127"/>
+      <line x1="244" y1="44" x2="244" y2="348" stroke="#212127"/>
+
+      <text class="hd" x="36" y="24">WHICH PART WAS WORKING</text>
+      <text class="lb" x="964" y="24" text-anchor="end">09:00 &#8594; 09:21</text>
+
+      <!-- vertical guides -->
+      <line class="guide"  x1="288.9" y1="44" x2="288.9" y2="348"/>
+      <line class="guide"  x1="354.6" y1="44" x2="354.6" y2="348"/>
+      <line class="guide"  x1="387.4" y1="44" x2="387.4" y2="348"/>
+      <line class="guide"  x1="551.7" y1="44" x2="551.7" y2="348"/>
+      <line class="guide"  x1="650.3" y1="44" x2="650.3" y2="348"/>
+      <line class="guideb" x1="683.1" y1="44" x2="683.1" y2="348"/>
+      <line class="guideb" x1="913.1" y1="44" x2="913.1" y2="348"/>
+
+      <!-- lane 0 · the world -->
+      <text class="lane"    x="52" y="59">0 &#183; THE WORLD</text>
+      <text class="lanesub" x="52" y="73">not ours &#8212; the post, then the bots</text>
+      <circle cx="256" cy="63" r="4.5" fill="#0C0C0E" stroke="#8A8A93" stroke-width="1.5"/>
+      <rect x="287.4" y="55" width="3.5" height="16" rx="1.5" fill="#FF5C6E"/>
+      <rect x="353.1" y="55" width="3.5" height="16" rx="1.5" fill="#FF5C6E"/>
+      <rect x="451.6" y="55" width="3.5" height="16" rx="1.5" fill="#FF5C6E"/>
+      <text class="mnr" x="470" y="67">$FERRY &#183; $HORN &#183; $BOAT and nine others, all before 09:07</text>
+
+      <!-- lane 1 · collector -->
+      <text class="lane"    x="52" y="97">1 &#183; THE COLLECTOR</text>
+      <text class="lanesub" x="52" y="111">asks for the loudest posts, every 2 min</text>
+      <g class="tick">
+        <rect x="255" y="95" width="2" height="12"/><rect x="320.7" y="95" width="2" height="12"/>
+        <rect x="452.1" y="95" width="2" height="12"/><rect x="517.8" y="95" width="2" height="12"/>
+        <rect x="583.6" y="95" width="2" height="12"/><rect x="649.3" y="95" width="2" height="12"/>
+        <rect x="715" y="95" width="2" height="12"/><rect x="780.7" y="95" width="2" height="12"/>
+        <rect x="846.4" y="95" width="2" height="12"/><rect x="912.1" y="95" width="2" height="12"/>
+      </g>
+      <rect x="385.4" y="91" width="4" height="20" rx="1.5" fill="#3DE0FF"/>
+      <rect x="393" y="96" width="336" height="13" fill="#09090B"/>
+      <text class="mnc" x="396" y="105">the sweep that catches it &#8212; one of about 700 posts that hour</text>
+
+      <!-- lane 2 · measurer -->
+      <text class="lane"    x="52" y="135">2 &#183; THE MEASURER</text>
+      <text class="lanesub" x="52" y="149">re-checks this same post, over and over</text>
+      <g class="tick">
+        <rect x="616.4" y="133" width="2" height="12"/><rect x="682.1" y="133" width="2" height="12"/>
+        <rect x="747.8" y="133" width="2" height="12"/><rect x="813.5" y="133" width="2" height="12"/>
+        <rect x="879.2" y="133" width="2" height="12"/><rect x="944.9" y="133" width="2" height="12"/>
+      </g>
+      <rect x="385.4" y="129" width="4" height="20" rx="1.5" fill="#3DE0FF"/>
+      <rect x="549.7" y="129" width="4" height="20" rx="1.5" fill="#3DE0FF"/>
+      <text class="mnc" x="398" y="143">41,000</text>
+      <text class="mnc" x="562" y="143">118,000</text>
+      <rect x="619" y="134" width="232" height="13" fill="#0C0C0E"/>
+      <text class="mn"  x="622" y="143">&#8212; and every couple of minutes after this</text>
+
+      <!-- lane 3 · judge -->
+      <text class="lane"    x="52" y="173">3 &#183; THE JUDGE (CLAUDE)</text>
+      <text class="lanesub" x="52" y="187">could a person make a coin out of this?</text>
+      <rect x="584.6" y="167" width="32.8" height="14" rx="4" fill="#3DE0FF" fill-opacity="0.55"/>
+      <text class="mnc" x="626" y="178">yes &#8212; a captain and a horn. Names $FERRY, $HORN.</text>
+
+      <!-- lane 4 · grouper -->
+      <text class="lane"    x="52" y="211">4 &#183; THE GROUPER</text>
+      <text class="lanesub" x="52" y="225">two posts, one story</text>
+      <rect x="650.3" y="205" width="296" height="14" rx="4" fill="#131316" stroke="#2E2E36"/>
+      <rect x="648.3" y="202" width="4" height="20" rx="1.5" fill="#3DE0FF"/>
+      <text class="mn" x="662" y="215">X and TikTok tied into one narrative</text>
+
+      <!-- lane 5 · matcher -->
+      <text class="lane"    x="52" y="249">5 &#183; THE MATCHER</text>
+      <text class="lanesub" x="52" y="263">which of the twelve coins is the real one</text>
+      <rect x="650.3" y="243" width="296" height="14" rx="4" fill="#131316" stroke="#2E2E36"/>
+      <rect x="648.3" y="240" width="4" height="20" rx="1.5" fill="#3DE0FF"/>
+      <text class="mn" x="662" y="253">3 shown, 9 dropped</text>
+      <text class="mna" x="256" y="253">only 5% of coins declare their post &#8212; no metadata to lean on</text>
+
+      <!-- lane 6 · library -->
+      <text class="lane"    x="52" y="287">6 &#183; THE LIBRARY</text>
+      <text class="lanesub" x="52" y="301">writes every reading down, forever</text>
+      <rect x="256" y="281" width="690" height="14" rx="4" fill="#131316" stroke="#212127"/>
+      <circle cx="288.9" cy="288" r="3.2" fill="#FF5C6E"/>
+      <circle cx="354.6" cy="288" r="3.2" fill="#FF5C6E"/>
+      <circle cx="387.4" cy="288" r="3.2" fill="#3DE0FF"/>
+      <circle cx="551.7" cy="288" r="3.2" fill="#3DE0FF"/>
+      <circle cx="650.3" cy="288" r="3.2" fill="#3DE0FF"/>
+      <circle cx="683.1" cy="288" r="3.2" fill="#3DE0FF"/>
+      <circle cx="913.1" cy="288" r="3.2" fill="#9BF03C"/>
+      <text class="mna" x="256" y="307">&#8593; three of these five streams do not record at all today</text>
+
+      <!-- lane 7 · app -->
+      <text class="lane"    x="52" y="325">7 &#183; THE APP</text>
+      <text class="lanesub" x="52" y="339">shows the user what was found</text>
+      <rect x="683.1" y="319" width="262.9" height="14" rx="4" fill="#3DE0FF" fill-opacity="0.10"
+            stroke="#3DE0FF" stroke-opacity="0.35"/>
+      <rect x="681.1" y="316" width="4" height="20" rx="1.5" fill="#3DE0FF"/>
+      <rect x="911.1" y="316" width="4" height="20" rx="1.5" fill="#9BF03C"/>
+      <text class="mnc" x="692" y="329">on screen</text>
+      <text class="mnl" x="905" y="329" text-anchor="end">$HORN bought 09:20</text>
+
+      <!-- ruler -->
+      <g stroke="#2E2E36">
+        <line x1="256"   y1="356" x2="256"   y2="361"/>
+        <line x1="420.3" y1="356" x2="420.3" y2="361"/>
+        <line x1="584.6" y1="356" x2="584.6" y2="361"/>
+        <line x1="748.8" y1="356" x2="748.8" y2="361"/>
+        <line x1="913.1" y1="356" x2="913.1" y2="361"/>
+      </g>
+      <text class="rule" x="256"   y="376" text-anchor="middle">09:00</text>
+      <text class="rule" x="420.3" y="376" text-anchor="middle">09:05</text>
+      <text class="rule" x="584.6" y="376" text-anchor="middle">09:10</text>
+      <text class="rule" x="748.8" y="376" text-anchor="middle">09:15</text>
+      <text class="rule" x="913.1" y="376" text-anchor="middle">09:20</text>
+    </svg>
+  </div>
+
+  <p class="cap">Lane zero is not ours and never will be. Everything below it is nine minutes of
+  ordinary work: ask, measure, ask again, read, group, match, write down, show. The amber notes are
+  where the drawing is ahead of the build.</p>
+
+  <h3>What today&rsquo;s build would have kept from that morning</h3>
+
+  <p>Almost none of it, and this is the reason week three of the plan is the point of no regret.
+  The diagram above describes seven parts working. The code we have today runs most of them and
+  <em>remembers</em> almost nothing, which means a morning like this passes through the system and
+  leaves no trace we could ever learn from.</p>
+
+  <div class="e16-keep" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="e16-keep-hd">
+      <div>The moment</div>
+      <div>What the diagram shows</div>
+      <div>What today&rsquo;s build actually keeps</div>
+    </div>
+    <div class="e16-keep-row">
+      <div class="m">09:04 &#183; 09:09<span>THE TWO READINGS</span></div>
+      <div>41,000 views, then 118,000 five minutes later. The comparison that says &ldquo;still
+        climbing&rdquo;.</div>
+      <div class="g"><span class="bad">Not reliably.</span> The speed figure has no as-of filter, so
+        asking for it tomorrow returns a different quantity under the same name. Snapshots stop three
+        hours in, and slow posts are dropped after ten minutes &mdash; so the length of a post&rsquo;s
+        history is decided by its outcome.</div>
+    </div>
+    <div class="e16-keep-row">
+      <div class="m">09:10<span>THE JUDGE&rsquo;S ANSWER</span></div>
+      <div>Yes, a person could make a coin out of this &mdash; and here is the sentence to put on
+        the card.</div>
+      <div class="g"><span class="bad">Nothing.</span> A few thousand of these decisions are made a
+        day and not one is written down. We cannot tell you what we said yes to last Tuesday.</div>
+    </div>
+    <div class="e16-keep-row">
+      <div class="m">09:12<span>THE TIKTOK CLIP</span></div>
+      <div>890,000 plays, a second independent source, the thing that turns one lucky post into a
+        story.</div>
+      <div class="g"><span class="warn">Wrong, quietly.</span> Plays are written into a column called
+        views and shares into one called retweets. Quotes &mdash; the reproduction signal the whole
+        product rests on &mdash; is hard-coded to zero, because TikTok has no equivalent. So every
+        TikTok clip reports an honest, meaningless zero.</div>
+    </div>
+    <div class="e16-keep-row">
+      <div class="m">09:20 &#183; DAY 6<span>WHAT HAPPENED NEXT</span></div>
+      <div>$HORN was the right pick out of twelve, and it ran for six days.</div>
+      <div class="g"><span class="bad">Nothing at all.</span> No record links the story to the coins,
+        so there is no way to ask later whether we were right. This is the row that makes the other
+        three worth fixing.</div>
+    </div>
+  </div>
+
+  <p class="cap">Everything in the right-hand column is a week-three problem, not a month-four one.
+  Data you did not record is not late &mdash; it is gone.</p>
+
+  <h3>What the user actually did</h3>
+
+  <p>Very little, which is the point. They opened Insidor while waiting for a coffee. Near the top
+  of the feed was one sentence &mdash; <em>&ldquo;A retiring ferry captain blew his horn one last
+  time, and every boat in the harbour blew back&rdquo;</em> &mdash; a still from the clip, the view
+  count, how old it was, and a small line still bending upwards. They tapped through, watched forty
+  seconds of video, and decided the horn was funny enough that other people would find it funny too.</p>
+
+  <p>Then came the part no other screen can do for them: three coins, in a list, each labelled with
+  a fact rather than an opinion. Which was minted first. Which is biggest right now. Which has no
+  traceable link back to either post. They picked <span class="e16-lime">$HORN</span> and bought it
+  at 09:20, seven minutes after the story appeared and seventeen after the coin existed.</p>
+
+  <div class="mock e16-screenwrap" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="e16-screen">
+      <div class="e16-scr-bar">
+        <span class="l">Story &#183; Harbor Last Horn</span>
+        <span class="r">09:20</span>
+      </div>
+      <div class="e16-scr-top">
+        <div class="e16-thumb"></div>
+        <div>
+          <p class="e16-twoline">A retiring ferry captain blew his horn one last time, and every
+          boat in the harbour blew back.</p>
+          <div class="e16-src">
+            @nordkyst_ferge on X <span class="d">&middot;</span> 2.4M views
+            <span class="d">&middot;</span> 20 min old<br>
+            <span class="q">also a TikTok clip by @harbourclips <span class="d">&middot;</span>
+            890K plays <span class="d">&middot;</span> 8 min old</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="e16-coins-hd">
+        <div>Coin</div><div>Minted</div><div>Market cap</div><div>Liquidity</div><div>Holders</div><div></div>
+      </div>
+
+      <div class="e16-coin">
+        <div><span class="e16-tick">$FERRY</span><span class="e16-badge first">FIRST</span></div>
+        <div class="e16-num s">09:01</div>
+        <div class="e16-num">$41.2K</div>
+        <div class="e16-num s">$9.8K</div>
+        <div class="e16-num s">214</div>
+        <div><span class="e16-buy">Buy</span></div>
+      </div>
+      <div class="e16-coin">
+        <div><span class="e16-tick">$HORN</span><span class="e16-badge big">BIGGEST</span></div>
+        <div class="e16-num s">09:03</div>
+        <div class="e16-num">$86.9K</div>
+        <div class="e16-num s">$18.4K</div>
+        <div class="e16-num s">631</div>
+        <div><span class="e16-buy">Buy</span></div>
+      </div>
+      <div class="e16-coin">
+        <div><span class="e16-tick">$BOAT</span><span class="e16-badge unv">UNVERIFIED</span></div>
+        <div class="e16-num s">09:06</div>
+        <div class="e16-num s">$2.1K</div>
+        <div class="e16-num s">$1.3K</div>
+        <div class="e16-num s">27</div>
+        <div></div>
+      </div>
+
+      <div class="e16-later">
+        <div>$FERRY, six days later<b class="up">peaked $799.6K</b></div>
+        <div>$HORN, six days later<b class="up">peaked $1.2M</b></div>
+        <div>$BOAT, six days later<b>peaked $11K</b></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap">The screen at 09:20, and what those three coins went on to do. Every number here is
+  a fact about the world &mdash; mint times, market caps, liquidity, holders. None of them would
+  change if Insidor did not exist. The bottom strip is hindsight, shown here for the deck; the user
+  saw only the rows above it.</p>
+
+  <div class="e16-split" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="e16-col a">
+      <h4>On the screen</h4>
+      <ul>
+        <li>The sentence: <strong>a retiring ferry captain blew his horn one last time, and every
+          boat in the harbour blew back</strong></li>
+        <li>Both clips, and who posted them &mdash; <strong>@nordkyst_ferge</strong> on X,
+          <strong>@harbourclips</strong> on TikTok</li>
+        <li><strong>2.4M views &middot; 890K plays &middot; 20 minutes old</strong></li>
+        <li>Three coins with their <strong>mint times, market caps, liquidity and holders</strong></li>
+        <li>Which was <strong>first</strong>, which is <strong>biggest</strong>, and which has
+          <strong>no traceable link</strong> back to either post</li>
+      </ul>
+    </div>
+    <div class="e16-col b">
+      <h4>Never on the screen</h4>
+      <ul>
+        <li>That we compared 41,000 at 09:04 with 118,000 at 09:09, or what that comparison told us</li>
+        <li>Why this story sat above four others in the feed</li>
+        <li>What the judge weighed before saying yes</li>
+        <li>How the matcher dropped nine coins and kept three</li>
+        <li>Every threshold, cut-off and cap in between</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="cap">Left column: facts about the world. Right column: our reasoning. The user gets the
+  decision; working it out is our job, not theirs.</p>
+
+  <h3>One morning is not evidence</h3>
+
+  <p>This is a reconstruction of a good day, and it should be read as an illustration of the shape
+  rather than a claim about the hit rate. The honest version of the pitch fits in one line and no
+  longer contains the word <em>first</em>: <strong>of the things minted in the last hour, this is
+  the real story, and it is still climbing.</strong> That claim survives the timing data. The old
+  one did not.</p>
+
+  <p>What we do not yet know is how often a morning like this actually happens &mdash; how many of
+  last week&rsquo;s winners we would have seen at 09:04 rather than 09:47, and how often the coin we
+  labelled biggest was the one that ran. Both questions are answerable, and the only thing standing
+  between us and the answer is that nobody has been writing the mornings down.</p>
+</section>

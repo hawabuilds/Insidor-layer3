@@ -98,7 +98,7 @@ svg{max-width:100%;height:auto;}
 .cr4-chip{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:5px 9px;
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);}
 .cr4-chip.on{border-color:rgba(61,224,255,.5);color:var(--ion);background:rgba(61,224,255,.07);}
-.cr4-chip.taken{color:var(--dim);text-decoration:line-through;}
+.cr4-chip.taken{color:var(--dim);}
 
 /* first buy */
 .cr4-buyhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
@@ -133,6 +133,14 @@ svg{max-width:100%;height:auto;}
 .cr4-er span:last-child{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;color:var(--ink);}
 .cr4-er.you span:last-child{color:var(--lime);}
 
+/* the odds strip — facts about the world, on screen */
+.cr4-odds{border:1px solid rgba(255,184,77,.3);border-radius:9px;background:rgba(255,184,77,.05);padding:10px 12px;}
+.cr4-odds .cr4-lab{color:var(--amber);}
+.cr4-or{display:flex;justify-content:space-between;align-items:baseline;padding:3.5px 0;font-size:11.5px;}
+.cr4-or span:first-child{color:var(--muted);max-width:23ch;}
+.cr4-or span:last-child{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+  color:var(--ink);text-align:right;}
+
 /* cta */
 .cr4-cta{margin-top:14px;border-radius:9px;background:var(--ion);color:#04171D;text-align:center;
   padding:12px;font-weight:600;font-size:13.5px;}
@@ -148,6 +156,8 @@ svg{max-width:100%;height:auto;}
 .cr4-note p{margin:0;color:var(--muted);font-size:12px;line-height:1.5;max-width:52ch;}
 .cr4-note.g{border-left-color:rgba(155,240,60,.45);}
 .cr4-note.g h5{color:var(--lime);}
+.cr4-note.a{border-left-color:rgba(255,184,77,.45);}
+.cr4-note.a h5{color:var(--amber);}
 
 /* two panels */
 .cr4-pair{display:flex;gap:24px;align-items:flex-start;}
@@ -157,9 +167,9 @@ svg{max-width:100%;height:auto;}
 .cr4-badge{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--dim);border:1px solid var(--line2);border-radius:4px;padding:2px 6px;}
 .cr4-wbody{padding:14px 15px;}
-.cr4-txrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);
+.cr4-txrow{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);
   font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:11px;}
-.cr4-txrow span:first-child{color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-size:9px;}
+.cr4-txrow span:first-child{color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-size:9px;flex:0 0 auto;}
 .cr4-txrow span:last-child{color:var(--ink);text-align:right;}
 .cr4-btns{display:flex;gap:9px;margin-top:13px;}
 .cr4-btn{flex:1;text-align:center;padding:10px;border-radius:8px;font-size:12.5px;font-weight:600;}
@@ -181,6 +191,8 @@ svg{max-width:100%;height:auto;}
 .cr4-ca{margin:14px 16px 0;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:9px 11px;}
 .cr4-ca .addr{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;color:var(--ink);
   word-break:break-all;line-height:1.5;margin-top:4px;}
+.cr4-ca .src{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9px;color:var(--dim);margin-top:6px;
+  display:block;line-height:1.5;}
 .cr4-links{display:flex;gap:8px;margin:11px 16px 0;flex-wrap:wrap;}
 .cr4-link{border:1px solid var(--line2);border-radius:7px;padding:7px 11px;font-size:11px;color:var(--ink);}
 .cr4-link.pri{border-color:rgba(61,224,255,.5);color:var(--ion);background:rgba(61,224,255,.07);}
@@ -191,18 +203,43 @@ svg{max-width:100%;height:auto;}
 .cr4-lrow.up span:last-child{color:var(--lime);}
 
 /* ticker states strip */
-.cr4-states{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.cr4-states{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .cr4-scard{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:12px;}
 .cr4-sin{background:var(--bg2);border:1px solid var(--line2);border-radius:7px;padding:8px 10px;
-  display:flex;justify-content:space-between;align-items:center;margin:8px 0 8px;}
+  display:flex;justify-content:space-between;align-items:center;gap:8px;margin:8px 0 8px;}
 .cr4-sin.warn{border-color:rgba(255,184,77,.45);}
+.cr4-sin.bad{border-color:rgba(255,92,110,.45);}
 .cr4-sin .cr4-val{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;}
-.cr4-msg{font-size:11px;color:var(--muted);line-height:1.45;}
+.cr4-msg{font-size:11px;color:var(--muted);line-height:1.45;margin:0;}
 .cr4-msg b{font-weight:500;}
 .cr4-msg b.amb{color:var(--amber);}
 .cr4-msg b.lim{color:var(--lime);}
 .cr4-msg b.ion{color:var(--ion);}
-.cr4-shim{height:9px;width:120px;border-radius:3px;background:linear-gradient(90deg,#16161A,#26262E 45%,#16161A);}
+.cr4-msg b.red{color:var(--red);}
+.cr4-shim{height:9px;width:96px;border-radius:3px;background:linear-gradient(90deg,#16161A,#26262E 45%,#16161A);}
+
+/* confirmation states */
+.cr4-conf{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cr4-cc{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:12px;}
+.cr4-cdot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:7px;vertical-align:1px;}
+.cr4-cc h6{margin:0 0 6px;font-size:12.5px;font-weight:600;color:var(--ink);}
+.cr4-cmeta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;color:var(--dim);
+  letter-spacing:.06em;text-transform:uppercase;margin-top:8px;padding-top:7px;border-top:1px solid var(--line);}
+
+/* the honest bug box */
+.cr4-bug{border:1px solid rgba(255,92,110,.35);border-radius:12px;background:rgba(255,92,110,.045);
+  padding:16px 18px;margin:20px 0 8px;}
+.cr4-bug h5{margin:0 0 9px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:500;}
+.cr4-bug p{margin:0 0 11px;color:#C9CACF;font-size:13px;line-height:1.55;max-width:90ch;}
+.cr4-bug p:last-child{margin-bottom:0;}
+.cr4-src{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;line-height:1.7;
+  background:#0A0A0C;border:1px solid var(--line);border-radius:8px;padding:11px 13px;margin:0 0 12px;
+  color:#8A8A93;overflow-x:auto;white-space:pre;}
+.cr4-src b{color:#FF8E9B;font-weight:400;}
+.cr4-src i{color:#5A5A62;font-style:normal;}
+.cr4-file{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
 
 .cr4-table{width:100%;border-collapse:collapse;font-size:13px;margin:18px 0 8px;}
 .cr4-table th{text-align:left;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;
@@ -210,96 +247,125 @@ svg{max-width:100%;height:auto;}
   border-bottom:1px solid #2E2E36;}
 .cr4-table td{padding:9px 12px;border-bottom:1px solid #212127;color:#8A8A93;vertical-align:top;}
 .cr4-table td:first-child{color:#F4F5F7;}
+.cr4-table td.bad{color:#FF8E9B;}
+.cr4-table td.good{color:#B9EE7C;}
 </style>
 
 <section class="sec">
   <h2>04. Create a coin</h2>
 
-  <p class="lede">Every other tool shows a coin after it exists. We show the story before it exists — so
-  we can offer something nobody else can: the user makes the coin themselves, from the story, in a few
-  taps, and is first in.</p>
+  <p class="lede">An earlier version of this section promised the user would be first. The timing data
+  says that is false for every coin worth being first on. So this screen keeps the same shape and loses
+  the boast: it is the smaller of the two doors, it tells the truth about the odds on the screen itself,
+  and — unlike the build we have today — it actually creates a coin.</p>
 
-  <p>This is the single biggest thing that separates Insidor from Axiom, Photon or GMGN. Those tools are
-  fed by money moving. A coin has to already be trading before it can appear on them, which means every
-  user of those tools arrives after somebody else got there. We are fed by the internet instead, so we
-  see the ferry captain, the plastic plant, the town paying people to move — while the coin is still an
-  idea. At that moment the user has two doors. If a coin exists, they buy it (section 03). If none does,
-  they open this sheet.</p>
+  <h3>The claim we used to make, and why it is dead</h3>
 
-  <p>The example here is <strong>"Paid to Move to Norway"</strong> — a Norwegian town is paying people
-  €25,000 to move there. 1.1M views, an hour old, and nobody has made a coin out of it yet.</p>
+  <p>X post IDs contain their own timestamp, so the gap between a post going up and a coin being minted
+  from it is computable, not guessable. The median gap is <strong>3.8 minutes</strong>, and it shortens
+  as the coin does better: <strong>1.2 minutes</strong> above a $1M peak, <strong>1.1 minutes</strong>
+  above $10M, with 88% of those minted inside the first hour. Bots watch the same firehose and are
+  faster than any interface with a human in it. Chill Guy — the famous thirteen-month gap — was an
+  archived tweet re-minted years later, and every case like it peaked between $159K and $1.8M. The slow
+  regime is the losing regime.</p>
 
-  <h3>Where the pre-filled name comes from</h3>
-
-  <p>The user does not sit and think of a name. The work was already done, about an hour earlier, by a
-  part of the system they never see. When our AI reader looked at this post it was answering one
-  question — could someone realistically make a memecoin out of this? — and part of answering it is
-  proposing what the coin would be called. That suggestion was written down at the time and stored
-  with the story. By the time somebody taps <em>Create</em>, the name, the ticker and the image have
-  been sitting there ready for an hour.</p>
+  <p>The second half of that measurement is the good news. Post-to-<em>peak</em> is about six days, and
+  <strong>zero percent</strong> of coins clearing $1M peaked inside their first hour. The mint window
+  shuts in minutes; the price window stays open for days. That is why buying (section 03) is the main
+  door and this is the side door.</p>
 
   <div class="cr4" style="break-inside:avoid;page-break-inside:avoid">
-    <svg viewBox="0 0 1010 132" width="1010" height="132" style="width:100%;height:auto;display:block"
+    <svg viewBox="0 0 1010 256" width="1010" height="256" style="width:100%;height:auto;display:block"
          xmlns="http://www.w3.org/2000/svg" role="img"
-         aria-label="Timeline from post to pre-filled create sheet">
+         aria-label="Two windows after a post: minting closes in minutes, price peaks around six days">
       <defs>
-        <marker id="cr4arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0 L7,3.5 L0,7 z" fill="#2E2E36"/>
-        </marker>
+        <linearGradient id="cr4mint" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#3DE0FF" stop-opacity=".55"/>
+          <stop offset="18%" stop-color="#3DE0FF" stop-opacity=".16"/>
+          <stop offset="60%" stop-color="#3DE0FF" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="cr4peak" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#9BF03C" stop-opacity="0"/>
+          <stop offset="46%" stop-color="#9BF03C" stop-opacity=".3"/>
+          <stop offset="100%" stop-color="#9BF03C" stop-opacity=".05"/>
+        </linearGradient>
       </defs>
-      <line x1="34" y1="46" x2="976" y2="46" stroke="#212127" stroke-width="1"/>
-      <g font-family="JetBrains Mono, monospace" font-size="10" fill="#5A5A62">
-        <g>
-          <circle cx="60" cy="46" r="4" fill="#2E2E36"/>
-          <text x="60" y="30" text-anchor="middle">13:18</text>
-          <text x="60" y="70" text-anchor="middle" fill="#8A8A93">posted</text>
-          <text x="60" y="86" text-anchor="middle" font-size="9">on X</text>
-        </g>
-        <g>
-          <circle cx="248" cy="46" r="4" fill="#3DE0FF"/>
-          <text x="248" y="30" text-anchor="middle">13:21</text>
-          <text x="248" y="70" text-anchor="middle" fill="#8A8A93">collector finds it</text>
-          <text x="248" y="86" text-anchor="middle" font-size="9">62K views</text>
-        </g>
-        <g>
-          <circle cx="436" cy="46" r="4" fill="#3DE0FF"/>
-          <text x="436" y="30" text-anchor="middle">13:23</text>
-          <text x="436" y="70" text-anchor="middle" fill="#8A8A93">measured again</text>
-          <text x="436" y="86" text-anchor="middle" font-size="9">171K views</text>
-        </g>
-        <g>
-          <circle cx="636" cy="46" r="4" fill="#9BF03C"/>
-          <text x="636" y="30" text-anchor="middle">13:24</text>
-          <text x="636" y="70" text-anchor="middle" fill="#9BF03C">AI reads it and</text>
-          <text x="636" y="86" text-anchor="middle" fill="#9BF03C" font-size="9">suggests a name + ticker</text>
-        </g>
-        <g>
-          <circle cx="828" cy="46" r="4" fill="#2E2E36"/>
-          <text x="828" y="30" text-anchor="middle">13:25</text>
-          <text x="828" y="70" text-anchor="middle" fill="#8A8A93">appears in Insidor</text>
-          <text x="828" y="86" text-anchor="middle" font-size="9">no coin exists</text>
-        </g>
-        <g>
-          <circle cx="952" cy="46" r="4" fill="#F4F5F7"/>
-          <text x="952" y="30" text-anchor="middle" fill="#F4F5F7">14:22</text>
-          <text x="952" y="70" text-anchor="middle" fill="#F4F5F7">user taps Create</text>
-          <text x="952" y="86" text-anchor="middle" font-size="9">fields already filled</text>
-        </g>
+
+      <text x="0" y="14" font-family="JetBrains Mono, monospace" font-size="9" fill="#5A5A62"
+            letter-spacing="1.2">WHEN THE COIN GETS MINTED — THE WINDOW WE CANNOT WIN</text>
+      <rect x="0" y="24" width="1010" height="60" rx="7" fill="url(#cr4mint)"/>
+      <rect x="0" y="24" width="1010" height="60" rx="7" fill="none" stroke="#212127"/>
+      <path d="M1,84 L3,30 C 9,30 13,54 22,66 C 46,79 120,83 260,84 L1010,84 Z"
+            fill="#3DE0FF" fill-opacity=".3" stroke="#3DE0FF" stroke-width="1.2" stroke-opacity=".8"/>
+      <g font-family="JetBrains Mono, monospace" font-size="10">
+        <path d="M30,34 L96,34" stroke="#2E2E36" stroke-width="1"/>
+        <text x="104" y="38" fill="#3DE0FF">1.1 min</text>
+        <text x="104" y="51" fill="#8A8A93" font-size="9">median for coins that peaked over $10M</text>
+        <text x="104" y="64" fill="#F4F5F7" font-size="9">3.8 min — median across all coins</text>
+        <text x="104" y="77" fill="#5A5A62" font-size="9">nearly the whole distribution sits in this spike</text>
+        <line x1="180" y1="24" x2="180" y2="84" stroke="#2E2E36" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="640" y="46" fill="#8A8A93" font-size="9" text-anchor="middle">by the one-hour mark, 88% of every coin that ever cleared $10M has already been minted</text>
       </g>
-      <line x1="646" y1="106" x2="940" y2="106" stroke="#2E2E36" stroke-width="1"
-            stroke-dasharray="3 3" marker-end="url(#cr4arrow)"/>
-      <text x="793" y="102" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9"
-            fill="#5A5A62" letter-spacing="1">58 MINUTES OF PREPARATION THE USER NEVER SEES</text>
+      <g>
+        <line x1="183" y1="18" x2="183" y2="92" stroke="#FFB84D" stroke-width="1.5"/>
+        <circle cx="183" cy="54" r="4" fill="#FFB84D"/>
+        <path d="M189,14 L300,14" stroke="#FFB84D" stroke-width="1" stroke-opacity=".5"/>
+        <text x="306" y="18" font-family="JetBrains Mono, monospace" font-size="10"
+              fill="#FFB84D">64 min — the human in our example taps Create</text>
+      </g>
+
+      <text x="0" y="130" font-family="JetBrains Mono, monospace" font-size="9" fill="#5A5A62"
+            letter-spacing="1.2">WHEN THE PRICE PEAKS — THE WINDOW THAT IS STILL OPEN</text>
+      <rect x="0" y="140" width="1010" height="62" rx="7" fill="url(#cr4peak)"/>
+      <rect x="0" y="140" width="1010" height="62" rx="7" fill="none" stroke="#212127"/>
+      <rect x="1" y="141" width="179" height="60" fill="#FF5C6E" fill-opacity=".07"/>
+      <line x1="180" y1="140" x2="180" y2="202" stroke="#FF5C6E" stroke-width="1" stroke-opacity=".5"/>
+      <path d="M0,196 C150,194 300,188 450,177 C560,168 660,156 750,152 C850,156 930,174 1010,188"
+            fill="none" stroke="#9BF03C" stroke-width="1.6" stroke-opacity=".85"/>
+      <g font-family="JetBrains Mono, monospace" font-size="10">
+        <text x="188" y="156" fill="#FF5C6E" font-size="9">no coin that ever cleared $1M reached its peak inside this first hour</text>
+        <circle cx="750" cy="152" r="4" fill="#9BF03C"/>
+        <text x="750" y="142" fill="#9BF03C" text-anchor="middle" font-size="9">~day 6 — median peak</text>
+      </g>
+
+      <line x1="0" y1="220" x2="1010" y2="220" stroke="#212127"/>
+      <g font-family="JetBrains Mono, monospace" font-size="9" fill="#5A5A62">
+        <line x1="180" y1="220" x2="180" y2="225" stroke="#2E2E36"/>
+        <line x1="380" y1="220" x2="380" y2="225" stroke="#2E2E36"/>
+        <line x1="600" y1="220" x2="600" y2="225" stroke="#2E2E36"/>
+        <line x1="800" y1="220" x2="800" y2="225" stroke="#2E2E36"/>
+        <text x="0" y="236">0 min</text>
+        <text x="180" y="236" text-anchor="middle">1 h</text>
+        <text x="380" y="236" text-anchor="middle">1 day</text>
+        <text x="600" y="236" text-anchor="middle">3 days</text>
+        <text x="800" y="236" text-anchor="middle">7 days</text>
+        <text x="1010" y="236" text-anchor="end">14 days</text>
+        <text x="505" y="248" text-anchor="middle" fill="#3A3A42" font-size="8"
+              letter-spacing="1">ONE SHARED TIME AXIS · COMPRESSED AFTER THE FIRST HOUR</text>
+      </g>
     </svg>
   </div>
-  <p class="cap">The whole left half of this line happens without anybody asking for it. Naming is a
-  by-product of judging, so it costs nothing extra and it is finished long before a human arrives.</p>
+  <p class="cap">Two different clocks, drawn on one line. Creating is a race we lose in the first ninety
+  seconds. Trading is a race that runs for a week. The product should be weighted accordingly.</p>
+
+  <h3>So what is this screen actually for</h3>
+
+  <p>Three honest cases. The story genuinely has no coin — most viral posts never get minted. The user
+  is close to the story and wants to be the one who mints it, for reasons that have nothing to do with
+  beating a bot. Or — the real volume — they have seen the tickers we found, decided none is the real
+  one, and want their own. A pump.fun search for "chill guy" returns 306 distinct tokens. "No coin"
+  almost never means no coin; it means <em>no coin we can match to this story</em>, and the screen
+  should say so.</p>
+
+  <p>The example is <strong>"Paid to Move to Norway"</strong> — a Norwegian town paying €25,000 to
+  people who relocate. 1.1M views, an hour old, nothing trading under any ticker we can tie to it.</p>
 
   <h3>The create sheet</h3>
 
-  <p>One screen. The story sits at the top so the user can see what they are minting. Everything below
-  it is pre-filled and everything is editable. Nothing here is a decision the user has to research —
-  it is a decision they either accept or nudge.</p>
+  <p>One screen. The story sits locked at the top so it is always obvious what this coin is <em>of</em>.
+  Name, ticker and image arrive pre-filled — written an hour earlier as a by-product of the AI reader
+  judging the post, so naming costs nothing extra and is done long before a human turns up. Everything
+  is editable; nothing requires research.</p>
 
   <div class="cr4" style="break-inside:avoid;page-break-inside:avoid">
     <div class="cr4-row">
@@ -320,7 +386,7 @@ svg{max-width:100%;height:auto;}
                   <span>1.1M views</span><span class="cr4-dotsep">·</span>
                   <span>1h old</span><span class="cr4-dotsep">·</span>
                   <span>@nordic_notes</span><span class="cr4-dotsep">·</span>
-                  <span class="cr4-nocoin">no coin yet</span>
+                  <span class="cr4-nocoin">no coin found</span>
                 </div>
               </div>
             </div>
@@ -335,15 +401,17 @@ svg{max-width:100%;height:auto;}
             <div class="cr4-fl"><span class="cr4-lab">Ticker</span><span class="cr4-edit">Edit</span></div>
             <div class="cr4-in">
               <span class="cr4-val cr4-tick">$NORWAY</span>
-              <span class="cr4-ok"><i class="cr4-tick-ok"><svg viewBox="0 0 12 12" width="8" height="8" aria-hidden="true"><path d="M2.4 6.3 4.7 8.6 9.6 3.7" fill="none" stroke="#9BF03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>AVAILABLE</span>
+              <span class="cr4-ok"><i class="cr4-tick-ok"><svg viewBox="0 0 12 12" width="8" height="8" aria-hidden="true"><path d="M2.4 6.3 4.7 8.6 9.6 3.7" fill="none" stroke="#9BF03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>NOTHING TRADING</span>
             </div>
             <div class="cr4-chips">
               <span class="cr4-chip on">$NORWAY</span>
               <span class="cr4-chip">$MOVE</span>
               <span class="cr4-chip">$FJORD</span>
-              <span class="cr4-chip taken">$25K</span>
+              <span class="cr4-chip taken">$25K &nbsp;·&nbsp; 2 live</span>
             </div>
-            <div class="cr4-hint">We checked pump.fun. $25K is already in use.</div>
+            <div class="cr4-hint">Checked against pump.fun 4 seconds ago. Solana does not reserve
+            symbols — two coins already trade as $25K, and anyone can mint a third $NORWAY after
+            you.</div>
           </div>
 
           <div class="cr4-blk">
@@ -391,6 +459,16 @@ svg{max-width:100%;height:auto;}
           </div>
 
           <div class="cr4-blk">
+            <div class="cr4-odds">
+              <div class="cr4-lab" style="margin-bottom:5px">What usually happens to a new coin</div>
+              <div class="cr4-or"><span>Minted on pump.fun yesterday</span><span>29,847</span></div>
+              <div class="cr4-or"><span>Median value of one, fresh</span><span>$28</span></div>
+              <div class="cr4-or"><span>Share that ever clear $10K</span><span>1 in 300</span></div>
+              <div class="cr4-or"><span>Of the 1,050 biggest ever: peak, then today</span><span>$546K → $3K</span></div>
+            </div>
+          </div>
+
+          <div class="cr4-blk">
             <div class="cr4-earn">
               <div class="cr4-lab" style="margin-bottom:5px">Afterwards, on every trade of this coin</div>
               <div class="cr4-er you"><span>You, as the creator</span><span>0.05%</span></div>
@@ -410,33 +488,40 @@ svg{max-width:100%;height:auto;}
 
       <div class="cr4-notes">
         <div class="cr4-note">
-          <h5>The story is locked to the top</h5>
-          <p>So it is always obvious what this coin is <em>of</em>. The two-line summary is the same
-          sentence the user read in the feed — no re-writing, no surprises.</p>
+          <h5>"No coin found", not "no coin exists"</h5>
+          <p>Only about 5% of coins over $50K declare which post they came from, so matching is
+          inference. The badge should claim what we actually know and nothing more.</p>
         </div>
         <div class="cr4-note">
           <h5>Name and ticker arrive filled in</h5>
-          <p>Written an hour ago when the AI judged the post. Tapping <em>Edit</em> replaces them with
-          anything the user prefers; the alternatives are one tap away.</p>
+          <p>Written an hour ago when the AI reader judged the post. <em>Edit</em> replaces them; the
+          alternatives are one tap away.</p>
         </div>
-        <div class="cr4-note">
-          <h5>Availability is a live check, not a guess</h5>
-          <p>We ask pump.fun whether the ticker is taken before the user commits. $25K is struck
-          through because somebody already used it.</p>
+        <div class="cr4-note a">
+          <h5>Availability is a live lookup, and it is not a reservation</h5>
+          <p>Solana enforces no uniqueness on symbols. "Nothing trading" is true right now and stops
+          being true the moment someone else mints. Saying "you'd be first" would be a lie with a
+          shelf life.</p>
         </div>
         <div class="cr4-note">
           <h5>The image is a still from the post</h5>
-          <p>Three alternate frames plus an upload slot. Most users will accept the first one, which is
-          the point.</p>
+          <p>Three alternate frames plus an upload slot. Most users accept the first one, which is the
+          point.</p>
         </div>
         <div class="cr4-note">
-          <h5>The first buy is optional and honest</h5>
-          <p>It says exactly what 1 SOL gets you and what share of the coin that is. Turning the toggle
-          off drops the total to 0.0202 SOL.</p>
+          <h5>The first buy is optional and specific</h5>
+          <p>It says what 1 SOL gets and what share of supply that is. Turning the toggle off drops the
+          total to 0.0202 SOL.</p>
+        </div>
+        <div class="cr4-note a">
+          <h5>The odds go on the screen</h5>
+          <p>Every figure in that amber block is a fact about pump.fun that would be true if Insidor
+          did not exist. None of it is our scoring. It is the least we can do on a screen that is about
+          to take £155.</p>
         </div>
         <div class="cr4-note g">
-          <h5>One number, in pounds</h5>
-          <p>Crypto interfaces habitually show a total the user has to convert in their head. We show
+          <h5>One total, in pounds</h5>
+          <p>Crypto interfaces habitually show a number the user has to convert in their head. We show
           SOL and sterling, and we say plainly that we charge nothing at this step.</p>
         </div>
         <div class="cr4-note g">
@@ -447,14 +532,15 @@ svg{max-width:100%;height:auto;}
       </div>
     </div>
   </div>
-  <p class="cap">Nothing on this sheet is a number we invented about the story. Views, age, who posted
-  it, the cost, the fee split, the share of supply — all facts the user could verify elsewhere. The
-  judgement that put this story in front of them stays behind the curtain.</p>
+  <p class="cap">Test applied to every number here: would it still be true if Insidor did not exist?
+  Views, age, who posted, cost, fee split, share of supply, the pump.fun population statistics — all
+  yes. The judgement that put this story in front of the user stays behind the curtain.</p>
 
-  <h3>When the ticker is not available</h3>
+  <h3>The ticker check has four answers, not two</h3>
 
-  <p>Tickers are first-come. Checking after the user has signed something would be a bad experience, so
-  the check runs while they are still looking at the field.</p>
+  <p>The check runs while the user is still looking at the field — discovering a collision after a
+  signature is a terrible experience. It is a network lookup against pump.fun, not a look at our own
+  memory, and its honest vocabulary is "nothing trading under this", never "yours".</p>
 
   <div class="cr4" style="break-inside:avoid;page-break-inside:avoid">
     <div class="cr4-states">
@@ -464,37 +550,48 @@ svg{max-width:100%;height:auto;}
           <span class="cr4-val">$NORWAY</span>
           <span class="cr4-shim"></span>
         </div>
-        <p class="cr4-msg">Half a second, usually. The <b class="ion">Review in wallet</b> button waits
-        rather than letting the user run ahead.</p>
+        <p class="cr4-msg">Half a second, usually. <b class="ion">Review in wallet</b> waits rather than
+        letting the user run ahead of the answer.</p>
       </div>
       <div class="cr4-scard">
-        <span class="cr4-lab">Free</span>
+        <span class="cr4-lab">Nothing trading</span>
         <div class="cr4-sin">
           <span class="cr4-val">$NORWAY</span>
-          <span class="cr4-ok"><i class="cr4-tick-ok"><svg viewBox="0 0 12 12" width="8" height="8" aria-hidden="true"><path d="M2.4 6.3 4.7 8.6 9.6 3.7" fill="none" stroke="#9BF03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>AVAILABLE</span>
+          <span class="cr4-ok"><i class="cr4-tick-ok"><svg viewBox="0 0 12 12" width="8" height="8" aria-hidden="true"><path d="M2.4 6.3 4.7 8.6 9.6 3.7" fill="none" stroke="#9BF03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>CLEAR</span>
         </div>
-        <p class="cr4-msg">Nothing further to do. <b class="lim">Carry on.</b></p>
+        <p class="cr4-msg"><b class="lim">Carry on.</b> Not a reservation — the check is a photograph,
+        not a lock.</p>
       </div>
       <div class="cr4-scard">
-        <span class="cr4-lab">Already used</span>
+        <span class="cr4-lab">Something already trades</span>
         <div class="cr4-sin warn">
           <span class="cr4-val">$25K</span>
-          <span class="cr4-mono" style="font-size:10px;color:#FFB84D">TAKEN</span>
+          <span class="cr4-mono" style="font-size:10px;color:#FFB84D">2 LIVE</span>
         </div>
-        <p class="cr4-msg"><b class="amb">$25K already exists on pump.fun.</b> Pick another, or open the
-        one that exists.</p>
+        <p class="cr4-msg"><b class="amb">Two coins already trade as $25K</b> — $84K and $2.1K. We show
+        both, because buying one may beat minting a third.</p>
+      </div>
+      <div class="cr4-scard">
+        <span class="cr4-lab">Lookup failed</span>
+        <div class="cr4-sin bad">
+          <span class="cr4-val">$NORWAY</span>
+          <span class="cr4-mono" style="font-size:10px;color:#FF5C6E">NO ANSWER</span>
+        </div>
+        <p class="cr4-msg"><b class="red">We could not reach pump.fun.</b> Retry, or continue knowing we
+        did not check. Never silently pretend it came back clear.</p>
       </div>
     </div>
   </div>
-  <p class="cap">The taken state offers a way out, not just a refusal — if a coin with that ticker
-  already exists we can show it, and the user may decide buying it is the better move.</p>
+  <p class="cap">The fourth card is the one the current build lacks entirely — it cannot fail, because
+  it never asks anyone. A check that cannot fail is not a check.</p>
 
   <h3>Signing it</h3>
 
-  <p>This step is where the safety promise is kept. Insidor builds the transaction and hands it to the
-  user's wallet. The wallet — provided by Privy, so that the specialist handles the hard part — shows
-  what is about to happen and asks for approval. We never take custody of funds and we never see a
-  private key. If the user rejects it, nothing happens and nothing has been spent.</p>
+  <p>This is where the safety promise is kept. Insidor assembles the transaction and hands it to the
+  user's wallet — Privy, so a specialist handles custody — which shows what is about to happen and asks
+  for approval. We never take custody and never see a private key. Reject it and nothing is spent. The
+  app already does exactly this for buying: <code>api/swap.js</code> builds a Jupiter swap and the
+  browser signs it. Creating should use the same road.</p>
 
   <div class="cr4" style="break-inside:avoid;page-break-inside:avoid">
     <div class="cr4-pair">
@@ -510,6 +607,7 @@ svg{max-width:100%;height:auto;}
             <div class="cr4-txrow"><span>Token</span><span>Paid To Move To Norway ($NORWAY)</span></div>
             <div class="cr4-txrow"><span>You send</span><span>1.0202 SOL</span></div>
             <div class="cr4-txrow"><span>You receive</span><span>34,612,903 $NORWAY</span></div>
+            <div class="cr4-txrow"><span>Expires</span><span>in 48 seconds</span></div>
             <div class="cr4-txrow"><span>Requested by</span><span>insidor.app</span></div>
             <div class="cr4-btns">
               <span class="cr4-btn rej">Reject</span>
@@ -530,7 +628,7 @@ svg{max-width:100%;height:auto;}
             <span class="cr4-ring"><svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M4.5 10.4 8.4 14.3 15.6 6.4" fill="none" stroke="#9BF03C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <div>
               <div class="cr4-disp" style="font-size:17px">$NORWAY is live</div>
-              <div class="cr4-live">created 14:22:07 · you were first</div>
+              <div class="cr4-live">confirmed 14:22:07 · slot 298,441,062</div>
             </div>
           </div>
           <div class="cr4-stats">
@@ -541,7 +639,9 @@ svg{max-width:100%;height:auto;}
           </div>
           <div class="cr4-ca">
             <span class="cr4-lab">Contract address</span>
-            <div class="addr">4mVqZ8dLp2rN6tYbH1sXeK9wQ3cAujFgS7hRnD2Bpump</div>
+            <div class="addr">6xKqR3vTn8mLbY2sHwEeA9dPgUcJf1ZoNrQ4iSVXpump</div>
+            <span class="src">read back from the confirmed transaction ·
+            tx 5Jm…9tQ · verify on Solscan</span>
           </div>
           <div class="cr4-links">
             <span class="cr4-link pri">Share the story</span>
@@ -559,27 +659,98 @@ svg{max-width:100%;height:auto;}
       </div>
     </div>
   </div>
-  <p class="cap">The success state does one job beyond confirming: it hands over the shareable link.
-  The story page now lists $NORWAY, so anyone the user sends it to lands on the narrative — not on a
-  chart of a coin they have never heard of.</p>
+  <p class="cap">One line does the heavy lifting: the address is read back from the confirmed
+  transaction. It is the mint account the chain assigned, not a string we composed — and the tx
+  signature is shown beside it so the user can check us.</p>
 
-  <h3>What we build here, and what we rent</h3>
+  <p>Between tapping Approve and a coin existing there are four outcomes, and the build has one. A
+  blockhash expires in about a minute; transactions get dropped; wallets get rejected; balances come up
+  short once the fee lands. None of these should leave a coin in the interface that does not exist on
+  the chain.</p>
+
+  <div class="cr4" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="cr4-conf">
+      <div class="cr4-cc">
+        <h6><span class="cr4-cdot" style="background:#3DE0FF"></span>Sent</h6>
+        <p class="cr4-msg">Signature accepted, waiting for the network. We poll for confirmation and
+        show the elapsed seconds honestly.</p>
+        <div class="cr4-cmeta">Typically 1–3 seconds</div>
+      </div>
+      <div class="cr4-cc">
+        <h6><span class="cr4-cdot" style="background:#9BF03C"></span>Confirmed</h6>
+        <p class="cr4-msg">The mint account exists. Only now do we write the coin into the story page
+        and show the address.</p>
+        <div class="cr4-cmeta">The only path to "is live"</div>
+      </div>
+      <div class="cr4-cc">
+        <h6><span class="cr4-cdot" style="background:#8A8A93"></span>Rejected</h6>
+        <p class="cr4-msg">The user pressed Reject, or the window expired. Nothing spent, sheet returns
+        with every field still filled in.</p>
+        <div class="cr4-cmeta">Costs nothing · retry in one tap</div>
+      </div>
+      <div class="cr4-cc">
+        <h6><span class="cr4-cdot" style="background:#FF5C6E"></span>Failed on chain</h6>
+        <p class="cr4-msg">Dropped, or short of SOL once fees landed. We say which, and we never claim a
+        coin that did not get created.</p>
+        <div class="cr4-cmeta">Network fee may still be spent</div>
+      </div>
+    </div>
+  </div>
+  <p class="cap">Four states, one of which is success. The build ships the success state only, and
+  reaches it unconditionally.</p>
+
+  <h3>What the build does today — said plainly</h3>
+
+  <p>The create flow in the current build does not create anything. Pressing the button invents a
+  contract address with a small random number generator, inserts a token into an in-memory array so it
+  appears in the feed, and tells the user their coin is live. No wallet opens. No transaction is built.
+  Nothing touches Solana. "Copy CA" then puts the invented string on the user's clipboard.</p>
+
+  <div class="cr4-bug" style="break-inside:avoid;page-break-inside:avoid">
+    <h5>site/index.html — the address is generated, not received</h5>
+    <div class="cr4-file">line 291 · genCA()</div>
+    <pre class="cr4-src">function genCA(s){ <i>// 44 characters that look like a Solana address</i>
+  let x = s*9301+49297;
+  for(let i=0;i&lt;44;i++){ x=(x*9301+49297)%233280; o+=h[x%h.length]; }
+  return o; }                       <b>&lt;-- a linear congruential PRNG</b></pre>
+    <div class="cr4-file">line 672 · deployFiled()</div>
+    <pre class="cr4-src">const ca = <b>genCA</b>(tick.length*37 + tick.charCodeAt(0));
+TOKENS.unshift(nt);                  <i>// coin now "exists" — in a JS array</i>
+sheet.innerHTML = `&lt;div class="done-h"&gt;<b>$${tick} is live</b>&lt;/div&gt;`;
+$('#dcopy').onclick = () =&gt; navigator.clipboard.<b>writeText(ca)</b>;</pre>
+    <p>Two more things in the same flow are invented rather than fetched. The availability check at line
+    653 searches the app's own arrays, then prints <em>"$NORWAY is free on Solana — you'd be first to
+    deploy it"</em> — a sentence about the blockchain produced without contacting it. And the cost line
+    is <code>0.52 + firstBuy</code>: a hardcoded 0.52 SOL launch fee, roughly twenty-six times the real
+    pump.fun charge of about 0.02 SOL.</p>
+    <p>The uncomfortable part is that the machinery already exists. <code>api/swap.js</code> builds a
+    real transaction and the token page has the browser sign it through Privy. Buying is real; creating
+    took the shortcut, and nothing in plain JavaScript objected — the same absence of shape that let
+    TikTok play counts get written into a column named <code>views</code>. This is the one bug in the
+    build that could cost a user money on the strength of a number we made up.</p>
+  </div>
+  <p class="cap">Shown here not to embarrass the build but to size the work: the create path is a mockup
+  wearing the interface, and everything above in this section is what replacing it looks like.</p>
+
+  <h3>Build it or rent it</h3>
 
   <table class="cr4-table">
-    <tr><th>Piece</th><th>Who does it</th><th>Why</th></tr>
-    <tr><td>Knowing this story has no coin yet</td><td>Insidor</td>
-        <td>The entire reason this screen can exist. Nobody else is looking before the money moves.</td></tr>
-    <tr><td>The suggested name, ticker and image</td><td>Insidor, via Claude</td>
-        <td>Produced as a by-product of judging the post an hour earlier.</td></tr>
-    <tr><td>Checking the ticker is free</td><td>pump.fun</td>
-        <td>They hold the register, so we ask them.</td></tr>
-    <tr><td>Creating the coin</td><td>pump.fun</td>
-        <td>The standard every trader already uses. Building our own launcher would win us nothing.</td></tr>
+    <tr><th>Piece</th><th>Who does it</th><th>Status today</th></tr>
+    <tr><td>Knowing this story has no coin we can match</td><td>Insidor</td>
+        <td class="good">Real — the clustering and matching already run.</td></tr>
+    <tr><td>Suggested name, ticker and image</td><td>Insidor, via Claude</td>
+        <td class="good">Real — a by-product of judging the post an hour earlier.</td></tr>
+    <tr><td>Checking what already trades under a ticker</td><td>pump.fun</td>
+        <td class="bad">Fake — searches our own arrays, answers about Solana.</td></tr>
+    <tr><td>Building the create transaction</td><td>pump.fun program, assembled by us</td>
+        <td class="bad">Missing — no endpoint exists. Roughly three days' work.</td></tr>
     <tr><td>Holding the wallet and signing</td><td>Privy, on the user's device</td>
-        <td>Custody is specialist and dangerous. We stay out of it entirely.</td></tr>
+        <td class="good">Real for buying; the create path simply never calls it.</td></tr>
+    <tr><td>Confirming and reading back the mint address</td><td>Solana RPC</td>
+        <td class="bad">Fake — a pseudo-random string, copied to the clipboard.</td></tr>
   </table>
 
-  <p class="cap">Same rule as everywhere else: we build the detection, we rent the plumbing. The only
-  irreplaceable part of this screen is knowing there was something worth minting an hour before anyone
-  else did.</p>
+  <p class="cap">Same rule as everywhere else: build the detection, rent the plumbing. What is genuinely
+  ours on this screen is knowing there was something worth minting. What is missing is the two hundred
+  lines that turn that knowledge into a transaction the chain will accept.</p>
 </section>

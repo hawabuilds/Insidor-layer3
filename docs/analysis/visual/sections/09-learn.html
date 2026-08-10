@@ -1,0 +1,577 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document
+   supplies the same rules from the shell head, so the build strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+.mock{margin:26px 0 6px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+/* ── 09. HOW THE SYSTEM LEARNS ─────────────────────────────────────── */
+.lrn-mock{
+  background:#0C0C0E; border:1px solid #212127; border-radius:12px;
+  padding:20px 18px 16px; margin:26px 0 10px;
+}
+.lrn-mock + .cap{ margin-top:0; }
+.lrn-mock svg{ width:100%; height:auto; display:block; }
+.lrn-mocktitle{
+  font-size:10px; text-transform:uppercase; letter-spacing:.1em;
+  color:#5A5A62; margin:0 0 16px 2px;
+}
+.lrn-mocktitle b{ color:#8A8A93; font-weight:500; }
+
+/* the two notebooks, side by side */
+.lrn-books{ display:flex; gap:14px; align-items:stretch; }
+.lrn-book{
+  flex:1 1 0; background:#131316; border:1px solid #212127; border-radius:10px;
+  padding:14px 15px 12px; min-width:0;
+}
+.lrn-book.lrn-now{ border-color:#2E2E36; box-shadow:inset 0 0 0 1px rgba(61,224,255,.16); }
+.lrn-book.lrn-later{ border-color:#2E2E36; box-shadow:inset 0 0 0 1px rgba(155,240,60,.14); }
+.lrn-bhead{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding-bottom:9px; margin-bottom:11px; border-bottom:1px solid #212127;
+}
+.lrn-bname{ font-family:"Clash Display",system-ui,sans-serif; font-size:14px; font-weight:600; color:#F4F5F7; }
+.lrn-bwhen{
+  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.lrn-now .lrn-bwhen{ color:#3DE0FF; }
+.lrn-later .lrn-bwhen{ color:#9BF03C; }
+.lrn-row{ display:flex; gap:10px; padding:4px 0; align-items:baseline; }
+.lrn-k{
+  flex:0 0 128px; font-size:10px; text-transform:uppercase; letter-spacing:.08em;
+  color:#5A5A62; line-height:1.5;
+}
+.lrn-v{
+  flex:1 1 auto; font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
+  font-size:11.5px; color:#F4F5F7; line-height:1.5; word-break:break-word;
+}
+.lrn-v.lrn-dim{ color:#8A8A93; }
+.lrn-v.lrn-key{ color:#3DE0FF; background:rgba(61,224,255,.07); padding:1px 5px; border-radius:4px; }
+.lrn-v.lrn-good{ color:#9BF03C; }
+.lrn-joinbar{
+  margin-top:14px; border:1px dashed #2E2E36; border-radius:9px; background:#0C0C0E;
+  padding:11px 14px; display:flex; gap:12px; align-items:center;
+}
+.lrn-joinbar .lrn-jl{
+  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:#3DE0FF; white-space:nowrap;
+}
+.lrn-joinbar .lrn-jt{ font-size:12.5px; color:#8A8A93; line-height:1.5; }
+
+/* callout */
+.lrn-shout{
+  border:1px solid #212127; border-left:3px solid #FF5C6E; background:#0C0C0E;
+  border-radius:0 12px 12px 0; padding:20px 24px; margin:26px 0 28px;
+  max-width:96ch; break-inside:avoid; page-break-inside:avoid;
+}
+.lrn-shout.lrn-amber{ border-left-color:#FFB84D; }
+.lrn-shout .lrn-lb{
+  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px;
+  letter-spacing:.13em; text-transform:uppercase; color:#FF5C6E; margin-bottom:10px;
+}
+.lrn-shout.lrn-amber .lrn-lb{ color:#FFB84D; }
+.lrn-shout p{ margin:0; font-size:17px; line-height:1.5; color:#F4F5F7; max-width:none; }
+.lrn-shout p + p{ margin-top:10px; font-size:14.5px; color:#8A8A93; }
+
+/* two-up diagram holder */
+.lrn-two{ display:flex; gap:14px; align-items:stretch; }
+.lrn-two > div{
+  flex:1 1 0; min-width:0; background:#131316; border:1px solid #212127;
+  border-radius:10px; padding:13px 14px 10px;
+}
+.lrn-sub{
+  font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#8A8A93; margin:0 0 10px 1px;
+}
+
+/* table */
+table.lrn-tbl{
+  width:100%; border-collapse:collapse; background:#0C0C0E;
+  border:1px solid #212127; border-radius:12px; overflow:hidden;
+  margin:24px 0 8px; break-inside:avoid; page-break-inside:avoid;
+}
+table.lrn-tbl th{
+  font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:#5A5A62;
+  font-weight:500; text-align:left; padding:11px 16px;
+  border-bottom:1px solid #2E2E36; background:#131316;
+}
+table.lrn-tbl td{
+  font-size:12.5px; color:#8A8A93; line-height:1.5;
+  padding:12px 16px; border-bottom:1px solid #212127; vertical-align:top;
+}
+table.lrn-tbl tr:last-child td{ border-bottom:none; }
+table.lrn-tbl{ table-layout:fixed; }
+table.lrn-tbl td.lrn-c1{ color:#F4F5F7; font-weight:500; width:13%; }
+table.lrn-tbl td.lrn-c2{
+  font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
+  font-size:11.5px; width:16%;
+}
+table.lrn-tbl td.lrn-c4{
+  font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
+  font-size:11.5px; width:26%;
+}
+.lrn-yes{ color:#9BF03C; } .lrn-no{ color:#FF5C6E; } .lrn-mid{ color:#FFB84D; } .lrn-cy{ color:#3DE0FF; }
+</style>
+
+<section class="sec">
+  <h2>09. How the system learns</h2>
+
+  <p class="lede">The idea is smaller than it sounds. Write down what the system saw at the
+  moment it made a call. Days later, write down what actually happened. Put the two lists
+  side by side and you have taught it something. That is the whole machine-learning plan,
+  and it starts working before there is any model at all.</p>
+
+  <p>Right now the system makes a few thousand calls a day — this post is worth watching, that
+  one is not, these ten posts are the same story — and remembers none of them. Tomorrow it
+  makes a few thousand more, no wiser than yesterday. The reason is not that it lacks a
+  model. It is that it never wrote anything down. A model built on nothing is still nothing.</p>
+
+  <h3>The awkward gap: minutes to decide, days to find out</h3>
+
+  <p>The decision has to happen fast. A post goes up and a coin appears a median of
+  <strong>3.8 minutes</strong> later. Whether that coin was worth anything takes about
+  <strong>six days</strong> to know — that is when the typical winner peaks. Every call is made
+  on minute-old evidence and graded on week-old evidence. In that week the post keeps moving and
+  the replies fill up, so anything not captured at the moment of the decision is not merely
+  harder to get later. It is a different thing wearing the same name.</p>
+
+  <h3>Two lists, one join</h3>
+
+  <p>So: two tables. The first is written the instant a call is made and never touched again.
+  The second is written days later by a job that goes and checks. They share one key.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="lrn-mock">
+      <div class="lrn-mocktitle">The two lists — <b>frozen at the moment of the call, joined a week later</b></div>
+      <div class="lrn-books">
+
+        <div class="lrn-book lrn-now">
+          <div class="lrn-bhead">
+            <span class="lrn-bname">What we saw</span>
+            <span class="lrn-bwhen">written 08 Aug · 16:04:11</span>
+          </div>
+          <div class="lrn-row"><div class="lrn-k">Subject</div><div class="lrn-v lrn-key">story_7f3a · Harbor Last Horn</div></div>
+          <div class="lrn-row"><div class="lrn-k">Stage</div><div class="lrn-v lrn-dim">admit</div></div>
+          <div class="lrn-row"><div class="lrn-k">Post age</div><div class="lrn-v">4h 02m</div></div>
+          <div class="lrn-row"><div class="lrn-k">Views</div><div class="lrn-v">2,417,880</div></div>
+          <div class="lrn-row"><div class="lrn-k">Reposts / quotes</div><div class="lrn-v">18,402 / 6,115</div></div>
+          <div class="lrn-row"><div class="lrn-k">Retellings</div><div class="lrn-v">11 accounts, 3 platforms</div></div>
+          <div class="lrn-row"><div class="lrn-k">Newest input</div><div class="lrn-v">16:03:58 — 13s old</div></div>
+          <div class="lrn-row"><div class="lrn-k">Call</div><div class="lrn-v">pass</div></div>
+          <div class="lrn-row"><div class="lrn-k">Judged against</div><div class="lrn-v lrn-dim">policy 4c1e·9a</div></div>
+          <div class="lrn-row"><div class="lrn-k">Who decided</div><div class="lrn-v lrn-dim">rule:admit@3</div></div>
+          <div class="lrn-row"><div class="lrn-k">Held-back slot</div><div class="lrn-v lrn-dim">no</div></div>
+        </div>
+
+        <div class="lrn-book lrn-later">
+          <div class="lrn-bhead">
+            <span class="lrn-bname">What happened</span>
+            <span class="lrn-bwhen">written 14 Aug · 04:00</span>
+          </div>
+          <div class="lrn-row"><div class="lrn-k">Subject</div><div class="lrn-v lrn-key">story_7f3a · Harbor Last Horn</div></div>
+          <div class="lrn-row"><div class="lrn-k">Measuring</div><div class="lrn-v lrn-dim">best coin peak / first price</div></div>
+          <div class="lrn-row"><div class="lrn-k">Window</div><div class="lrn-v">6 days from the post</div></div>
+          <div class="lrn-row"><div class="lrn-k">Population</div><div class="lrn-v lrn-dim">all admitted stories</div></div>
+          <div class="lrn-row"><div class="lrn-k">Coins found</div><div class="lrn-v">$FERRY, $HORN, $BOAT</div></div>
+          <div class="lrn-row"><div class="lrn-k">First coin minted</div><div class="lrn-v">12:09 — 7m after the post</div></div>
+          <div class="lrn-row"><div class="lrn-k">Best peak</div><div class="lrn-v lrn-good">$1,204,900 ($HORN)</div></div>
+          <div class="lrn-row"><div class="lrn-k">Where it sits now</div><div class="lrn-v">$14,780</div></div>
+          <div class="lrn-row"><div class="lrn-k">State</div><div class="lrn-v lrn-good">resolved</div></div>
+          <div class="lrn-row"><div class="lrn-k">Verdict</div><div class="lrn-v lrn-good">yes — it was worth surfacing</div></div>
+          <div class="lrn-row"><div class="lrn-k">Measured by</div><div class="lrn-v lrn-dim">peak_multiple v1</div></div>
+        </div>
+
+      </div>
+      <div class="lrn-joinbar">
+        <span class="lrn-jl">Joined on</span>
+        <span class="lrn-jt"><strong>story_7f3a</strong> — the same key on both sides. One line of the
+        left list plus one line of the right list is one row of training data. Repeat a few thousand
+        times a day and after three months you have a dataset nobody else on earth has.</span>
+      </div>
+    </div>
+    <p class="cap">Left is written in the same millisecond as the call and is never edited.
+    Right is written by a job that wakes up a week later and goes and looks. Neither list knows
+    the other exists until they are joined.</p>
+  </div>
+
+  <p>Notice the line that says <em>who decided</em>. Today it reads <code>rule:admit@3</code> —
+  a threshold somebody typed. In six months it might read the name of a trained model instead.
+  <strong>The row does not care.</strong> It records what was seen, what was decided, and what
+  bar it was decided against, and the outcome half is identical either way. That is why this
+  works from day one with no model in the building: every call the hand-typed thresholds make
+  today becomes a labelled example for the model that replaces them. The current build has no
+  machine learning in it at all. This is how it gets some, without a single line of it existing
+  yet.</p>
+
+  <h3>Why this cannot be bolted on later</h3>
+
+  <p>The obvious objection is that we already store posts and view counts, so surely the
+  training data could be reconstructed later from what we have. It cannot, for two reasons,
+  and both are already true of the code running today.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="lrn-mock">
+      <div class="lrn-mocktitle">Two reasons the past cannot be reconstructed — <b>both measured in the current build</b></div>
+      <div class="lrn-two">
+
+        <div>
+          <p class="lrn-sub">1 · The same question, asked twice, gives two answers</p>
+          <svg viewBox="0 0 470 250" xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="A view-count curve rising steeply then flattening. Asked at the moment of the decision the speed reads 41,000 views per hour; asked six days later the same field reads 2,100 views per hour.">
+            <line x1="42" y1="196" x2="452" y2="196" stroke="#212127"/>
+            <line x1="42" y1="24" x2="42" y2="196" stroke="#212127"/>
+            <text x="42" y="216" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#5A5A62">POST</text>
+            <text x="180" y="216" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#5A5A62">4h</text>
+            <text x="408" y="216" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#5A5A62">DAY 6</text>
+            <path d="M42,192 C90,186 130,120 175,72 C240,44 340,36 452,32" fill="none" stroke="#3DE0FF" stroke-width="1.8"/>
+            <line x1="175" y1="24" x2="175" y2="196" stroke="#3DE0FF" stroke-dasharray="3 4" stroke-opacity=".5"/>
+            <circle cx="175" cy="72" r="4.5" fill="#3DE0FF"/>
+            <circle cx="452" cy="32" r="4.5" fill="#8A8A93"/>
+            <rect x="60" y="34" width="108" height="34" rx="6" fill="#0C0C0E" stroke="#2E2E36"/>
+            <text x="70" y="48" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3DE0FF">41,000 / hr</text>
+            <text x="70" y="61" font-family="General Sans, sans-serif" font-size="9.5" fill="#8A8A93">asked at 16:04</text>
+            <rect x="300" y="120" width="140" height="34" rx="6" fill="#0C0C0E" stroke="#2E2E36"/>
+            <text x="310" y="134" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#FF5C6E">2,100 / hr</text>
+            <text x="310" y="147" font-family="General Sans, sans-serif" font-size="9.5" fill="#8A8A93">asked six days later</text>
+            <line x1="368" y1="120" x2="430" y2="44" stroke="#FF5C6E" stroke-opacity=".45" stroke-dasharray="3 4"/>
+            <text x="42" y="240" font-family="General Sans, sans-serif" font-size="10.5" fill="#8A8A93">Same field name. Same post. Twenty times apart.</text>
+          </svg>
+        </div>
+
+        <div>
+          <p class="lrn-sub">2 · How long a history is depends on how it did</p>
+          <svg viewBox="0 0 470 250" xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="Bar chart: a winning post carries 84 stored readings, a losing post carries 3, because slow posts are dropped after ten minutes and every post stops being watched at three hours.">
+            <text x="10" y="30" font-family="General Sans, sans-serif" font-size="10.5" fill="#8A8A93">Readings kept, per post</text>
+
+            <text x="10" y="66" font-family="General Sans, sans-serif" font-size="11" fill="#F4F5F7">A post that ran</text>
+            <rect x="10" y="76" width="392" height="20" rx="4" fill="#9BF03C" fill-opacity=".8"/>
+            <text x="412" y="91" font-family="JetBrains Mono, monospace" font-size="11" fill="#9BF03C">84</text>
+
+            <text x="10" y="128" font-family="General Sans, sans-serif" font-size="11" fill="#F4F5F7">A post that stalled</text>
+            <rect x="10" y="138" width="14" height="20" rx="4" fill="#FF5C6E" fill-opacity=".8"/>
+            <text x="34" y="153" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF5C6E">3</text>
+
+            <line x1="10" y1="182" x2="460" y2="182" stroke="#212127"/>
+            <text x="10" y="204" font-family="General Sans, sans-serif" font-size="10.5" fill="#8A8A93">
+              <tspan x="10" dy="0">Slow posts are dropped after ten minutes; everything</tspan>
+              <tspan x="10" dy="15">stops being watched at three hours. So the length of</tspan>
+              <tspan x="10" dy="15">the record is a clue to the answer.</tspan>
+            </text>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+    <p class="cap">Left: the speed field has no "as of" filter, so asking for it later returns
+    a different quantity under the same name. Right: watching stops at three hours and quiet
+    posts are pruned at ten minutes, so winners carry long records and losers carry stubs.</p>
+  </div>
+
+  <div class="lrn-shout">
+    <div class="lrn-lb">What training on a reconstructed past actually teaches</div>
+    <p>"Posts with a lot of stored readings do well."</p>
+    <p>Which is perfectly true, completely useless, and impossible to spot from inside the
+    numbers — the model would score beautifully in testing and be worthless in the morning.
+    This is not hypothetical: it is the same shape of mistake that voided the backtest, where
+    the strongest-looking signals were read out of reply threads months after the coin had
+    already run. A coin that goes up gets talked about. "People were talking about it" then
+    looks like a brilliant predictor of the thing that caused it.</p>
+  </div>
+
+  <h3>Four states, and everybody gets the third one wrong</h3>
+
+  <p>The outcome half has to admit when it does not know yet. With six days to a typical peak,
+  a large share of rows are simply unfinished at any moment, and quietly filing those as
+  failures would poison everything downstream.</p>
+
+  <table class="lrn-tbl">
+    <thead><tr><th>State</th><th>Means</th><th>What it looks like</th><th>Used for training?</th></tr></thead>
+    <tbody>
+      <tr><td class="lrn-c1">Yes</td><td class="lrn-c2 lrn-yes">peak $1.2M</td>
+        <td>The window closed and the thing cleared the bar.</td><td class="lrn-c4 lrn-yes">yes</td></tr>
+      <tr><td class="lrn-c1">No</td><td class="lrn-c2">peak $2.8K</td>
+        <td>The window closed, nothing happened, <strong>and we were watching the whole time</strong>.
+        That last clause is the hard part and it needs its own record.</td><td class="lrn-c4 lrn-yes">yes</td></tr>
+      <tr><td class="lrn-c1">Not yet</td><td class="lrn-c2 lrn-mid">day 2 of 6</td>
+        <td>Still inside the window. <strong>Never counted as a no.</strong> This is the classic
+        error and here it would be severe.</td><td class="lrn-c4 lrn-no">no — held back</td></tr>
+      <tr><td class="lrn-c1">Can't say</td><td class="lrn-c2 lrn-no">gap in the feed</td>
+        <td>The mint feed dropped out, or the post was deleted, or the counter went stale.</td>
+        <td class="lrn-c4 lrn-no">no — but counted, because a rising count is the first sign the
+        pipeline is rotting</td></tr>
+    </tbody>
+  </table>
+  <p class="cap">The fourth row earns its place by being an alarm. If the share of unanswerable
+  rows climbs, something upstream broke silently — which is exactly how the TikTok field mix-up
+  went unnoticed, quietly reporting a real signal as an honest zero.</p>
+
+  <h3>Holding a few slots back on purpose</h3>
+
+  <p>There is a trap in a system that only ever acts on its own best guess: it only ever finds
+  out about the things it already liked. Everything it declined to look at stays permanently
+  unknown, so the record slowly becomes a portrait of its own habits. The fix is to give away
+  a small, deliberate, budgeted amount of the decision to chance.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="lrn-mock">
+      <div class="lrn-mocktitle">Two kinds of held-back slot — <b>one costs feed quality, one costs almost nothing</b></div>
+      <svg viewBox="0 0 1000 330" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Diagram: of twenty board slots, eighteen go to the top-ranked stories and two are drawn at random from stories just below the cut. Separately, two percent of all arrivals are tracked in a shadow lane and never shown to anyone.">
+        <text x="14" y="20" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#5A5A62">A · WHAT GOES ON THE BOARD — 20 SLOTS</text>
+        <line x1="14" y1="30" x2="986" y2="30" stroke="#212127"/>
+        <g>
+          <rect x="14"  y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="60"  y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="106" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="152" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="198" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="244" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="290" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="336" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="382" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="428" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="474" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="520" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="566" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="612" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="658" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="704" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="750" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="796" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#212127"/>
+          <rect x="842" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#3DE0FF" stroke-opacity=".75"/>
+          <rect x="888" y="46" width="40" height="40" rx="6" fill="#131316" stroke="#3DE0FF" stroke-opacity=".75"/>
+        </g>
+        <text x="14" y="106" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">18 slots — the highest-ranked stories</text>
+        <text x="842" y="106" font-family="General Sans, sans-serif" font-size="11" fill="#3DE0FF">2 drawn at random</text>
+        <text x="14" y="128" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">
+          <tspan x="14" dy="0">The two random ones are pulled from stories that sat just below the cut. To the person reading the board they look</tspan>
+          <tspan x="14" dy="17">exactly like the other eighteen — same rows, same numbers, no badge, no note. Nobody is told which two they were.</tspan>
+        </text>
+
+        <line x1="14" y1="166" x2="986" y2="166" stroke="#212127"/>
+        <text x="14" y="190" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#5A5A62">B · THE SHADOW LANE — 2% OF ARRIVALS, SHOWN TO NOBODY</text>
+
+        <rect x="14" y="206" width="300" height="66" rx="9" fill="#131316" stroke="#212127"/>
+        <text x="30" y="232" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">~30,000 arrivals a day</text>
+        <text x="30" y="254" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">every mint, every candidate post</text>
+
+        <path d="M314,239 H400" fill="none" stroke="#5A5A62" stroke-width="1.4"/>
+        <path d="M400,239 V214 H452" fill="none" stroke="#FFB84D" stroke-opacity=".8" stroke-width="1.4"/>
+        <path d="M400,239 V266 H452" fill="none" stroke="#5A5A62" stroke-width="1.4"/>
+        <text x="326" y="230" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.2" fill="#5A5A62">SPLIT</text>
+
+        <rect x="452" y="192" width="250" height="44" rx="8" fill="#0C0C0E" stroke="#FFB84D" stroke-opacity=".5"/>
+        <text x="468" y="210" font-family="General Sans, sans-serif" font-size="11.5" fill="#FFB84D">2% — skips every filter</text>
+        <text x="468" y="227" font-family="General Sans, sans-serif" font-size="10.5" fill="#8A8A93">tracked, measured, outcome recorded</text>
+
+        <rect x="452" y="244" width="250" height="44" rx="8" fill="#0C0C0E" stroke="#212127"/>
+        <text x="468" y="262" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">98% — the normal path</text>
+        <text x="468" y="279" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62">filtered, ranked, some of it shown</text>
+
+        <path d="M702,214 H768" stroke="#FFB84D" stroke-width="1.4" stroke-opacity=".6"/>
+        <rect x="768" y="192" width="218" height="96" rx="9" fill="#0C0C0E" stroke="#2E2E36"/>
+        <text x="784" y="214" font-family="Clash Display, sans-serif" font-size="13" font-weight="600" fill="#F4F5F7">Never rendered</text>
+        <text x="784" y="236" font-family="General Sans, sans-serif" font-size="10.8" fill="#8A8A93">
+          <tspan x="784" dy="0">No user sees it. It exists only</tspan>
+          <tspan x="784" dy="15">to answer one question: of the</tspan>
+          <tspan x="784" dy="15">winners we never looked at,</tspan>
+          <tspan x="784" dy="15">how many were there?</tspan>
+        </text>
+      </svg>
+    </div>
+    <p class="cap">The two random board slots cost feed quality and buy honest evidence about
+    the boundary. The shadow lane costs about two per cent of the watching budget, costs zero
+    feed quality, and is the only thing that ever measures what the filters threw away.</p>
+  </div>
+
+  <p>The shadow lane is the one almost nobody builds, and it answers a question no other
+  measurement can. Suppose we are missing winners. Is that because the ranking is bad, or
+  because the front gate never let those posts through at all? From inside the normal path the
+  two are indistinguishable, since everything the gate refused is simply absent from the record.
+  Compare the shadow lane's hit rate against the gated one and the answer falls out: if the
+  shadow lane is full of winners the gated path never saw, the <em>gate</em> is the problem, and
+  no amount of model work will fix it.</p>
+
+  <p>The two random board slots have a price, and it should be written down with a number
+  attached or it gets quietly deleted the first bad week. On a twenty-row board it costs roughly
+  <strong>0.6 winners a day not surfaced</strong>. That is the fee for being able to discover
+  something unlike anything the system has seen before, and somebody should own it. If money
+  ever forces a cut, cut the random slots and keep the shadow lane: random slots can be switched
+  back on, but a missing shadow lane leaves a permanent hole no future work can fill.</p>
+
+  <p>One related rule follows from the same worry and is enforceable in code:
+  <strong>nothing may score a story by how much it resembles a past winner.</strong> That is the
+  fastest route to a system that finds only derivatives, which is worthless in a market whose
+  entire product is the thing nobody predicted. One number polices it forever — the hit rate on
+  the winners <em>least</em> like anything seen before. If that collapses, the system has become
+  a copy machine no matter how good the headline looks.</p>
+
+  <h3>The loop, end to end</h3>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="lrn-mock">
+      <div class="lrn-mocktitle">The loop — <b>it closes in about a week, and then it never stops</b></div>
+      <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Diagram of the learning loop: a post arrives, the system decides, the decision row is frozen and written; days pass, the outcome is measured and written; the two are joined into training data; weekly a human reviews a refit model, which becomes the policy that decides tomorrow's arrivals.">
+        <defs>
+          <marker id="lrn-ac" markerWidth="9" markerHeight="9" refX="6.8" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#3DE0FF"/>
+          </marker>
+          <marker id="lrn-ag" markerWidth="9" markerHeight="9" refX="6.8" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#9BF03C"/>
+          </marker>
+          <marker id="lrn-am" markerWidth="9" markerHeight="9" refX="6.8" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#5A5A62"/>
+          </marker>
+        </defs>
+
+        <!-- the six-day divider -->
+        <line x1="500" y1="34" x2="500" y2="330" stroke="#2E2E36" stroke-dasharray="4 6"/>
+        <rect x="440" y="210" width="120" height="26" rx="13" fill="#0C0C0E" stroke="#2E2E36"/>
+        <text x="500" y="227" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5"
+              letter-spacing="1.2" fill="#8A8A93">≈ 6 DAYS PASS</text>
+
+        <!-- LEFT: minute zero -->
+        <text x="18" y="24" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#3DE0FF">MINUTE ZERO — THE CALL</text>
+        <line x1="18" y1="34" x2="470" y2="34" stroke="#212127"/>
+
+        <rect x="18" y="50" width="452" height="60" rx="9" fill="#0C0C0E" stroke="#212127"/>
+        <circle cx="44" cy="80" r="11" fill="#131316" stroke="#2E2E36"/>
+        <text x="44" y="84" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#3DE0FF">1</text>
+        <text x="66" y="76" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">A post arrives</text>
+        <text x="66" y="94" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">Harbor Last Horn · 2.4M views · 4h old</text>
+
+        <path d="M244,110 V132" stroke="#3DE0FF" stroke-opacity=".55" stroke-width="1.4" marker-end="url(#lrn-ac)"/>
+
+        <rect x="18" y="140" width="452" height="70" rx="9" fill="#0C0C0E" stroke="#212127"/>
+        <circle cx="44" cy="173" r="11" fill="#131316" stroke="#2E2E36"/>
+        <text x="44" y="177" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#3DE0FF">2</text>
+        <text x="66" y="166" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">The system makes a call</text>
+        <text x="66" y="184" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">
+          <tspan x="66" dy="0">watch it, hold it, or drop it — a typed threshold today,</tspan>
+          <tspan x="66" dy="15">a trained model later, and the next step is identical</tspan>
+        </text>
+
+        <path d="M244,210 V228" stroke="#3DE0FF" stroke-opacity=".55" stroke-width="1.4" marker-end="url(#lrn-ac)"/>
+
+        <rect x="18" y="236" width="452" height="76" rx="9" fill="#131316" stroke="#2E2E36"/>
+        <rect x="18" y="236" width="452" height="76" rx="9" fill="none" stroke="#3DE0FF" stroke-opacity=".3"/>
+        <circle cx="44" cy="266" r="11" fill="#0C0C0E" stroke="#2E2E36"/>
+        <text x="44" y="270" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#3DE0FF">3</text>
+        <text x="66" y="262" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">The row is frozen and written down</text>
+        <text x="66" y="281" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">
+          <tspan x="66" dy="0">every number it looked at, the bar it was judged against, who</tspan>
+          <tspan x="66" dy="15">decided, and whether this was one of the held-back slots</tspan>
+        </text>
+
+        <!-- RIGHT: day six -->
+        <text x="530" y="24" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.3" fill="#9BF03C">DAY SIX — THE ANSWER</text>
+        <line x1="530" y1="34" x2="982" y2="34" stroke="#212127"/>
+
+        <rect x="530" y="50" width="452" height="60" rx="9" fill="#0C0C0E" stroke="#212127"/>
+        <circle cx="556" cy="80" r="11" fill="#131316" stroke="#2E2E36"/>
+        <text x="556" y="84" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#9BF03C">4</text>
+        <text x="578" y="76" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">The world does whatever it does</text>
+        <text x="578" y="94" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">coins get minted, one of them runs, most do not</text>
+
+        <path d="M756,110 V132" stroke="#9BF03C" stroke-opacity=".5" stroke-width="1.4" marker-end="url(#lrn-ag)"/>
+
+        <rect x="530" y="140" width="452" height="70" rx="9" fill="#0C0C0E" stroke="#212127"/>
+        <circle cx="556" cy="173" r="11" fill="#131316" stroke="#2E2E36"/>
+        <text x="556" y="177" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#9BF03C">5</text>
+        <text x="578" y="166" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">A job wakes up and measures it</text>
+        <text x="578" y="184" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">
+          <tspan x="578" dy="0">best coin peaked at $1,204,900 — or the window is still</tspan>
+          <tspan x="578" dy="15">open, or the feed had a gap and we honestly cannot say</tspan>
+        </text>
+
+        <path d="M756,210 V228" stroke="#9BF03C" stroke-opacity=".5" stroke-width="1.4" marker-end="url(#lrn-ag)"/>
+
+        <rect x="530" y="236" width="452" height="76" rx="9" fill="#131316" stroke="#2E2E36"/>
+        <rect x="530" y="236" width="452" height="76" rx="9" fill="none" stroke="#9BF03C" stroke-opacity=".28"/>
+        <circle cx="556" cy="266" r="11" fill="#0C0C0E" stroke="#2E2E36"/>
+        <text x="556" y="270" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#9BF03C">6</text>
+        <text x="578" y="262" font-family="Clash Display, sans-serif" font-size="13.5" font-weight="600" fill="#F4F5F7">The outcome row is written down</text>
+        <text x="578" y="281" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">
+          <tspan x="578" dy="0">with what it measured, over what window, and across which</tspan>
+          <tspan x="578" dy="15">population — all three named, or the number means nothing</tspan>
+        </text>
+
+        <!-- join -->
+        <path d="M244,312 V344 H488" fill="none" stroke="#3DE0FF" stroke-opacity=".45" stroke-width="1.4"/>
+        <path d="M756,312 V344 H512" fill="none" stroke="#9BF03C" stroke-opacity=".45" stroke-width="1.4"/>
+        <path d="M500,344 V368" stroke="#5A5A62" stroke-width="1.4" marker-end="url(#lrn-am)"/>
+
+        <rect x="150" y="376" width="700" height="72" rx="10" fill="#131316" stroke="#2E2E36"/>
+        <circle cx="180" cy="412" r="11" fill="#0C0C0E" stroke="#2E2E36"/>
+        <text x="180" y="416" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#F4F5F7">7</text>
+        <text x="202" y="406" font-family="Clash Display, sans-serif" font-size="15" font-weight="600" fill="#F4F5F7">Join them on the same key</text>
+        <text x="452" y="406" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.2" fill="#5A5A62">ONE ROW + ONE ROW = ONE TRAINING EXAMPLE</text>
+        <text x="202" y="428" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">Unfinished windows are left out. Unanswerable ones are left out and counted.</text>
+
+        <path d="M500,448 V478" stroke="#5A5A62" stroke-width="1.4" marker-end="url(#lrn-am)"/>
+
+        <rect x="250" y="486" width="500" height="72" rx="10" fill="#0C0C0E" stroke="#212127"/>
+        <circle cx="278" cy="522" r="11" fill="#131316" stroke="#2E2E36"/>
+        <text x="278" y="526" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#F4F5F7">8</text>
+        <text x="300" y="516" font-family="Clash Display, sans-serif" font-size="14" font-weight="600" fill="#F4F5F7">Once a week, a person reads a report</text>
+        <text x="300" y="537" font-family="General Sans, sans-serif" font-size="11" fill="#8A8A93">
+          <tspan x="300" dy="0">and the new version either replaces the old one or does not</tspan>
+        </text>
+
+        <!-- return path: the refit policy becomes the thing that decides tomorrow -->
+        <path d="M250,522 H8 V173 H16" fill="none" stroke="#3DE0FF" stroke-opacity=".4"
+              stroke-width="1.4" marker-end="url(#lrn-ac)"/>
+        <text x="18" y="474" font-family="JetBrains Mono, monospace" font-size="9.5"
+              letter-spacing="1.2" fill="#5A5A62">9 · IT DECIDES TOMORROW'S ARRIVALS</text>
+      </svg>
+    </div>
+    <p class="cap">Steps 3 and 6 are the two that do not exist today. Everything else in the
+    loop is either already running or is a week of work. The gap between them — the six days —
+    is why they cannot be written retrospectively.</p>
+  </div>
+
+  <div class="lrn-shout lrn-amber">
+    <div class="lrn-lb">The one line that matters for scheduling</div>
+    <p>Every day this is not recording is a day of training data that can never be bought,
+    rebuilt, or backfilled.</p>
+    <p>The rest of the build can slip and cost time. This one slips and costs the asset — which
+    is why week 3 is drawn as a point of no regret rather than a milestone. It is also the least
+    glamorous work in the plan: it ships nothing a user can see, and it is the only part that
+    makes the company harder to copy in a year than it is today.</p>
+  </div>
+
+  <p>One last thing, because it is the rule the whole deck exists to enforce: none of this ever
+  appears on a screen. The two lists live in a part of the database the public app is
+  structurally incapable of reading — not "we remembered not to expose it", but a separate
+  compartment the public interface has never been told about. That matters more here than
+  anywhere, because these tables hold every threshold, every held-back slot and every number the
+  system looked at, which together is a complete recipe for gaming the gates. The user sees a
+  story, a view count, an age, and a coin. What we thought about it stays inside.</p>
+
+</section>

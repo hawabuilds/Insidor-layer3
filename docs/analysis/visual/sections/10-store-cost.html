@@ -1,0 +1,771 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+em{color:#F4F5F7;font-style:italic;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+.sc-mono, .sc-svg text {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- shared frame ---------- */
+.sc-frame {
+  background: #0C0C0E; border: 1px solid #212127; border-radius: 5px; overflow: hidden;
+  margin: 4px 0 0;
+}
+.sc-hd {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 11px 16px; background: #131316; border-bottom: 1px solid #212127;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: #5A5A62;
+}
+.sc-hd b { color: #F4F5F7; font-weight: 500; }
+.sc-hd .sc-right { margin-left: auto; color: #5A5A62; }
+.sc-foot {
+  padding: 11px 18px; border-top: 1px solid #212127; background: #0C0C0E;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 10px; color: #5A5A62; letter-spacing: .02em; line-height: 1.5;
+}
+.sc-foot b { color: #F4F5F7; font-weight: 500; }
+
+/* ---------- the "what we store" table ---------- */
+.sc-tblwrap { overflow-x: auto; }
+table.sc-tbl {
+  width: 100%; border-collapse: collapse; margin: 0; background: transparent;
+  font-family: "General Sans", -apple-system, system-ui, sans-serif; font-size: 12.5px;
+}
+table.sc-tbl thead th {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #5A5A62;
+  font-weight: 500; text-align: left; padding: 10px 16px;
+  border-bottom: 1px solid #212127; white-space: nowrap;
+}
+table.sc-tbl thead th.sc-n { text-align: right; }
+table.sc-tbl td {
+  padding: 12px 16px; border-bottom: 1px solid #212127;
+  color: #8A8A93; vertical-align: top; line-height: 1.45;
+}
+table.sc-tbl tbody tr:last-child td { border-bottom: 0; }
+table.sc-tbl td.sc-name {
+  color: #F4F5F7; font-weight: 600; white-space: nowrap; width: 156px;
+}
+table.sc-tbl td.sc-name span {
+  display: block; font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .09em; text-transform: uppercase;
+  color: #5A5A62; font-weight: 400; margin-top: 3px;
+}
+table.sc-tbl td.sc-ex {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-variant-numeric: tabular-nums; font-size: 10.5px; color: #F4F5F7; line-height: 1.6;
+}
+table.sc-tbl td.sc-ex i { color: #8A8A93; font-style: normal; }
+table.sc-tbl td.sc-n {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-variant-numeric: tabular-nums; text-align: right; color: #F4F5F7;
+  font-size: 12px; white-space: nowrap; width: 112px;
+}
+table.sc-tbl td.sc-n span {
+  display: block; font-size: 8.5px; letter-spacing: .09em; text-transform: uppercase;
+  color: #5A5A62; margin-top: 3px;
+}
+table.sc-tbl tr.sc-hot td.sc-n { color: #3DE0FF; }
+.sc-new {
+  display: inline-block; font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 8px; letter-spacing: .11em; text-transform: uppercase; color: #9BF03C;
+  border: 1px solid rgba(155,240,60,.38); border-radius: 2px; padding: 1px 5px;
+  margin-left: 7px; vertical-align: 2px; font-weight: 400;
+}
+table.sc-tbl tr.sc-added td { background: rgba(155,240,60,.028); }
+
+/* ---------- fan-out diagram ---------- */
+.sc-diag { padding: 14px 16px 16px; }
+.sc-svg { display: block; width: 100%; height: auto; }
+.sc-svg .t   { font-size: 12px; font-weight: 600; fill: #F4F5F7; }
+.sc-svg .s   { font-size: 10px; fill: #8A8A93; }
+.sc-svg .s2  { font-size: 9.5px; fill: #5A5A62; }
+.sc-svg .num { font-size: 12px; fill: #F4F5F7; font-weight: 500; }
+.sc-svg .cy  { fill: #3DE0FF; }
+.sc-svg .lm  { fill: #9BF03C; }
+.sc-svg .lb  { font-size: 8.5px; fill: #5A5A62; letter-spacing: .12em; }
+.sc-svg .edge { stroke: #2E2E36; stroke-width: 1; fill: none; }
+.sc-svg .box  { fill: #131316; stroke: #212127; stroke-width: 1; }
+.sc-svg .boxo { fill: #0C0C0E; stroke: #2E2E36; stroke-width: 1; }
+
+/* ---------- broken / fixed table ---------- */
+table.sc-fix {
+  width: 100%; border-collapse: collapse; margin: 0; background: transparent;
+  font-family: "General Sans", -apple-system, system-ui, sans-serif; font-size: 12.5px;
+}
+table.sc-fix thead th {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #5A5A62;
+  font-weight: 500; text-align: left; padding: 10px 16px; border-bottom: 1px solid #212127;
+}
+table.sc-fix th.sc-was { color: #FF5C6E; }
+table.sc-fix th.sc-now { color: #9BF03C; }
+table.sc-fix td { padding: 12px 16px; border-bottom: 1px solid #212127; vertical-align: top; line-height: 1.45; }
+table.sc-fix tbody tr:last-child td { border-bottom: 0; }
+table.sc-fix td.sc-k { color: #F4F5F7; font-weight: 600; width: 172px; }
+table.sc-fix td.sc-k span {
+  display: block; font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .09em; text-transform: uppercase; color: #5A5A62;
+  font-weight: 400; margin-top: 3px;
+}
+table.sc-fix td.sc-wasc { color: #8A8A93; border-left: 2px solid rgba(255,92,110,.34); }
+table.sc-fix td.sc-nowc { color: #8A8A93; border-left: 2px solid rgba(155,240,60,.34); }
+table.sc-fix code {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px;
+  background: #131316; color: #FFB84D; padding: 1px 5px; border-radius: 3px;
+}
+table.sc-fix .sc-good { color: #F4F5F7; }
+
+/* ---------- perishable streams ---------- */
+.sc-streams { padding: 6px 0 0; }
+.sc-str {
+  display: grid; grid-template-columns: 26px 1fr 176px 132px; gap: 12px; align-items: center;
+  padding: 12px 16px; border-bottom: 1px solid #212127;
+}
+.sc-str:last-of-type { border-bottom: 0; }
+.sc-strn { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10px; color: #5A5A62; }
+.sc-strk { font-size: 12.5px; color: #F4F5F7; font-weight: 600; }
+.sc-strk em { display: block; font-style: normal; font-weight: 400; font-size: 11.5px; color: #8A8A93; margin-top: 2px; }
+.sc-pill {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid #2E2E36; border-radius: 3px; padding: 4px 8px; color: #8A8A93;
+  justify-self: start; white-space: nowrap;
+}
+.sc-pill-off  { color: #FF5C6E; border-color: rgba(255,92,110,.4); background: rgba(255,92,110,.07); }
+.sc-pill-warn { color: #FFB84D; border-color: rgba(255,184,77,.4); background: rgba(255,184,77,.07); }
+.sc-pill-on   { color: #9BF03C; border-color: rgba(155,240,60,.4); background: rgba(155,240,60,.07); }
+.sc-when {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 10px; color: #5A5A62; text-align: right;
+}
+.sc-when b { color: #3DE0FF; font-weight: 500; }
+
+/* ---------- the line: stored vs shown ---------- */
+.sc-line { display: grid; grid-template-columns: 1fr 1fr; }
+.sc-col { padding: 0 0 4px; }
+.sc-col + .sc-col { border-left: 1px dashed #2E2E36; }
+.sc-colhd {
+  padding: 11px 18px; border-bottom: 1px solid #212127; background: #131316;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .11em; text-transform: uppercase;
+}
+.sc-colhd.sc-nope { color: #FF5C6E; }
+.sc-colhd.sc-yep  { color: #9BF03C; }
+.sc-colhd em { display: block; font-style: normal; color: #5A5A62; margin-top: 4px; letter-spacing: .08em; }
+.sc-row {
+  display: grid; grid-template-columns: 1fr 156px; gap: 10px; align-items: baseline;
+  padding: 9px 18px; border-bottom: 1px solid #212127; font-size: 12.5px;
+}
+.sc-row:last-child { border-bottom: 0; }
+.sc-rk { color: #F4F5F7; }
+.sc-rv {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums;
+  font-size: 11px; text-align: right;
+}
+.sc-hidden .sc-rk { color: #8A8A93; }
+.sc-hidden .sc-rv { color: rgba(255,92,110,.62); text-decoration: line-through; }
+.sc-shown  .sc-rv { color: #3DE0FF; }
+
+/* ---------- the test ---------- */
+.sc-tq { padding: 18px 20px 17px; border-bottom: 1px solid #212127; background: #131316; }
+.sc-lbl { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+          font-size: 9px; letter-spacing: .11em; text-transform: uppercase; color: #5A5A62; }
+.sc-tqt { font-family: "Clash Display", system-ui, sans-serif; font-size: 19px; font-weight: 600;
+          letter-spacing: -.015em; color: #F4F5F7; margin-top: 8px; }
+.sc-tgrid { display: grid; grid-template-columns: 1fr 1fr; }
+.sc-tcol { padding: 15px 20px 17px; }
+.sc-tcol + .sc-tcol { border-left: 1px solid #212127; }
+.sc-tyes, .sc-tno {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 10px; letter-spacing: .11em; text-transform: uppercase; margin-bottom: 9px;
+}
+.sc-tyes { color: #9BF03C; } .sc-tno { color: #FF5C6E; }
+.sc-titem {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums;
+  font-size: 11px; color: #8A8A93; padding: 6px 0; border-bottom: 1px solid #212127;
+}
+.sc-titem:last-child { border-bottom: 0; }
+.sc-titem b { color: #F4F5F7; font-weight: 500; }
+
+/* ---------- cost split ---------- */
+.sc-costwrap { padding: 18px 18px 6px; }
+.sc-bar {
+  display: flex; height: 34px; border-radius: 3px; overflow: hidden;
+  border: 1px solid #212127; background: #131316;
+}
+.sc-seg {
+  display: flex; align-items: center; padding: 0 12px;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #060607;
+  font-weight: 600; white-space: nowrap; overflow: hidden;
+}
+.sc-seg.sc-data { background: #3DE0FF; flex: 0 0 66%; }
+.sc-seg.sc-ai   { background: #9BF03C; flex: 0 0 20%; }
+.sc-seg.sc-inf  { background: #5A5A62; color: #F4F5F7; flex: 0 0 14%; }
+.sc-scale {
+  display: flex; margin-top: 7px;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; color: #5A5A62;
+}
+.sc-scale span { flex: 0 0 66%; }
+.sc-scale span + span { flex: 0 0 20%; text-align: center; }
+.sc-scale span + span + span { flex: 0 0 14%; text-align: right; }
+
+table.sc-cost {
+  width: 100%; border-collapse: collapse; margin: 20px 0 0; background: transparent;
+  font-family: "General Sans", -apple-system, system-ui, sans-serif; font-size: 12.5px;
+}
+table.sc-cost thead th {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #5A5A62;
+  font-weight: 500; text-align: left; padding: 0 0 9px; border-bottom: 1px solid #212127;
+}
+table.sc-cost thead th.sc-n { text-align: right; }
+table.sc-cost td { padding: 11px 0; border-bottom: 1px solid #212127; color: #8A8A93; vertical-align: middle; }
+table.sc-cost td.sc-what { color: #F4F5F7; font-weight: 600; white-space: nowrap; }
+table.sc-cost td.sc-what span {
+  display: block; font-weight: 400; font-size: 11.5px; color: #5A5A62; margin-top: 2px; white-space: normal;
+}
+table.sc-cost td.sc-n {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-variant-numeric: tabular-nums; text-align: right; color: #F4F5F7;
+  font-size: 12.5px; white-space: nowrap; padding-left: 22px;
+}
+table.sc-cost td.sc-mini { width: 190px; padding-left: 22px; }
+.sc-track { height: 7px; background: #131316; border-radius: 2px; overflow: hidden; }
+.sc-fill { height: 7px; border-radius: 2px; }
+table.sc-cost tr.sc-total td { border-bottom: 0; padding-top: 14px; }
+table.sc-cost tr.sc-total td.sc-what { font-family: "Clash Display", system-ui, sans-serif; font-size: 15px; }
+table.sc-cost tr.sc-total td.sc-n { color: #3DE0FF; font-size: 15px; }
+.sc-free {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #5A5A62;
+  border: 1px solid #2E2E36; border-radius: 2px; padding: 2px 7px;
+}
+
+/* ---------- the daily cap ---------- */
+.sc-cap { padding: 16px 18px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sc-capbox { background: #131316; border: 1px solid #212127; border-radius: 4px; padding: 14px 15px 15px; }
+.sc-capk {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #5A5A62;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+}
+.sc-capk b { color: #F4F5F7; font-weight: 500; font-size: 13px; letter-spacing: 0; white-space: nowrap; }
+.sc-capk b.sc-amber { color: #FFB84D; }
+.sc-meter { height: 10px; background: #060607; border: 1px solid #212127; border-radius: 3px; margin: 11px 0 9px; overflow: hidden; }
+.sc-meter i { display: block; height: 8px; }
+.sc-note { font-size: 12px; color: #8A8A93; line-height: 1.45; }
+.sc-note b { color: #F4F5F7; font-weight: 600; }
+
+@media (max-width: 780px) {
+  .sc-line, .sc-cap, .sc-tgrid { grid-template-columns: 1fr; }
+  .sc-col + .sc-col { border-left: 0; border-top: 1px dashed #2E2E36; }
+  .sc-tcol + .sc-tcol { border-left: 0; border-top: 1px solid #212127; }
+  .sc-str { grid-template-columns: 20px 1fr; }
+}
+</style>
+
+<section class="sec">
+  <h2>10. What we store, and what it costs</h2>
+
+  <p class="lede">Eight kinds of thing get written down — six that make the product work and two
+  new ones that let it improve — and the whole machine runs on about six pounds a day. This is
+  the honest accounting: what sits in the database, why each piece has to be there, and where
+  every pound goes.</p>
+
+  <p>The database is one central store and the single source of truth. Everything else reads
+  from it. There are six kinds of record that the product itself needs.
+  <strong>Narratives</strong> are the stories: one entry per viral moment, holding the
+  plain-English two-liner and the pointers to everything else. <strong>Posts</strong> are the
+  individual social posts that make up a story — the original X post, the TikTok clip someone
+  else put up twelve minutes later. <strong>View readings</strong> are the important one: every
+  time we re-check a post, we write down the clock time and the view count. That is what draws
+  the climbing line, and it is the one thing we could never buy back later. Nobody sells "what
+  did this post look like twenty minutes ago". If we are not recording it as it happens, it is
+  gone.</p>
+
+  <p><strong>Coins</strong> are every coin we have tied to a story, with a note of how sure we
+  are about the link. This is a bigger job than it sounds: a search for one meme returned 306
+  separate tokens, so most of the work is deciding which one is real. <strong>Comments</strong>
+  are the traders' theses, each stamped with how big the story was at the moment it was written
+  and frozen permanently, so a call made early can never be quietly reframed as a call made
+  late. <strong>Running costs</strong> are the day's spending on data and AI, written down as we
+  go, so the system knows what it has spent and can stop itself.</p>
+
+  <p>Two more are new, and they exist for one reason: the current build makes a few thousand
+  decisions a day and remembers none of them. The <strong>decision log</strong> records every
+  judgement at the moment it is made — what we were looking at, what we could see at that
+  instant, what we decided, and why. The <strong>outcome labels</strong> record what actually
+  happened afterwards, settled a week later when the answer is known. Put those two together and
+  you have the only thing that can ever make this system smarter: a list of guesses with the
+  answers attached.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-hd"><b>The eight things we write down</b> <span class="sc-right">volumes are a normal day at launch scale</span></div>
+      <div class="sc-tblwrap">
+        <table class="sc-tbl">
+          <thead>
+            <tr>
+              <th>What we store</th>
+              <th>One entry is</th>
+              <th>For "Harbor Last Horn"</th>
+              <th class="sc-n">New a day</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sc-name">Narratives<span>the story</span></td>
+              <td>One viral story, with the two-liner a human reads first.</td>
+              <td class="sc-ex">"A retiring ferry captain blew his horn one last time, and every boat in the harbour blew back."</td>
+              <td class="sc-n">30<span>entries</span></td>
+            </tr>
+            <tr>
+              <td class="sc-name">Posts<span>the sources</span></td>
+              <td>One social post belonging to a story — who posted it, where, and when.</td>
+              <td class="sc-ex">@nordkyst_ferge · X · 09:00<br><i>@harbourclips · TikTok · 09:12</i></td>
+              <td class="sc-n">1,200<span>entries</span></td>
+            </tr>
+            <tr class="sc-hot">
+              <td class="sc-name">View readings<span>the history</span></td>
+              <td>One re-check of one post: the time, and the view count at that time. Never overwritten, never pruned.</td>
+              <td class="sc-ex">09:04 → 41,000<br><i>09:09 → 118,000</i><br><i>09:14 → 264,000 …</i></td>
+              <td class="sc-n">44,000<span>readings</span></td>
+            </tr>
+            <tr>
+              <td class="sc-name">Coins<span>the market</span></td>
+              <td>One coin considered for a story, and whether we linked it. 30,000 coins are minted a day; almost all are noise.</td>
+              <td class="sc-ex">$FERRY · first · 09:02<br><i>$HORN · biggest</i><br><i>$BOAT · unverified</i></td>
+              <td class="sc-n">30,000<span>seen · 50 linked</span></td>
+            </tr>
+            <tr>
+              <td class="sc-name">Comments<span>the theses</span></td>
+              <td>One trader's written call, with the story's size at that moment frozen in.</td>
+              <td class="sc-ex">12 comments<br><i>earliest stamped "$61K · still climbing"</i></td>
+              <td class="sc-n">140<span>comments</span></td>
+            </tr>
+            <tr>
+              <td class="sc-name">Running costs<span>the meter</span></td>
+              <td>What we have spent today, per supplier, updated as each request is made.</td>
+              <td class="sc-ex">not per story —<br><i>one line per supplier per day</i></td>
+              <td class="sc-n">2<span>lines</span></td>
+            </tr>
+            <tr class="sc-added">
+              <td class="sc-name">Decision log<span class="sc-mono">the guesses</span><span class="sc-new">new</span></td>
+              <td>One judgement, at the instant it was made: what we could see then, what we chose, and why. Append-only — nothing is ever edited.</td>
+              <td class="sc-ex">09:06 shortlisted<br><i>09:11 promoted to feed</i><br><i>09:33 real coin identified · first</i></td>
+              <td class="sc-n">4,200<span>decisions</span></td>
+            </tr>
+            <tr class="sc-added">
+              <td class="sc-name">Outcome labels<span class="sc-mono">the answers</span><span class="sc-new">new</span></td>
+              <td>What actually happened, settled seven days later. Winners reached about 18× their opening size; losers, 1.19×.</td>
+              <td class="sc-ex">$FERRY · winner<br><i>peak $1.4M on day 6</i><br><i>settled 16 Aug</i></td>
+              <td class="sc-n">30<span>settled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sc-foot"><b>Three schemas, one database:</b> what the app serves · what we record to learn from · raw captures kept for re-reading. Same machine, separate rooms, so a change to one cannot quietly reshape another.</div>
+    </div>
+  </div>
+
+  <p class="cap">View readings dwarf everything else — forty-four thousand a day against thirty
+  stories. That is correct. The readings are the asset; the story is just the label on them.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-hd"><b>One story, on disk</b> <span class="sc-right">Harbor Last Horn · 09:00 → settled day 7</span></div>
+      <div class="sc-diag">
+        <svg class="sc-svg" viewBox="0 0 1000 330" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Diagram showing the Harbor Last Horn story fanning out into 2 posts, 68 view readings, 3 coins, 12 comments, 9 logged decisions and 1 settled outcome label">
+          <defs>
+            <marker id="scArw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#5A5A62"/>
+            </marker>
+          </defs>
+
+          <!-- spine -->
+          <path class="edge" d="M266,165 H316"/>
+          <path class="edge" d="M316,37 V297"/>
+          <path class="edge" d="M316,37  H352" marker-end="url(#scArw)"/>
+          <path class="edge" d="M316,89  H352" marker-end="url(#scArw)"/>
+          <path class="edge" d="M316,141 H352" marker-end="url(#scArw)"/>
+          <path class="edge" d="M316,193 H352" marker-end="url(#scArw)"/>
+          <path class="edge" d="M316,245 H352" marker-end="url(#scArw)"/>
+          <path class="edge" d="M316,297 H352" marker-end="url(#scArw)"/>
+
+          <!-- story card -->
+          <rect class="boxo" x="16" y="117" width="250" height="96" rx="3"/>
+          <rect x="16" y="117" width="3" height="96" fill="#3DE0FF"/>
+          <text class="lb"  x="32" y="139">NARRATIVE · 1 ENTRY</text>
+          <text class="t"   x="32" y="161">Harbor Last Horn</text>
+          <text class="s"   x="32" y="180">"A retiring ferry captain blew his</text>
+          <text class="s"   x="32" y="195">horn one last time, and every boat</text>
+          <text class="s"   x="32" y="210">in the harbour blew back."</text>
+
+          <!-- rows -->
+          <rect class="box" x="360" y="16" width="624" height="42" rx="3"/>
+          <rect x="360" y="16" width="3" height="42" fill="#2E2E36"/>
+          <text class="t"  x="376" y="35">Posts</text>
+          <text class="s2" x="376" y="50">@nordkyst_ferge on X · @harbourclips on TikTok</text>
+          <text class="num" x="968" y="42" text-anchor="end">2</text>
+
+          <rect class="box" x="360" y="68" width="624" height="42" rx="3"/>
+          <rect x="360" y="68" width="3" height="42" fill="#3DE0FF"/>
+          <text class="t"  x="376" y="87">View readings</text>
+          <text class="s2" x="376" y="102">every five minutes, on the same schedule as everything else — this is the climbing line</text>
+          <text class="num cy" x="968" y="94" text-anchor="end">68</text>
+
+          <rect class="box" x="360" y="120" width="624" height="42" rx="3"/>
+          <rect x="360" y="120" width="3" height="42" fill="#2E2E36"/>
+          <text class="t"  x="376" y="139">Coins</text>
+          <text class="s2" x="376" y="154">$FERRY first at 09:02 · $HORN biggest · $BOAT unverified</text>
+          <text class="num" x="968" y="146" text-anchor="end">3</text>
+
+          <rect class="box" x="360" y="172" width="624" height="42" rx="3"/>
+          <rect x="360" y="172" width="3" height="42" fill="#2E2E36"/>
+          <text class="t"  x="376" y="191">Comments</text>
+          <text class="s2" x="376" y="206">each frozen with how big the story was when it was written</text>
+          <text class="num" x="968" y="198" text-anchor="end">12</text>
+
+          <rect class="box" x="360" y="224" width="624" height="42" rx="3"/>
+          <rect x="360" y="224" width="3" height="42" fill="#9BF03C"/>
+          <text class="t"  x="376" y="243">Logged decisions</text>
+          <text class="s2" x="376" y="258">shortlisted · promoted · coin linked · re-ranked — each with what we could see at the time</text>
+          <text class="num lm" x="968" y="250" text-anchor="end">9</text>
+
+          <rect class="box" x="360" y="276" width="624" height="42" rx="3"/>
+          <rect x="360" y="276" width="3" height="42" fill="#9BF03C"/>
+          <text class="t"  x="376" y="295">Outcome label</text>
+          <text class="s2" x="376" y="310">winner · peaked at $1.4M on day six · written seven days after the fact</text>
+          <text class="num lm" x="968" y="302" text-anchor="end">1</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap">Sixty-eight readings, nine decisions and one answer, for one story. Delete the
+  readings and you still know the ferry captain went viral — you just can no longer tell whether
+  he was climbing at 09:09. Delete the decisions and you can never find out whether we were
+  right.</p>
+
+  <h3>What was broken about the old way of writing things down</h3>
+
+  <p>The build that exists today cannot learn from itself, and not for want of data — for want
+  of four specific habits. Three of them quietly corrupt the record; the fourth corrupts a
+  number the product depends on. All four are storage problems, which is why they belong in this
+  section rather than a later one.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-hd"><b>Four ways the record was spoiled</b> <span class="sc-right">all four are fixed by how we write, not by what we buy</span></div>
+      <div class="sc-tblwrap">
+        <table class="sc-fix">
+          <thead>
+            <tr>
+              <th>The habit</th>
+              <th class="sc-was">What it did to the record</th>
+              <th class="sc-now">What we do instead</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sc-k">Decisions were never written down<span>a few thousand a day</span></td>
+              <td class="sc-wasc">The system judged constantly and kept none of it. There is no way to ask "what did we think of this story at 09:06", because nobody wrote it down.</td>
+              <td class="sc-nowc"><span class="sc-good">Every judgement is logged as it happens</span>, append-only, with the view of the world it was made from attached.</td>
+            </tr>
+            <tr>
+              <td class="sc-k">Numbers had no "as of" time<span>the growth figure</span></td>
+              <td class="sc-wasc">Asking for a post's growth rate later returned a <em>different answer</em> under the same name. The number moved; the question did not.</td>
+              <td class="sc-nowc"><span class="sc-good">Every stored number carries the moment it was true</span>, and asking about 09:06 always returns the 09:06 answer.</td>
+            </tr>
+            <tr>
+              <td class="sc-k">The record length gave away the answer<span>survivorship</span></td>
+              <td class="sc-wasc">Re-checking stopped three hours in, and slow posts were dropped after ten minutes. Winners ended up with long histories and losers with short ones — so any model trained on it learns "posts with lots of readings do well". True, and useless.</td>
+              <td class="sc-nowc"><span class="sc-good">Same schedule for every post, winner or dud</span>, for the same length of time. A boring history is data too.</td>
+            </tr>
+            <tr>
+              <td class="sc-k">Fields were filled with the wrong thing<span>the TikTok bug</span></td>
+              <td class="sc-wasc">TikTok plays were written into a column named <code>views</code>, shares into one named <code>retweets</code>, and quotes were hardcoded to <code>0</code> because TikTok has no such thing. Quotes are the signal the product rests on — so every TikTok post reported an honest, invented zero.</td>
+              <td class="sc-nowc"><span class="sc-good">Each platform's numbers keep their own names</span>, and a thing that platform does not have is stored as blank, never as zero.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sc-foot"><b>Why nothing objected:</b> the old code had no way to describe the shape of a record, so nothing could be checked against it. The new stack does — which is why three of these four become impossible rather than merely discouraged.</div>
+    </div>
+  </div>
+
+  <p class="cap">The third row is the expensive one. It is the kind of mistake that produces a
+  confident, well-behaved model that has learned nothing except how long we kept watching.</p>
+
+  <h3>Five streams, and the week that decides them</h3>
+
+  <p>Five things about the world are perishable: they exist for a moment and then stop being
+  observable at any price. Today only one of the five is being recorded properly. Three are not
+  being recorded at all, and a fourth deletes itself every twelve hours. Everything else in the
+  plan can slip and only cost us time. These cannot: a week not recorded is a week that can
+  never be bought, borrowed or reconstructed.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-hd"><b>The five perishable streams</b> <span class="sc-right">status today · all five recording by week 3</span></div>
+      <div class="sc-streams">
+        <div class="sc-str">
+          <div class="sc-strn">01</div>
+          <div class="sc-strk">Post view readings<em>how a post's attention climbed, minute by minute</em></div>
+          <div class="sc-pill sc-pill-warn">Partial · wrong schedule</div>
+          <div class="sc-when">fixed in <b>week 1</b></div>
+        </div>
+        <div class="sc-str">
+          <div class="sc-strn">02</div>
+          <div class="sc-strk">The mint stream<em>every coin created, in order, with its name and its first minute</em></div>
+          <div class="sc-pill sc-pill-off">Not recording</div>
+          <div class="sc-when">starts <b>week 2</b></div>
+        </div>
+        <div class="sc-str">
+          <div class="sc-strn">03</div>
+          <div class="sc-strk">Coin size over time<em>market cap and liquidity from mint to peak to collapse</em></div>
+          <div class="sc-pill sc-pill-off">Not recording</div>
+          <div class="sc-when">starts <b>week 2</b></div>
+        </div>
+        <div class="sc-str">
+          <div class="sc-strn">04</div>
+          <div class="sc-strk">Our own decisions<em>what we judged, when, and from what evidence</em></div>
+          <div class="sc-pill sc-pill-off">Not recording</div>
+          <div class="sc-when">starts <b>week 3</b></div>
+        </div>
+        <div class="sc-str">
+          <div class="sc-strn">05</div>
+          <div class="sc-strk">Raw post captures<em>the untouched original, for re-reading when we change our minds</em></div>
+          <div class="sc-pill sc-pill-warn">Deletes itself every 12h</div>
+          <div class="sc-when">kept from <b>week 3</b></div>
+        </div>
+      </div>
+      <div class="sc-foot"><b>Week 3 is the point of no regret.</b> After it, a slip costs time. Before it, a slip costs the asset — and the asset is the only part of this that a competitor cannot simply buy.</div>
+    </div>
+  </div>
+
+  <p class="cap">Nothing on this list is difficult. Each is a small job that has to start early,
+  because the thing it records is only available while it is happening.</p>
+
+  <h3>The scores we keep, and never show</h3>
+
+  <p>We also calculate internal scores. How fast a post is growing. How memeable the AI judged
+  it. Whether a story has cleared the bar to appear at all. These are stored alongside
+  everything else, they decide which stories reach the feed and in what order, and they are the
+  reason the product works. They are <em>never</em> shown to a user and never sent to their
+  browser. The app's job is to make the judgement so the user does not have to; publishing our
+  workings would hand them the job back. A trader opening the app has about ninety seconds. Give
+  them a heat score of 8.4 and you have not helped them decide — you have handed them a second
+  decision on top of the first.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-line">
+        <div class="sc-col sc-hidden">
+          <div class="sc-colhd sc-nope">Stored, logged, used to decide — stays on our servers
+            <em>never leaves the machine · never in the app</em></div>
+          <div class="sc-row"><div class="sc-rk">How memeable the AI judged it</div><div class="sc-rv">meme 7</div></div>
+          <div class="sc-row"><div class="sc-rk">Growth between two readings</div><div class="sc-rv">+18.4% / 20m</div></div>
+          <div class="sc-row"><div class="sc-rk">Acceleration</div><div class="sc-rv">3.1x</div></div>
+          <div class="sc-row"><div class="sc-rk">The combined ranking score</div><div class="sc-rv">heat 8.4</div></div>
+          <div class="sc-row"><div class="sc-rk">Gates and thresholds</div><div class="sc-rv">author cap 2</div></div>
+          <div class="sc-row"><div class="sc-rk">How sure we are a coin matches</div><div class="sc-rv">match 87%</div></div>
+          <div class="sc-row"><div class="sc-rk">Position in the ranking, and its change</div><div class="sc-rv">rank &#9650;4</div></div>
+          <div class="sc-row"><div class="sc-rk">Which AI model made the judgement</div><div class="sc-rv">model name</div></div>
+          <div class="sc-row"><div class="sc-rk">What we looked at and dropped</div><div class="sc-rv">40 of 63</div></div>
+          <div class="sc-row"><div class="sc-rk">The outcome label, once settled</div><div class="sc-rv">winner · 18x</div></div>
+        </div>
+        <div class="sc-col sc-shown">
+          <div class="sc-colhd sc-yep">Sent to the browser — facts about the world
+            <em>true whether or not Insidor exists</em></div>
+          <div class="sc-row"><div class="sc-rk">The two-liner, in plain English</div><div class="sc-rv">the sentence</div></div>
+          <div class="sc-row"><div class="sc-rk">How many people have seen the post</div><div class="sc-rv">2.4M views</div></div>
+          <div class="sc-row"><div class="sc-rk">How old it is</div><div class="sc-rv">4h · posted 09:00</div></div>
+          <div class="sc-row"><div class="sc-rk">Who posted it, and where</div><div class="sc-rv">@nordkyst_ferge · X</div></div>
+          <div class="sc-row"><div class="sc-rk">Whether attention is still climbing</div><div class="sc-rv">a rising line</div></div>
+          <div class="sc-row"><div class="sc-rk">Market cap of the coin</div><div class="sc-rv">$799.6K</div></div>
+          <div class="sc-row"><div class="sc-rk">Liquidity in the pool</div><div class="sc-rv">$84.2K</div></div>
+          <div class="sc-row"><div class="sc-rk">How many people hold it</div><div class="sc-rv">1,204 holders</div></div>
+          <div class="sc-row"><div class="sc-rk">Which coin came first, and when</div><div class="sc-rv">$FERRY · 09:02</div></div>
+          <div class="sc-row"><div class="sc-rk">What other traders wrote, and when</div><div class="sc-rv">12 comments</div></div>
+        </div>
+      </div>
+      <div class="sc-foot"><b>The test:</b> if a number would still be true with Insidor switched off, it can go on screen. If it only exists because we calculated it, it does not. The struck-through values on the left are printed here so the team can recognise them on sight — they never appear in the product.</div>
+    </div>
+  </div>
+
+  <p class="cap">The left column is the company. The right column is the product. Nothing crosses
+  from left to right, in any screen, at any time.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-tq">
+        <div class="sc-lbl">Before you put a number on screen, ask</div>
+        <div class="sc-tqt">Would this number still be true if Insidor did not exist?</div>
+      </div>
+      <div class="sc-tgrid">
+        <div class="sc-tcol">
+          <div class="sc-tyes">Yes &rarr; it can be shown</div>
+          <div class="sc-titem"><b>2.4M views</b> &mdash; the post has them either way</div>
+          <div class="sc-titem"><b>$799.6K</b> &mdash; on-chain, public, checkable</div>
+          <div class="sc-titem"><b>4h old</b> &mdash; the clock is not ours</div>
+          <div class="sc-titem"><b>1,204 holders</b> &mdash; anyone can count them</div>
+        </div>
+        <div class="sc-tcol">
+          <div class="sc-tno">No &rarr; it stays behind the scenes</div>
+          <div class="sc-titem"><b>meme 7</b> &mdash; we invented the scale</div>
+          <div class="sc-titem"><b>accel 3.1x</b> &mdash; needs our own history to exist</div>
+          <div class="sc-titem"><b>match 87%</b> &mdash; our uncertainty, not theirs</div>
+          <div class="sc-titem"><b>rank &#9650;4</b> &mdash; a fact about our list, not the world</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap">One question, applied to every field, settles the argument in five seconds. It
+  has a useful side effect: the numbers that pass are exactly the ones a sceptical user can
+  verify elsewhere, so showing them builds credibility. The numbers that fail are the ones we
+  could never prove anyway.</p>
+
+  <h3>What it costs</h3>
+
+  <p>About <strong>six pounds a day, roughly £181 a month</strong>. Reading social posts is by
+  far the biggest line and the only one that scales with how hard we look — two pounds in every
+  three. The AI judging is a little over a pound. The infrastructure — one database, the loops,
+  a watchdog on separate hardware, and the app itself — comes to under a pound a day combined,
+  and the app hosting is genuinely free at this size.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-hd"><b>Where every pound goes</b> <span class="sc-right">per day · steady state · launch scale</span></div>
+      <div class="sc-costwrap">
+        <div class="sc-bar">
+          <div class="sc-seg sc-data">Reading social posts · £4.00</div>
+          <div class="sc-seg sc-ai">AI · £1.20</div>
+          <div class="sc-seg sc-inf">Infra · £0.84</div>
+        </div>
+        <div class="sc-scale"><span>66%</span><span>20%</span><span>14%</span></div>
+
+        <table class="sc-cost">
+          <thead>
+            <tr><th>Line</th><th>Share of the daily spend</th><th class="sc-n">Per day</th><th class="sc-n">Per month</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sc-what">Reading social posts<span>the data reseller — rented, metered and capped</span></td>
+              <td class="sc-mini"><div class="sc-track"><div class="sc-fill" style="width:66%;background:#3DE0FF"></div></div></td>
+              <td class="sc-n">£4.00</td>
+              <td class="sc-n">£120</td>
+            </tr>
+            <tr>
+              <td class="sc-what">AI judging<span>Claude, reading the fastest-growing posts and writing the two-liner</span></td>
+              <td class="sc-mini"><div class="sc-track"><div class="sc-fill" style="width:20%;background:#9BF03C"></div></div></td>
+              <td class="sc-n">£1.20</td>
+              <td class="sc-n">£36</td>
+            </tr>
+            <tr>
+              <td class="sc-what">Database<span>one Postgres, three schemas — holds all eight kinds of record</span></td>
+              <td class="sc-mini"><div class="sc-track"><div class="sc-fill" style="width:8%;background:#5A5A62"></div></div></td>
+              <td class="sc-n">£0.50</td>
+              <td class="sc-n">£15</td>
+            </tr>
+            <tr>
+              <td class="sc-what">The loops<span>the collecting and measuring, running around the clock</span></td>
+              <td class="sc-mini"><div class="sc-track"><div class="sc-fill" style="width:4.5%;background:#5A5A62"></div></div></td>
+              <td class="sc-n">£0.27</td>
+              <td class="sc-n">£8</td>
+            </tr>
+            <tr>
+              <td class="sc-what">The watchdog<span>separate hardware, so it can still shout when everything else is down</span></td>
+              <td class="sc-mini"><div class="sc-track"><div class="sc-fill" style="width:1.5%;background:#5A5A62"></div></div></td>
+              <td class="sc-n">£0.07</td>
+              <td class="sc-n">£2</td>
+            </tr>
+            <tr>
+              <td class="sc-what">The app<span>the feed and the shareable story pages</span></td>
+              <td class="sc-mini"><span class="sc-free">free tier</span></td>
+              <td class="sc-n">£0.00</td>
+              <td class="sc-n">£0</td>
+            </tr>
+            <tr>
+              <td class="sc-what">Training<span>runs offline, occasionally, on a machine we already own</span></td>
+              <td class="sc-mini"><span class="sc-free">no cash cost</span></td>
+              <td class="sc-n">£0.00</td>
+              <td class="sc-n">£0</td>
+            </tr>
+            <tr class="sc-total">
+              <td class="sc-what">Total</td>
+              <td class="sc-mini"></td>
+              <td class="sc-n">£6.04</td>
+              <td class="sc-n">£181</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sc-foot"><b>Storage, for scale:</b> a year of readings, decisions and labels is roughly <b>four gigabytes</b> — about fifty pence a month of disk. The irreplaceable part of this business is the cheapest line on the page.</div>
+    </div>
+  </div>
+
+  <p>Recording everything is not what makes this expensive. Looking is. Storage is close to
+  free, which is worth saying plainly: the argument for keeping the decision log and the outcome
+  labels never has to be won on cost, only on discipline.</p>
+
+  <p>The spending limits are hard, not advisory. Before every request to the data reseller or to
+  the AI, the system checks what it has already spent today against the cap. If the cap is
+  reached, collection <strong>pauses until the next day</strong> — the machine stops rather than
+  quietly running up a bill overnight while nobody is watching. A runaway loop or a bad day of
+  traffic costs us the rest of that day's stories, which is annoying. It does not cost us a
+  four-figure invoice, which is not.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-frame">
+      <div class="sc-hd"><b>The daily cap</b> <span class="sc-right">our own meter — not a screen any user sees</span></div>
+      <div class="sc-cap">
+        <div class="sc-capbox">
+          <div class="sc-capk"><span>Spent today · reading social posts</span><b>£3.42 / £4.50</b></div>
+          <div class="sc-meter"><i style="width:76%;background:#3DE0FF"></i></div>
+          <div class="sc-note">76% of today's allowance at 18:40. Normal. The measuring keeps
+          running on its usual five-minute cycle, and every reading is still written down.</div>
+        </div>
+        <div class="sc-capbox">
+          <div class="sc-capk"><span>Spent today · AI judging</span><b class="sc-amber">£1.18 / £1.50</b></div>
+          <div class="sc-meter"><i style="width:79%;background:#FFB84D"></i></div>
+          <div class="sc-note">Above 75%, so only the fastest-growing posts are sent to the AI for
+          the rest of the day. At <b>100% the requests stop entirely</b> and resume at midnight —
+          and the fact that we stopped is itself written to the decision log, so a thin day is
+          never mistaken later for a quiet one.</div>
+        </div>
+      </div>
+      <div class="sc-foot"><b>Ceiling:</b> £6.00 a day across the two metered suppliers · infrastructure is fixed at about 84p · so the worst possible day is <b>£6.84</b>. Reaching the ceiling pauses collection; it never authorises an overspend.</div>
+    </div>
+  </div>
+
+  <p class="cap">Two behaviours, not one. At three-quarters spent we get pickier about what is
+  worth paying to judge. At fully spent we stop. Neither needs anyone awake to decide it — and
+  both leave a note explaining the gap.</p>
+</section>

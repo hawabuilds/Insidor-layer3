@@ -1,0 +1,489 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document supplies
+   the same rules from the shell, so the build script strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+a{color:#3DE0FF;text-decoration:none;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+.bx-wrap{
+  --bg0:#060607; --bg1:#0C0C0E; --bg2:#131316; --bg3:#1A1A1E; --bg4:#222228;
+  --ln:#212127; --ln2:#2E2E36;
+  --ink:#F4F5F7; --muted:#8A8A93; --dim:#5A5A62;
+  --ion:#3DE0FF; --lime:#9BF03C; --red:#FF5C6E; --amber:#FFB84D;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --body:"General Sans",-apple-system,system-ui,sans-serif;
+  --head:"Clash Display",-apple-system,system-ui,sans-serif;
+  font-family:var(--body); color:var(--ink);
+}
+.bx-wrap *{box-sizing:border-box}
+.bx-m{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* ---------- panels ---------- */
+.bx-panel{background:var(--bg1); border:1px solid var(--ln); border-radius:10px; overflow:hidden; margin:0 0 26px}
+.bx-phdr{display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:10px 16px; background:var(--bg2); border-bottom:1px solid var(--ln)}
+.bx-phdr .l{font-size:9.5px; text-transform:uppercase; letter-spacing:.11em; color:var(--dim)}
+.bx-phdr .r{font-family:var(--mono); font-size:10.5px; color:var(--dim); letter-spacing:.06em}
+.bx-pbody{padding:20px 22px}
+
+/* ---------- the three highlights ---------- */
+.bx-hi{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:6px 0 32px}
+.bx-hicard{background:var(--bg1); border:1px solid var(--ln2); border-radius:11px; padding:17px 18px 16px;
+  position:relative; overflow:hidden}
+.bx-hicard::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--dim)}
+.bx-hicard.a::before{background:var(--amber)} .bx-hicard.b::before{background:var(--red)}
+.bx-hicard.c::before{background:var(--ion)}
+.bx-hicard .tag{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--dim); margin-bottom:9px}
+.bx-hicard.a .tag{color:var(--amber)} .bx-hicard.b .tag{color:var(--red)} .bx-hicard.c .tag{color:var(--ion)}
+.bx-hicard h4{margin:0 0 8px; font-family:var(--head); font-size:16px; font-weight:600; letter-spacing:-.01em;
+  color:var(--ink); text-transform:none}
+.bx-hicard p{margin:0; font-size:12.8px; line-height:1.55; color:var(--muted); max-width:none}
+.bx-hicard b{color:var(--ink); font-weight:600}
+
+/* ---------- dependency diagram ---------- */
+.bx-diag{padding:18px 14px 10px; background:var(--bg1)}
+.bx-legend{display:flex; gap:22px; flex-wrap:wrap; padding:12px 22px 16px; border-top:1px solid var(--ln);
+  background:var(--bg2)}
+.bx-legend div{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.05em; color:var(--dim)}
+.bx-sw{width:22px; height:0; border-top:1.6px solid var(--ln2)}
+.bx-sw.d{border-top-style:dashed; border-color:var(--amber)}
+.bx-sw.e{border-top-style:dashed; border-color:var(--ion)}
+.bx-chip{width:9px; height:9px; border-radius:2px; background:var(--amber)}
+.bx-chip.i{background:var(--ion)}
+
+/* ---------- step cards ---------- */
+.bx-steps{display:flex; flex-direction:column; gap:12px; margin:6px 0 4px}
+.bx-step{display:grid; grid-template-columns:126px 1fr; background:var(--bg1);
+  border:1px solid var(--ln); border-radius:10px; overflow:hidden}
+.bx-step.mark{border-color:var(--ln2)}
+.bx-rail{background:var(--bg2); border-right:1px solid var(--ln); padding:16px 14px;
+  display:flex; flex-direction:column; gap:5px; position:relative}
+.bx-step.amberf .bx-rail{box-shadow:inset 3px 0 0 var(--amber)}
+.bx-step.redf   .bx-rail{box-shadow:inset 3px 0 0 var(--red)}
+.bx-step.ionf   .bx-rail{box-shadow:inset 3px 0 0 var(--ion)}
+.bx-rail .st{font-family:var(--mono); font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--dim)}
+.bx-rail .no{font-family:var(--mono); font-size:30px; font-weight:600; line-height:1; color:var(--ink);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.bx-rail .dy{font-family:var(--mono); font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums}
+.bx-rail .lane{font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--dim); margin-top:auto; padding-top:10px}
+
+.bx-body2{padding:15px 20px 16px; min-width:0}
+.bx-h{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:7px}
+.bx-h .t{font-size:15.5px; font-weight:600; letter-spacing:-.005em}
+.bx-flag{font-family:var(--mono); font-size:8.5px; letter-spacing:.13em; text-transform:uppercase;
+  padding:2px 7px; border-radius:3px; border:1px solid currentColor}
+.bx-flag.a{color:var(--amber)} .bx-flag.b{color:var(--red)} .bx-flag.c{color:var(--ion)}
+.bx-what{font-size:13.4px; line-height:1.56; color:var(--muted); margin:0 0 11px; max-width:none}
+.bx-what b{color:var(--ink); font-weight:600}
+.bx-unb{display:flex; gap:10px; align-items:flex-start; margin:0 0 11px}
+.bx-unb .k{font-family:var(--mono); font-size:8.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--dim); padding-top:3px; white-space:nowrap; width:66px; flex:none}
+.bx-unb .v{font-size:12.8px; line-height:1.5; color:var(--muted)}
+.bx-test{background:var(--bg2); border:1px solid var(--ln); border-left:2px solid var(--lime);
+  border-radius:6px; padding:10px 13px}
+.bx-test .k{display:block; font-family:var(--mono); font-size:8.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--lime); margin-bottom:5px}
+.bx-test .v{font-family:var(--mono); font-size:12px; line-height:1.55; color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.bx-test .v em{font-style:normal; color:var(--muted)}
+
+/* ---------- totals ---------- */
+.bx-tot{display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1px solid var(--ln)}
+.bx-tot div{padding:16px 18px; border-right:1px solid var(--ln)}
+.bx-tot div:last-child{border-right:0}
+.bx-tot .n{font-family:var(--mono); font-size:24px; font-weight:600; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; color:var(--ink); display:block; margin-bottom:4px}
+.bx-tot .n.am{color:var(--amber)}
+.bx-tot .l{font-size:11.5px; line-height:1.45; color:var(--dim)}
+
+/* ---------- callout ---------- */
+.bx-note{background:linear-gradient(180deg,rgba(255,184,77,.05),rgba(255,184,77,0) 70%),var(--bg1);
+  border:1px solid rgba(255,184,77,.3); border-radius:10px; padding:18px 22px; margin:26px 0}
+.bx-note .tag{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--amber); margin-bottom:8px}
+.bx-note p{margin:0 0 10px; font-size:14px; color:var(--muted); max-width:none}
+.bx-note p:last-child{margin-bottom:0}
+.bx-note b{color:var(--ink); font-weight:600}
+</style>
+
+<section class="sec bx-wrap">
+<h2>13. How each part gets built</h2>
+
+<p class="lede">Eleven steps. Each one ships on its own and is useful on its own, and each one ends
+with a test that either passes or does not — never with somebody deciding it feels finished.</p>
+
+<p>A build plan written as a list of things to make is a wish. The same plan written as a list of
+things to <em>prove</em> is a schedule. So every step below carries a <strong>done when</strong> line, and
+every one of those lines is something a machine can check: a query that returns the right shape, a
+test that goes red when a threshold moves, a folder whose diff is empty. Nobody has to judge whether
+the storyteller is good enough. Either the gold set produces a curve or it does not.</p>
+
+<p>The order is not a preference. It comes from one fact: three of the five data streams this
+business depends on are <strong>not being recorded at all today</strong>, and a fourth deletes itself every
+twelve hours. Code can be written later. A week of mint times that were never written down is gone
+forever. So the steps that start a recorder come before the steps that build anything to look at,
+even though the recorders produce nothing a person can see.</p>
+
+<h3>Three things to notice before the list</h3>
+
+<div class="bx-hi">
+  <div class="bx-hicard a">
+    <div class="tag">Step 1 · counter-intuitive</div>
+    <h4>It goes into the old build</h4>
+    <p>The decision log is retrofitted into the pipeline running <b>right now</b>, not the new one.
+    That pipeline makes a few thousand judgements a day and writes down <b>none</b> of them. Every day
+    spent building the replacement first is another day of training data thrown away.</p>
+  </div>
+  <div class="bx-hicard b">
+    <div class="tag">Step 2 · cannot move</div>
+    <h4>Mint time is a deadline</h4>
+    <p>Ten of the eleven steps can be reordered under pressure. This one cannot. Without a stored
+    mint time there is no way to say afterwards whether a call was early or late — so every day it is
+    not running is <b>label data that will never exist</b>, at any price.</p>
+  </div>
+  <div class="bx-hicard c">
+    <div class="tag">Step 10 · the exam</div>
+    <h4>TikTok is the test, not a feature</h4>
+    <p>Adding the second platform should be one new folder and one new line. If it has to touch the
+    thinking layer, the whole design failed — and it failed <b>cheaply, three days in</b>, instead of a
+    year later when someone says a new platform is a rewrite.</p>
+  </div>
+</div>
+
+<div class="bx-panel">
+  <div class="bx-phdr"><span class="l">What depends on what</span><span class="r">11 steps · 3 lanes</span></div>
+  <div class="bx-diag">
+<svg viewBox="0 0 1000 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dependency diagram of the eleven build steps">
+  <defs>
+    <marker id="bxA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#5A5A62"/>
+    </marker>
+    <marker id="bxAm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#FFB84D"/>
+    </marker>
+    <marker id="bxAi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#3DE0FF"/>
+    </marker>
+  </defs>
+
+  <!-- lane labels -->
+  <text x="180" y="32"  fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.4">THE PIPELINE</text>
+  <text x="180" y="128" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.4">THE MONEY PATH</text>
+  <text x="180" y="224" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.4">THE LEARNING SUBSTRATE</text>
+
+  <!-- edges: drawn before nodes -->
+  <g fill="none" stroke="#3A3A44" stroke-width="1.5">
+    <path d="M150,167 C166,167 164,71 180,71"  marker-end="url(#bxA)"/>
+    <path d="M150,167 H178"                    marker-end="url(#bxA)"/>
+    <path d="M150,167 C166,167 164,263 180,263" marker-end="url(#bxA)"/>
+    <path d="M312,71 H338"   marker-end="url(#bxA)"/>
+    <path d="M472,71 H498"   marker-end="url(#bxA)"/>
+    <path d="M632,71 C650,71 644,167 658,167" marker-end="url(#bxA)"/>
+    <path d="M312,167 H338"  marker-end="url(#bxA)"/>
+    <path d="M472,167 H658"  marker-end="url(#bxA)"/>
+    <path d="M312,263 H498"  marker-end="url(#bxA)"/>
+    <path d="M632,263 H658"  marker-end="url(#bxA)"/>
+  </g>
+  <g fill="none" stroke="#FFB84D" stroke-width="1.4" stroke-dasharray="4 4" opacity=".85">
+    <path d="M246,198 V211 H542 V230" marker-end="url(#bxAm)"/>
+  </g>
+  <g fill="none" stroke="#3DE0FF" stroke-width="1.4" stroke-dasharray="5 4" opacity=".9">
+    <path d="M300,40 V14 H886 V38" marker-end="url(#bxAi)"/>
+  </g>
+  <text x="600" y="10" fill="#3DE0FF" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.2">SAME PORT, SECOND IMPLEMENTATION — THE EXAM</text>
+  <text x="352" y="206" fill="#FFB84D" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.2">OUTCOME LABELS NEED MINT TIME</text>
+
+  <!-- step 0, tall -->
+  <rect x="30" y="40" width="120" height="254" rx="9" fill="#131316" stroke="#2E2E36"/>
+  <text x="45" y="76"  fill="#F4F5F7" font-family="JetBrains Mono, monospace" font-size="30" font-weight="600">0</text>
+  <text x="45" y="100" fill="#F4F5F7" font-size="11.5" font-family="General Sans, sans-serif" font-weight="600">SKELETON</text>
+  <text x="45" y="116" fill="#F4F5F7" font-size="11.5" font-family="General Sans, sans-serif" font-weight="600">AND GATES</text>
+  <text x="45" y="140" fill="#8A8A93" font-family="JetBrains Mono, monospace" font-size="10.5">~2 days</text>
+  <line x1="45" y1="156" x2="135" y2="156" stroke="#2E2E36"/>
+  <text x="45" y="180" fill="#5A5A62" font-size="10.5" font-family="General Sans, sans-serif">Nothing after</text>
+  <text x="45" y="196" fill="#5A5A62" font-size="10.5" font-family="General Sans, sans-serif">this point can</text>
+  <text x="45" y="212" fill="#5A5A62" font-size="10.5" font-family="General Sans, sans-serif">be enforced if</text>
+  <text x="45" y="228" fill="#5A5A62" font-size="10.5" font-family="General Sans, sans-serif">it is skipped</text>
+
+  <!-- row: pipeline -->
+  <g font-family="JetBrains Mono, monospace">
+    <rect x="180" y="40" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="193" y="65" fill="#F4F5F7" font-size="16" font-weight="600">3</text>
+    <text x="299" y="63" fill="#5A5A62" font-size="10" text-anchor="end">5d</text>
+    <text x="193" y="86" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">COLLECTOR</text>
+
+    <rect x="340" y="40" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="353" y="65" fill="#F4F5F7" font-size="16" font-weight="600">4</text>
+    <text x="459" y="63" fill="#5A5A62" font-size="10" text-anchor="end">5d</text>
+    <text x="353" y="86" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">TRACKER</text>
+
+    <rect x="500" y="40" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="513" y="65" fill="#F4F5F7" font-size="16" font-weight="600">6</text>
+    <text x="619" y="63" fill="#5A5A62" font-size="10" text-anchor="end">7d</text>
+    <text x="513" y="86" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">STORYTELLER</text>
+
+    <rect x="820" y="40" width="132" height="62" rx="8" fill="#0C0C0E" stroke="#3DE0FF" stroke-opacity=".55"/>
+    <text x="833" y="65" fill="#3DE0FF" font-size="16" font-weight="600">10</text>
+    <text x="939" y="63" fill="#5A5A62" font-size="10" text-anchor="end">3d</text>
+    <text x="833" y="86" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">TIKTOK</text>
+  </g>
+
+  <!-- row: money path -->
+  <g font-family="JetBrains Mono, monospace">
+    <rect x="180" y="136" width="132" height="62" rx="8" fill="#0C0C0E" stroke="#FF5C6E" stroke-opacity=".5"/>
+    <text x="193" y="161" fill="#FF5C6E" font-size="16" font-weight="600">2</text>
+    <text x="299" y="159" fill="#5A5A62" font-size="10" text-anchor="end">2d</text>
+    <text x="193" y="182" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">MINT TIME</text>
+
+    <rect x="340" y="136" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="353" y="161" fill="#F4F5F7" font-size="16" font-weight="600">5</text>
+    <text x="459" y="159" fill="#5A5A62" font-size="10" text-anchor="end">4d</text>
+    <text x="353" y="182" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">RESOLVER</text>
+
+    <rect x="660" y="136" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="673" y="161" fill="#F4F5F7" font-size="16" font-weight="600">7</text>
+    <text x="779" y="159" fill="#5A5A62" font-size="10" text-anchor="end">7d</text>
+    <text x="673" y="182" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">BOARD + APP</text>
+  </g>
+
+  <!-- row: learning -->
+  <g font-family="JetBrains Mono, monospace">
+    <rect x="180" y="232" width="132" height="62" rx="8" fill="#0C0C0E" stroke="#FFB84D" stroke-opacity=".5"/>
+    <text x="193" y="257" fill="#FFB84D" font-size="16" font-weight="600">1</text>
+    <text x="299" y="255" fill="#5A5A62" font-size="10" text-anchor="end">3d</text>
+    <text x="193" y="278" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">DECISION LOG</text>
+
+    <rect x="500" y="232" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="513" y="257" fill="#F4F5F7" font-size="16" font-weight="600">8</text>
+    <text x="619" y="255" fill="#5A5A62" font-size="10" text-anchor="end">5d</text>
+    <text x="513" y="278" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">LABELLER</text>
+
+    <rect x="660" y="232" width="132" height="62" rx="8" fill="#131316" stroke="#2E2E36"/>
+    <text x="673" y="257" fill="#F4F5F7" font-size="16" font-weight="600">9</text>
+    <text x="779" y="255" fill="#5A5A62" font-size="10" text-anchor="end">ongoing</text>
+    <text x="673" y="278" fill="#F4F5F7" font-size="11" font-family="General Sans, sans-serif" font-weight="600">MODELS</text>
+  </g>
+</svg>
+  </div>
+  <div class="bx-legend">
+    <div><span class="bx-sw"></span> must finish first</div>
+    <div><span class="bx-sw d"></span> supplies the labels</div>
+    <div><span class="bx-sw e"></span> proves the boundary held</div>
+    <div><span class="bx-chip"></span> starts a perishable recorder</div>
+    <div><span class="bx-chip i"></span> the architecture exam</div>
+  </div>
+</div>
+
+<p>Read the diagram as three lanes that run mostly in parallel. The top lane is the machine that
+finds things — collector, tracker, storyteller, and the screen people look at. The middle lane is the
+money path — knowing when a coin appeared, then choosing the right one, then putting a Buy button
+next to it. The bottom lane is the part that lets the system get better over time — write down every
+judgement, join it to what actually happened, then let a model learn the join. The lanes touch in
+only two places, and both are drawn dashed, because both are the kind of dependency people forget
+and then discover late.</p>
+
+<h3>The eleven steps</h3>
+
+<div class="bx-steps">
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">0</span><span class="dy">~2 days</span><span class="lane">Foundation</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The skeleton and the gates</span></div>
+      <p class="bx-what">Nine folders with rules about which may talk to which, one file holding
+      <b>every threshold in the system</b> (today there are sixty of them typed into twenty-four
+      different files), six automated checks, and the current build moved wholesale into a folder
+      called <code>legacy/</code> where it keeps running untouched.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Everything. Boundaries added after the code exists never actually get added — they get argued about and waived.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">A change that lets vendor code reach into the decision code <em>fails the build and names the rule it broke.</em></span></div>
+    </div>
+  </div>
+
+  <div class="bx-step amberf">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">1</span><span class="dy">~3 days</span><span class="lane">Perishable</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The decision log — into the build that is running today</span><span class="bx-flag a">Highlight 1</span></div>
+      <p class="bx-what">Three tables and one small writer, wired into the <b>existing</b> cron runner and
+      the existing gate functions. Nothing is rewritten. Every judgement gets stored with what it saw,
+      what it chose, and which thresholds it was judged against. The 2% holdout and the 5% exploration
+      reservation land in the same commit, because a log of decisions you always would have made
+      teaches nothing.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Replay, the first training set, and the first model roughly five months out. It also fixes a live bug: a stage that dies mid-run currently looks identical to a stage that ran and found nothing.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">One query separates <em>ran and found nothing</em> from <em>died</em>, and a process killed halfway through leaves its row with <em>no finish time</em> rather than no row at all.</span></div>
+    </div>
+  </div>
+
+  <div class="bx-step redf">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">2</span><span class="dy">~2 days</span><span class="lane">Cannot move</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">Mint time, stored, with a source attached</span><span class="bx-flag b">Highlight 2</span></div>
+      <p class="bx-what">A table of coins, filled by polling the launchpad's own list and confirming each
+      one against a single generic chain call — plus a <b>coverage log</b>, so a stretch where the poller
+      was down is recorded as <i>we were not watching</i> rather than quietly counted as <i>no coin
+      existed</i>. That second half is the whole point: the failure to avoid is a gap that flatters us.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Every outcome label, the rule that stops us claiming credit for something posted after the coin, and every how-far-into-the-run number the product will ever publish — a coin's age against a six-day arc is the whole reason a user can tell a run that is still climbing from one that is over.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">A gap induced on purpose produces a coverage row, and the labeller marks that window <em>unmeasurable</em> instead of scoring it as a miss.</span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">3</span><span class="dy">~5 days</span><span class="lane">Pipeline</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The collector</span></div>
+      <p class="bx-what">The X connector and the first decision stage — <i>is this worth spending money to
+      watch?</i> — running alongside the old ingest without replacing it. Critically, a <b>second</b>
+      connector ships in the same step: a fake platform backed by recorded files. An interface with one
+      implementation is always secretly shaped like that implementation.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Step 10, which is only cheap because a second implementation already exists. It also gives the testing tools a data source that needs no network and no vendor bill.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">One test suite passes <em>unchanged</em> against both the real platform and the recorded one, and no platform's name appears anywhere in the thinking layer.</span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">4</span><span class="dy">~5 days</span><span class="lane">Perishable</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The tracker and the honest counters</span></div>
+      <p class="bx-what">When to look at a post again, how to store each reading, and the rule that says a
+      rounded counter which has not visibly moved means <b>we learned nothing</b> — not that the post is
+      cooling. Today the system publishes a zero there, and zero reads downstream as fading, which demotes
+      exactly the posts that are picking up speed.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Every speed-of-growth signal, and the curve the board is built on. Perishable: a day not shipped is a day of curve data that will never exist.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">A rounded counter whose change is smaller than its rounding step records <em>censored: below step</em> — and no rate at all.</span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">5</span><span class="dy">~4 days</span><span class="lane">Money path</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The resolver — which coin, if any</span></div>
+      <p class="bx-what">Eight checks in cheapest-first order, candidates generated by time rather than by
+      name, a margin rule so two plausible coins produce <i>no answer</i> instead of a coin flip, and a
+      hard split between a ticker we actually saw and a ticker we guessed. <b>This is the only step where
+      being wrong costs a user money</b> — 189 of 323 currently resolved tickers share no words at all
+      with the story they are attached to, and a working swap sits one click away.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Turning the Buy button back on without it being wrong. Nothing else in the plan is allowed to ship a Buy affordance before this.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">A frozen set of the real past mistakes runs on every change, so a threshold cannot be nudged silently.</span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">6</span><span class="dy">~7 days</span><span class="lane">Pipeline</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The storyteller</span></div>
+      <p class="bx-what">Deciding that forty posts are one story rather than forty stories. The free,
+      deterministic signals first and alone — the same image, the same phrasing, the same sound or effect
+      — measured before any meaning-matching is switched on. The English-only filter comes off in the
+      first hour of this step; it currently appears in two places, so removing one leaves half the funnel
+      shut while looking fixed.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Grouping across platforms, which is the product's actual premise. Today the grouper leaves 91% of stories with exactly one post in them.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">A hand-labelled set of 300 pairs produces a precision/recall curve, and the joining threshold is <em>read off that curve rather than typed in.</em></span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">7</span><span class="dy">~7 days</span><span class="lane">Product</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The board and the app on the new store</span></div>
+      <p class="bx-what">The screen people actually use, reading from a public view of the data that
+      contains only facts about the world. The ordering machine — ranks committed with a tick number so
+      the list cannot shuffle under the cursor — moves across verbatim, since it already works.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Everything user-facing, and it is the step that makes the show-facts-not-reasoning rule structural rather than a habit.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">Searching every screen file for our internal scores and gate names <em>returns nothing</em>, and the app is forbidden by rule from importing the thinking layer at all.</span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">8</span><span class="dy">~5 days</span><span class="lane">Learning</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The labeller and replay</span></div>
+      <p class="bx-what">Joining what we decided to what actually happened — every label carrying the
+      population it was drawn from, so winners and losers are never quietly measured against different
+      denominators. Then the machine that re-runs old decisions under new rules. The existing outcome
+      labeller carries forward: it is the best artefact in the current repository, separating winners at
+      18× their median peak from losers at 1.19×.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Every model in step 9, and the ability to change a threshold and see who it would have affected before shipping it.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">Changing one number in the thresholds file produces a list of last month's decisions that would have flipped — <em>with no deploy and no network access.</em></span></div>
+    </div>
+  </div>
+
+  <div class="bx-step">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">9</span><span class="dy">ongoing</span><span class="lane">Calendar-bound</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The models</span></div>
+      <p class="bx-what">Learned judgement replacing typed numbers, one stage at a time, in the order the
+      labels arrive: the coinable-or-not call first because its label is free and plentiful, then what to
+      watch, then what is accelerating. <b>Ranking last</b>, because it needs a record of what people were
+      shown, and that record does not exist yet. This step is bound by the calendar, not by effort —
+      about 2,000 labelled stories are needed before the first model is worth training.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">The compounding advantage. Nothing else in the plan improves on its own once shipped.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">A challenger runs silently alongside the incumbent for seven days and is promoted <em>by a database row, not by a deploy.</em></span></div>
+    </div>
+  </div>
+
+  <div class="bx-step ionf">
+    <div class="bx-rail"><span class="st">Step</span><span class="no">10</span><span class="dy">~3 days</span><span class="lane">The exam</span></div>
+    <div class="bx-body2">
+      <div class="bx-h"><span class="t">The second platform</span><span class="bx-flag c">Highlight 3</span></div>
+      <p class="bx-what">One folder for TikTok and one line in a lookup table. The step exists to answer a
+      question about the architecture rather than to add a feature. And it has a specific thing to get
+      right: TikTok has <b>no reproduction count at all</b>, so the connector must declare that concept
+      <i>absent</i> rather than write a zero — which is precisely the bug live in the build today, where
+      every TikTok post reports its most important signal as an honest-looking nought.</p>
+      <div class="bx-unb"><span class="k">Unblocks</span><span class="v">Nothing downstream. What it buys is the answer to whether the previous ten steps were worth doing.</span></div>
+      <div class="bx-test"><span class="k">Done when</span><span class="v">The change is one new folder plus one line — and the diff against the thinking layer is <em>empty.</em></span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bx-panel" style="margin-top:26px">
+  <div class="bx-phdr"><span class="l">What the numbers add up to</span><span class="r">honest, not optimistic</span></div>
+  <div class="bx-tot">
+    <div><span class="n">43</span><span class="l">Developer-days if you only count writing the code, which is what the step estimates above measure</span></div>
+    <div><span class="n">67</span><span class="l">Developer-days once backfills, cutover switches, comparison queries and keeping the old system alive are counted</span></div>
+    <div><span class="n am">17–18</span><span class="l">Weeks at a realistic pace for one developer who is also nursing a live system. About four months</span></div>
+    <div><span class="n am">3</span><span class="l">The week after which a slip costs time rather than the asset — every perishable stream recording</span></div>
+  </div>
+</div>
+
+<div class="bx-note">
+  <div class="tag">The one place the order can bend</div>
+  <p>Steps 1 and 5 are the two that repair live defects. If the Buy button matters more right now than
+  the board does, <b>step 5 can jump ahead of steps 3 and 4</b> with no structural cost — the resolver
+  needs stored mint times, and nothing else from the pipeline lane.</p>
+  <p>Everything else can slide too. <b>Step 2 cannot</b>, and it is worth saying why one more time: the
+  other ten steps trade weeks for weeks. This one trades weeks for data that cannot be bought, borrowed
+  or reconstructed afterwards. The same logic puts step 1 in the old build rather than the new one —
+  a few thousand judgements a day are being made and thrown away while this deck is being read.</p>
+  <p>And the step most likely to be cut under deadline is step 10, because by then the product works and
+  a second platform feels like a nice-to-have. Cutting it means <b>never finding out whether the
+  architecture was real</b> — three days from the end of a four-month build.</p>
+</div>
+
+</section>

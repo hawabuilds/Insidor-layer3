@@ -72,6 +72,7 @@ svg{max-width:100%;height:auto;}
 .nf-strip{display:flex;align-items:baseline;gap:11px;padding:20px 18px 14px;background:var(--bg0);}
 .nf-h1{font-family:"Clash Display",-apple-system,sans-serif;font-size:19px;font-weight:600;
   letter-spacing:-.01em;color:var(--ink);}
+.nf-sub{font-size:12.5px;color:var(--dim);}
 .nf-live{display:flex;align-items:center;gap:6px;margin-left:auto;}
 .nf-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);
   box-shadow:0 0 7px rgba(155,240,60,.7);}
@@ -118,6 +119,24 @@ svg{max-width:100%;height:auto;}
 .nf-btn.buy{background:var(--ion);color:#04222A;}
 .nf-btn.make{background:transparent;border:1px solid rgba(61,224,255,.5);color:var(--ion);}
 .nf-btn.many{background:transparent;border:1px solid var(--line2);color:var(--muted);}
+
+/* ---------- the corrected promise ---------- */
+.nf-claim{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0 10px;}
+.nf-cl{border-radius:7px;background:#0C0C0E;border:1px solid #212127;padding:16px 18px 18px;}
+.nf-cl.no{border-color:rgba(255,92,110,.38);}
+.nf-cl.yes{border-color:rgba(155,240,60,.38);}
+.nf-cl .tag{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.13em;
+  text-transform:uppercase;font-weight:600;margin-bottom:12px;}
+.nf-cl.no .tag{color:#FF5C6E;} .nf-cl.yes .tag{color:#9BF03C;}
+.nf-cl .said{font-size:16.5px;line-height:1.42;color:#F4F5F7;margin:0 0 12px;max-width:none;
+  letter-spacing:-.005em;}
+.nf-cl.no .said{color:#8A8A93;text-decoration:line-through;text-decoration-color:rgba(255,92,110,.75);
+  text-decoration-thickness:1.5px;}
+.nf-cl .why{font-size:13px;line-height:1.55;color:#8A8A93;margin:0;max-width:none;}
+.nf-cl .why b{color:#F4F5F7;font-weight:600;}
+
+/* ---------- timing figure ---------- */
+.nf-fig{border:1px solid #212127;border-radius:7px;background:#0C0C0E;padding:20px 18px 12px;}
 
 /* ---------- annotated legend ---------- */
 .nf-keys{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;margin:22px 0 8px;}
@@ -198,19 +217,72 @@ svg{max-width:100%;height:auto;}
 </style>
 
 <section class="sec">
-  <h2>02. The narratives feed</h2>
+  <h2>02. The feed</h2>
 
-  <p class="lede">The home screen. A single list of the stories going viral on the internet right now, best one at the top, each one explained in two lines of plain English so you never have to watch the video to know what it is.</p>
+  <p class="lede">The home screen. One list of the stories going viral right now, best one at the top, each explained in two lines of plain English so you never have to watch the video to know what it is. Seven things per row. Nothing about how we picked them.</p>
 
-  <p>Every other tool a trader opens — Axiom, Photon, GMGN — is a list of coins. Insidor's home screen is a list of <strong>stories</strong>, and most of them do not have a coin yet. That is the whole point. If a row already has money flowing into it, you were late. The feed's job is to put the ferry captain in front of you at 09:13, eighteen minutes before anybody turns it into a coin called <span class="nf-mono">$FERRY</span> and thirty-four minutes before crypto Twitter notices.</p>
+  <p>Every other tool a trader opens — Axiom, Photon, GMGN — is a list of coins. Insidor's home screen is a list of <strong>stories</strong>. Some of them have a coin, some have three, some have none. The list is what the coins are <em>about</em>, which is the thing nobody else shows you and the only thing that determines whether a coin keeps going.</p>
 
-  <p>The order of the list is the product. Behind it sits everything described in section 01 — how fast views are climbing, how many separate people are posting the same thing, whether the AI thinks a coin could plausibly be made out of it. <strong>None of that appears on screen.</strong> The user gets the order; the order <em>is</em> the answer. Putting our numbers next to the rows would hand the judgement back to the person we are meant to be making it for.</p>
+  <h3>The promise we had to correct</h3>
+
+  <p>An earlier version of this deck said the feed shows you the story <em>before the coin exists</em>. We measured it, and that is not true for the coins that make money. Every X post carries its own timestamp inside its ID, so the gap between a post going up and a coin being minted from it can be computed exactly rather than guessed. The median gap is 3.8 minutes. For coins that went on to clear $10M it is 1.1 minutes, and 88% of them were minted inside the first hour. Automated minters are watching the same firehose and they will always be first. That race is lost and it was never worth entering.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="nf-claim">
+      <div class="nf-cl no">
+        <div class="tag">&#10007;&nbsp; What we used to say</div>
+        <p class="said">"We show you the story before the coin exists."</p>
+        <p class="why">Measured and false where it matters. Median post-to-mint is <b>3.8 minutes</b>; for coins that reached $10M it is <b>1.1 minutes</b>. Bots mint within a few minutes of a post going up. The one famous slow case — a meme minted thirteen months later — turned out to be the shape of the <b>losing</b> regime: every coin we found minted more than thirty days after its post was an old tweet dug up and re-used, and none of them got far.</p>
+      </div>
+      <div class="nf-cl yes">
+        <div class="tag">&#10003;&nbsp; What we can actually say</div>
+        <p class="said">"Of the things minted in the last hour, this is the real story — and it is still climbing."</p>
+        <p class="why">A post takes about <b>six days</b> to reach its own peak, and <b>zero percent</b> of coins that cleared $1M peaked inside their first hour. So the mint is the starting gun, not the finish. Minutes one to ten belong to machines. Hour one to day six is where a human with a clear read on the story can still be early, and that is the window the feed is built for.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid;margin-top:18px">
+    <div class="nf-fig">
+      <svg viewBox="0 0 1020 148" width="1020" height="148" fill="none" aria-hidden="true"
+           font-family="JetBrains Mono, ui-monospace, monospace">
+        <rect x="46" y="58" width="104" height="26" rx="3" fill="#FF5C6E" opacity=".10"/>
+        <rect x="150" y="58" width="122" height="26" rx="3" fill="#FFB84D" opacity=".10"/>
+        <rect x="272" y="58" width="700" height="26" rx="3" fill="#3DE0FF" opacity=".10"/>
+        <line x1="46" y1="84" x2="972" y2="84" stroke="#2E2E36" stroke-width="1"/>
+
+        <line x1="46"  y1="58" x2="46"  y2="92" stroke="#5A5A62" stroke-width="1"/>
+        <line x1="150" y1="58" x2="150" y2="92" stroke="#FF5C6E" stroke-width="1.5"/>
+        <line x1="272" y1="58" x2="272" y2="92" stroke="#FFB84D" stroke-width="1.5"/>
+        <line x1="640" y1="58" x2="640" y2="92" stroke="#5A5A62" stroke-width="1"/>
+        <line x1="912" y1="58" x2="912" y2="92" stroke="#9BF03C" stroke-width="1.5"/>
+
+        <text x="46"  y="110" fill="#8A8A93" font-size="11" text-anchor="start">post goes up</text>
+        <text x="150" y="110" fill="#FF5C6E" font-size="11" text-anchor="middle">3.8 min</text>
+        <text x="150" y="124" fill="#5A5A62" font-size="10" text-anchor="middle">median mint</text>
+        <text x="272" y="110" fill="#FFB84D" font-size="11" text-anchor="middle">1 hour</text>
+        <text x="272" y="124" fill="#5A5A62" font-size="10" text-anchor="middle">88% already minted</text>
+        <text x="640" y="110" fill="#8A8A93" font-size="11" text-anchor="middle">day 2</text>
+        <text x="912" y="110" fill="#9BF03C" font-size="11" text-anchor="middle">~6 days</text>
+        <text x="912" y="124" fill="#5A5A62" font-size="10" text-anchor="middle">median peak</text>
+
+        <text x="98"  y="46" fill="#FF5C6E" font-size="10" letter-spacing="1.1" text-anchor="middle">MACHINES</text>
+        <text x="211" y="46" fill="#FFB84D" font-size="10" letter-spacing="1.1" text-anchor="middle">CROWDED</text>
+        <text x="622" y="46" fill="#3DE0FF" font-size="10" letter-spacing="1.1" text-anchor="middle">THE FEED'S WINDOW &mdash; STORY IS KNOWN, PRICE IS NOT DONE</text>
+
+        <text x="46" y="22" fill="#5A5A62" font-size="10" letter-spacing="1.1">TIME FROM THE ORIGINAL POST &nbsp;&middot;&nbsp; NOT TO SCALE</text>
+      </svg>
+    </div>
+  </div>
+
+  <p class="cap">THE MINUTE AFTER A POST GOES UP BELONGS TO BOTS AND ALWAYS WILL. THE SIX DAYS AFTER
+  THAT BELONG TO WHOEVER UNDERSTANDS THE STORY FIRST. THE FEED SELLS THE SECOND ONE.</p>
 
   <h3>The two lines are the product</h3>
 
   <p>The most important text in the whole app is the sentence under each title. "A retiring ferry captain blew his horn one last time, and every boat in the harbour blew back." Read that and you already know whether it is worth a coin — you can feel whether it is funny, whether it has a name in it, whether people will repeat it. So it is set larger and brighter than the title above it. It is not a subtitle. It is the row.</p>
 
-  <p>Everything else on the row is a fact about the world that would be true whether or not Insidor existed: how many people have seen it, whether the line is still going up, how old it is, and what you can do about it. Seven things, no eighth.</p>
+  <p>Everything else on the row is a fact about the world that would be true whether or not Insidor existed: how many people have seen it, whether the line is still going up, how old it is, and what you can do about it. Seven things, no eighth. The order of the list is where all our work goes, and the order is the only place it shows.</p>
 
   <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
     <div class="nf-mock">
@@ -227,7 +299,7 @@ svg{max-width:100%;height:auto;}
         <div class="nf-srch">
           <span class="mag"></span>
           <span>Search stories, coins, people</span>
-          <span class="nf-kbd">⌘K</span>
+          <span class="nf-kbd">&#8984;K</span>
         </div>
         <div class="nf-conn">Connect wallet</div>
       </div>
@@ -235,6 +307,7 @@ svg{max-width:100%;height:auto;}
       <!-- feed header -->
       <div class="nf-strip">
         <div class="nf-h1">Happening now</div>
+        <div class="nf-sub">Tuesday 09:13</div>
         <div class="nf-live"><span class="nf-dot"></span><span class="nf-livetx">Live</span></div>
       </div>
 
@@ -250,7 +323,7 @@ svg{max-width:100%;height:auto;}
           <div class="nf-views"><div class="n">2.4M</div><div class="l">Views</div></div>
           <div class="nf-spark">
             <svg width="76" height="26" viewBox="0 0 76 26" fill="none" aria-hidden="true">
-                            <polyline points="1,23 12,21 23,18 34,15 45,11 56,7 65,4 75,2" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <polyline points="1,23 12,21 23,18 34,15 45,11 56,7 65,4 75,2" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="nf-age"><div class="n">4h</div><div class="l">Old</div></div>
@@ -262,12 +335,12 @@ svg{max-width:100%;height:auto;}
           <div class="nf-th" style="background:linear-gradient(155deg,#12313E 0%,#1D5E5A 50%,#3E7A4B 100%)"></div>
           <div class="nf-txt">
             <div class="nf-title">Paid to Move to Norway</div>
-            <div class="nf-say">A Norwegian town is paying people €25,000 to move there.</div>
+            <div class="nf-say">A Norwegian town is paying people &euro;25,000 to move there.</div>
           </div>
           <div class="nf-views"><div class="n">1.1M</div><div class="l">Views</div></div>
           <div class="nf-spark">
             <svg width="76" height="26" viewBox="0 0 76 26" fill="none" aria-hidden="true">
-                            <polyline points="1,24 12,23 23,22 34,20 45,15 56,9 65,4 75,1" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <polyline points="1,24 12,23 23,22 34,20 45,15 56,9 65,4 75,1" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="nf-age"><div class="n">1h</div><div class="l">Old</div></div>
@@ -284,7 +357,7 @@ svg{max-width:100%;height:auto;}
           <div class="nf-views"><div class="n">850K</div><div class="l">Views</div></div>
           <div class="nf-spark">
             <svg width="76" height="26" viewBox="0 0 76 26" fill="none" aria-hidden="true">
-                            <polyline points="1,22 12,20 23,18 34,16 45,13 56,10 65,7 75,5" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <polyline points="1,22 12,20 23,18 34,16 45,13 56,10 65,7 75,5" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="nf-age"><div class="n">2h</div><div class="l">Old</div></div>
@@ -318,7 +391,7 @@ svg{max-width:100%;height:auto;}
           <div class="nf-views"><div class="n">610K</div><div class="l">Views</div></div>
           <div class="nf-spark">
             <svg width="76" height="26" viewBox="0 0 76 26" fill="none" aria-hidden="true">
-                            <polyline points="1,23 12,22 23,20 34,18 45,16 56,14 65,12 75,10" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <polyline points="1,23 12,22 23,20 34,18 45,16 56,14 65,12 75,10" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="nf-age"><div class="n">3h</div><div class="l">Old</div></div>
@@ -350,6 +423,8 @@ svg{max-width:100%;height:auto;}
   850K VIEWS RANKED ABOVE 1.1M. THE LIST IS NOT SORTED BY VIEWS — THE 850K IS TWO HOURS OLD AND
   STILL CLIMBING, THE 1.1M IS SIX HOURS OLD AND FLAT. THE USER IS NOT TOLD WHY. THEY SEE THE
   ORDER, AND THE TWO LITTLE LINE GRAPHS QUIETLY AGREE WITH IT.</p>
+
+  <p>Two of the six rows say <em>Create coin</em>, which is honest: the 3.8-minute figure is measured backwards from coins that exist, and it does not say every viral post gets minted. The overwhelming majority never do. The top row says <em>3 coins</em> because the ferry captain already has three — <span class="nf-mono">$FERRY</span> at $799.6K, <span class="nf-mono">$HORN</span> at $1.2M, and a third nobody can verify. A search of pump.fun for a single well-known meme returns <strong>306 separate tokens</strong> carrying that name. Which one is the real one is a genuine question with a real answer, and it is a different question from "is this story worth anything." The feed answers the second. Section 03 answers the first, on its own screen, where there is room to show the evidence.</p>
 
   <h3>The seven elements, and why each one earns its place</h3>
 
@@ -393,21 +468,21 @@ svg{max-width:100%;height:auto;}
       <div class="num">6</div>
       <div>
         <h5>How old it is</h5>
-        <p>Four hours. Six hours. Combined with the graph this is the whole timing story — 850K in two hours is a different animal from 850K in two days.</p>
+        <p>Four hours. Six hours. Read against a six-day arc it is the whole timing story — 850K in two hours is a different animal from 850K in two days.</p>
       </div>
     </div>
     <div class="nf-key">
       <div class="num">7</div>
       <div>
         <h5>One button</h5>
-        <p><em>Create coin</em> if nobody has made one, <em>Buy $TICKER</em> if somebody has, <em>3 coins &rarr;</em> if several exist and you need to pick. One row, one obvious next move.</p>
+        <p><em>Create coin</em> if nobody has made one, <em>Buy $TICKER</em> if one is clearly the real one, <em>3 coins &rarr;</em> if several exist and picking is its own job. One row, one next move.</p>
       </div>
     </div>
   </div>
 
   <h3>What we removed, and where it went</h3>
 
-  <p>An earlier version of this screen showed the row as a trading terminal: columns headed HEAT, ACCEL, ORG and MEME, a twenty-minute chart of view-rate change, and a footer counting how many posts our filters had thrown away. Every number on it was real. It still had to go, because it asks the user to do the job we built the company to do for them.</p>
+  <p>An earlier version of this screen showed the row as a trading terminal: columns headed HEAT, ACCEL, ORG and MEME, a twenty-minute chart of view-rate change, and a footer counting how many candidates our filters had thrown away. Every number on it was real. It still had to go. The test is simple — <strong>would this number still be true if Insidor did not exist?</strong> Views, age, who posted it: yes. Heat, acceleration, meme score, how many we filtered: no. Those are our opinion wearing a number's clothes, and putting them on screen hands the judgement back to the person we built the company to make it for.</p>
 
   <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
     <div class="nf-ba">
@@ -436,7 +511,7 @@ svg{max-width:100%;height:auto;}
               <div class="nf-oth"></div>
               <div style="min-width:0">
                 <div class="nf-oline">He blew the horn one last time and the whole harbour answered. 31 years.</div>
-                <div class="nf-ohandle">@nordkyst_ferge · X · 412K followers</div>
+                <div class="nf-ohandle">@nordkyst_ferge &middot; X &middot; 412K followers</div>
               </div>
             </div>
             <div class="nf-onum nf-strike">94</div>
@@ -453,7 +528,7 @@ svg{max-width:100%;height:auto;}
             <div class="nf-onum" style="color:#8A8A93">4h</div>
             <div><div class="nf-obtn">Buy $FERRY</div></div>
           </div>
-          <div class="nf-ofoot"><span class="nf-strike">40 of 63 eligible · 12 hidden by gate · meme_score 7 · O 3 · author cap 2</span></div>
+          <div class="nf-ofoot"><span class="nf-strike">40 of 63 eligible &middot; 12 hidden by gate &middot; meme_score 7 &middot; O 3 &middot; author cap 2</span></div>
         </div>
       </div>
 
@@ -474,7 +549,7 @@ svg{max-width:100%;height:auto;}
           </div>
           <div style="display:flex;justify-content:center">
             <svg width="68" height="24" viewBox="0 0 68 24" fill="none" aria-hidden="true">
-                            <polyline points="1,21 11,19 21,17 31,14 41,10 51,6 59,4 67,2" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <polyline points="1,21 11,19 21,17 31,14 41,10 51,6 59,4 67,2" stroke="#3DE0FF" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </div>
           <div style="text-align:right">
@@ -491,9 +566,10 @@ svg{max-width:100%;height:auto;}
   <p class="cap">SAME STORY, SAME SECOND, SAME UNDERLYING DATA. THE TOP ROW ASKS THE READER TO WEIGH
   UP SIX NUMBERS AND DECIDE. THE BOTTOM ROW HAS ALREADY DECIDED, AND SAYS SO BY SITTING AT THE
   TOP OF THE LIST. NOTE THAT VIEWS, AGE AND THE ACTION SURVIVE THE CUT — THOSE ARE FACTS, NOT
-  OPINIONS.</p>
+  OPINIONS. NOTE ALSO THAT THE REJECTED ROW SAYS "BUY $FERRY" WHEN THERE ARE THREE CANDIDATES
+  AND $FERRY IS NOT THE BIGGEST — CONFIDENCE IT HAS NOT EARNED.</p>
 
-  <p>To be completely clear: <strong>we still calculate every one of those numbers.</strong> They are what decides the order of the feed, which stories get grouped together, and which of the hundreds of millions of daily posts we bother looking at twice. They are written into the Library on every cycle and they are what section 07 will eventually learn from. They simply never leave the building.</p>
+  <p>To be completely clear: <strong>we still calculate every one of those numbers, on every cycle.</strong> They decide the order of the feed, which posts get grouped into one story, and which of the roughly 30,000 coins minted each day are worth a second look — a stream in which the middle coin is worth about $28 and, in a run of 300 consecutive mints, 174 were repeats of a name already used. Filtering that is most of the work. Reporting that we filtered it is worth nothing to anybody.</p>
 
   <div class="nf-ledger">
     <div class="nf-lhd"><div>Internal number</div><div>What it decides</div><div>Where it lives</div></div>
@@ -504,7 +580,7 @@ svg{max-width:100%;height:auto;}
     </div>
     <div class="nf-lrow">
       <div class="k">acceleration</div>
-      <div class="d">Whether a story is still climbing or has peaked, from two measurements of the same post.</div>
+      <div class="d">Whether a story is still climbing or has peaked, from two measurements of the same post taken at known times.</div>
       <div class="w">Library &rarr; <b>row order only</b></div>
     </div>
     <div class="nf-lrow">
@@ -514,7 +590,7 @@ svg{max-width:100%;height:auto;}
     </div>
     <div class="nf-lrow">
       <div class="k">meme score</div>
-      <div class="d">The AI's read on whether a coin could plausibly be made out of this at all.</div>
+      <div class="d">The judgement on whether a coin could plausibly be made out of this at all.</div>
       <div class="w">Library &rarr; <b>included / excluded</b></div>
     </div>
     <div class="nf-lrow">
@@ -527,5 +603,7 @@ svg{max-width:100%;height:auto;}
   <p class="cap">THE FEED IS THE OUTPUT OF THIS TABLE, NOT A RENDERING OF IT. IF A ROW IS THIRD
   RATHER THAN FIRST, THAT IS THE ANSWER — THERE IS NO SCORE TO ARGUE WITH, AND NOTHING FOR THE
   USER TO RE-DERIVE. THE APP'S JOB IS TO HAVE ALREADY MADE THE JUDGEMENT.</p>
+
+  <p>One caveat worth stating plainly, because it comes back in section 06: none of the five rows above is a machine-learned model today. Every threshold in them is a number a person typed, and the qualitative calls are made by Claude reading the post. That is a defensible starting point and a bad ending point — but it changes nothing about this screen. Whether the order comes from typed thresholds or from a trained model, the user sees the same seven things, and the order is still the whole answer.</p>
 
 </section>

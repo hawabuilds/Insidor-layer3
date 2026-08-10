@@ -1,0 +1,609 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+/* Typography for viewing this fragment on its own. The assembled document supplies
+   the same rules from the shell, so the build script strips this block. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+a{color:#3DE0FF;text-decoration:none;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+.sc-wrap{
+  --bg0:#060607; --bg1:#0C0C0E; --bg2:#131316; --bg3:#1A1A1E; --bg4:#222228;
+  --line:#212127; --line2:#2E2E36;
+  --ink:#F4F5F7; --muted:#8A8A93; --dim:#5A5A62;
+  --ion:#3DE0FF; --lime:#9BF03C; --red:#FF5C6E; --amber:#FFB84D;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --body:"General Sans",-apple-system,system-ui,sans-serif;
+  --head:"Clash Display",-apple-system,system-ui,sans-serif;
+  font-family:var(--body); color:var(--ink);
+}
+.sc-wrap .mock{margin:22px 0 8px; break-inside:avoid; page-break-inside:avoid;}
+.sc-mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.sc-panel{
+  background:var(--bg1); border:1px solid var(--line); border-radius:12px;
+  padding:20px 22px 22px; break-inside:avoid; page-break-inside:avoid;
+}
+.sc-mocktitle{
+  font-family:var(--body); font-size:11px; text-transform:uppercase; letter-spacing:.11em;
+  color:var(--dim); margin:0 0 16px;
+}
+.sc-mocktitle b{color:var(--muted); font-weight:600}
+
+/* ---------- the two real failures ---------- */
+.sc-fails{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.sc-fail{
+  background:var(--bg2); border:1px solid var(--line2); border-radius:10px; overflow:hidden;
+}
+.sc-failhead{
+  padding:12px 16px; border-bottom:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+.sc-failpost{font-size:13.5px; color:var(--ink); font-weight:500}
+.sc-failsub{font-family:var(--mono); font-size:10.5px; color:var(--dim); margin-top:3px}
+.sc-badgebad{
+  font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--red); border:1px solid rgba(255,92,110,.4); background:rgba(255,92,110,.08);
+  padding:3px 7px; border-radius:3px; white-space:nowrap;
+}
+.sc-failbody{padding:14px 16px}
+.sc-coinrow{display:flex; align-items:center; gap:12px}
+.sc-av{
+  width:34px;height:34px;border-radius:8px;background:var(--bg4);flex:0 0 34px;
+  background-image:linear-gradient(135deg,#2b2b33,#3a3a45);
+}
+.sc-tick{font-family:var(--mono); font-size:15px; font-weight:600; color:var(--ink)}
+.sc-name{font-size:11.5px; color:var(--dim); margin-top:2px}
+.sc-mcap{margin-left:auto; text-align:right}
+.sc-mcap .v{font-family:var(--mono); font-size:15px; font-weight:600; color:var(--lime)}
+.sc-mcap .l{font-family:var(--body); font-size:8.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--dim); margin-top:3px}
+.sc-buy{
+  margin-top:14px; text-align:center; padding:9px 0; border-radius:8px;
+  background:var(--ion); color:#04252c; font-weight:600; font-size:13px;
+}
+.sc-note{
+  margin-top:12px; padding-top:12px; border-top:1px solid var(--line);
+  font-family:var(--mono); font-size:11px; line-height:1.55; color:var(--red);
+}
+
+/* ---------- timeline ---------- */
+.sc-tl{margin-top:18px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:16px 18px 10px}
+
+/* ---------- gate ladder ---------- */
+.sc-gates{background:var(--bg1); border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.sc-ghead{
+  display:grid; grid-template-columns:74px 1.35fr 1.6fr 128px;
+  background:var(--bg2); border-bottom:1px solid var(--line2);
+}
+.sc-ghead div{
+  font-family:var(--body); font-size:9.5px; text-transform:uppercase; letter-spacing:.11em;
+  color:var(--dim); padding:11px 16px;
+}
+.sc-gband{
+  padding:9px 16px; background:var(--bg3); border-bottom:1px solid var(--line);
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim);
+  display:flex; justify-content:space-between;
+}
+.sc-gband b{color:var(--ion); font-weight:500}
+.sc-grow{
+  display:grid; grid-template-columns:74px 1.35fr 1.6fr 128px;
+  border-bottom:1px solid var(--line); align-items:start;
+}
+.sc-grow:last-child{border-bottom:0}
+.sc-grow > div{padding:13px 16px; font-size:13px; line-height:1.5}
+.sc-gid{font-family:var(--mono); font-size:12px; color:var(--dim)}
+.sc-gq{color:var(--ink); font-weight:500; font-size:13px}
+.sc-gw{color:var(--muted); font-size:12.5px}
+.sc-gout{font-family:var(--mono); font-size:10.5px; color:var(--amber); line-height:1.45}
+.sc-gout.stop{color:var(--red)}
+.sc-gout.pass{color:var(--lime)}
+
+/* ---------- candidate scoreboard (internal) ---------- */
+.sc-int{
+  background:var(--bg1); border:1px dashed rgba(255,184,77,.35); border-radius:12px; padding:18px 20px 20px;
+}
+.sc-intlabel{
+  font-family:var(--mono); font-size:9px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--amber); margin-bottom:14px;
+}
+.sc-ctab{width:100%; border-collapse:collapse; font-size:13px}
+.sc-ctab th{
+  font-family:var(--body); font-size:9px; text-transform:uppercase; letter-spacing:.11em;
+  color:var(--dim); text-align:right; padding:0 10px 9px; border-bottom:1px solid var(--line2); font-weight:500;
+}
+.sc-ctab th:first-child, .sc-ctab td:first-child{text-align:left}
+.sc-ctab td{padding:10px; border-bottom:1px solid var(--line); text-align:right;
+  font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--muted); font-size:12.5px}
+.sc-ctab tr:last-child td{border-bottom:0}
+.sc-ctab td.nm{font-family:var(--body); color:var(--ink); font-size:13px}
+.sc-ctab tr.win td{background:rgba(155,240,60,.055)}
+.sc-ctab tr.win td.tot{color:var(--lime); font-weight:600}
+.sc-ctab tr.rival td.tot{color:var(--ink)}
+.sc-margin{
+  margin-top:14px; padding:12px 14px; background:var(--bg2); border-left:2px solid var(--amber);
+  border-radius:0 6px 6px 0; font-size:13px; color:var(--muted); line-height:1.55;
+}
+.sc-margin b{color:var(--ink)}
+.sc-margin.ok{border-left-color:var(--lime)}
+.sc-tabtitle{
+  font-family:var(--body); font-size:12px; color:var(--muted); margin:0 0 10px;
+}
+.sc-tabtitle span{font-family:var(--mono); color:var(--ink); font-weight:600; font-size:12.5px}
+
+/* ---------- verdict cards ---------- */
+.sc-verdicts{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:6px}
+.sc-v{background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:15px 16px}
+.sc-v .k{font-family:var(--mono); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; margin-bottom:9px}
+.sc-v.ok  .k{color:var(--lime)}
+.sc-v.un  .k{color:var(--amber)}
+.sc-v.no  .k{color:var(--dim)}
+.sc-v p{font-size:12.5px; color:var(--muted); margin:0 0 8px; line-height:1.5}
+.sc-v .btnline{font-family:var(--mono); font-size:11px; color:var(--dim); border-top:1px solid var(--line); padding-top:9px; margin-top:10px}
+.sc-v .btnline b{color:var(--ink); font-weight:500}
+
+/* ---------- user-facing coin block ---------- */
+.sc-screen{
+  background:var(--bg1); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  max-width:720px;
+}
+.sc-shead{padding:16px 20px 14px; border-bottom:1px solid var(--line)}
+.sc-stitle{font-family:var(--head); font-size:19px; font-weight:600; letter-spacing:-.01em}
+.sc-sline{font-size:13.5px; color:var(--muted); margin-top:6px; line-height:1.5; max-width:56ch}
+.sc-smeta{font-family:var(--mono); font-size:11px; color:var(--dim); margin-top:9px}
+.sc-smeta b{color:var(--muted); font-weight:400}
+.sc-scoins{padding:6px 0}
+.sc-scoin{display:flex; align-items:center; gap:13px; padding:13px 20px; border-bottom:1px solid var(--line)}
+.sc-scoin:last-child{border-bottom:0}
+.sc-flag{
+  font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase;
+  padding:3px 7px; border-radius:3px; border:1px solid var(--line2); color:var(--dim);
+}
+.sc-flag.first{color:var(--ion); border-color:rgba(61,224,255,.38); background:rgba(61,224,255,.07)}
+.sc-flag.big{color:var(--lime); border-color:rgba(155,240,60,.32); background:rgba(155,240,60,.07)}
+.sc-flag.unv{color:var(--amber); border-color:rgba(255,184,77,.32); background:rgba(255,184,77,.07)}
+.sc-sbuy{
+  font-family:var(--body); font-size:12px; font-weight:600; padding:7px 16px; border-radius:7px;
+  background:var(--ion); color:#04252c;
+}
+.sc-num{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:14px; color:var(--ink); font-weight:600}
+.sc-numl{font-family:var(--body); font-size:8.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--dim); margin-top:3px}
+
+.sc-callout{
+  background:rgba(61,224,255,.05); border:1px solid rgba(61,224,255,.25); border-radius:10px;
+  padding:16px 20px; margin:24px 0 8px; max-width:96ch;
+}
+.sc-callout p{margin:0; font-size:14.5px; color:var(--muted)}
+.sc-callout p b{color:var(--ion)}
+</style>
+
+<section class="sec sc-wrap">
+  <h2>08. How stories become coins</h2>
+
+  <p class="lede">A story is not a coin. One meme can spawn hundreds of them, only a few are real,
+  and almost none of them say where they came from. This is the part of the product where being
+  wrong costs a user actual money — so it is built to say "I don't know" more often than it says
+  anything else.</p>
+
+  <p>Everything before this was about reading the world. This is the one place we act on that
+  reading. A user sees a story, sees a coin next to it, and presses Buy. If the coin is the wrong
+  one, we did not make a bad recommendation — we spent their money on a stranger's token.</p>
+
+  <p>Two measured facts define the problem. First, <strong>a pump.fun search for "chill guy"
+  returns 306 distinct tokens</strong> — one meme, three hundred coins, one or two of which people
+  actually traded. Second, <strong>only about 5% of coins that ever cleared $50,000 declare the post
+  they came from.</strong> The metadata field exists; it is nearly always empty, and when it is
+  filled it was filled by whoever launched the coin, so it is advertising, not evidence. We cannot
+  ask the coin where it came from. We have to work it out.</p>
+
+  <h3>What the current build does, and the two coins it bought into</h3>
+
+  <p>The build that exists today matches a story to a coin by <strong>searching a market data
+  vendor for the ticker as a text string, then picking the result with the most liquidity.</strong>
+  That is the entire method. There is no check that the coin was created after the post. There is
+  no confidence score, and the database column is a plain true/false — a boolean cannot abstain.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-panel">
+      <div class="sc-mocktitle">Two real matches from the current build — <b>both wrong, both one click from a live buy</b></div>
+      <div class="sc-fails">
+        <div class="sc-fail">
+          <div class="sc-failhead">
+            <div>
+              <div class="sc-failpost">"gym day"</div>
+              <div class="sc-failsub">ticker extracted: GYM → PUMP</div>
+            </div>
+            <div class="sc-badgebad">wrong coin</div>
+          </div>
+          <div class="sc-failbody">
+            <div class="sc-coinrow">
+              <div class="sc-av"></div>
+              <div>
+                <div class="sc-tick">$PUMP</div>
+                <div class="sc-name">Pump · minted 375 days before the post</div>
+              </div>
+              <div class="sc-mcap"><div class="v">$1.84B</div><div class="l">market cap</div></div>
+            </div>
+            <div class="sc-buy">Buy $PUMP</div>
+            <div class="sc-note">Marked first_deployed = true.<br>A $1.84B token that has existed for
+            over a year, presented as the coin this morning's post created.</div>
+          </div>
+        </div>
+
+        <div class="sc-fail">
+          <div class="sc-failhead">
+            <div>
+              <div class="sc-failpost">"stefan back on the grass"</div>
+              <div class="sc-failsub">ticker extracted: GRASS</div>
+            </div>
+            <div class="sc-badgebad">wrong coin</div>
+          </div>
+          <div class="sc-failbody">
+            <div class="sc-coinrow">
+              <div class="sc-av"></div>
+              <div>
+                <div class="sc-tick">$GRASS</div>
+                <div class="sc-name">Grass · minted 633 days before the post</div>
+              </div>
+              <div class="sc-mcap"><div class="v">$225M</div><div class="l">market cap</div></div>
+            </div>
+            <div class="sc-buy">Buy $GRASS</div>
+            <div class="sc-note">Same defect, different token. The string matched. Nothing else was
+            ever checked.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-tl">
+        <svg viewBox="0 0 960 150" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Timeline showing the PUMP token minted 375 days before the gym day post that was matched to it.">
+          <line x1="40" y1="88" x2="920" y2="88" stroke="#2E2E36" stroke-width="1.5"/>
+          <!-- mint marker -->
+          <circle cx="120" cy="88" r="6" fill="#FF5C6E"/>
+          <line x1="120" y1="88" x2="120" y2="46" stroke="#FF5C6E" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="120" y="38" text-anchor="middle" fill="#FF5C6E" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">$PUMP minted</text>
+          <text x="120" y="112" text-anchor="middle" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="11">day 0</text>
+          <!-- post marker -->
+          <circle cx="820" cy="88" r="6" fill="#3DE0FF"/>
+          <line x1="820" y1="88" x2="820" y2="46" stroke="#3DE0FF" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="820" y="38" text-anchor="middle" fill="#3DE0FF" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">"gym day" posted</text>
+          <text x="820" y="112" text-anchor="middle" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="11">day 375</text>
+          <!-- span -->
+          <path d="M130,70 L810,70" stroke="#5A5A62" stroke-width="1"/>
+          <path d="M130,70 l8,-4 l0,8 Z" fill="#5A5A62"/>
+          <path d="M810,70 l-8,-4 l0,8 Z" fill="#5A5A62"/>
+          <rect x="400" y="122" width="176" height="22" rx="4" fill="#131316" stroke="#212127"/>
+          <text x="488" y="137" text-anchor="middle" fill="#8A8A93" font-family="JetBrains Mono, monospace" font-size="11">375 days of causality</text>
+        </svg>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:#5A5A62;margin-top:10px">
+        The coin existed before the story did. One subtraction rules it out, for free, before any
+        network call — and the current build never performs it.
+      </div>
+    </div>
+  </div>
+
+  <h3>The gates, cheapest first — and time is the cheapest of all</h3>
+
+  <p>The fix is not a smarter model. It is putting the checks in the right order, and the right
+  order is by <strong>what each check costs to run</strong>. A subtraction of two timestamps is
+  free. Reading a token's transfer rules is one cheap call. Asking what it would actually cost to
+  buy is a paid, rate-limited call. So we ask them in that order and stop at the first refusal,
+  which means the overwhelming majority of candidates are eliminated without spending anything.</p>
+
+  <p>Time goes first for a second reason beyond cost: <strong>it is the only check that is logically
+  decisive.</strong> A coin minted before the post cannot have been created by the post. That is
+  not a probability, it is an impossibility, and it is exactly the check that would have killed both
+  failures above. It also inverts how candidates are found. Today the code searches by ticker and
+  then filters; the rebuild <strong>retrieves by time</strong> — every coin minted in the window
+  that starts at the story's earliest post — and treats the ticker as one scoring signal over that
+  set, never as the way the set is fetched.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-gates">
+      <div class="sc-ghead">
+        <div>Gate</div><div>The question</div><div>Why it is where it is</div><div>If it fails</div>
+      </div>
+
+      <div class="sc-gband"><span>Free · runs locally · no network</span><b>eliminates most candidates</b></div>
+      <div class="sc-grow">
+        <div class="sc-gid">G1</div>
+        <div class="sc-gq">Do we know when this coin was minted?</div>
+        <div class="sc-gw">Mint time is stored with its source and how sure we are. A vendor's guess can never be recorded as exact.</div>
+        <div class="sc-gout stop">unknown mint time → out</div>
+      </div>
+      <div class="sc-grow">
+        <div class="sc-gid">G2</div>
+        <div class="sc-gq">Was it minted <i>after</i> the post?</div>
+        <div class="sc-gw">The one impossible case. This is the gate that both live failures needed and never had.</div>
+        <div class="sc-gout stop">predates the post → out</div>
+      </div>
+      <div class="sc-grow">
+        <div class="sc-gid">G3</div>
+        <div class="sc-gq">Was it minted soon enough after?</div>
+        <div class="sc-gw">Median post-to-mint lag is 3.8 minutes, and about a minute for the coins that go on to clear $1M. A coin minted days later is a different event.</div>
+        <div class="sc-gout stop">too late → out</div>
+      </div>
+      <div class="sc-grow">
+        <div class="sc-gid">G4</div>
+        <div class="sc-gq">Is this an established major?</div>
+        <div class="sc-gw">A hard deny-list. No story ever creates a coin that already has a billion-dollar market. Cheap insurance against exactly the $PUMP shape.</div>
+        <div class="sc-gout stop">known major → out</div>
+      </div>
+
+      <div class="sc-gband"><span>One cheap read</span><b>a handful of candidates left</b></div>
+      <div class="sc-grow">
+        <div class="sc-gid">G5</div>
+        <div class="sc-gq">Can we read its transfer rules at all?</div>
+        <div class="sc-gw">If we cannot confirm how the token behaves when it moves, we do not offer it. Unreadable is not the same as fine.</div>
+        <div class="sc-gout stop">unreadable → out</div>
+      </div>
+      <div class="sc-grow">
+        <div class="sc-gid">G6</div>
+        <div class="sc-gq">Does it tax or intercept transfers?</div>
+        <div class="sc-gw">Tokens that skim a fee or run custom code on every transfer are a category we simply do not surface.</div>
+        <div class="sc-gout stop">non-standard → out</div>
+      </div>
+
+      <div class="sc-gband"><span>One paid, rate-limited call · runs last</span><b>only on survivors</b></div>
+      <div class="sc-grow">
+        <div class="sc-gid">G7</div>
+        <div class="sc-gq">Can we actually get a real buy quote?</div>
+        <div class="sc-gw">This replaces the old "does it have liquidity" test, which was silently deleting almost every new coin — see below.</div>
+        <div class="sc-gout stop">unquotable → out<br><span style="color:#FFB84D">vendor down → separate reason</span></div>
+      </div>
+      <div class="sc-grow">
+        <div class="sc-gid">G8</div>
+        <div class="sc-gq">Is the all-in cost sane?</div>
+        <div class="sc-gw">Measured all-in cost ranged 1.6% to 22.7% across three coins of the same age. The real number is shown; an absurd one is refused.</div>
+        <div class="sc-gout pass">otherwise → scored</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap">Read top to bottom, this is also a cost curve. Roughly nothing is spent on the
+  candidates that fail G1–G4, and those are almost all of them.</p>
+
+  <h3>The liquidity test that deleted our own market</h3>
+
+  <p>This correction changes what "can this be bought" even means. The old build refused any coin
+  whose liquidity was not greater than zero. That sounds prudent; it is catastrophic. <strong>A
+  brand-new coin on a bonding curve has no liquidity figure at all</strong> — not zero, absent,
+  because that kind of market has no two-sided reserve for the number to describe. Measured live,
+  every bonding-curve pair returned no liquidity object, and the code turned "absent" into "zero"
+  and rejected them. So the filter removed <em>all the new coins</em>, which is the entire
+  population this product exists to serve, and kept only the old survivors — a second, quieter
+  reason the matcher kept landing on year-old tokens. The replacement test means what we want: can
+  we get a real quote, at a real price, right now.</p>
+
+  <h3>The abstain band — why a high score is not enough</h3>
+
+  <p>Once the survivors are scored on ticker, wording, image and declared links, there is one more
+  rule, and it is the one usually missing from systems like this. <strong>We do not check whether
+  the best candidate scores well. We check whether it beats the second-best by a clear margin.</strong>
+  With 306 tokens named after one meme, a great score on the winner proves nothing if the runner-up
+  scores the same. Ambiguity has to be its own rejection, otherwise "no confident match, no Buy
+  button" is a sentence in a document rather than something the code does.</p>
+
+  <p>A story can legitimately have several coins, so each one is adjudicated on its own. The
+  question is never "which single coin is this story" — it is, for each coin we are considering,
+  "is there exactly one convincing candidate, or several that we cannot separate?" Below, one of
+  those contests is decided and one is not.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-int">
+      <div class="sc-intlabel">Internal only — none of these numbers ever appear on a user screen</div>
+
+      <div class="sc-tabtitle">Contest for <span>$FERRY</span> — 6 coins with that ticker minted after the post</div>
+      <table class="sc-ctab">
+        <thead><tr>
+          <th>Candidate</th><th>Minted after post</th><th>Wording</th><th>Image</th><th>Declared</th><th>Total</th>
+        </tr></thead>
+        <tbody>
+          <tr class="win"><td class="nm">"Harbor Last Horn"</td><td>+2m 10s</td><td>0.88</td><td>0.94</td><td>yes</td><td class="tot">0.91</td></tr>
+          <tr class="rival"><td class="nm">"Ferry Inu"</td><td>+3h 12m</td><td>0.12</td><td>0.05</td><td>—</td><td class="tot">0.38</td></tr>
+          <tr><td class="nm">"FerryCoin 2.0"</td><td>+4h 40m</td><td>0.09</td><td>0.03</td><td>—</td><td>0.31</td></tr>
+        </tbody>
+      </table>
+      <div class="sc-margin ok">Gap of <b>0.53</b>. Nothing else is close, so <b>$FERRY resolves
+      confidently and its Buy button renders.</b></div>
+
+      <div class="sc-tabtitle" style="margin-top:26px">Contest for <span>$BOAT</span> — 31 coins with that ticker minted after the post</div>
+      <table class="sc-ctab">
+        <thead><tr>
+          <th>Candidate</th><th>Minted after post</th><th>Wording</th><th>Image</th><th>Declared</th><th>Total</th>
+        </tr></thead>
+        <tbody>
+          <tr class="rival"><td class="nm">"Harbour Boats"</td><td>+1h 04m</td><td>0.46</td><td>0.51</td><td>—</td><td class="tot">0.55</td></tr>
+          <tr class="rival"><td class="nm">"Every Boat Answered"</td><td>+1h 22m</td><td>0.52</td><td>0.38</td><td>—</td><td class="tot">0.52</td></tr>
+          <tr><td class="nm">"Boat Season"</td><td>+2h 51m</td><td>0.41</td><td>0.30</td><td>—</td><td>0.44</td></tr>
+        </tbody>
+      </table>
+      <div class="sc-margin">Gap of <b>0.03</b>. Two coins are equally plausible and we cannot tell
+      them apart, so <b>$BOAT is listed as unverified with no button</b> — which is what the user
+      screen below shows. The margin, not the score, is what decides.</div>
+    </div>
+  </div>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-verdicts">
+      <div class="sc-v ok"><div class="k">Confirmed</div>
+        <p>Clears the gates, beats the runner-up by a margin, and we can quote it.</p>
+        <div class="btnline"><b>Buy button renders.</b></div></div>
+      <div class="sc-v un"><div class="k">Unsure</div>
+        <p>Plausible but contested, or the coin's market is too young for us to be certain.</p>
+        <div class="btnline"><b>Listed, no button.</b></div></div>
+      <div class="sc-v no"><div class="k">No match</div>
+        <p>Nothing survived the gates. The story stands on its own, which is fine.</p>
+        <div class="btnline"><b>Nothing rendered.</b></div></div>
+    </div>
+  </div>
+
+  <p>There is a deliberate consequence baked into this. A venue we have only just started watching
+  can produce <strong>"unsure" at most, never "confirmed"</strong>, until it has enough of its own
+  adjudicated examples — because a score from one marketplace does not mean the same thing on
+  another. A new venue's first month is read-only, and that period is exactly how the examples get
+  collected: every "unsure" is logged with everything the system saw when it hesitated.</p>
+
+  <h3>The funnel, end to end</h3>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-panel">
+      <div class="sc-mocktitle">From 30,000 daily mints to one verdict — <b>time first, ticker never as the search key</b></div>
+      <svg viewBox="0 0 1000 470" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Funnel diagram: 30,000 mints per day narrows by time window to about 500 candidates, then by gates to a handful, then by scoring and margin to a verdict of confirmed, unsure or none.">
+        <defs>
+          <marker id="sc-ar" markerWidth="9" markerHeight="9" refX="6.8" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#3DE0FF"/>
+          </marker>
+        </defs>
+
+        <!-- stage 1 -->
+        <rect x="60" y="26" width="880" height="58" rx="9" fill="#131316" stroke="#212127"/>
+        <text x="82" y="52" fill="#F4F5F7" font-family="General Sans, sans-serif" font-size="14" font-weight="600">Every coin minted today</text>
+        <text x="82" y="71" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="11.5">median fresh mint is worth $28 · 174 of 300 consecutive mints were duplicate names</text>
+        <text x="918" y="61" text-anchor="end" fill="#FF5C6E" font-family="JetBrains Mono, monospace" font-size="18" font-weight="600">~30,000</text>
+
+        <line x1="500" y1="84" x2="500" y2="106" stroke="#3DE0FF" stroke-width="1.5" marker-end="url(#sc-ar)"/>
+        <text x="516" y="101" fill="#3DE0FF" font-family="JetBrains Mono, monospace" font-size="10.5">retrieve by TIME, not by ticker</text>
+
+        <!-- stage 2 -->
+        <rect x="140" y="112" width="720" height="58" rx="9" fill="#131316" stroke="#2E2E36"/>
+        <text x="162" y="138" fill="#F4F5F7" font-family="General Sans, sans-serif" font-size="14" font-weight="600">Minted inside this story's window</text>
+        <text x="162" y="157" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="11.5">from the story's earliest post, forward · capped at 500 rows · one index scan</text>
+        <text x="838" y="147" text-anchor="end" fill="#F4F5F7" font-family="JetBrains Mono, monospace" font-size="18" font-weight="600">≤ 500</text>
+
+        <line x1="500" y1="170" x2="500" y2="192" stroke="#3DE0FF" stroke-width="1.5" marker-end="url(#sc-ar)"/>
+
+        <!-- stage 3: gates -->
+        <rect x="210" y="198" width="580" height="86" rx="9" fill="#0C0C0E" stroke="#2E2E36"/>
+        <text x="232" y="222" fill="#F4F5F7" font-family="General Sans, sans-serif" font-size="14" font-weight="600">The eight gates, cheapest first</text>
+        <g font-family="JetBrains Mono, monospace" font-size="10.5">
+          <rect x="232" y="234" width="60" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="262" y="248" text-anchor="middle" fill="#8A8A93">G1 time?</text>
+          <rect x="298" y="234" width="72" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="334" y="248" text-anchor="middle" fill="#8A8A93">G2 after?</text>
+          <rect x="376" y="234" width="66" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="409" y="248" text-anchor="middle" fill="#8A8A93">G3 soon?</text>
+          <rect x="448" y="234" width="66" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="481" y="248" text-anchor="middle" fill="#8A8A93">G4 major</text>
+          <rect x="520" y="234" width="78" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="559" y="248" text-anchor="middle" fill="#8A8A93">G5/6 rules</text>
+          <rect x="604" y="234" width="72" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="640" y="248" text-anchor="middle" fill="#8A8A93">G7 quote</text>
+          <rect x="682" y="234" width="72" height="20" rx="4" fill="#131316" stroke="#212127"/><text x="718" y="248" text-anchor="middle" fill="#8A8A93">G8 cost</text>
+        </g>
+        <text x="232" y="272" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="11">free ────────────────────────────►  one cheap read  ──►  one paid call</text>
+
+        <!-- rejected arm -->
+        <path d="M790,241 L900,241 L900,300" stroke="#FF5C6E" stroke-width="1.4" fill="none" stroke-dasharray="4 3"/>
+        <rect x="806" y="306" width="188" height="46" rx="8" fill="#131316" stroke="rgba(255,92,110,.35)"/>
+        <text x="900" y="325" text-anchor="middle" fill="#FF5C6E" font-family="JetBrains Mono, monospace" font-size="11">rejected, with a reason</text>
+        <text x="900" y="342" text-anchor="middle" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="10.5">logged, never shown</text>
+
+        <line x1="500" y1="284" x2="500" y2="306" stroke="#3DE0FF" stroke-width="1.5" marker-end="url(#sc-ar)"/>
+
+        <!-- stage 4 -->
+        <rect x="270" y="312" width="460" height="58" rx="9" fill="#131316" stroke="#2E2E36"/>
+        <text x="292" y="338" fill="#F4F5F7" font-family="General Sans, sans-serif" font-size="14" font-weight="600">Scored: ticker · wording · image · declared link</text>
+        <text x="292" y="357" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="11.5">ticker is a signal here — it was never the search key</text>
+
+        <line x1="500" y1="370" x2="500" y2="392" stroke="#3DE0FF" stroke-width="1.5" marker-end="url(#sc-ar)"/>
+        <text x="516" y="387" fill="#3DE0FF" font-family="JetBrains Mono, monospace" font-size="10.5">best must beat second by a margin</text>
+
+        <!-- verdicts -->
+        <rect x="270" y="398" width="140" height="52" rx="9" fill="rgba(155,240,60,.07)" stroke="rgba(155,240,60,.35)"/>
+        <text x="340" y="420" text-anchor="middle" fill="#9BF03C" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">CONFIRMED</text>
+        <text x="340" y="437" text-anchor="middle" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="10.5">Buy renders</text>
+
+        <rect x="430" y="398" width="140" height="52" rx="9" fill="rgba(255,184,77,.07)" stroke="rgba(255,184,77,.35)"/>
+        <text x="500" y="420" text-anchor="middle" fill="#FFB84D" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">UNSURE</text>
+        <text x="500" y="437" text-anchor="middle" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="10.5">listed, no button</text>
+
+        <rect x="590" y="398" width="140" height="52" rx="9" fill="#131316" stroke="#2E2E36"/>
+        <text x="660" y="420" text-anchor="middle" fill="#8A8A93" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600">NO MATCH</text>
+        <text x="660" y="437" text-anchor="middle" fill="#5A5A62" font-family="JetBrains Mono, monospace" font-size="10.5">story stands alone</text>
+      </svg>
+    </div>
+  </div>
+
+  <h3>What the user actually sees</h3>
+
+  <p>None of the above reaches the screen. The user gets facts that would be true whether or not
+  Insidor existed: the ticker, what it is worth, when it was minted, and whether it was the first
+  one out or the biggest one now. A coin we are not sure about is still listed — hiding it would be
+  its own kind of lie, since the user can see it on any explorer — but it carries no button.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sc-screen">
+      <div class="sc-shead">
+        <div class="sc-stitle">Harbor Last Horn</div>
+        <div class="sc-sline">A retiring ferry captain blew his horn one last time, and every boat in
+        the harbour blew back.</div>
+        <div class="sc-smeta">@nordkyst_ferge on X &middot; <b>2.4M views</b> &middot; <b>4h old</b>
+        &middot; also a TikTok clip by @harbourclips, <b>890K views</b></div>
+      </div>
+      <div class="sc-scoins">
+        <div class="sc-scoin">
+          <div class="sc-av"></div>
+          <div style="min-width:96px">
+            <div class="sc-tick">$FERRY</div>
+            <div class="sc-name">minted 4h ago</div>
+          </div>
+          <div class="sc-flag first">first</div>
+          <div style="margin-left:auto;text-align:right">
+            <div class="sc-num">$799.6K</div><div class="sc-numl">market cap</div>
+          </div>
+          <div class="sc-sbuy">Buy</div>
+        </div>
+        <div class="sc-scoin">
+          <div class="sc-av" style="background-image:linear-gradient(135deg,#233a2a,#3d5a40)"></div>
+          <div style="min-width:96px">
+            <div class="sc-tick">$HORN</div>
+            <div class="sc-name">minted 3h ago</div>
+          </div>
+          <div class="sc-flag big">biggest</div>
+          <div style="margin-left:auto;text-align:right">
+            <div class="sc-num">$1.2M</div><div class="sc-numl">market cap</div>
+          </div>
+          <div class="sc-sbuy">Buy</div>
+        </div>
+        <div class="sc-scoin">
+          <div class="sc-av" style="background-image:linear-gradient(135deg,#3a3226,#4a3d2b)"></div>
+          <div style="min-width:96px">
+            <div class="sc-tick">$BOAT</div>
+            <div class="sc-name">minted 2h ago</div>
+          </div>
+          <div class="sc-flag unv">unverified</div>
+          <div style="margin-left:auto;text-align:right">
+            <div class="sc-num">$41.2K</div><div class="sc-numl">market cap</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap">"First" and "biggest" are observations about the world. "Unverified" is the one
+  word of ours on this screen, and it is a refusal, not a rating.</p>
+
+  <div class="sc-callout">
+    <p>The test for this whole section: <b>every wrong answer here is a wrong answer the user paid
+    for.</b> So the system is tuned to abstain. Expect most stories to carry no confirmed coin, and
+    treat any change that pushes that number up as a change that reintroduces $PUMP.</p>
+  </div>
+</section>

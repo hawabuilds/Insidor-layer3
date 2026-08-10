@@ -56,7 +56,7 @@ svg{max-width:100%;height:auto;}
 .line-ctitle{font-size:16px; letter-spacing:-.01em;}
 .line-csub{font-size:11.5px; color:var(--muted); margin-top:5px; line-height:1.45;}
 .line-row{
-  display:grid; grid-template-columns:1fr 168px; gap:10px; align-items:baseline;
+  display:grid; grid-template-columns:1fr 176px; gap:10px; align-items:baseline;
   padding:9px 15px; border-bottom:1px solid var(--ln);
 }
 .line-row:last-child{border-bottom:0;}
@@ -91,6 +91,7 @@ svg{max-width:100%;height:auto;}
   background:linear-gradient(180deg,rgba(6,6,7,0) 0%,rgba(6,6,7,.72) 100%);
 }
 .line-thumb-b{background:linear-gradient(150deg,#122a1a 0%,#1b4a24 45%,#2f6b2c 100%);}
+.line-thumb-c{background:linear-gradient(150deg,#2a1830 0%,#43214a 48%,#6a2f52 100%);}
 .line-tt{font-size:14.5px; letter-spacing:-.01em; margin-bottom:4px;}
 .line-two{font-size:12.5px; line-height:1.42; color:var(--ink);}
 .line-two-dim{color:var(--muted);}
@@ -98,14 +99,14 @@ svg{max-width:100%;height:auto;}
 .line-meta b{color:var(--muted); font-weight:500;}
 .line-sep{color:var(--ln2); padding:0 5px;}
 
-.line-strip{display:flex; align-items:center; gap:7px; margin-top:11px; padding-top:10px; border-top:1px solid var(--ln);}
+.line-strip{display:flex; align-items:center; gap:7px; margin-top:11px; padding-top:10px; border-top:1px solid var(--ln); flex-wrap:wrap;}
 .line-pill{
   font-size:10.5px; padding:4px 8px; border-radius:4px; border:1px solid var(--ln2);
   color:var(--muted); white-space:nowrap;
 }
 .line-pill b{color:var(--ink); font-weight:500;}
 .line-pill-first{border-color:rgba(61,224,255,.36); color:var(--ion);}
-.line-climb{display:flex; align-items:center; gap:6px; font-size:10.5px; color:var(--lime); margin-left:auto;}
+.line-climb{display:flex; align-items:center; gap:6px; font-size:10.5px; color:var(--lime);}
 .line-buy{
   margin-left:auto; font-size:11px; padding:5px 13px; border-radius:4px;
   background:var(--ion); color:#04222b; font-weight:600; white-space:nowrap;
@@ -130,19 +131,20 @@ svg{max-width:100%;height:auto;}
 .line-ptitle{font-size:13px; letter-spacing:-.005em;}
 .line-pbody{padding:14px;}
 .line-inset{background:var(--bg2); border:1px solid var(--ln); border-radius:5px; padding:11px 12px;}
-.line-coin{display:grid; grid-template-columns:74px 1fr 96px; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--ln);}
+.line-coin{display:grid; grid-template-columns:74px 92px 1fr 84px; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--ln);}
 .line-coin:last-child{border-bottom:0;}
 .line-tick{font-size:12.5px; color:var(--ink);}
 .line-badge{font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:2px 6px; border-radius:3px; border:1px solid var(--ln2); color:var(--muted); justify-self:start;}
 .line-badge-first{color:var(--ion); border-color:rgba(61,224,255,.4);}
 .line-badge-big{color:var(--lime); border-color:rgba(155,240,60,.4);}
 .line-badge-unv{color:var(--amber); border-color:rgba(255,184,77,.4);}
+.line-when{font-size:10.5px; color:var(--dim);}
 .line-mc{font-size:12px; color:var(--muted); text-align:right;}
 .line-instead{
   margin-top:11px; font-size:10px; color:rgba(255,92,110,.66); letter-spacing:.02em;
 }
 .line-instead s{color:rgba(255,92,110,.55);}
-.line-instead span{color:var(--dim); text-transform:uppercase; letter-spacing:.11em; font-size:9px; margin-right:7px;}
+.line-instead span.k{color:var(--dim); text-transform:uppercase; letter-spacing:.11em; font-size:9px; margin-right:7px;}
 .line-nobtn{font-size:11.5px; color:var(--muted); line-height:1.5;}
 .line-ghost{
   display:inline-block; margin-top:8px; font-size:11px; padding:5px 13px; border-radius:4px;
@@ -152,6 +154,18 @@ svg{max-width:100%;height:auto;}
   font-size:15.5px; line-height:1.48; color:var(--ink);
   font-family:"General Sans",system-ui,sans-serif;
 }
+.line-src{display:grid; grid-template-columns:1fr; gap:7px;}
+.line-srow{display:flex; align-items:center; gap:9px; background:var(--bg3); border:1px solid var(--ln); border-radius:4px; padding:7px 9px;}
+.line-plat{font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); border:1px solid var(--ln2); border-radius:3px; padding:2px 6px;}
+.line-shandle{font-size:11.5px; color:var(--muted);}
+.line-snum{margin-left:auto; font-size:11.5px; color:var(--ink);}
+
+.line-mini{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--ln);}
+.line-mini:last-child{border-bottom:0;}
+.line-mthumb{width:34px; height:26px; border-radius:4px; flex:0 0 auto; border:1px solid var(--ln2);}
+.line-mtt{font-size:11.5px; color:var(--ink);}
+.line-mmeta{font-size:10px; color:var(--dim); margin-top:2px;}
+.line-mnum{margin-left:auto; font-size:11px; color:var(--muted); text-align:right; white-space:nowrap;}
 
 /* ---------- the test ---------- */
 .line-test{background:var(--bg1); border:1px solid var(--ln2); border-radius:6px; overflow:hidden;}
@@ -165,36 +179,38 @@ svg{max-width:100%;height:auto;}
 .line-titem{font-size:11.5px; color:var(--muted); padding:5px 0; border-bottom:1px solid var(--ln);}
 .line-titem:last-child{border-bottom:0;}
 .line-titem b{color:var(--ink); font-weight:500;}
+.line-tfoot{padding:13px 20px; border-top:1px solid var(--ln); background:var(--bg2); font-size:11.5px; color:var(--dim); line-height:1.55;}
+.line-tfoot b{color:var(--muted); font-weight:500;}
 </style>
 
 <section class="sec">
-  <h2>09. Where the line sits</h2>
+  <h2>15. Where the line sits</h2>
 
-  <p class="lede">Part three is where the two halves of this document meet. Everything before
-  this was the machine; everything after is the screen. Exactly one rule governs what is
-  allowed to cross between them.</p>
+  <p class="lede">Part four is where the two halves of this document meet. Everything before this
+  was the machine; everything after is the screen. Exactly one rule governs what is allowed to
+  cross between them, and it has already caused one version of this deck to be thrown away.</p>
 
   <p>The rule is short. <strong>Facts about the world go on screen. Our reasoning never
   does.</strong> A view count is a fact — the post really has 2.4 million views whether or not
-  Insidor was ever built. A market cap is a fact. So is the time a post went up, the name of
-  the account that posted it, and how many people hold a coin. All of those existed before we
-  looked and would carry on existing if we shut down tomorrow.</p>
+  Insidor was ever built. A market cap is a fact. So is the minute a post went up, the minute a
+  coin was created, the name of the account that posted it, and how many wallets hold the token.
+  All of those existed before we looked and would carry on existing if we shut the servers down
+  tomorrow.</p>
 
-  <p>Our reasoning is a different kind of thing. When our system decides a story is worth
-  showing, it is doing arithmetic: comparing one view count against the same post's view count
-  twenty minutes earlier, weighing how many separate people posted about the same ferry
-  captain, asking the AI how memeable the thing is and getting a number back. Those numbers are
-  real and they matter enormously — they are how the ordering is decided — but they exist only
-  because we invented them. They are our workings, and workings do not belong in front of a
-  user.</p>
+  <p>Our reasoning is a different kind of thing. When the system decides a story is worth
+  showing, it is doing arithmetic: comparing a view count against the same post's view count
+  twenty minutes earlier, weighing how many separate accounts are telling the same ferry-captain
+  story, asking Claude how memeable the thing is and getting a number back. Those numbers are
+  real, and they decide the ordering of the entire feed. But they exist only because we invented
+  them. They are our workings, and workings do not go in front of a user.</p>
 
-  <p>In the founder's words: <em>"The app's job is to make the judgement so the user doesn't
-  have to. Showing our workings would just make them do our job for us."</em> That is the whole
-  argument. A trader opening Insidor at 09:13 has perhaps ninety seconds before the window
-  closes. If we hand them a heat score of 8.4 and an acceleration ratio of 3.1x, we have not
-  helped them decide — we have handed them a second decision on top of the first one, and asked
-  them to learn our internal scale before they can use the product. The correct output of all
-  that arithmetic is not a number. It is an ordered list and one plain sentence.</p>
+  <p>In the founder's words: <em>"The app's job is to make the judgement so the user doesn't have
+  to. Showing our workings would just make them do our job for us."</em> That is the whole
+  argument. A trader opening Insidor at 09:13 has perhaps ninety seconds. Hand them a heat score
+  of 8.4 and an acceleration ratio of 3.1x and we have not helped — we have added a second
+  decision on top of the first one and asked them to learn our private scale before they can use
+  the product. The correct output of all that arithmetic is not a number. It is an ordered list
+  and one plain sentence.</p>
 
   <div class="line-w" style="break-inside:avoid;page-break-inside:avoid">
     <div class="line-split">
@@ -203,19 +219,19 @@ svg{max-width:100%;height:auto;}
           <div class="line-ctag">On screen</div>
           <div class="line-ctitle line-h">Facts about the world</div>
           <div class="line-csub">True regardless of Insidor. Anyone could verify them from the
-          original post, the block explorer, or a price feed.</div>
+          original post, a block explorer, or a price feed.</div>
         </div>
         <div class="line-row"><div class="line-rk">How many people have seen the post</div><div class="line-rv line-m">2.4M views</div></div>
-        <div class="line-row"><div class="line-rk">How old it is</div><div class="line-rv line-m">4h · posted 09:00</div></div>
-        <div class="line-row"><div class="line-rk">Who posted it, and where</div><div class="line-rv line-m">@nordkyst_ferge · X</div></div>
+        <div class="line-row"><div class="line-rk">How old the post is</div><div class="line-rv line-m">4h &middot; posted 09:00</div></div>
+        <div class="line-row"><div class="line-rk">Who posted it, and where</div><div class="line-rv line-m">@nordkyst_ferge &middot; X</div></div>
         <div class="line-row"><div class="line-rk">Whether views are still climbing</div><div class="line-rv line-m">a rising line</div></div>
+        <div class="line-row"><div class="line-rk">When the coin was created</div><div class="line-rv line-m">minted 22m ago</div></div>
         <div class="line-row"><div class="line-rk">Market cap of the coin</div><div class="line-rv line-m">$799.6K</div></div>
         <div class="line-row"><div class="line-rk">Liquidity in the pool</div><div class="line-rv line-m">$84.2K</div></div>
-        <div class="line-row"><div class="line-rk">How many people hold it</div><div class="line-rv line-m">1,204 holders</div></div>
-        <div class="line-row"><div class="line-rk">Price change</div><div class="line-rv line-m">+38.4% · 1h</div></div>
-        <div class="line-row"><div class="line-rk">When the coin was created</div><div class="line-rv line-m">09:31</div></div>
-        <div class="line-foot">All of these can be checked by the user somewhere else. Showing them
-        builds trust rather than spending it.</div>
+        <div class="line-row"><div class="line-rk">How many wallets hold it</div><div class="line-rv line-m">1,204 holders</div></div>
+        <div class="line-row"><div class="line-rk">Price change over the last hour</div><div class="line-rv line-m">+38.4% &middot; 1h</div></div>
+        <div class="line-foot">All of these can be checked by the user somewhere else. Showing
+        them builds trust rather than spending it.</div>
       </div>
 
       <div class="line-col line-col-no">
@@ -225,15 +241,15 @@ svg{max-width:100%;height:auto;}
           <div class="line-csub">Exists only because we computed it. Meaningless outside our own
           system, and impossible for a user to check.</div>
         </div>
-        <div class="line-row"><div class="line-rk">How memeable the AI scored it</div><div class="line-rv line-m">meme_score 7</div></div>
+        <div class="line-row"><div class="line-rk">How memeable Claude scored it</div><div class="line-rv line-m">meme_score 7</div></div>
         <div class="line-row"><div class="line-rk">Growth rate between two checks</div><div class="line-rv line-m">+18.4% / 20m</div></div>
         <div class="line-row"><div class="line-rk">Acceleration ratio</div><div class="line-rv line-m">3.1x</div></div>
         <div class="line-row"><div class="line-rk">Combined ranking score</div><div class="line-rv line-m">heat 8.4</div></div>
         <div class="line-row"><div class="line-rk">Eligibility gates and thresholds</div><div class="line-rv line-m">author cap 2</div></div>
         <div class="line-row"><div class="line-rk">How sure we are a coin matches</div><div class="line-rv line-m">match 87%</div></div>
+        <div class="line-row"><div class="line-rk">How many same-name tokens we discarded</div><div class="line-rv line-m">305 of 306 dropped</div></div>
         <div class="line-row"><div class="line-rk">Position in the ranking, and why</div><div class="line-rv line-m">rank &#9650;4</div></div>
-        <div class="line-row"><div class="line-rk">Which AI model made the judgement</div><div class="line-rv line-m">model name</div></div>
-        <div class="line-row"><div class="line-rk">What we looked at and dropped</div><div class="line-rv line-m">40 of 63 eligible</div></div>
+        <div class="line-row"><div class="line-rk">Which model made the judgement</div><div class="line-rv line-m">model name</div></div>
         <div class="line-foot">Every one of these is stored, logged and used. None of it is
         rendered. The user gets the decision, not the derivation.</div>
       </div>
@@ -241,15 +257,27 @@ svg{max-width:100%;height:auto;}
   </div>
 
   <p class="cap">Left column: nine things a user can independently verify. Right column: nine
-  things that only mean something inside our own database. The struck-through values on the
-  right are shown here, in this document, so the team can recognise them on sight — they never
-  appear in the product.</p>
+  things that only mean something inside our own database. The struck-through values on the right
+  are printed here, in this document, so the team can recognise them on sight — they never appear
+  in the product.</p>
 
   <h3>The same row, twice</h3>
 
-  <p>Here is the identical story — Harbor Last Horn, four hours old, one coin already live —
-  rendered both ways. The version on the left is what an earlier draft of this deck put in
-  front of a user. The version on the right is the product.</p>
+  <p>Here is the identical story — Harbor Last Horn, post four hours old, three coins already
+  minted from it — rendered both ways. The left is what an earlier draft put in front of
+  a user, and why that draft was rejected. The right is the product.</p>
+
+  <p>One thing changed since that draft, and it changed the words rather than the layout. We
+  measured the gap between a post going up and a coin being minted from it: the median is 3.8
+  minutes, and for the coins that go on to clear ten million it is 1.1 minutes. Bots get there
+  first, always. So the promise can never be "we show you the story before the coin exists."
+  What is still true, and still worth paying for, is that the run takes about six days — the peak
+  comes a median of six days after the post, and no coin above a million ever peaked inside the
+  first hour. Being early to the mint was never the product. The honest claim is therefore:
+  <strong>several coins were minted from this story, this is the one that is really about it, and
+  it is still climbing.</strong> Every clause of that is a fact. The row carries the first and
+  last of them; the middle one is the story page's whole job, and the row's single button is the
+  door to it.</p>
 
   <div class="line-w" style="break-inside:avoid;page-break-inside:avoid">
     <div class="line-pair">
@@ -278,7 +306,7 @@ svg{max-width:100%;height:auto;}
               <div class="line-cell"><div class="line-lbl">&#916;20m</div><div class="v line-m">+18.4%</div></div>
             </div>
             <div class="line-gutter line-m">40 of 63 eligible &middot; 12 hidden by gate &middot;
-            meme_score 7 &middot; O 3 &middot; author cap 2</div>
+            305 same-name tokens dropped &middot; author cap 2</div>
           </div>
         </div>
       </div>
@@ -296,19 +324,17 @@ svg{max-width:100%;height:auto;}
                 <div class="line-tt line-h">Harbor Last Horn</div>
                 <div class="line-two">A retiring ferry captain blew his horn one last time, and
                 every boat in the harbour blew back.</div>
-                <div class="line-meta line-m">@nordkyst_ferge on X<span class="line-sep">&middot;</span><b>2.4M views</b><span class="line-sep">&middot;</span>4h old</div>
+                <div class="line-meta line-m"><b>2.4M views</b><span class="line-sep">&middot;</span>4h old</div>
               </div>
             </div>
             <div class="line-strip">
-              <div class="line-pill line-pill-first">$FERRY <b style="color:inherit">&middot;</b> first</div>
-              <div class="line-pill"><b>$799.6K</b></div>
               <div class="line-climb line-m">
                 <svg width="46" height="16" viewBox="0 0 46 16" aria-hidden="true">
                   <path d="M1 14 L9 13 L17 11.4 L25 8.6 L33 5 L45 1.6" fill="none" stroke="#9BF03C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 Still climbing
               </div>
-              <div class="line-buy" style="margin-left:9px">Buy $FERRY</div>
+              <div class="line-buy">3 coins &rarr;</div>
             </div>
           </div>
         </div>
@@ -317,18 +343,20 @@ svg{max-width:100%;height:auto;}
     </div>
   </div>
 
-  <p class="cap">Same story, same underlying numbers, same ranking. On the left the user is
-  asked to interpret five scales they have never been taught. On the right they are told what
-  happened, how many people have seen it, how old it is, that one coin exists and it was the
-  first, that attention is still going up — and given one button to act on it. Seven things,
-  nothing else. The reasoning that produced that ordering is identical in both — only one of
-  them says so out loud.</p>
+  <p class="cap">Same story, same underlying numbers, same ranking. On the left the user is asked
+  to interpret five scales nobody taught them. On the right they get the seven things every feed
+  row carries and nothing else: a picture, a title, two lines of plain English, the view count,
+  a line still going up, how old the post is, and one button. The button says <em>3 coins</em>
+  rather than <em>Buy $FERRY</em> because three were minted from this story and choosing between
+  them is a second question with its own screen — section 03, where there is room to show the
+  evidence. The reasoning behind the ordering is identical in both rows; only one of them says so
+  out loud.</p>
 
   <h3>The harder cases</h3>
 
-  <p>Obvious internals are easy to keep off screen. The rule earns its keep in the awkward
-  cases, where a number would be genuinely convenient and still has to stay behind the
-  curtain.</p>
+  <p>Obvious internals are easy to keep off screen. The rule earns its keep in the awkward cases,
+  where a number would be genuinely convenient and still has to stay behind the curtain — and in
+  one case where a number that looks like a fact turns out not to be one.</p>
 
   <div class="line-w" style="break-inside:avoid;page-break-inside:avoid">
     <div class="line-grid4">
@@ -337,11 +365,11 @@ svg{max-width:100%;height:auto;}
         <div class="line-phead"><span class="line-pnum line-m">A</span><span class="line-ptitle line-h">Coins get labels, not confidences</span></div>
         <div class="line-pbody">
           <div class="line-inset">
-            <div class="line-coin"><div class="line-tick line-m">$FERRY</div><div class="line-badge line-badge-first">First</div><div class="line-mc line-m">$799.6K</div></div>
-            <div class="line-coin"><div class="line-tick line-m">$HORN</div><div class="line-badge line-badge-big">Biggest</div><div class="line-mc line-m">$1.2M</div></div>
-            <div class="line-coin"><div class="line-tick line-m">$BOAT</div><div class="line-badge line-badge-unv">Unverified</div><div class="line-mc line-m">&mdash;</div></div>
+            <div class="line-coin"><div class="line-tick line-m">$FERRY</div><div class="line-badge line-badge-first">First</div><div class="line-when line-m">minted 09:31</div><div class="line-mc line-m">$799.6K</div></div>
+            <div class="line-coin"><div class="line-tick line-m">$HORN</div><div class="line-badge line-badge-big">Biggest</div><div class="line-when line-m">minted 10:14</div><div class="line-mc line-m">$1.2M</div></div>
+            <div class="line-coin"><div class="line-tick line-m">$BOAT</div><div class="line-badge line-badge-unv">Unverified</div><div class="line-when line-m">minted 11:02</div><div class="line-mc line-m">&mdash;</div></div>
           </div>
-          <div class="line-instead line-m"><span>instead of</span><s>match 94% &middot; 88% &middot; 31%</s></div>
+          <div class="line-instead line-m"><span class="k">instead of</span><s>match 94% &middot; 88% &middot; 31%</s></div>
         </div>
       </div>
 
@@ -350,8 +378,8 @@ svg{max-width:100%;height:auto;}
         <div class="line-pbody">
           <div class="line-inset" style="display:flex;align-items:center;gap:14px">
             <svg width="150" height="52" viewBox="0 0 150 52" aria-hidden="true">
-              <path d="M2 48 L26 46 L50 42 L74 34 L98 22 L122 12 L148 4" fill="none" stroke="#9BF03C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M2 48 L26 46 L50 42 L74 34 L98 22 L122 12 L148 4 L148 52 L2 52 Z" fill="#9BF03C" opacity=".08"/>
+              <path d="M2 48 L26 46 L50 42 L74 34 L98 22 L122 12 L148 4" fill="none" stroke="#9BF03C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="148" cy="4" r="2.6" fill="#9BF03C"/>
             </svg>
             <div>
@@ -360,7 +388,7 @@ svg{max-width:100%;height:auto;}
               <div class="line-meta line-m" style="margin-top:5px">2.4M views &middot; 4h</div>
             </div>
           </div>
-          <div class="line-instead line-m"><span>instead of</span><s>+18.4% / 20m &middot; accel 3.1x</s></div>
+          <div class="line-instead line-m"><span class="k">instead of</span><s>+18.4% / 20m &middot; accel 3.1x</s></div>
         </div>
       </div>
 
@@ -375,7 +403,7 @@ svg{max-width:100%;height:auto;}
             <div class="line-nobtn">We can't confirm this coin is about this story.
             <span style="color:#3DE0FF">Open it on DexScreener</span> to check for yourself.</div>
           </div>
-          <div class="line-instead line-m"><span>instead of</span>
+          <div class="line-instead line-m"><span class="k">instead of</span>
             <span class="line-ghost" style="margin-top:6px">Buy &mdash; disabled</span>
           </div>
         </div>
@@ -389,24 +417,73 @@ svg{max-width:100%;height:auto;}
             and every boat in the harbour blew back.&rdquo;</div>
             <div class="line-meta line-m" style="margin-top:9px">@nordkyst_ferge on X<span class="line-sep">&middot;</span>2.4M views<span class="line-sep">&middot;</span>4h old</div>
           </div>
-          <div class="line-instead line-m"><span>behind it</span>three collectors, twelve
-          re-measurements, one AI judgement, one grouping decision</div>
+          <div class="line-instead line-m"><span class="k">behind it</span>three collectors, twelve
+          re-measurements, one Claude judgement, one grouping decision</div>
+        </div>
+      </div>
+
+      <div class="line-panel">
+        <div class="line-phead"><span class="line-pnum line-m">E</span><span class="line-ptitle line-h">A fact has to be the thing it says it is</span></div>
+        <div class="line-pbody">
+          <div class="line-inset">
+            <div class="line-src">
+              <div class="line-srow">
+                <div class="line-plat">X</div>
+                <div class="line-shandle line-m">@nordkyst_ferge</div>
+                <div class="line-snum line-m">2.4M views</div>
+              </div>
+              <div class="line-srow">
+                <div class="line-plat">TikTok</div>
+                <div class="line-shandle line-m">@harbourclips</div>
+                <div class="line-snum line-m">890K plays</div>
+              </div>
+            </div>
+          </div>
+          <div class="line-instead line-m"><span class="k">instead of</span><s>890K views &mdash; a play count wearing another name</s></div>
+        </div>
+      </div>
+
+      <div class="line-panel">
+        <div class="line-phead"><span class="line-pnum line-m">F</span><span class="line-ptitle line-h">The order is the opinion &mdash; never numbered</span></div>
+        <div class="line-pbody">
+          <div class="line-inset" style="padding:4px 12px">
+            <div class="line-mini">
+              <div class="line-mthumb line-thumb" style="width:34px;height:26px"></div>
+              <div><div class="line-mtt">Harbor Last Horn</div><div class="line-mmeta line-m">2.4M &middot; 4h</div></div>
+              <div class="line-mnum line-m">3 coins</div>
+            </div>
+            <div class="line-mini">
+              <div class="line-mthumb line-thumb line-thumb-c"></div>
+              <div><div class="line-mtt">Paid to Move to Norway</div><div class="line-mmeta line-m">1.1M &middot; 1h</div></div>
+              <div class="line-mnum line-m">no coin yet</div>
+            </div>
+            <div class="line-mini">
+              <div class="line-mthumb line-thumb line-thumb-b"></div>
+              <div><div class="line-mtt">Plastic Plant Grandma</div><div class="line-mmeta line-m">850K &middot; 2h</div></div>
+              <div class="line-mnum line-m">$PLANT $562.8K</div>
+            </div>
+          </div>
+          <div class="line-instead line-m"><span class="k">instead of</span><s>#1 &middot; #2 &middot; #3 &middot; showing 40 of 63</s></div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <p class="cap">A. FIRST, BIGGEST and UNVERIFIED are things the user can act on; 94% is a thing
-  they'd have to interpret. B. A line that goes up says "still climbing" faster than any
-  percentage, and cannot be misread as a promise. C. A disabled button is a taunt — it says we
-  know something and won't tell you; showing nothing, plus a link out, is honest. D. The
-  two-liner is not a summary of the reasoning, it <em>is</em> the reasoning, delivered.</p>
+  <p class="cap">A. FIRST, BIGGEST and UNVERIFIED are things a user can act on; 94% is a thing
+  they have to interpret — and since only about one coin in twenty declares the post it came
+  from, that 94% is our inference dressed as measurement. B. A rising line says "still climbing"
+  faster than any percentage and cannot be misread as a promise. C. A disabled button is a taunt
+  — it says we know something and won't tell you; nothing, plus a link out, is honest. D. The
+  two-liner is not a summary of the reasoning, it <em>is</em> the reasoning, delivered.
+  E. Our TikTok parser writes play counts into a column called views; a mislabelled fact is worse
+  on screen than an omitted one. F. The order is our loudest opinion, so it is expressed as
+  order and nothing else — no positions, no totals, no count of what we filtered out.</p>
 
   <h3>The test</h3>
 
   <p>Any new screen, any new field, any argument about whether something belongs — this settles
-  it in about five seconds, and anyone on the team can apply it without asking.</p>
+  it in about five seconds, and anyone on the team can apply it without asking permission.</p>
 
   <div class="line-w" style="break-inside:avoid;page-break-inside:avoid">
     <div class="line-test">
@@ -419,7 +496,7 @@ svg{max-width:100%;height:auto;}
           <div class="line-tyes line-m">Yes &rarr; it can be shown</div>
           <div class="line-titem line-m"><b>2.4M views</b> &mdash; the post has them either way</div>
           <div class="line-titem line-m"><b>$799.6K</b> &mdash; on-chain, public, checkable</div>
-          <div class="line-titem line-m"><b>4h old</b> &mdash; the clock is not ours</div>
+          <div class="line-titem line-m"><b>minted 22m ago</b> &mdash; the block says so</div>
           <div class="line-titem line-m"><b>1,204 holders</b> &mdash; anyone can count them</div>
         </div>
         <div class="line-tcol">
@@ -430,11 +507,20 @@ svg{max-width:100%;height:auto;}
           <div class="line-titem line-m"><b>rank &#9650;4</b> &mdash; a fact about our list, not the world</div>
         </div>
       </div>
+      <div class="line-tfoot">Second question, for anything that passes:
+      <b>is it still the quantity its label claims?</b> A TikTok play count printed under the word
+      "views" passes the first test and fails this one.</div>
     </div>
   </div>
 
-  <p class="cap">One question, applied to every field. It has a useful side effect: the numbers
-  that pass are exactly the numbers a sceptical user can verify elsewhere, so showing them
-  builds credibility. The numbers that fail are the ones we could never prove anyway.</p>
+  <p class="cap">One question, applied to every field, plus a second one for anything that
+  survives it. Useful side effect: the numbers that pass are exactly the numbers a sceptical user
+  can verify somewhere else, so showing them buys credibility. The numbers that fail are the ones
+  we could never prove anyway.</p>
+
+  <p>There is a discipline hidden in this that is worth naming. A product that never shows its
+  scores cannot hide behind them. If the ordering is wrong, the user sees a bad story at the top
+  and nothing else — no 8.4 to argue with, no gate to blame. The line does not only protect the
+  user from our arithmetic. It removes every excuse for the arithmetic being poor.</p>
 
 </section>

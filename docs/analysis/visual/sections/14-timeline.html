@@ -1,0 +1,442 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,500&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+.tl-w{
+  --bg0:#060607; --bg1:#0C0C0E; --bg2:#131316; --bg3:#1A1A1E; --bg4:#222228;
+  --ln:#212127; --ln2:#2E2E36;
+  --ink:#F4F5F7; --muted:#8A8A93; --dim:#5A5A62;
+  --ion:#3DE0FF; --lime:#9BF03C; --red:#FF5C6E; --amber:#FFB84D;
+  color:var(--ink); font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:12px; line-height:1.44; margin:26px 0 10px;
+}
+.tl-w *{box-sizing:border-box;}
+.tl-m{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;}
+.tl-h{font-family:"Clash Display",-apple-system,system-ui,sans-serif; font-weight:600; letter-spacing:-.01em;}
+.tl-lbl{font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--dim);}
+
+.tl-frame{background:var(--bg1); border:1px solid var(--ln2); border-radius:7px; overflow:hidden;}
+.tl-fhead{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  padding:12px 16px; background:var(--bg2); border-bottom:1px solid var(--ln);}
+.tl-ftitle{font-size:15px;}
+.tl-fnote{font-size:11px; color:var(--muted);}
+.tl-ffoot{padding:11px 16px; background:var(--bg2); border-top:1px solid var(--ln);
+  font-size:11px; line-height:1.55; color:var(--dim);}
+.tl-ffoot b{color:var(--muted); font-weight:500;}
+
+/* ---------- A. arithmetic ---------- */
+.tl-arith{display:grid; grid-template-columns:1.35fr 1fr;}
+.tl-arith > div:first-child{border-right:1px solid var(--ln);}
+.tl-row{display:grid; grid-template-columns:1fr 132px 54px; align-items:center; gap:10px;
+  padding:9px 16px; border-bottom:1px solid var(--ln);}
+.tl-row:last-child{border-bottom:0;}
+.tl-rlab{font-size:12px; color:var(--muted);}
+.tl-rlab b{color:var(--ink); font-weight:500;}
+.tl-bar{height:9px; background:var(--bg3); border-radius:2px; overflow:hidden;}
+.tl-bar i{display:block; height:100%; border-radius:2px;}
+.tl-rnum{font-size:13px; text-align:right; color:var(--ink);}
+.tl-band{padding:7px 16px; background:var(--bg2); border-bottom:1px solid var(--ln);
+  display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+.tl-band span{font-size:9.5px; text-transform:uppercase; letter-spacing:.1em;}
+.tl-total{background:var(--bg3); border-top:1px solid var(--ln2);}
+.tl-total .tl-rlab b{color:var(--ink);}
+.tl-total .tl-rnum{font-size:16px; font-weight:600;}
+
+.tl-conv{padding:16px 18px; display:flex; flex-direction:column; gap:0; justify-content:center; height:100%;}
+.tl-cstep{padding:11px 0; border-bottom:1px dashed var(--ln2);}
+.tl-cstep:last-child{border-bottom:0;}
+.tl-cbig{font-size:23px; letter-spacing:-.01em; color:var(--ink); margin-top:3px;}
+.tl-cbig small{font-size:12px; color:var(--dim); letter-spacing:0; margin-left:6px;}
+.tl-miss{background:rgba(255,92,110,.07); border:1px solid rgba(255,92,110,.30);
+  border-radius:6px; padding:11px 13px; margin-top:12px;}
+.tl-miss .tl-lbl{color:var(--red);}
+.tl-miss p{margin:5px 0 0; font-size:11.5px; line-height:1.5; color:var(--muted);}
+.tl-strike{color:var(--dim); text-decoration:line-through; text-decoration-color:var(--red);}
+
+/* ---------- B. streams ---------- */
+.tl-str{display:grid; grid-template-columns:repeat(5,1fr);}
+.tl-scell{border-right:1px solid var(--ln); padding:13px 14px 15px; background:var(--bg1);}
+.tl-scell:last-child{border-right:0;}
+.tl-snum{font-size:10px; color:var(--dim); letter-spacing:.1em;}
+.tl-sname{font-size:12.5px; font-weight:600; color:var(--ink); margin:6px 0 5px; line-height:1.3;}
+.tl-sdesc{font-size:11px; color:var(--dim); line-height:1.5; min-height:46px;}
+.tl-pill{display:inline-block; font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-size:9px; letter-spacing:.09em; text-transform:uppercase; padding:4px 7px;
+  border-radius:3px; margin-top:9px; line-height:1.25;}
+.tl-p-off{background:rgba(255,92,110,.12); color:var(--red); border:1px solid rgba(255,92,110,.32);}
+.tl-p-warn{background:rgba(255,184,77,.11); color:var(--amber); border:1px solid rgba(255,184,77,.30);}
+.tl-p-part{background:rgba(138,138,147,.10); color:var(--muted); border:1px solid var(--ln2);}
+
+/* ---------- C. gantt ---------- */
+.tl-gantt{padding:6px 14px 12px;}
+
+/* ---------- D. two-column risk ---------- */
+.tl-two{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:26px 0 8px;}
+.tl-card{background:var(--bg1); border:1px solid var(--ln2); border-radius:7px; overflow:hidden;}
+.tl-chead{padding:11px 15px; background:var(--bg2); border-bottom:1px solid var(--ln);
+  display:flex; align-items:baseline; gap:9px;}
+.tl-chead .tl-ftitle{font-size:13.5px;}
+.tl-clist{padding:6px 15px 13px; margin:0; list-style:none;}
+.tl-clist li{padding:9px 0 9px 17px; border-bottom:1px solid var(--ln); position:relative;
+  font-size:11.5px; line-height:1.55; color:var(--muted);}
+.tl-clist li:last-child{border-bottom:0;}
+.tl-clist li:before{content:""; position:absolute; left:0; top:15px; width:7px; height:7px;
+  border-radius:50%;}
+.tl-worse li:before{background:var(--red);}
+.tl-better li:before{background:var(--lime);}
+.tl-clist li b{color:var(--ink); font-weight:600;}
+.tl-clist li .tl-d{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;}
+.tl-worse li .tl-d{color:var(--red);} .tl-better li .tl-d{color:var(--lime);}
+</style>
+
+<section class="sec">
+  <h2>14. The timeline, honestly</h2>
+
+  <p class="lede">This is about four months of work, not two. An earlier version of this plan said
+  eight to nine weeks; that number counted the code and nothing else, and it was off by roughly
+  double. The honest figure is 17 to 18 weeks. What makes four months tolerable is not the total —
+  it is the shape. One date in it matters more than the finish line.</p>
+
+  <p>The earlier estimate came from adding up the build steps: write this stage, write that
+  adapter, wire the store. Forty-three developer-days. That arithmetic is roughly right for the
+  code sitting on its own in a fresh folder. It is roughly half the calendar, because it quietly
+  assumes three things that are not true here. It assumes nothing has to be moved from the old
+  system to the new one. It assumes the two never have to run side by side while we check they
+  agree. And it assumes the developer is not simultaneously keeping a live system alive — a system
+  whose record includes a seven-hour silent outage and a heartbeat that stayed dead for two weeks.</p>
+
+  <p>Put the missing work back in and the figure is about sixty-seven developer-days. Then divide
+  by a real week rather than an ideal one. One developer, a production system that occasionally
+  demands attention, and a non-engineer reviewer does not produce five clean days a week; three
+  and three-quarters is the honest rate. Sixty-seven divided by 3.75 is 17.9 weeks.</p>
+
+  <div class="tl-w">
+    <div class="tl-frame" style="break-inside:avoid;page-break-inside:avoid">
+      <div class="tl-fhead">
+        <div class="tl-ftitle tl-h">Where the missing twenty-four days were</div>
+        <div class="tl-fnote">the earlier estimate priced the first row only, and priced it optimistically</div>
+      </div>
+      <div class="tl-arith">
+        <div>
+          <div class="tl-band">
+            <span style="color:#5A5A62">Work item</span>
+            <span class="tl-m" style="color:#5A5A62">Developer-days</span>
+          </div>
+          <div class="tl-row">
+            <div class="tl-rlab"><b>Coding</b>, re-estimated with the transition included</div>
+            <div class="tl-bar"><i style="width:100%;background:#3DE0FF"></i></div>
+            <div class="tl-rnum tl-m">50.5</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-rlab">Backfill migrations, and verifying they worked</div>
+            <div class="tl-bar"><i style="width:5.9%;background:#8A8A93"></i></div>
+            <div class="tl-rnum tl-m">3.0</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-rlab">Cutover switches, shadow plumbing, rollback</div>
+            <div class="tl-bar"><i style="width:5.9%;background:#8A8A93"></i></div>
+            <div class="tl-rnum tl-m">3.0</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-rlab">Comparing old against new while both run, plus one alarm</div>
+            <div class="tl-bar"><i style="width:5.9%;background:#8A8A93"></i></div>
+            <div class="tl-rnum tl-m">3.0</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-rlab">Keeping the <b>old</b> system alive — half a day a week &times; 16 weeks</div>
+            <div class="tl-bar"><i style="width:15.8%;background:#FFB84D"></i></div>
+            <div class="tl-rnum tl-m">8.0</div>
+          </div>
+          <div class="tl-row tl-total">
+            <div class="tl-rlab"><b>Total</b></div>
+            <div class="tl-bar" style="background:transparent"></div>
+            <div class="tl-rnum tl-m">67</div>
+          </div>
+        </div>
+        <div class="tl-conv">
+          <div class="tl-cstep">
+            <div class="tl-lbl">Effort</div>
+            <div class="tl-cbig tl-m">67 <small>developer-days</small></div>
+          </div>
+          <div class="tl-cstep">
+            <div class="tl-lbl">Divided by a real week</div>
+            <div class="tl-cbig tl-m">&divide; 3.75 <small>productive days / week</small></div>
+          </div>
+          <div class="tl-cstep">
+            <div class="tl-lbl">Calendar</div>
+            <div class="tl-cbig tl-m" style="color:#3DE0FF">17.9 weeks <small style="color:#8A8A93">&asymp; 4 months</small></div>
+          </div>
+          <div class="tl-miss">
+            <div class="tl-lbl">The earlier number</div>
+            <p><span class="tl-strike tl-m">8&ndash;9 weeks</span> &nbsp;counted the code in isolation.
+            It was wrong by about <b style="color:#FF5C6E">2&times;</b>. Nobody was being dishonest —
+            the transition work simply had no line on the page.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-ffoot">
+        Not in any of these numbers: <b>the models.</b> Those are calendar-bound rather than
+        effort-bound — they need thousands of recorded decisions to exist before anyone can train on
+        them. Month five at the earliest, and only if the decision log ships in week two.
+      </div>
+    </div>
+  </div>
+
+  <h3>The shape is the good news</h3>
+
+  <p>Four months is only frightening if you believe the whole thing is worthless until the last
+  day. It is not. The value arrives in a specific order, and the most valuable week is the third
+  one, not the eighteenth.</p>
+
+  <p>Five streams of data in this business are perishable. They describe a moment — what a post's
+  view count was at 3:12pm, what we decided about it, what the coin was worth ninety seconds later,
+  how common that phrase had been over the previous fortnight. If you do not write them down as
+  they happen, they are gone. You cannot go back and get them, at any price, ever. Three of those
+  five are not being recorded at all today. A fourth is being recorded and then deleted twelve
+  hours later. That is the asset the company is actually accumulating, and right now most of it is
+  running down a drain.</p>
+
+  <div class="tl-w">
+    <div class="tl-frame" style="break-inside:avoid;page-break-inside:avoid">
+      <div class="tl-fhead">
+        <div class="tl-ftitle tl-h">The five perishable streams &mdash; status today</div>
+        <div class="tl-fnote">every day before week 3 is a day of this permanently lost</div>
+      </div>
+      <div class="tl-str">
+        <div class="tl-scell">
+          <div class="tl-snum tl-m">01</div>
+          <div class="tl-sname">The decision log</div>
+          <div class="tl-sdesc">Every judgement we make, the reason, and what happened afterwards.
+          A few thousand a day.</div>
+          <span class="tl-pill tl-p-off">Not recording</span>
+        </div>
+        <div class="tl-scell">
+          <div class="tl-snum tl-m">02</div>
+          <div class="tl-sname">Mint and price series</div>
+          <div class="tl-sdesc">What each coin was worth, minute by minute, from the moment it
+          existed.</div>
+          <span class="tl-pill tl-p-off">Not recording</span>
+        </div>
+        <div class="tl-scell">
+          <div class="tl-snum tl-m">03</div>
+          <div class="tl-sname">Phrase frequency, 14&#8209;day rolling</div>
+          <div class="tl-sdesc">How common each phrase was <i>at the time</i> &mdash; which is what
+          makes a phrase new.</div>
+          <span class="tl-pill tl-p-off">Not recording</span>
+        </div>
+        <div class="tl-scell">
+          <div class="tl-snum tl-m">04</div>
+          <div class="tl-sname">The near&#8209;miss archive</div>
+          <div class="tl-sdesc">The posts we looked at and turned down. The only source of negative
+          examples we will ever have.</div>
+          <span class="tl-pill tl-p-warn">Deletes itself every 12h</span>
+        </div>
+        <div class="tl-scell">
+          <div class="tl-snum tl-m">05</div>
+          <div class="tl-sname">View&#8209;count snapshots</div>
+          <div class="tl-sdesc">Recording &mdash; but how long a post is watched depends on how well
+          it did, so the record teaches its own answer.</div>
+          <span class="tl-pill tl-p-part">Recording, unusable</span>
+        </div>
+      </div>
+      <div class="tl-ffoot">
+        <b>Why this dates the plan.</b> Code can be written later. These cannot be collected later.
+        Week 3 is the week all five become honest recordings &mdash; and it is the reason the order
+        of the build is not negotiable even though the finish date is.
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-w">
+    <div class="tl-frame" style="break-inside:avoid;page-break-inside:avoid">
+      <div class="tl-fhead">
+        <div class="tl-ftitle tl-h">Eighteen weeks, and the one date inside them that cannot move</div>
+        <div class="tl-fnote">before week 3 a slip costs the asset &middot; after it, a slip costs only time</div>
+      </div>
+      <div class="tl-gantt">
+        <svg viewBox="0 0 1040 372" width="1040" height="372" xmlns="http://www.w3.org/2000/svg"
+             font-family="JetBrains Mono, ui-monospace, Menlo, monospace">
+
+          <!-- danger zone -->
+          <rect x="70" y="52" width="147" height="298" fill="#FF5C6E" opacity="0.055"/>
+          <rect x="70" y="52" width="147" height="298" fill="none" stroke="#FF5C6E" stroke-opacity="0.30"
+                stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="76" y="66" font-size="9.5" letter-spacing="1" fill="#FF5C6E">WEEKS 0&ndash;3</text>
+          <text x="76" y="342" font-size="10" fill="#FF5C6E">a slip here costs THE ASSET</text>
+          <text x="228" y="66" font-size="9.5" letter-spacing="1" fill="#5A5A62">WEEKS 3&ndash;18</text>
+          <text x="228" y="342" font-size="10" fill="#5A5A62">a slip here costs time, and only time</text>
+
+          <!-- track -->
+          <rect x="70" y="181" width="147" height="12" rx="3" fill="#FF5C6E" opacity="0.45"/>
+          <rect x="217" y="181" width="733" height="12" rx="3" fill="#1A1A1E"/>
+          <rect x="217" y="181" width="733" height="12" rx="3" fill="none" stroke="#2E2E36"/>
+          <rect x="217" y="181" width="294" height="12" rx="3" fill="#3DE0FF" opacity="0.30"/>
+          <!-- ghost tail: the models -->
+          <line x1="950" y1="187" x2="1028" y2="187" stroke="#5A5A62" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <text x="1024" y="176" font-size="9" fill="#5A5A62" text-anchor="end">MONTH 5 &mdash; first model</text>
+
+          <!-- week ruler -->
+          <line x1="70" y1="205" x2="950" y2="205" stroke="#212127"/>
+          <g font-size="9" fill="#5A5A62">
+            <line x1="70"  y1="205" x2="70"  y2="212" stroke="#2E2E36"/><text x="70"  y="226" text-anchor="middle">0</text>
+            <line x1="119" y1="205" x2="119" y2="212" stroke="#2E2E36"/><text x="119" y="226" text-anchor="middle">1</text>
+            <line x1="217" y1="205" x2="217" y2="214" stroke="#FFB84D"/><text x="217" y="226" text-anchor="middle" fill="#FFB84D">3</text>
+            <line x1="363" y1="205" x2="363" y2="212" stroke="#2E2E36"/><text x="363" y="226" text-anchor="middle">6</text>
+            <line x1="511" y1="205" x2="511" y2="212" stroke="#2E2E36"/><text x="511" y="226" text-anchor="middle">9</text>
+            <line x1="706" y1="205" x2="706" y2="212" stroke="#2E2E36"/><text x="706" y="226" text-anchor="middle">13</text>
+            <line x1="950" y1="205" x2="950" y2="212" stroke="#2E2E36"/><text x="950" y="226" text-anchor="middle">18</text>
+          </g>
+          <text x="70" y="243" font-size="9" letter-spacing="1.2" fill="#5A5A62">WEEK</text>
+          <g font-size="9" letter-spacing="1.2" fill="#2E2E36">
+            <text x="168" y="243" text-anchor="middle" fill="#5A5A62">MONTH 1</text>
+            <text x="388" y="243" text-anchor="middle" fill="#5A5A62">MONTH 2</text>
+            <text x="608" y="243" text-anchor="middle" fill="#5A5A62">MONTH 3</text>
+            <text x="828" y="243" text-anchor="middle" fill="#5A5A62">MONTH 4</text>
+            <line x1="278" y1="234" x2="278" y2="246" stroke="#212127"/>
+            <line x1="498" y1="234" x2="498" y2="246" stroke="#212127"/>
+            <line x1="718" y1="234" x2="718" y2="246" stroke="#212127"/>
+          </g>
+
+          <!-- ============ ABOVE-TRACK MILESTONES ============ -->
+          <!-- week 1 -->
+          <line x1="119" y1="181" x2="119" y2="146" stroke="#FF5C6E" stroke-width="1"/>
+          <circle cx="119" cy="187" r="5.5" fill="#060607" stroke="#FF5C6E" stroke-width="2"/>
+          <rect x="70" y="86" width="196" height="60" rx="5" fill="#0C0C0E" stroke="#2E2E36"/>
+          <text x="82" y="103" font-size="9.5" letter-spacing="1.1" fill="#FF5C6E">WEEK 1</text>
+          <text x="82" y="119" font-size="12" font-family="General Sans, sans-serif" font-weight="600" fill="#F4F5F7">Alarms on the data</text>
+          <text x="82" y="133" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">Watchdog live. The archive stops</text>
+          <text x="82" y="144" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">deleting itself.</text>
+
+          <!-- week 6 -->
+          <line x1="363" y1="181" x2="363" y2="146" stroke="#3DE0FF" stroke-width="1"/>
+          <circle cx="363" cy="187" r="5.5" fill="#060607" stroke="#3DE0FF" stroke-width="2"/>
+          <rect x="296" y="86" width="200" height="60" rx="5" fill="#0C0C0E" stroke="#2E2E36"/>
+          <text x="308" y="103" font-size="9.5" letter-spacing="1.1" fill="#3DE0FF">WEEK 6</text>
+          <text x="308" y="119" font-size="12" font-family="General Sans, sans-serif" font-weight="600" fill="#F4F5F7">The collector shadows live data</text>
+          <text x="308" y="133" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">New reads the same firehose, beside</text>
+          <text x="308" y="144" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">the old. Nothing user-facing changes.</text>
+
+          <!-- week 13 -->
+          <line x1="706" y1="181" x2="706" y2="146" stroke="#3DE0FF" stroke-width="1"/>
+          <circle cx="706" cy="187" r="5.5" fill="#060607" stroke="#3DE0FF" stroke-width="2"/>
+          <rect x="628" y="86" width="200" height="60" rx="5" fill="#0C0C0E" stroke="#2E2E36"/>
+          <text x="640" y="103" font-size="9.5" letter-spacing="1.1" fill="#3DE0FF">WEEK 13</text>
+          <text x="640" y="119" font-size="12" font-family="General Sans, sans-serif" font-weight="600" fill="#F4F5F7">The two-liner gets good</text>
+          <text x="640" y="133" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">Storyteller writing from real phrases,</text>
+          <text x="640" y="144" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">not from a template.</text>
+
+          <!-- ============ BELOW-TRACK MILESTONES ============ -->
+          <!-- WEEK 3 — the hero -->
+          <line x1="217" y1="193" x2="217" y2="256" stroke="#FFB84D" stroke-width="1.5"/>
+          <circle cx="217" cy="187" r="8" fill="#FFB84D"/>
+          <circle cx="217" cy="187" r="13" fill="none" stroke="#FFB84D" stroke-opacity="0.35"/>
+          <rect x="120" y="256" width="322" height="58" rx="5" fill="#131316" stroke="#FFB84D" stroke-opacity="0.55"/>
+          <text x="134" y="274" font-size="10" letter-spacing="1.1" fill="#FFB84D">&#9733; WEEK 3 &mdash; THE POINT OF NO REGRET</text>
+          <text x="134" y="291" font-size="13" font-family="General Sans, sans-serif" font-weight="600" fill="#F4F5F7">All five perishable streams recording</text>
+          <text x="134" y="306" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">Everything after this date can be late. This one cannot.</text>
+
+          <!-- week 9 -->
+          <line x1="511" y1="193" x2="511" y2="262" stroke="#9BF03C" stroke-width="1"/>
+          <circle cx="511" cy="187" r="5.5" fill="#060607" stroke="#9BF03C" stroke-width="2"/>
+          <rect x="466" y="262" width="212" height="52" rx="5" fill="#0C0C0E" stroke="#2E2E36"/>
+          <text x="478" y="279" font-size="9.5" letter-spacing="1.1" fill="#9BF03C">WEEK 9</text>
+          <text x="478" y="295" font-size="12" font-family="General Sans, sans-serif" font-weight="600" fill="#F4F5F7">The Buy button becomes trustworthy</text>
+          <text x="478" y="308" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">Right coin, of the 306 wearing the name.</text>
+
+          <!-- week 18 -->
+          <line x1="950" y1="193" x2="950" y2="262" stroke="#8A8A93" stroke-width="1"/>
+          <circle cx="950" cy="187" r="5.5" fill="#060607" stroke="#8A8A93" stroke-width="2"/>
+          <rect x="726" y="262" width="264" height="52" rx="5" fill="#0C0C0E" stroke="#2E2E36"/>
+          <text x="738" y="279" font-size="9.5" letter-spacing="1.1" fill="#8A8A93">WEEK 18</text>
+          <text x="738" y="295" font-size="12" font-family="General Sans, sans-serif" font-weight="600" fill="#F4F5F7">The exam: TikTok added</text>
+          <text x="738" y="308" font-size="10" font-family="General Sans, sans-serif" fill="#8A8A93">If a second platform slots in, it worked.</text>
+
+          <!-- top axis label -->
+          <text x="70" y="38" font-size="9.5" letter-spacing="1.2" fill="#5A5A62">WHAT ARRIVES, AND WHEN</text>
+        </svg>
+      </div>
+      <div class="tl-ffoot">
+        <b>Read it as two halves, not six dates.</b> The first three weeks stop a permanent loss.
+        The next fifteen convert working code into a product. Only the first half has a deadline
+        set by something other than us.
+      </div>
+    </div>
+  </div>
+
+  <h3>What moves the number</h3>
+
+  <p>Two forces act on the four months, and they are not symmetrical. The things that make it
+  longer are mostly decisions; the things that make it shorter are mostly deferrals. That asymmetry
+  is worth internalising: we can lose six weeks by choosing badly in a single afternoon, and we can
+  only claw back one by cutting scope.</p>
+
+  <div class="tl-w">
+    <div class="tl-two">
+      <div class="tl-card" style="break-inside:avoid;page-break-inside:avoid">
+        <div class="tl-chead">
+          <div class="tl-ftitle tl-h" style="color:#FF5C6E">What makes it worse</div>
+          <div class="tl-fnote">each of these is a choice, not bad luck</div>
+        </div>
+        <ul class="tl-clist tl-worse">
+          <li><b>Deciding the language mid-build.</b> A half-migrated codebase is worse than either
+          end state and appears in no estimate. This has to be settled before the first commit.</li>
+          <li><b>Building the deck and the design in parallel</b> with the same person writing the
+          code. Two of these three will be late.</li>
+          <li><b>The old system asking for more than half a day a week.</b> Its history says half a
+          day is optimistic. <span class="tl-d">+1&ndash;2 wk</span></li>
+          <li><b>Opening the funnel without fixing the cost figures</b> in the same change. The
+          spend guard will throttle at a third of what we can afford, and it will look like a bug in
+          the new system rather than a stale number in the old one.</li>
+          <li><b>Letting the decision log slip.</b> Every week it moves, the first model moves a
+          week, and nothing recovers it.</li>
+        </ul>
+      </div>
+      <div class="tl-card" style="break-inside:avoid;page-break-inside:avoid">
+        <div class="tl-chead">
+          <div class="tl-ftitle tl-h" style="color:#9BF03C">What genuinely compresses it</div>
+          <div class="tl-fnote">and one saving that is not worth taking</div>
+        </div>
+        <ul class="tl-clist tl-better">
+          <li><b>One compatibility view over the old store.</b> Removes the riskiest single step and
+          three days with it. <span class="tl-d">&minus;3 d</span></li>
+          <li><b>Deferring the second matching method until after TikTok.</b> If simple shared
+          phrases alone group enough stories, the heavier method can wait &mdash; and phrases are
+          free, deterministic and language-blind. <span class="tl-d">&minus;4 d</span></li>
+          <li><b>Making week 1 a demo, not a chore.</b> Deliberately break something and watch the
+          alarm fire. Week 1 is the week most likely to be skipped, because it produces nothing you
+          can look at &mdash; so give it something to look at.</li>
+          <li style="opacity:.75"><b style="color:#FF5C6E">Do not cut the TikTok step</b> to save
+          three days. It is the exam. Cutting it means never finding out whether any of this worked,
+          three days from the end.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <p>So the sentence to hold on to is short. Four months, not two, and the earlier number was
+  honest arithmetic on the wrong scope. The finish line is week 18 and it is allowed to move. Week
+  3 is not, because before week 3 a delay destroys something we can never buy back, and after week
+  3 a delay only costs us weeks. Every scheduling argument for the rest of this build should be
+  settled by asking which side of week 3 it falls on.</p>
+</section>

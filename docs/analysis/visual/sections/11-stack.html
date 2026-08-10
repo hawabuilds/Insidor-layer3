@@ -1,0 +1,501 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+a{color:#3DE0FF;text-decoration:none;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,500&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+.stk-w{
+  --bg0:#060607; --bg1:#0C0C0E; --bg2:#131316; --bg3:#1A1A1E; --bg4:#222228;
+  --ln:#212127; --ln2:#2E2E36;
+  --ink:#F4F5F7; --muted:#8A8A93; --dim:#5A5A62;
+  --ion:#3DE0FF; --lime:#9BF03C; --red:#FF5C6E; --amber:#FFB84D;
+  color:var(--ink); font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:12px; line-height:1.42; margin:26px 0 8px;
+}
+.stk-w *{box-sizing:border-box;}
+.stk-m{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;}
+.stk-h{font-family:"Clash Display",-apple-system,system-ui,sans-serif; font-weight:600; letter-spacing:-.01em;}
+.stk-lbl{font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--dim);}
+
+/* ---------- generic frame ---------- */
+.stk-frame{background:var(--bg1); border:1px solid var(--ln2); border-radius:7px; overflow:hidden;}
+.stk-fhead{
+  display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  padding:12px 16px; background:var(--bg2); border-bottom:1px solid var(--ln);
+}
+.stk-ftitle{font-size:15px;}
+.stk-fnote{font-size:11px; color:var(--muted);}
+.stk-ffoot{padding:11px 16px; background:var(--bg2); border-top:1px solid var(--ln);
+  font-size:11px; line-height:1.5; color:var(--dim);}
+.stk-ffoot b{color:var(--muted); font-weight:500;}
+
+/* ---------- A. the translation table ---------- */
+.stk-tri{display:grid; grid-template-columns:1fr 1fr 1fr;}
+.stk-tcol{border-right:1px solid var(--ln);}
+.stk-tcol:last-child{border-right:0;}
+.stk-thead{padding:11px 15px 10px; border-bottom:1px solid var(--ln); background:var(--bg0);}
+.stk-thead .stk-lbl{margin-bottom:4px;}
+.stk-thn{font-size:12.5px; color:var(--muted);}
+.stk-trow{
+  display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  padding:10px 15px; border-bottom:1px solid var(--ln); min-height:44px;
+}
+.stk-trow:last-child{border-bottom:0;}
+.stk-tk{font-size:12px; color:var(--muted);}
+.stk-tv{font-size:12.5px; color:var(--ink); text-align:right;}
+.stk-bad .stk-tk,.stk-bad .stk-tv{color:var(--red);}
+.stk-bad{background:rgba(255,92,110,.055);}
+.stk-arrow{color:var(--ln2); font-size:11px;}
+.stk-flag{
+  display:inline-block; font-size:9px; letter-spacing:.1em; text-transform:uppercase;
+  padding:2px 6px; border-radius:3px; border:1px solid rgba(255,92,110,.4);
+  color:var(--red); background:rgba(255,92,110,.08); margin-left:6px;
+}
+.stk-ok{border-color:rgba(155,240,60,.4); color:var(--lime); background:rgba(155,240,60,.08);}
+.stk-src{font-size:10.5px; color:var(--dim); padding:9px 15px; background:var(--bg0);
+  border-bottom:1px solid var(--ln);}
+
+/* ---------- B. three promises ---------- */
+.stk-prom{display:grid; grid-template-columns:270px 1fr 1fr;}
+.stk-phd{padding:10px 15px; background:var(--bg0); border-bottom:1px solid var(--ln); border-right:1px solid var(--ln);}
+.stk-phd:last-child{border-right:0;}
+.stk-pc{padding:13px 15px; border-bottom:1px solid var(--ln); border-right:1px solid var(--ln); font-size:12px; line-height:1.5;}
+.stk-pc:nth-child(3n){border-right:0;}
+.stk-prom>.stk-pc:nth-last-child(-n+3){border-bottom:0;}
+.stk-pname{font-size:13px; color:var(--ink); margin-bottom:4px;}
+.stk-pwhere{font-size:10.5px; color:var(--dim);}
+.stk-now{color:var(--muted);} .stk-now b{color:var(--red); font-weight:500;}
+.stk-then{color:var(--muted);} .stk-then b{color:var(--lime); font-weight:500;}
+
+/* ---------- C. decisions table ---------- */
+.stk-dec{display:grid; grid-template-columns:118px 208px 1fr 236px;}
+.stk-dhd{padding:10px 14px; background:var(--bg0); border-bottom:1px solid var(--ln);}
+.stk-dc{padding:12px 14px; border-bottom:1px solid var(--ln); font-size:12px; line-height:1.5;}
+.stk-dec>.stk-dc:nth-last-child(-n+4){border-bottom:0;}
+.stk-dslot{color:var(--dim); font-size:10px; text-transform:uppercase; letter-spacing:.09em; padding-top:2px;}
+.stk-dpick{color:var(--ink); font-size:12.5px;}
+.stk-dpick em{font-style:normal; color:var(--ion);}
+.stk-dpick s{color:var(--dim);}
+.stk-dwhy{color:var(--muted);}
+.stk-dchg{color:var(--dim); font-size:11.5px;}
+.stk-dec .stk-dc:nth-child(8n+5),
+.stk-dec .stk-dc:nth-child(8n+6),
+.stk-dec .stk-dc:nth-child(8n+7),
+.stk-dec .stk-dc:nth-child(8n+8){background:rgba(255,255,255,.012);}
+.stk-lock{display:inline-block; font-size:8.5px; letter-spacing:.09em; text-transform:uppercase;
+  border:1px solid rgba(61,224,255,.35); color:var(--ion); background:rgba(61,224,255,.07);
+  padding:2px 5px; border-radius:3px; margin-left:7px; vertical-align:1px;}
+
+/* ---------- D. what runs where ---------- */
+.stk-diag{padding:20px 18px 14px; background:var(--bg0);}
+
+/* ---------- E. cost cards ---------- */
+.stk-four{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+.stk-card{background:var(--bg1); border:1px solid var(--ln); border-radius:6px; overflow:hidden;}
+.stk-chd{padding:11px 13px 10px; background:var(--bg2); border-bottom:1px solid var(--ln);}
+.stk-cnum{font-size:10px; color:var(--amber); letter-spacing:.1em;}
+.stk-ct{font-size:13px; margin-top:5px; line-height:1.3;}
+.stk-cb{padding:12px 13px; font-size:11.5px; line-height:1.52; color:var(--muted);}
+.stk-fix{margin-top:9px; padding-top:9px; border-top:1px solid var(--ln); font-size:11px; color:var(--dim);}
+.stk-fix b{color:var(--lime); font-weight:500;}
+</style>
+
+<section class="sec">
+  <h2>11. The stack, and why</h2>
+
+  <p class="lede">Part three is about how this gets built. It starts with the language, because
+  one live bug settles that argument better than any amount of principle: today the product's
+  core signal reads as an honest zero for every TikTok post, and nothing in the codebase was
+  capable of noticing.</p>
+
+  <h3>The bug that answers the language question</h3>
+
+  <p>The usual case against JavaScript is "it lets you make mistakes." True, and not good
+  enough. The current build is 164 files and 25,776 lines of working JavaScript that does real
+  work every day. Nobody is struggling to write it.</p>
+
+  <p>The real problem is narrower and much worse. This system is built on promises about
+  <em>shape</em> — an adapter must hand core our vocabulary, not the vendor's — and in plain
+  JavaScript there is no way to make a shape mandatory. It can only be described in a comment.
+  Here is what that costs, in the file that reads TikTok posts.</p>
+
+  <div class="stk-w" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="stk-frame">
+      <div class="stk-fhead">
+        <div class="stk-ftitle stk-h">One TikTok post, translated</div>
+        <div class="stk-fnote">the harbour clip by @harbourclips, as it exists today</div>
+      </div>
+      <div class="stk-src stk-m">worker/ingest/lib/parse-tiktok-post.js:82&ndash;86</div>
+      <div class="stk-tri">
+
+        <div class="stk-tcol">
+          <div class="stk-thead">
+            <div class="stk-lbl">What TikTok sends</div>
+            <div class="stk-thn">their field names</div>
+          </div>
+          <div class="stk-trow"><div class="stk-tk stk-m">playCount</div><div class="stk-tv stk-m">890,400</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">diggCount</div><div class="stk-tv stk-m">148,900</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">commentCount</div><div class="stk-tv stk-m">4,192</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">shareCount</div><div class="stk-tv stk-m">12,438</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">collectCount</div><div class="stk-tv stk-m">9,517</div></div>
+          <div class="stk-trow stk-bad"><div class="stk-tk stk-m">&mdash;&nbsp; nothing</div><div class="stk-tv stk-m">no such thing</div></div>
+        </div>
+
+        <div class="stk-tcol">
+          <div class="stk-thead">
+            <div class="stk-lbl">What we write it into</div>
+            <div class="stk-thn">our column names, today</div>
+          </div>
+          <div class="stk-trow"><div class="stk-tk stk-m">&rarr;</div><div class="stk-tv stk-m">views</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">&rarr;</div><div class="stk-tv stk-m">likes</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">&rarr;</div><div class="stk-tv stk-m">replies</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">&rarr;</div><div class="stk-tv stk-m">retweets</div></div>
+          <div class="stk-trow"><div class="stk-tk stk-m">&rarr;</div><div class="stk-tv stk-m">bookmarks</div></div>
+          <div class="stk-trow stk-bad"><div class="stk-tk stk-m">&rarr;</div><div class="stk-tv stk-m">quotes = 0</div></div>
+        </div>
+
+        <div class="stk-tcol">
+          <div class="stk-thead">
+            <div class="stk-lbl">What the product then believes</div>
+            <div class="stk-thn">downstream, with no idea it's TikTok</div>
+          </div>
+          <div class="stk-trow"><div class="stk-tv" style="text-align:left">A play is an impression</div></div>
+          <div class="stk-trow"><div class="stk-tv" style="text-align:left">Close enough</div></div>
+          <div class="stk-trow"><div class="stk-tv" style="text-align:left">Fine</div></div>
+          <div class="stk-trow"><div class="stk-tv" style="text-align:left">A share is a repost</div></div>
+          <div class="stk-trow"><div class="stk-tv" style="text-align:left">Fine</div></div>
+          <div class="stk-trow stk-bad"><div class="stk-tv" style="text-align:left">&ldquo;Nobody has copied this.&rdquo;<span class="stk-flag">the signal we sell</span></div></div>
+        </div>
+
+      </div>
+      <div class="stk-ffoot">TikTok has no quote-post. The parser hardcodes <b>quotes = 0</b> because
+      there is nothing to put there. Downstream, <b>quotes is the reproduction count</b> &mdash; other people
+      making their own version &mdash; and it is the single strongest thing this product looks for.
+      Every TikTok post therefore arrives looking uncopied. Nothing objected, because there was
+      no shape to object to.</div>
+    </div>
+  </div>
+
+  <p class="cap">The 890K views on the harbour clip are real; so are the shares. The zero is not
+  a wrong number, it is a category error wearing a number's clothes &mdash; and a category error
+  is invisible to a reviewer scanning a file, because every line in it looks correct on its own.</p>
+
+  <h3>What types actually buy</h3>
+
+  <p>A contract is a plug shape. Right now the system has plug shapes drawn on paper next to
+  each socket, and everyone agrees they should match. Occasionally someone plugs in the wrong
+  thing, it fits physically, and the appliance runs slightly wrong for six months. Types make
+  the plug shapes physical. The wrong adapter does not fit. You find out while you are holding
+  it, not in a report three weeks later.</p>
+
+  <p>Under the new shape, an adapter has to declare what its platform <em>cannot</em> count.
+  TikTok's adapter says "reproduction: absent" — not zero, absent — and core switches to
+  deriving copies from the fingerprint index instead. You cannot ship an adapter that quietly
+  claims a counter it does not have, because the declaration is required to build the object at
+  all. The same move fixes two other promises this architecture is resting on:</p>
+
+  <div class="stk-w" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="stk-frame">
+      <div class="stk-fhead">
+        <div class="stk-ftitle stk-h">Three promises the design makes</div>
+        <div class="stk-fnote">all three are currently sentences in a document</div>
+      </div>
+      <div class="stk-prom">
+
+        <div class="stk-phd"><div class="stk-lbl">The promise</div></div>
+        <div class="stk-phd"><div class="stk-lbl">In plain JavaScript, today</div></div>
+        <div class="stk-phd"><div class="stk-lbl">With a shape that is checked</div></div>
+
+        <div class="stk-pc">
+          <div class="stk-pname">An adapter returns our shape, not theirs</div>
+          <div class="stk-pwhere stk-m">adapters/platform/tiktok</div>
+        </div>
+        <div class="stk-pc stk-now">A missing counter becomes <b>0</b> and travels
+          the whole system as a fact. The harbour clip looks uncopied.</div>
+        <div class="stk-pc stk-then">The adapter must list what the platform lacks.
+          <b>Omitting it does not compile.</b></div>
+
+        <div class="stk-pc">
+          <div class="stk-pname">A censored reading emits no rate, never a zero</div>
+          <div class="stk-pwhere stk-m">core/kinetics/rate</div>
+        </div>
+        <div class="stk-pc stk-now">A rounded counter that hasn't visibly moved publishes
+          <b>0 per minute</b>, which reads as cooling, which demotes the item that is
+          actually accelerating.</div>
+        <div class="stk-pc stk-then">"No usable reading" and "a reading of zero" are
+          different shapes. <b>Reading a rate off the censored one is an error in the editor.</b></div>
+
+        <div class="stk-pc">
+          <div class="stk-pname">A decider cannot reach the network</div>
+          <div class="stk-pwhere stk-m">core/*/stage.ts</div>
+        </div>
+        <div class="stk-pc stk-now">Nothing stops a stage fetching fresher data mid-decision,
+          which silently breaks replay. The import rules already written down
+          <b>enforce nothing</b> &mdash; the plugin was never installed.</div>
+        <div class="stk-pc stk-then">A function declared to answer immediately
+          <b>cannot wait for anything</b>, so it cannot fetch, query, or call a model.
+          The guarantee is the signature.</div>
+
+      </div>
+    </div>
+  </div>
+
+  <p class="cap">Replay &mdash; "re-run every past decision under a new rule and see what changes"
+  &mdash; is the reason the whole system is worth building. It only holds if deciding is pure.
+  In JavaScript that is a promise; in TypeScript it is a shape the compiler will not let you break.</p>
+
+  <h3>The decisions</h3>
+
+  <p>Every one of these is made, not surveyed. Three of them are irreversible in the sense the
+  architecture section means; the rest are files, and you will change two or three of them over
+  a year at a cost of days.</p>
+
+  <div class="stk-w" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="stk-frame">
+      <div class="stk-fhead">
+        <div class="stk-ftitle stk-h">Ten choices, each with its exit</div>
+        <div class="stk-fnote">performance played no part in any of them &mdash; the workload is 0.35 events a second</div>
+      </div>
+      <div class="stk-dec">
+
+        <div class="stk-dhd"><div class="stk-lbl">Slot</div></div>
+        <div class="stk-dhd"><div class="stk-lbl">The choice</div></div>
+        <div class="stk-dhd"><div class="stk-lbl">Why, in one line</div></div>
+        <div class="stk-dhd"><div class="stk-lbl">What would change it</div></div>
+
+        <div class="stk-dc stk-dslot">Language</div>
+        <div class="stk-dc stk-dpick"><em>TypeScript</em> everywhere, except one offline folder<span class="stk-lock">locks in</span></div>
+        <div class="stk-dc stk-dwhy">The design is made of contracts, and a contract nothing checks is documentation. See the zero above.</div>
+        <div class="stk-dc stk-dchg">Nothing at this size. Past roughly six engineers, Go for the services becomes arguable.</div>
+
+        <div class="stk-dc stk-dslot">Runtime</div>
+        <div class="stk-dc stk-dpick"><em>Node 24</em>, long-term support; Node 22 stays as the rollback</div>
+        <div class="stk-dc stk-dwhy">It runs typed files directly with no build step, is supported to 2028, and every vendor kit we are forced to use is Node-shaped.</div>
+        <div class="stk-dc stk-dchg">A dependency with no Node 24 build &mdash; drop to 22, alive until April 2027.</div>
+
+        <div class="stk-dc stk-dslot">Packages</div>
+        <div class="stk-dc stk-dpick"><em>pnpm</em>, one workspace of nine folders</div>
+        <div class="stk-dc stk-dwhy">The only one that makes "adapters cannot reach into core" true at install time rather than at review time. Measured: the npm equivalent does not enforce it.</div>
+        <div class="stk-dc stk-dchg">Nothing. It is the cheapest structural guarantee on offer.</div>
+
+        <div class="stk-dc stk-dslot">Backend</div>
+        <div class="stk-dc stk-dpick">No framework. <em>Six supervised loops</em> in long-lived processes</div>
+        <div class="stk-dc stk-dwhy">The work is six timers and a third of an event per second. A web framework here is ceremony with a maintenance bill.</div>
+        <div class="stk-dc stk-dchg">If work ever became user-triggered and bursty instead of scheduled.</div>
+
+        <div class="stk-dc stk-dslot">Frontend</div>
+        <div class="stk-dc stk-dpick"><em>React on Vite</em>, one page app &mdash; <s>not Next.js</s></div>
+        <div class="stk-dc stk-dwhy">Nothing here is search-indexable or cacheable, and every number is stale within a tick. Server-rendered HTML would be wrong before it reached the screen.</div>
+        <div class="stk-dc stk-dchg">If the read API had to become private and signed-in.</div>
+
+        <div class="stk-dc stk-dslot">Database</div>
+        <div class="stk-dc stk-dpick"><em>One Postgres</em>, three schemas, vector search built in</div>
+        <div class="stk-dc stk-dwhy">The similarity search we need is already in it. A second store is a second backup story, a second outage, and a second thing to restore &mdash; for two people.</div>
+        <div class="stk-dc stk-dchg">Nothing at 55M decision rows a year. Revisit at fifty times that.</div>
+
+        <div class="stk-dc stk-dslot">Training</div>
+        <div class="stk-dc stk-dpick"><em>Python</em>, one folder, run by hand on a laptop, weekly</div>
+        <div class="stk-dc stk-dwhy">Three seconds of a standard library beats writing our own. It is never running when the system is running.</div>
+        <div class="stk-dc stk-dchg">Nothing.</div>
+
+        <div class="stk-dc stk-dslot">Serving</div>
+        <div class="stk-dc stk-dpick"><em>TypeScript</em>; the meaning-vectors come from a paid API</div>
+        <div class="stk-dc stk-dwhy">Running a trained tree is arithmetic, about sixty lines. Hosting our own encoder costs about $7 a month of memory to avoid a $0.33 a month bill.</div>
+        <div class="stk-dc stk-dchg">Volume up a hundredfold, or vectors needing to be reproducible forever.</div>
+
+        <div class="stk-dc stk-dslot">Hosting</div>
+        <div class="stk-dc stk-dpick"><em>Railway</em> for the loops &middot; <em>Fly</em> for the watchdog &middot; <em>Vercel</em> for the app</div>
+        <div class="stk-dc stk-dwhy">The watchdog must not sit on the same control plane as the thing it is watching, or one provider outage takes the alarm out with the house.</div>
+        <div class="stk-dc stk-dchg">If Vercel's preview builds go unused, the app moves to Railway too.</div>
+
+        <div class="stk-dc stk-dslot">Rollout</div>
+        <div class="stk-dc stk-dpick"><em>One stage at a time</em>, both builds sharing one database<span class="stk-lock">locks in</span></div>
+        <div class="stk-dc stk-dwhy">Collection cannot stop while we work, and a single switch-over of six coupled stages has no way back.</div>
+        <div class="stk-dc stk-dchg">Nothing. Build-fresh-and-switch is ruled out by team size, not by taste.</div>
+
+      </div>
+      <div class="stk-ffoot">Two rows carry a <b>locks in</b> mark: the language and the rollout shape are
+      decided once. Everything else on this page is a file you can change in an afternoon and a
+      deploy you can undo.</div>
+    </div>
+  </div>
+
+  <p class="cap">The row worth arguing about is the frontend. Next.js is the default answer in
+  2026 and it is the wrong one here for a specific reason, not a stylistic one: its whole
+  advantage is sending finished HTML, and finished HTML about a market is out of date by the
+  time it arrives.</p>
+
+  <h3>What runs where</h3>
+
+  <p>Four boxes and one database. The important detail is the dotted one: Python is in the
+  repository and never in production. It reads a table of numbers the system already wrote down
+  at decision time, and hands back a model file. If Python vanished from the laptop at three in
+  the morning, the system would keep making decisions with the file it already has.</p>
+
+  <div class="stk-w" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="stk-frame">
+      <div class="stk-fhead">
+        <div class="stk-ftitle stk-h">The whole running system</div>
+        <div class="stk-fnote">three hosts, one database, and a laptop on Sundays</div>
+      </div>
+      <div class="stk-diag">
+        <svg viewBox="0 0 1000 336" width="100%" role="img" aria-label="Hosting layout: Vercel, Railway and Fly over one Postgres, with an offline Python training folder">
+          <defs>
+            <marker id="stkA" markerWidth="8" markerHeight="8" refX="6.4" refY="3" orient="auto">
+              <path d="M0 0 L6.4 3 L0 6 Z" fill="#5A5A62"/>
+            </marker>
+            <marker id="stkB" markerWidth="8" markerHeight="8" refX="6.4" refY="3" orient="auto">
+              <path d="M0 0 L6.4 3 L0 6 Z" fill="#3DE0FF"/>
+            </marker>
+          </defs>
+
+          <!-- Vercel -->
+          <rect x="14" y="16" width="208" height="80" rx="6" fill="#0C0C0E" stroke="#2E2E36"/>
+          <rect x="14" y="16" width="3.5" height="80" fill="#5A5A62"/>
+          <text x="32" y="38" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.1" fill="#5A5A62">VERCEL</text>
+          <text x="32" y="59" font-family="Clash Display, sans-serif" font-size="15" fill="#F4F5F7">The app</text>
+          <text x="32" y="79" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">React on Vite &middot; one page</text>
+
+          <!-- Railway -->
+          <rect x="242" y="16" width="286" height="80" rx="6" fill="#0C0C0E" stroke="rgba(61,224,255,.34)"/>
+          <rect x="242" y="16" width="3.5" height="80" fill="#3DE0FF"/>
+          <text x="260" y="38" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.1" fill="#3DE0FF">RAILWAY &middot; ALWAYS ON</text>
+          <text x="260" y="59" font-family="Clash Display, sans-serif" font-size="15" fill="#F4F5F7">The loops, and the chain watcher</text>
+          <text x="260" y="79" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">six stages in one process &middot; one mint feed</text>
+
+          <!-- Fly -->
+          <rect x="548" y="16" width="176" height="80" rx="6" fill="#0C0C0E" stroke="rgba(255,184,77,.34)"/>
+          <rect x="548" y="16" width="3.5" height="80" fill="#FFB84D"/>
+          <text x="566" y="38" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.1" fill="#FFB84D">FLY &middot; SEPARATE</text>
+          <text x="566" y="59" font-family="Clash Display, sans-serif" font-size="15" fill="#F4F5F7">The watchdog</text>
+          <text x="566" y="79" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">is anything still recording?</text>
+
+          <!-- arrows down -->
+          <line x1="118" y1="100" x2="118" y2="186" stroke="#2E2E36" stroke-width="1.4" marker-end="url(#stkA)"/>
+          <text x="128" y="132" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62">reads the board</text>
+          <text x="128" y="147" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62">and nothing else</text>
+
+          <line x1="385" y1="100" x2="385" y2="186" stroke="#2E2E36" stroke-width="1.4" marker-end="url(#stkA)"/>
+          <text x="395" y="132" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62">writes posts, readings,</text>
+          <text x="395" y="147" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62">and every decision made</text>
+
+          <line x1="636" y1="100" x2="636" y2="186" stroke="#2E2E36" stroke-width="1.4" marker-end="url(#stkA)"/>
+          <text x="646" y="132" font-family="General Sans, sans-serif" font-size="10.5" fill="#FFB84D">looks, never touches</text>
+
+          <!-- Postgres -->
+          <rect x="14" y="190" width="710" height="86" rx="6" fill="#131316" stroke="#2E2E36"/>
+          <text x="32" y="214" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.1" fill="#5A5A62">SUPABASE POSTGRES &middot; ONE DATABASE</text>
+          <text x="32" y="238" font-family="Clash Display, sans-serif" font-size="15" fill="#F4F5F7">Everything the system knows</text>
+          <rect x="32" y="248" width="150" height="18" rx="3" fill="#1A1A1E" stroke="#212127"/>
+          <text x="42" y="261" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8A93">raw &mdash; as collected</text>
+          <rect x="192" y="248" width="182" height="18" rx="3" fill="#1A1A1E" stroke="#212127"/>
+          <text x="202" y="261" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8A93">internal &mdash; what we decided</text>
+          <rect x="384" y="248" width="176" height="18" rx="3" fill="#1A1A1E" stroke="#212127"/>
+          <text x="394" y="261" font-family="JetBrains Mono, monospace" font-size="10" fill="#8A8A93">public &mdash; what the app sees</text>
+
+          <!-- Python -->
+          <rect x="754" y="16" width="232" height="260" rx="6" fill="#0C0C0E" stroke="#2E2E36" stroke-dasharray="4 4"/>
+          <text x="772" y="38" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.1" fill="#5A5A62">A LAPTOP &middot; SUNDAYS &middot; BY HAND</text>
+          <text x="772" y="60" font-family="Clash Display, sans-serif" font-size="15" fill="#F4F5F7">Training</text>
+          <text x="772" y="80" font-family="General Sans, sans-serif" font-size="11.5" fill="#8A8A93">the only Python there is</text>
+          <rect x="772" y="94" width="196" height="72" rx="5" fill="#131316" stroke="#212127"/>
+          <text x="784" y="114" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#8A8A93">pull &rarr; train &rarr; check &rarr; publish</text>
+          <text x="784" y="134" font-family="General Sans, sans-serif" font-size="11" fill="#5A5A62">it never sees a post, a counter,</text>
+          <text x="784" y="149" font-family="General Sans, sans-serif" font-size="11" fill="#5A5A62">or a platform &mdash; only numbers</text>
+
+          <path d="M724 206 L744 206 L744 130 L768 130" fill="none" stroke="#2E2E36" stroke-width="1.4" marker-end="url(#stkA)"/>
+          <text x="616" y="200" font-family="General Sans, sans-serif" font-size="10.5" fill="#5A5A62" text-anchor="end">one table of numbers &rarr;</text>
+
+          <path d="M768 190 L744 190 L744 258 L724 258" fill="none" stroke="#3DE0FF" stroke-width="1.4" marker-end="url(#stkB)"/>
+          <text x="616" y="292" font-family="General Sans, sans-serif" font-size="10.5" fill="#3DE0FF" text-anchor="end">&larr; one model file comes back</text>
+
+          <line x1="14" y1="308" x2="986" y2="308" stroke="#212127"/>
+          <text x="14" y="328" font-family="General Sans, sans-serif" font-size="11" fill="#5A5A62">Two things cross the Python line, and neither of them is code. That is what makes a second language safe here.</text>
+        </svg>
+      </div>
+      <div class="stk-ffoot">The usual reason to keep training and serving in one language is that
+      the two drift apart. They cannot here: the trainer is not allowed to recompute anything.
+      The system writes down exactly what it saw at the moment it decided, and the trainer reads
+      <b>that</b>. The boundary is data, not code.</div>
+    </div>
+  </div>
+
+  <p class="cap">The watchdog sits on a different provider on purpose. Its entire job is to say
+  "nothing has been recorded for eleven minutes" &mdash; and it cannot say that if it goes down
+  with the thing it is watching.</p>
+
+  <h3>What this costs, honestly</h3>
+
+  <p>Four real costs, none of them "learn a new language." They are listed because the earlier
+  research got the first one wrong in the optimistic direction, and a plan built on the
+  optimistic version would have hit all four in week one.</p>
+
+  <div class="stk-w" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="stk-four">
+
+      <div class="stk-card">
+        <div class="stk-chd"><div class="stk-cnum stk-m">01</div><div class="stk-ct stk-h">The build step is gone, the checker is not</div></div>
+        <div class="stk-cb">Node runs typed files directly &mdash; but it strips the types without checking them. You still install the checker and still run it in the background.
+          <div class="stk-fix">The upside is real: <b>the developer is never blocked by it.</b> He runs the file; the check reports later.</div>
+        </div>
+      </div>
+
+      <div class="stk-card">
+        <div class="stk-chd"><div class="stk-cnum stk-m">02</div><div class="stk-ct stk-h">Four features crash at 3am instead of in the editor</div></div>
+        <div class="stk-cb">A handful of older TypeScript features cannot be stripped, so using one fails when the code loads, not when it is written. In a system touching money that is the worst failure shape there is.
+          <div class="stk-fix"><b>One line of config</b> turns all four into editor errors. Not optional; goes in the first commit.</div>
+        </div>
+      </div>
+
+      <div class="stk-card">
+        <div class="stk-chd"><div class="stk-cnum stk-m">03</div><div class="stk-ct stk-h">Import shortcuts do not work</div></div>
+        <div class="stk-cb">The tidy path aliases most projects use are invisible to Node here. Imports have to be written a specific, slightly uglier way.
+          <div class="stk-fix">A layout decision forced by the runtime &mdash; so it belongs in the <b>first commit, not the fortieth.</b></div>
+        </div>
+      </div>
+
+      <div class="stk-card">
+        <div class="stk-chd"><div class="stk-cnum stk-m">04</div><div class="stk-ct stk-h">Two weeks of friction, then it stops</div></div>
+        <div class="stk-cb">Strict settings generate hundreds of complaints on day one. Bounded and fixable by staging them.
+          <div class="stk-fix">The two noisiest stay <b>off until the system runs</b>. Types are mandatory only at the edges &mdash; ordinary function bodies are left alone.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="cap">One thing types explicitly do not buy: they vanish at runtime, so they prove
+  nothing about the JSON a vendor actually sends. That is a separate, unavoidable piece of work
+  &mdash; a checker per platform, run against recorded real responses, so a vendor changing
+  shape fails the build. That cost is identical in every language, and believing otherwise is
+  the most common way a team thinks it is protected when it is not.</p>
+
+  <p>The short version: the build is not wrong because JavaScript is sloppy. It is wrong because
+  this design is made almost entirely of promises about shape, and the current language cannot
+  hold one. The zero on the harbour clip is what that looks like in the product &mdash; not a
+  crash, not an alert, just a quietly wrong answer to the one question the whole thing is asking.</p>
+</section>

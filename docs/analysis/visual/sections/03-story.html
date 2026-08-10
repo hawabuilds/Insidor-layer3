@@ -1,0 +1,655 @@
+<meta charset="utf-8">
+<!--standalone-->
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+html,body{margin:0;padding:0;background:#060607;}
+body{color:#F4F5F7;font-family:"General Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+.sec{padding:56px 50px;max-width:1200px;margin:0 auto;}
+h2{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:36px;font-weight:600;
+   letter-spacing:-.02em;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid #212127;}
+h3{font-family:"Clash Display",-apple-system,system-ui,sans-serif;font-size:20px;font-weight:600;margin:38px 0 12px;}
+h4{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:500;
+   letter-spacing:.14em;text-transform:uppercase;color:#5A5A62;margin:30px 0 10px;}
+p{margin:0 0 15px;max-width:96ch;}
+.lede{font-size:18.5px;line-height:1.55;color:#8A8A93;max-width:82ch;margin-bottom:26px;}
+.cap{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;color:#5A5A62;
+     margin:12px 0 34px;padding-left:14px;border-left:2px solid #2E2E36;max-width:92ch;}
+strong{font-weight:600;color:#F4F5F7;}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.9em;background:#131316;
+     color:#3DE0FF;padding:1px 5px;border-radius:4px;}
+a{color:#3DE0FF;text-decoration:none;}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:94ch;} li{margin-bottom:7px;}
+svg{max-width:100%;height:auto;}
+</style>
+<!--/standalone-->
+
+<style>
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,500&f[]=general-sans@400,500,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+.sp{
+  --bg0:#060607; --bg1:#0C0C0E; --bg2:#131316; --bg3:#1A1A1E; --bg4:#222228;
+  --line:#212127; --line2:#2E2E36;
+  --ink:#F4F5F7; --muted:#8A8A93; --dim:#5A5A62;
+  --ion:#3DE0FF; --lime:#9BF03C; --red:#FF5C6E; --amber:#FFB84D;
+  background:var(--bg0); border:1px solid var(--line2); border-radius:7px;
+  color:var(--ink); font-family:"General Sans",-apple-system,system-ui,sans-serif;
+  font-size:12px; line-height:1.4; overflow:hidden; margin:26px 0 8px;
+}
+.sp *{box-sizing:border-box;}
+.sp-m{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;}
+.sp-lbl{font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--dim);}
+.sp-h{font-family:"Clash Display",-apple-system,system-ui,sans-serif; font-weight:600; letter-spacing:-.01em;}
+.sp-up{color:var(--lime);} .sp-down{color:var(--red);}
+
+/* ---------- browser chrome ---------- */
+.sp-url{display:flex; align-items:center; gap:10px; height:40px; padding:0 12px;
+  background:#09090B; border-bottom:1px solid var(--line);}
+.sp-dots{display:flex; gap:6px;}
+.sp-dots i{width:9px; height:9px; border-radius:50%; background:var(--bg4); display:block;}
+.sp-bar{flex:1; height:24px; border:1px solid var(--line2); border-radius:12px; background:var(--bg2);
+  display:flex; align-items:center; padding:0 11px; font-size:11px; color:var(--muted);}
+.sp-bar b{color:var(--ink); font-weight:500;}
+.sp-copy{font-size:10px; color:var(--ion); border:1px solid rgba(61,224,255,.35); border-radius:4px;
+  padding:4px 9px; background:rgba(61,224,255,.06);}
+
+/* ---------- head ---------- */
+.sp-head{display:flex; align-items:center; gap:12px; padding:15px 18px 14px;
+  border-bottom:1px solid var(--line); background:var(--bg1);}
+.sp-title{font-size:23px; flex:1;}
+.sp-age{font-size:10px; color:var(--muted); border:1px solid var(--line2); border-radius:4px; padding:4px 8px;}
+.sp-btn{font-size:11px; color:var(--muted); border:1px solid var(--line2); border-radius:5px; padding:6px 11px; white-space:nowrap;}
+.sp-btn.on{color:var(--ion); border-color:rgba(61,224,255,.4);}
+
+/* ---------- two-column body ---------- */
+.sp-body{display:grid; grid-template-columns:1fr 392px;}
+.sp-left{border-right:1px solid var(--line);}
+.sp-right{background:#08080A;}
+.sp-pad{padding:16px 18px;}
+.sp-rule{border-top:1px solid var(--line);}
+
+.sp-thumb{height:196px; border-radius:6px; position:relative; overflow:hidden; border:1px solid var(--line2);
+  background:
+    radial-gradient(120% 80% at 22% 12%, rgba(255,184,77,.42) 0%, rgba(255,184,77,0) 55%),
+    radial-gradient(90% 70% at 84% 18%, rgba(61,224,255,.30) 0%, rgba(61,224,255,0) 60%),
+    linear-gradient(178deg, #16323F 0%, #0E2130 42%, #0A1620 68%, #070C11 100%);}
+.sp-thumb::after{content:""; position:absolute; left:0; right:0; bottom:0; height:46%;
+  background:linear-gradient(180deg, rgba(6,6,7,0) 0%, rgba(6,6,7,.86) 100%);}
+.sp-play{position:absolute; left:50%; top:50%; width:44px; height:44px; margin:-22px 0 0 -22px;
+  border-radius:50%; background:rgba(6,6,7,.55); border:1px solid rgba(244,245,247,.35);}
+.sp-play i{position:absolute; left:17px; top:14px; width:0; height:0; display:block;
+  border-left:13px solid rgba(244,245,247,.9); border-top:8px solid transparent; border-bottom:8px solid transparent;}
+.sp-tmeta{position:absolute; left:12px; bottom:11px; z-index:2; display:flex; gap:9px; align-items:center;}
+.sp-tdur{position:absolute; right:12px; bottom:11px; z-index:2; font-size:10px; color:var(--ink);
+  background:rgba(6,6,7,.7); border-radius:3px; padding:2px 6px;}
+.sp-src{font-size:11px; color:var(--muted);}
+.sp-src b{color:var(--ink); font-weight:500;}
+.sp-two{font-size:19.5px; line-height:1.38; margin:16px 0 12px; max-width:46ch;}
+.sp-links{display:flex; gap:8px; flex-wrap:wrap;}
+.sp-link{font-size:10.5px; color:var(--ion); border:1px solid var(--line2); border-radius:4px;
+  padding:5px 9px; background:var(--bg2);}
+.sp-link span{color:var(--dim);}
+.sp-ctx{margin-top:14px; border:1px solid var(--line); border-left:2px solid var(--line2); border-radius:5px;
+  background:var(--bg1); padding:11px 13px; font-size:12px; line-height:1.6; color:var(--muted);}
+
+/* posts table */
+.sp-post-row{display:grid; grid-template-columns:1fr 150px 60px 54px; gap:10px; align-items:center;
+  padding:9px 0; border-bottom:1px solid var(--line); font-size:11.5px;}
+.sp-post-row:last-child{border-bottom:0;}
+.sp-plat{display:inline-block; font-size:9px; letter-spacing:.09em; text-transform:uppercase; color:var(--dim);
+  border:1px solid var(--line); border-radius:3px; padding:2px 5px; margin-right:8px;}
+.sp-stat{font-size:10px; color:var(--muted);}
+.sp-stat b{color:var(--ink); font-weight:500;}
+.sp-blank{color:var(--dim);}
+
+/* momentum */
+.sp-big{font-size:32px; line-height:1; margin:2px 0 3px;}
+.sp-mrow{display:flex; gap:26px; margin-bottom:12px;}
+.sp-mkv{font-size:11px; color:var(--muted);}
+.sp-mkv b{display:block; font-size:14px; color:var(--ink); font-weight:500; margin-top:2px;}
+.sp-delta{color:var(--lime); font-size:11.5px; margin-top:6px;}
+
+/* clock strip */
+.sp-clock{border:1px solid var(--line); border-radius:6px; background:var(--bg1); padding:12px 14px 11px;}
+.sp-hist{margin-top:10px; border-top:1px solid var(--line); padding-top:9px; font-size:11px; color:var(--muted);}
+.sp-hist b{color:var(--ink); font-weight:500;}
+
+/* ---------- discussion ---------- */
+.sp-dhd{display:flex; align-items:baseline; gap:9px; padding:13px 16px 11px; border-bottom:1px solid var(--line);
+  background:var(--bg1);}
+.sp-dhd h5{font-family:"Clash Display",system-ui,sans-serif; font-weight:600; font-size:13.5px; margin:0;}
+.sp-dhd p{margin:0; font-size:10.5px; color:var(--muted);}
+.sp-comp{padding:13px 16px; border-bottom:1px solid var(--line);}
+.sp-box{border:1px solid var(--line2); border-radius:6px; background:var(--bg2); padding:11px 12px;
+  color:var(--dim); font-size:12.5px;}
+.sp-attach{display:flex; gap:6px; align-items:center; margin-top:9px; flex-wrap:wrap;}
+.sp-pill{font-size:10px; color:var(--muted); border:1px solid var(--line2); border-radius:20px;
+  padding:3px 9px; background:var(--bg2); white-space:nowrap;}
+.sp-pill b{color:var(--ink); font-weight:500;}
+.sp-pill.hold{color:var(--lime); border-color:rgba(155,240,60,.35); background:rgba(155,240,60,.07);}
+.sp-pill.sold{color:var(--amber); border-color:rgba(255,184,77,.32); background:rgba(255,184,77,.06);}
+.sp-pill.none{color:var(--muted);}
+.sp-take{display:grid; grid-template-columns:32px 1fr; gap:11px; padding:13px 16px; border-bottom:1px solid var(--line);}
+.sp-face{width:32px; height:32px; border-radius:8px; background:var(--bg4); border:1px solid var(--line2);}
+.sp-face.a{background:linear-gradient(150deg,#1E4A57,#10222B);}
+.sp-face.b{background:linear-gradient(150deg,#4A2540,#1E1020);}
+.sp-face.c{background:linear-gradient(150deg,#3A3A16,#1A1A0A);}
+.sp-who{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px;}
+.sp-who b{font-size:12px; font-weight:600;}
+.sp-stamp{display:flex; gap:5px; flex-wrap:wrap; margin-bottom:7px;}
+.sp-txt{font-size:12px; line-height:1.55; color:#D8D9DD;}
+.sp-acts{display:flex; gap:14px; margin-top:8px; font-size:10.5px; color:var(--dim);}
+.sp-more{padding:11px 16px; font-size:10.5px; color:var(--dim);}
+
+/* ---------- coin list ---------- */
+.sp-sechd{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; padding:13px 18px 11px;
+  border-top:1px solid var(--line2); border-bottom:1px solid var(--line); background:var(--bg1);}
+.sp-sechd h5{font-family:"Clash Display",system-ui,sans-serif; font-weight:600; font-size:14px; margin:0;}
+.sp-sechd p{margin:0; font-size:11px; color:var(--muted);}
+.sp-sechd .sp-link{margin-left:auto;}
+.sp-legend{display:flex; gap:18px; flex-wrap:wrap; padding:9px 18px; border-bottom:1px solid var(--line);
+  font-size:10.5px; color:var(--muted); background:#08080A;}
+.sp-legend b{font-weight:500;}
+.sp-grid{display:grid; grid-template-columns:226px 116px 122px 1fr 1fr 1fr 1fr 154px; align-items:stretch;}
+.sp-grid > div{padding:12px; border-bottom:1px solid var(--line); display:flex; align-items:center;}
+.sp-hd > div{padding:8px 12px; background:var(--bg1); border-bottom:1px solid var(--line);
+  font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:var(--dim);}
+.sp-r{text-align:right; justify-content:flex-end;}
+.sp-tick{display:flex; align-items:center; gap:10px;}
+.sp-av{width:32px; height:32px; border-radius:7px; flex:none; border:1px solid var(--line2);}
+.sp-av.f{background:linear-gradient(150deg,#1B4B5A,#0D2530);}
+.sp-av.h{background:linear-gradient(150deg,#4A3A16,#241B08);}
+.sp-av.c{background:linear-gradient(150deg,#2A3520,#131A0E);}
+.sp-av.b{background:linear-gradient(150deg,#26262C,#141418);}
+.sp-badge{display:inline-block; font-size:8.5px; letter-spacing:.1em; text-transform:uppercase;
+  border-radius:3px; padding:2px 5px; margin-bottom:4px;}
+.sp-badge.first{color:var(--ion); border:1px solid rgba(61,224,255,.4); background:rgba(61,224,255,.08);}
+.sp-badge.big{color:var(--lime); border:1px solid rgba(155,240,60,.4); background:rgba(155,240,60,.08);}
+.sp-badge.mat{color:var(--muted); border:1px solid var(--line2); background:var(--bg2);}
+.sp-badge.un{color:var(--amber); border:1px solid rgba(255,184,77,.4); background:rgba(255,184,77,.08);}
+.sp-name{font-size:10.5px; color:var(--muted);}
+.sp-lag{font-size:10px; color:var(--muted);}
+.sp-lag b{color:var(--ink); font-weight:500;}
+.sp-mc{text-align:right; line-height:1.35;}
+.sp-mc b{font-weight:400; font-size:12px; color:var(--ink);}
+.sp-mc span{display:block; font-size:9.5px; color:var(--dim);}
+.sp-buy{flex:1; text-align:center; font-size:11.5px; font-weight:600; color:#04141A;
+  background:var(--ion); border-radius:5px; padding:8px 0;}
+.sp-nob{flex:1; font-size:10px; color:var(--dim); text-align:right; line-height:1.4;}
+.sp-nob i{font-style:normal; color:var(--ion);}
+.sp-note{padding:11px 18px; background:rgba(255,184,77,.05); border-bottom:1px solid var(--line);
+  font-size:11px; color:var(--muted); line-height:1.6;}
+.sp-note b{color:var(--amber); font-weight:500;}
+.sp-note:last-child{border-bottom:0;}
+
+/* ---------- side-by-side ---------- */
+.sp-vs{display:grid; grid-template-columns:1fr 1fr;}
+.sp-vs > div{padding:16px 18px;}
+.sp-vs > div:first-child{border-right:1px solid var(--line);}
+.sp-vhd{font-size:11px; margin-bottom:12px;}
+.sp-bad{color:var(--red);} .sp-good{color:var(--lime);}
+.sp-demo{border:1px solid var(--line); border-radius:6px; background:var(--bg1); padding:14px;
+  display:flex; align-items:center; gap:12px; min-height:74px;}
+.sp-disabled{text-align:center; font-size:11.5px; font-weight:600; color:#5A5A62;
+  background:#1A1A1E; border:1px solid var(--line2); border-radius:5px; padding:8px 18px;}
+.sp-vfoot{font-size:11px; color:var(--muted); margin-top:11px; line-height:1.6;}
+</style>
+
+<section class="sec">
+  <h2>03. The story page</h2>
+
+  <p class="lede">The main attraction. One story, one web address: what happened, how far it has
+  travelled, every coin anyone made out of it, and what other traders are saying while they hold
+  or don't hold those coins.</p>
+
+  <p>Every story gets its own address — <code>insidor.app/s/harbor-last-horn</code>. A trader pastes
+  that link into a group chat and someone who has never heard of us opens it, understands the thing
+  in one sentence, and can act. No account needed to read it. The page is the marketing.</p>
+
+  <p>The layout says what we think matters. <strong>Evidence on the left</strong>: the clip, the
+  plain-English two-liner, every post we can find, the view count climbing, and where this sits in
+  the clock. <strong>Discussion on the right</strong>, so a take is never separated from the facts it
+  was made against. <strong>The coins across the bottom</strong>, full width, because that is the part
+  that decides whether somebody makes or loses money.</p>
+
+  <h3>What we can honestly claim about time</h3>
+
+  <p>An earlier version of this page said we show you the story before the coin exists. We measured
+  it, and that is false for every coin worth owning. X post IDs carry their own timestamp, so the gap
+  between a post and the coin made from it is exactly computable: the median is <strong>3.8 minutes</strong>,
+  and for coins that later cleared ten million dollars it is <strong>1.1 minutes</strong>. Bots do that.
+  Nobody beats them and we should stop saying we will.</p>
+
+  <p>What is still open is much larger. Post to <em>peak</em> runs about six days, and of the coins that
+  cleared a million dollars, <strong>none peaked inside the first hour</strong>. So the page does not sell
+  a head start on the mint. It sells the four hours, or four days, between a coin existing and a coin
+  being finished — and the reason to trust it is the view curve on the left, which we recorded ourselves
+  because nobody sells "what did this post look like twenty minutes ago".</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sp">
+      <div class="sp-url">
+        <div class="sp-dots"><i></i><i></i><i></i></div>
+        <div class="sp-bar"><span style="color:#5A5A62">insidor.app/s/</span><b>harbor-last-horn</b></div>
+        <div class="sp-copy">Copy link</div>
+      </div>
+
+      <div class="sp-head">
+        <div class="sp-title sp-h">Harbor Last Horn</div>
+        <div class="sp-age sp-m">4h 12m old</div>
+        <div class="sp-btn">Watch</div>
+        <div class="sp-btn on">Share</div>
+      </div>
+
+      <div class="sp-body">
+        <!-- ============ EVIDENCE ============ -->
+        <div class="sp-left">
+          <div class="sp-pad">
+            <div class="sp-thumb">
+              <div class="sp-play"><i></i></div>
+              <div class="sp-tmeta"><span class="sp-lbl">Original clip</span><span class="sp-src"><b>@nordkyst_ferge</b> on X</span></div>
+              <div class="sp-tdur sp-m">0:41</div>
+            </div>
+
+            <div class="sp-two sp-h">A retiring ferry captain blew his horn one last time, and every
+            boat in the harbour blew back.</div>
+
+            <div class="sp-links">
+              <div class="sp-link">Open the post on X <span>↗</span></div>
+              <div class="sp-link">Open the TikTok clip <span>↗</span></div>
+              <div class="sp-link">Kristiansund, Norway <span>· 09:00 today</span></div>
+            </div>
+
+            <div class="sp-ctx">
+              <div class="sp-lbl" style="margin-bottom:6px">A bit more, from the posts</div>
+              Captain Bjørn Hagen finished his last shift on the Kristiansund route this morning after
+              41 years. He sounded the horn leaving the quay; six vessels in the harbour answered, then
+              the pilot boat, then the lifeboat station. Filmed from the pier by a passenger and posted
+              forty minutes later.
+            </div>
+          </div>
+
+          <div class="sp-pad sp-rule">
+            <div class="sp-lbl" style="margin-bottom:9px">Every post we found · 4 · each platform's own numbers</div>
+
+            <div class="sp-post-row">
+              <div><span class="sp-plat sp-m">X</span><b class="sp-m">@nordkyst_ferge</b>
+                <span style="color:#8A8A93">— the original</span></div>
+              <div class="sp-stat sp-m"><b>2,412,000</b> views · <b>18,402</b> reposts · <b>1,940</b> quotes</div>
+              <div class="sp-r sp-m" style="color:#8A8A93">09:00</div>
+              <div class="sp-r"><span class="sp-link" style="padding:3px 7px">Open ↗</span></div>
+            </div>
+
+            <div class="sp-post-row">
+              <div><span class="sp-plat sp-m">TikTok</span><b class="sp-m">@harbourclips</b>
+                <span style="color:#8A8A93">— second angle from the pier</span></div>
+              <div class="sp-stat sp-m"><b>890,000</b> plays · <b>21,300</b> shares · quotes <span class="sp-blank">—</span></div>
+              <div class="sp-r sp-m" style="color:#8A8A93">09:12</div>
+              <div class="sp-r"><span class="sp-link" style="padding:3px 7px">Open ↗</span></div>
+            </div>
+
+            <div class="sp-post-row">
+              <div><span class="sp-plat sp-m">X</span><b class="sp-m">@sjofart_no</b>
+                <span style="color:#8A8A93">— names the captain, 41 years on the route</span></div>
+              <div class="sp-stat sp-m"><b>214,000</b> views · <b>3,110</b> reposts · <b>402</b> quotes</div>
+              <div class="sp-r sp-m" style="color:#8A8A93">10:26</div>
+              <div class="sp-r"><span class="sp-link" style="padding:3px 7px">Open ↗</span></div>
+            </div>
+
+            <div class="sp-post-row">
+              <div><span class="sp-plat sp-m">X</span><b class="sp-m">@dailyfeelgood</b>
+                <span style="color:#8A8A93">— reposts the clip with English subtitles</span></div>
+              <div class="sp-stat sp-m"><b>78,400</b> views · <b>1,204</b> reposts · <b>88</b> quotes</div>
+              <div class="sp-r sp-m" style="color:#8A8A93">11:41</div>
+              <div class="sp-r"><span class="sp-link" style="padding:3px 7px">Open ↗</span></div>
+            </div>
+
+            <div class="sp-lbl" style="margin-top:10px; line-height:1.6; text-transform:none; letter-spacing:0; font-size:10.5px">
+              TikTok has no quote-post, so that box is blank rather than zero. Plays are not views and
+              shares are not reposts; we do not add them together.
+            </div>
+          </div>
+
+          <div class="sp-pad sp-rule">
+            <div class="sp-mrow">
+              <div class="sp-mkv" style="flex:1">
+                <span class="sp-lbl">Views on the original post</span>
+                <div class="sp-big sp-m sp-h">2,412,000</div>
+                <div class="sp-delta sp-m">+412,000 in the last hour</div>
+              </div>
+              <div class="sp-mkv"><span class="sp-lbl">Likes</span><b class="sp-m">96,140</b></div>
+              <div class="sp-mkv"><span class="sp-lbl">Replies</span><b class="sp-m">7,318</b></div>
+              <div class="sp-mkv"><span class="sp-lbl">Posted</span><b class="sp-m">09:00</b></div>
+            </div>
+
+            <svg viewBox="0 0 560 132" width="100%" height="132" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="spFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3DE0FF" stop-opacity=".32"/>
+                  <stop offset="100%" stop-color="#3DE0FF" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line x1="8" y1="14" x2="552" y2="14" stroke="#212127" stroke-width="1"/>
+              <line x1="8" y1="48" x2="552" y2="48" stroke="#212127" stroke-width="1"/>
+              <line x1="8" y1="82" x2="552" y2="82" stroke="#212127" stroke-width="1"/>
+              <line x1="8" y1="110" x2="552" y2="110" stroke="#212127" stroke-width="1"/>
+              <path d="M8,110 L16,108.4 L27,105.1 L74,96.2 L142,84.9 L214,69.4 L286,52.1 L362,38.6 L438,27.0 L498,19.4 L552,14 L552,110 Z" fill="url(#spFill)"/>
+              <polyline points="8,110 16,108.4 27,105.1 74,96.2 142,84.9 214,69.4 286,52.1 362,38.6 438,27.0 498,19.4 552,14"
+                        fill="none" stroke="#3DE0FF" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+              <line x1="27" y1="14" x2="27" y2="110" stroke="#9BF03C" stroke-width="1" stroke-dasharray="2 4" opacity=".6"/>
+              <circle cx="27" cy="105.1" r="2.6" fill="#9BF03C"/>
+              <text x="33" y="26" fill="#9BF03C" font-family="JetBrains Mono, monospace" font-size="8.5">first coin minted 09:03</text>
+              <circle cx="552" cy="14" r="3.2" fill="#3DE0FF"/>
+              <g font-family="JetBrains Mono, monospace" font-size="8.5" fill="#5A5A62">
+                <text x="8" y="126">09:00</text>
+                <text x="200" y="126">11:00</text>
+                <text x="380" y="126">12:30</text>
+                <text x="500" y="126">13:12 now</text>
+                <text x="466" y="11">2.4M</text>
+              </g>
+            </svg>
+            <div class="sp-lbl" style="margin-top:2px">Views we recorded ourselves, every few minutes, since 09:04</div>
+          </div>
+
+          <div class="sp-pad sp-rule">
+            <div class="sp-clock">
+              <div class="sp-lbl" style="margin-bottom:9px">The clock on this story</div>
+              <svg viewBox="0 0 528 66" width="100%" height="66" xmlns="http://www.w3.org/2000/svg"
+                   font-family="JetBrains Mono, monospace">
+                <line x1="14" y1="30" x2="514" y2="30" stroke="#2E2E36" stroke-width="1"/>
+                <circle cx="14" cy="30" r="4" fill="#F4F5F7"/>
+                <circle cx="46" cy="30" r="4" fill="#9BF03C"/>
+                <circle cx="228" cy="30" r="5" fill="#3DE0FF"/>
+                <text x="8" y="18" fill="#8A8A93" font-size="9">09:00</text>
+                <text x="8" y="48" fill="#F4F5F7" font-size="9.5">post</text>
+                <text x="40" y="18" fill="#9BF03C" font-size="9">09:03</text>
+                <text x="40" y="48" fill="#9BF03C" font-size="9.5">first coin</text>
+                <text x="206" y="18" fill="#3DE0FF" font-size="9">13:12</text>
+                <text x="206" y="48" fill="#3DE0FF" font-size="9.5">you are here</text>
+                <line x1="440" y1="16" x2="440" y2="44" stroke="#5A5A62" stroke-width="1" stroke-dasharray="3 4"/>
+                <text x="396" y="58" fill="#5A5A62" font-size="9">day 6 · off the right of this line</text>
+              </svg>
+              <div class="sp-hist">
+                <span class="sp-lbl">Market history · all coins that ever passed $1M</span><br>
+                First coin appeared a median of <b>1.2 minutes</b> after the post · <b>none</b> peaked
+                inside the first hour · the peak came a median of <b>6 days</b> after the post.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ DISCUSSION ============ -->
+        <div class="sp-right">
+          <div class="sp-dhd">
+            <h5>Discussion</h5>
+            <p>14 takes · each one stamped when it was written</p>
+          </div>
+
+          <div class="sp-comp">
+            <div class="sp-box">Say something about Harbor Last Horn…</div>
+            <div class="sp-attach">
+              <span class="sp-lbl">Will be stamped on:</span>
+              <span class="sp-pill">Story at <b class="sp-m">2.4M views</b></span>
+              <span class="sp-pill">$FERRY at <b class="sp-m">$799.6K</b></span>
+              <span class="sp-pill hold">Holding <b class="sp-m">1.2M FERRY</b></span>
+            </div>
+            <div class="sp-lbl" style="margin-top:7px">read from your wallet · frozen when you post · never editable</div>
+          </div>
+
+          <div class="sp-take">
+            <div class="sp-face a"></div>
+            <div>
+              <div class="sp-who"><b class="sp-m">@sondre</b><span class="sp-lbl">09:44 · 3h 28m ago</span></div>
+              <div class="sp-stamp">
+                <span class="sp-pill">Story at <b class="sp-m">340K views</b></span>
+                <span class="sp-pill">$FERRY at <b class="sp-m">$61K</b></span>
+                <span class="sp-pill hold">Holding $FERRY</span>
+              </div>
+              <div class="sp-txt">Nordic maritime nostalgia travels further than people think — same shape
+              as every "old man's last shift" clip that ran for days. The boats answering back is what makes
+              it a meme and not a news story. Took $FERRY because it was first and the name is the obvious one.</div>
+              <div class="sp-acts sp-m"><span>▲ 128</span><span>12 replies</span><span>Share</span></div>
+            </div>
+          </div>
+
+          <div class="sp-take">
+            <div class="sp-face b"></div>
+            <div>
+              <div class="sp-who"><b class="sp-m">@meridian</b><span class="sp-lbl">11:20 · 1h 52m ago</span></div>
+              <div class="sp-stamp">
+                <span class="sp-pill">Story at <b class="sp-m">1.1M views</b></span>
+                <span class="sp-pill">$HORN at <b class="sp-m">$980K</b></span>
+                <span class="sp-pill sold">Sold $HORN</span>
+              </div>
+              <div class="sp-txt">$HORN has the liquidity but two top wallets have been in since minute
+              four and one just trimmed. I took mine off at $980K. Not a call on the story — the story is
+              fine — a call on who is sitting in that particular coin.</div>
+              <div class="sp-acts sp-m"><span>▲ 86</span><span>21 replies</span><span>Share</span></div>
+            </div>
+          </div>
+
+          <div class="sp-take">
+            <div class="sp-face c"></div>
+            <div>
+              <div class="sp-who"><b class="sp-m">@kelp</b><span class="sp-lbl">13:06 · 6m ago</span></div>
+              <div class="sp-stamp">
+                <span class="sp-pill">Story at <b class="sp-m">2.4M views</b></span>
+                <span class="sp-pill">$FERRY at <b class="sp-m">$782K</b></span>
+                <span class="sp-pill none">No position</span>
+              </div>
+              <div class="sp-txt">Late here and saying so. Wholesome clips top out fast unless a large
+              English account picks them up, and that has not happened yet. Watching, not buying.</div>
+              <div class="sp-acts sp-m"><span>▲ 31</span><span>4 replies</span><span>Share</span></div>
+            </div>
+          </div>
+
+          <div class="sp-more">11 more takes · oldest stamped at 41K views, 09:12</div>
+        </div>
+      </div>
+
+      <!-- ============ COINS ============ -->
+      <div class="sp-sechd">
+        <h5>Coins made from this story</h5>
+        <p>a name search on pump.fun returns 306 coins using this name or artwork</p>
+        <div class="sp-link">See that search <span>↗</span></div>
+      </div>
+      <div class="sp-legend">
+        <span><b style="color:#3DE0FF">First</b> — made before any other</span>
+        <span><b style="color:#9BF03C">Biggest</b> — most money in it now</span>
+        <span><b style="color:#8A8A93">Matched</b> — we tied it to this story</span>
+        <span><b style="color:#FFB84D">Unverified</b> — we could not, so no buy button</span>
+      </div>
+
+      <div class="sp-grid sp-hd">
+        <div>Coin</div><div>Minted</div><div>Names its source</div><div class="sp-r">1h</div>
+        <div class="sp-r">Market cap · highest</div><div class="sp-r">Liquidity</div><div class="sp-r">Holders</div>
+        <div class="sp-r">&nbsp;</div>
+      </div>
+
+      <div class="sp-grid">
+        <div>
+          <div class="sp-tick">
+            <div class="sp-av f"></div>
+            <div>
+              <div class="sp-badge first">First</div>
+              <div class="sp-m" style="font-size:13px">$FERRY</div>
+              <div class="sp-name">Harbor Ferry</div>
+            </div>
+          </div>
+        </div>
+        <div><div class="sp-lag"><b class="sp-m">09:03</b><br>3 min after the post</div></div>
+        <div><div class="sp-lag" style="color:#9BF03C">Links this X post</div></div>
+        <div class="sp-r sp-m sp-up">+18.4%</div>
+        <div class="sp-r sp-m"><div class="sp-mc"><b>$799.6K</b><span>peak $812.4K</span></div></div>
+        <div class="sp-r sp-m">$88.4K</div>
+        <div class="sp-r sp-m">1,204</div>
+        <div><div class="sp-buy">Buy $FERRY</div></div>
+      </div>
+
+      <div class="sp-grid">
+        <div>
+          <div class="sp-tick">
+            <div class="sp-av h"></div>
+            <div>
+              <div class="sp-badge big">Biggest</div>
+              <div class="sp-m" style="font-size:13px">$HORN</div>
+              <div class="sp-name">Last Horn</div>
+            </div>
+          </div>
+        </div>
+        <div><div class="sp-lag"><b class="sp-m">09:04</b><br>4 min after the post</div></div>
+        <div><div class="sp-lag">Names nothing</div></div>
+        <div class="sp-r sp-m sp-down">−4.1%</div>
+        <div class="sp-r sp-m"><div class="sp-mc"><b>$1.20M</b><span>peak $1.40M · 11:44</span></div></div>
+        <div class="sp-r sp-m">$141.2K</div>
+        <div class="sp-r sp-m">2,867</div>
+        <div><div class="sp-buy">Buy $HORN</div></div>
+      </div>
+
+      <div class="sp-grid">
+        <div>
+          <div class="sp-tick">
+            <div class="sp-av c"></div>
+            <div>
+              <div class="sp-badge mat">Matched</div>
+              <div class="sp-m" style="font-size:13px">$CAPTAIN</div>
+              <div class="sp-name">Captain Bjørn</div>
+            </div>
+          </div>
+        </div>
+        <div><div class="sp-lag"><b class="sp-m">10:41</b><br>1h 41m after the post</div></div>
+        <div><div class="sp-lag" style="color:#9BF03C">Links the TikTok</div></div>
+        <div class="sp-r sp-m sp-up">+6.1%</div>
+        <div class="sp-r sp-m"><div class="sp-mc"><b>$128.4K</b><span>peak $141.0K</span></div></div>
+        <div class="sp-r sp-m">$22.6K</div>
+        <div class="sp-r sp-m">511</div>
+        <div><div class="sp-buy">Buy $CAPTAIN</div></div>
+      </div>
+
+      <div class="sp-grid">
+        <div>
+          <div class="sp-tick">
+            <div class="sp-av b"></div>
+            <div>
+              <div class="sp-badge un">Unverified</div>
+              <div class="sp-m" style="font-size:13px">$BOAT</div>
+              <div class="sp-name">Boat Horn</div>
+            </div>
+          </div>
+        </div>
+        <div><div class="sp-lag"><b class="sp-m">12:58</b><br>3h 58m after the post</div></div>
+        <div><div class="sp-lag">Names nothing</div></div>
+        <div class="sp-r sp-m sp-down">−9.4%</div>
+        <div class="sp-r sp-m"><div class="sp-mc"><b>$61.4K</b><span>peak $88.2K</span></div></div>
+        <div class="sp-r sp-m">$6.2K</div>
+        <div class="sp-r sp-m">87</div>
+        <div><div class="sp-nob">No buy button.<br><i>Open on Solscan ↗</i></div></div>
+      </div>
+
+      <div class="sp-note">
+        <b>Why $BOAT has no button.</b> Its picture is a boat and its name is a horn, but it names no
+        source and it appeared four hours late. It might belong to this story; it might be riding a
+        different one. We would rather list it and say so than hide it, and rather leave the button
+        off than help you buy something we cannot stand behind. The explorer link still works.
+      </div>
+      <div class="sp-note" style="background:none">
+        Only about one coin in twenty above $50K names the post it came from, so most of the time this
+        column reads <span style="color:#F4F5F7">Names nothing</span> and the match is a judgement.
+        That is why the list shows every candidate rather than picking one for you.
+      </div>
+    </div>
+  </div>
+  <p class="cap">Every number here is a fact about the world — views, plays, mint times, market cap,
+  liquidity, holders. Our judgement appears as words and as which rows exist, never as a score printed
+  beside them.</p>
+
+  <h3>The coin list is the product</h3>
+
+  <p>One meme spawns a swarm. A pump.fun search for "chill guy" returns <strong>306 distinct tokens</strong>.
+  Roughly thirty thousand coins are minted every day, the median one is worth twenty-eight dollars, and in
+  a run of three hundred consecutive mints more than half reused a name already taken — one name was
+  minted twenty-one times. Detecting the story is one problem. Working out <em>which of the 306 is the
+  real one</em> is a completely separate problem, and it is the one that actually costs a user money.</p>
+
+  <p>So the list shows four states and never fewer. <strong>First</strong> is the earliest coin made from
+  this story. <strong>Biggest</strong> holds the most money right now. They are usually different coins
+  and which one you want depends on how you trade. <strong>Matched</strong> is everything else we are
+  confident belongs here. <strong>Unverified</strong> is a coin we suspect belongs and cannot prove — and
+  it gets no buy button at all, not a greyed-out one.</p>
+
+  <p>Each row also carries the highest market cap that coin has ever reached, beside the one it has now.
+  Among the thousand best-performing coins ever minted, the median peaked near <strong>$546,000 and sits
+  today near $3,000</strong>. They do not fail to get traction — they get it and hand back over
+  ninety-nine percent of it. A current market cap shown alone is therefore half a fact, and on this page
+  $HORN's "$1.20M, peak $1.40M" tells a user something that "$1.20M" alone conceals.</p>
+
+  <div class="mock" style="break-inside:avoid;page-break-inside:avoid">
+    <div class="sp">
+      <div class="sp-vs">
+        <div>
+          <div class="sp-vhd sp-bad">✕ &nbsp;What a disabled button says</div>
+          <div class="sp-demo">
+            <div class="sp-av b"></div>
+            <div style="flex:1">
+              <div class="sp-m" style="font-size:13px">$BOAT</div>
+              <div class="sp-name">Boat Horn · $61.4K</div>
+            </div>
+            <div class="sp-disabled">Buy $BOAT</div>
+          </div>
+          <div class="sp-vfoot">A greyed-out button is still a button. It reads as "we are holding this
+          back from you" — a lock, a paywall, a thing to be unlocked. Users click greyed buttons. Some
+          of them will find another way to buy it and feel they were told to.</div>
+        </div>
+        <div>
+          <div class="sp-vhd sp-good">✓ &nbsp;What we do instead</div>
+          <div class="sp-demo">
+            <div class="sp-av b"></div>
+            <div style="flex:1">
+              <div class="sp-m" style="font-size:13px">$BOAT</div>
+              <div class="sp-name">Boat Horn · $61.4K</div>
+            </div>
+            <div class="sp-nob" style="flex:none; text-align:right">No buy button.<br><i>Open on Solscan ↗</i></div>
+          </div>
+          <div class="sp-vfoot">No button exists. The row is still there, the numbers are still real, the
+          explorer link still works. We are not hiding the coin — we are declining to make a claim we
+          cannot stand behind, and the absence says so more clearly than any tooltip.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="cap">The founder's rule, unchanged: "A greyed-out button looks like something we're holding
+  back; no button at all is us not making a claim we can't stand behind."</p>
+
+  <h3>Everyone's numbers in their own words</h3>
+
+  <p>The evidence column lists each post with the platform's own vocabulary — X has views, reposts and
+  quotes; TikTok has plays and shares and no quote-post at all. This is not fussiness. Our own code
+  currently pours TikTok's play count into a column called views, its share count into one called
+  reposts, and writes a zero into quotes because TikTok has no equivalent. Quotes are the signal the
+  whole product rests on — people reproducing a story in their own words — so for every TikTok post
+  that signal silently reads as an honest zero. On this page we print a dash instead, and we never add
+  plays to views to make one bigger number.</p>
+
+  <h3>The right-hand column, and why nobody else can build it</h3>
+
+  <p>A take is worthless without knowing when it was made and what the person saying it owned. So both
+  are stamped on at the moment of posting and can never be edited: how big the story was, what the coin
+  was worth, and whether the writer was holding, had sold, or had nothing on the table — read from the
+  connected wallet. Somebody who called this at 340,000 views reads very differently from somebody who
+  turned up at 2.4 million. Neither is disqualifying; both are things you would want to know.</p>
+
+  <p>Social apps know what people say. Trading apps know what people own. Insidor is the only place the
+  take and the wallet arrive together, on the same story, at the same second — so a record of who was
+  right, when, and with their own money on it writes itself. A competitor starts with none of that
+  history and cannot buy it later.</p>
+
+  <h3>What is deliberately not on this page</h3>
+
+  <p>No score, no heat number, no acceleration figure, no confidence percentage beside $BOAT, no count
+  of the coins we ruled out. The 306 is on screen because pump.fun would return it whether or not we
+  existed; our own arithmetic is not, because it would not. The user gets our judgement — which story,
+  which coins, which one has a button — and never the workings.</p>
+
+</section>
