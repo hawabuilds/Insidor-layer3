@@ -1,0 +1,69 @@
+# The weekly training job — the ONLY scheduled job in this repository.
+#
+# Sunday 06:00 UTC, and a human reads the report on Monday. That cadence is a
+# deliberate downgrade from an earlier nightly-retrain recommendation: a nightly
+# retrain implies nightly monitoring, and two people will not read a nightly
+# report, so it runs unwatched until it lands a bad model through a regime break.
+#
+# ★ THIS JOB DOES NOT PROMOTE ANYTHING. It builds a dataset, evaluates
+# walk-forward, trains, exports, and opens a pull request carrying the report and
+# the refreshed parity fixture. Promotion is a database row a person writes after
+# reading the evaluation — which is the whole point of promotion being a row.
+name: train
+
+on:
+  schedule:
+    - cron: '0 6 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r ml/train/requirements.txt
+
+      - name: build the training set
+        working-directory: ml/train
+        env:
+          TRAIN_DSN: ${{ secrets.TRAIN_DSN }}   # a READ-ONLY role. Nothing here writes.
+        run: |
+          python build_dataset.py \
+            --stage admit --sql sql/train_admit_v1.sql \
+            --from "$(date -u -d '180 days ago' +%Y-%m-%d)" \
+            --to   "$(date -u +%Y-%m-%d)" \
+            --purge-days 6 \
+            --out ../../var/train/admit
+
+      # ★ Evaluation runs BEFORE training the shipped model, so the report cannot
+      #   be read as a justification for a model that already exists.
+      - name: walk-forward evaluation
+        working-directory: ml/train
+        run: python evaluate.py --in ../../var/train/admit --out ../../var/train/admit
+
+      - name: train and export
+        working-directory: ml/train
+        run: |
+          python train.py  --in ../../var/train/admit --out ../../var/train/admit/model
+          python export.py --model ../../var/train/admit/model --in ../../var/train/admit \
+                           --out ../../var/train/admit/model --fixtures ../serve/fixtures
+
+      # The parity fixture is refreshed here and asserted by the normal test run
+      # on the resulting pull request. A model whose walker disagrees with
+      # LightGBM never reaches a human's attention as a candidate.
+      - name: open the review pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: train/weekly
+          title: 'weekly training run'
+          body-path: var/train/admit/report.md
+          add-paths: |
+            ml/serve/fixtures/parity.json

@@ -1,0 +1,76 @@
+# The watchdog, deliberately not where production runs.
+#
+# WHY this exists at all: the build this replaces could not tell "the stage died" from "the
+# stage ran and found nothing" — it recorded the last run INSIDE the try block, so a stage
+# that threw wrote nothing, and a stage that succeeded on zero rows wrote exactly what a
+# stage that succeeded on a thousand rows wrote. Seven hours of silent ingest death went
+# unnoticed. Everything else in the plan assumes collection keeps happening, and until this
+# runs, that assumption is a hope.
+#
+# WHY here rather than alongside the pipeline: a watchdog sharing a control plane with the
+# thing it watches cannot report a provider-wide incident, which is one of the three ways
+# this pipeline actually dies. GitHub Actions is not where the runner, the chain watcher or
+# the app are hosted, and that is the entire point of putting it here.
+#
+# WHAT IT CANNOT DO, said plainly: GitHub's scheduler is best-effort and runs late under
+# load — occasionally by tens of minutes. So this is the third layer, not the first. The
+# per-loop dead-man's switch and the always-on watchdog process are what deliver
+# under-three-minute detection; this one is the layer that survives a vendor outage.
+
+name: watchdog
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: watchdog
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      # The watchdog imports contracts and store ONLY. It has no adapters, no core, and a
+      # database role that can SELECT two tables and nothing else.
+      - run: pnpm install --frozen-lockfile
+
+      # ── DELETE THIS STEP the day services/watchdog/src/main.ts lands. ──────────────
+      # A workflow that fails every ten minutes because a file does not exist yet is a
+      # workflow somebody disables, and then it is not there on the day it is needed.
+      - name: watchdog not built yet
+        if: hashFiles('services/watchdog/src/main.ts') == ''
+        run: |
+          echo "::warning title=Watchdog not built::services/watchdog/src/main.ts does not exist."
+          echo "Until it does, nothing is watching the pipeline. This is week one's work."
+
+      - name: probe
+        if: hashFiles('services/watchdog/src/main.ts') != ''
+        env:
+          # A read-only role. Not the service key — the watchdog must not be able to write
+          # anything it might later be blamed for.
+          WATCHDOG_DATABASE_URL: ${{ secrets.WATCHDOG_DATABASE_URL }}
+          ALERT_WEBHOOK_URL: ${{ secrets.ALERT_WEBHOOK_URL }}
+        run: node services/watchdog/src/main.ts --once
+
+      # The watchdog dying must also be detected, or the whole layer is decorative. This
+      # pings only when the probe actually ran and passed.
+      - name: dead-man's switch
+        if: success() && env.WATCHDOG_HEARTBEAT_URL != ''
+        env:
+          WATCHDOG_HEARTBEAT_URL: ${{ secrets.WATCHDOG_HEARTBEAT_URL }}
+        run: curl -fsS --max-time 10 "$WATCHDOG_HEARTBEAT_URL" || true
