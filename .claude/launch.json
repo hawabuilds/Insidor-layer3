@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "insidor-app", "runtimeExecutable": "pnpm", "runtimeArgs": ["--filter", "@insidor/app", "dev"], "port": 5173 }
+  ]
+}
