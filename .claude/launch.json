@@ -1,6 +1,17 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "insidor-app", "runtimeExecutable": "pnpm", "runtimeArgs": ["--filter", "@insidor/app", "dev"], "port": 5173 }
+    {
+      "name": "insidor-read",
+      "runtimeExecutable": "/opt/homebrew/opt/node@24/bin/pnpm",
+      "runtimeArgs": ["--filter", "@insidor/read", "dev"],
+      "port": 8787
+    },
+    {
+      "name": "insidor-app",
+      "runtimeExecutable": "/opt/homebrew/opt/node@24/bin/pnpm",
+      "runtimeArgs": ["--filter", "@insidor/app", "dev"],
+      "port": 5173
+    }
   ]
 }
