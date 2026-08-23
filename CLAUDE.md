@@ -23,7 +23,8 @@ whoever writes second silently wins:
 
 1. **`store/migrations/NNNN_*.sql`** — ordinals must be contiguous from 0001;
    `store/src/migrations.test.ts` asserts it. Two agents both taking the next free
-   number produce a set that fails that test.
+   number produce a set that fails that test. The set currently runs `0001`–`0018`,
+   so the next free number is `0019`.
 2. **`contracts/src/policy.ts`** — the `version` string and the policy fields. Two
    agents adding fields concurrently is a lost update: the second reads the file
    before the first's write lands and clobbers it. The version bump is visible; the
@@ -42,6 +43,7 @@ in your report which ordinal and which policy fields you touched.
 | `check-purity` | `Date.now`, `Math.random`, `fetch`, `await` inside `core/` |
 | `check-policy` | a bare number in `core/` outside `policy.ts` |
 | `check-app-vocabulary` | our internal words (`narrative`, `cluster`, `candidate`) reaching the app |
+| `check-python` | Python drifting outside `ml/train/` — it trains and never serves |
 | `check:boundaries` | `core` importing an adapter, the app importing `core` — plus a probe that writes a real violation and fails if the checker does not catch it |
 
 If a check blocks you, the check is probably right. Do not add an exception.
@@ -71,5 +73,13 @@ In practice:
 
 Every file carries a header comment saying what it is responsible for, why it
 exists separately, and what breaks if it is changed carelessly. Explain the
-DECISION and its consequence — never restate the code. `core/src/group/stage.ts`
-and `services/read/src/config.ts` are the reference.
+DECISION and its consequence — never restate the code. The reference files, which
+are already right and must not be rewritten in someone else's phrasing:
+
+- `core/src/group/stage.ts` — pure logic
+- `services/read/src/config.ts` — a service boundary
+- `adapters/platform/reddit/src/client.ts` — a vendor edge
+- `store/migrations/0003_observations.sql` — schema
+
+Where a file already carries a good header, leave it. Improving a thin one is in
+scope; replacing a strong one is not.
