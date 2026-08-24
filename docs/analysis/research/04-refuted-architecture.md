@@ -67,7 +67,7 @@ Two more mis-specifications the claim does not mention, both larger than τ-hete
 
 ENGINEERING — τ≈9 min is not observable in this pipeline, so the proposed test will return a confidently wrong answer.
 
-From the code: /Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/worker/ingest.js:60 sets MIN_INGEST_VIEWS = 30_000 — a post does not enter narrative_posts at all until it already has 30k views. /Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/worker/lib/pipeline-intervals.js sets INGEST_MS = 10 min, so admission is quantized to 10-minute cycles on top of search-API indexing lag. /Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/worker/snapshotter.js:56-58 sets HOT/WARM/COLD intervals of 2/8/20 min, and assignTiers ranks by viewsVelocity, which returns null for a post with fewer than two snapshots — so a newly ingested post sorts to the bottom and lands in COLD, meaning its second snapshot arrives ~20 minutes after its first.
+From the code: <repo>/worker/ingest.js:60 sets MIN_INGEST_VIEWS = 30_000 — a post does not enter narrative_posts at all until it already has 30k views. <repo>/worker/lib/pipeline-intervals.js sets INGEST_MS = 10 min, so admission is quantized to 10-minute cycles on top of search-API indexing lag. <repo>/worker/snapshotter.js:56-58 sets HOT/WARM/COLD intervals of 2/8/20 min, and assignTiers ranks by viewsVelocity, which returns null for a post with fewer than two snapshots — so a newly ingested post sorts to the bottom and lands in COLD, meaning its second snapshot arrives ~20 minutes after its first.
 
 Consequences: (1) the 4–30 min window is the sparsest region of post_snapshots, not a well-populated one; (2) the rows that do exist there are the posts that cleared 30k views within minutes — the sample is selected on the outcome z_a is supposed to detect. Binning those residuals by τ and finding the spread "flat" would be an artifact of conditioning on success. The proposed test cannot fail informatively.
 
@@ -178,11 +178,11 @@ Fourth, scope: the survey is unrepresentative, and the false universal is unnece
 
 === 2. ENGINEERING — fails at this repo's actual cadence, and the codebase already contradicts the claim ===
 
-/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/worker/lib/velocity.js:48-52 — `viewsVelocity` returns null with <2 snapshots; `viewsAcceleration` (:62-69) needs 3.
-/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/worker/snapshotter.js:56-58 + lib/pipeline-intervals.js — HOT 2min, WARM 8min, COLD 20min, TikTok x3 (`SNAPSHOT_TT_MULTIPLIER=3` -> 6/24/60min), and `tierIntervalMs` (:81-84) defaults to COLD. Ingest poll is 10min.
+<repo>/worker/lib/velocity.js:48-52 — `viewsVelocity` returns null with <2 snapshots; `viewsAcceleration` (:62-69) needs 3.
+<repo>/worker/snapshotter.js:56-58 + lib/pipeline-intervals.js — HOT 2min, WARM 8min, COLD 20min, TikTok x3 (`SNAPSHOT_TT_MULTIPLIER=3` -> 6/24/60min), and `tierIntervalMs` (:81-84) defaults to COLD. Ingest poll is 10min.
 Consequence: a newly ingested post is UNRANKABLE by the delta primitive for ~20 min (X) / ~60 min (TikTok) after first sight. For a product whose entire value is being early, that dead window is the product.
 
-The codebase already concedes this. /Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/worker/score.js:
+The codebase already concedes this. <repo>/worker/score.js:
     function rankScore(entry) {
       if (entry.viewsVelocity != null) return entry.viewsVelocity;
       if (qualifiesFastLane(entry.post)) return Number(entry.post.views) / 1000;
@@ -231,7 +231,7 @@ FACTUAL
 
 1. "60 rpm" — number is right, framing is wrong in two costly ways. Jupiter's rate-limits table lists Free at 1 RPS / 60 RPM, and the "API key required" column reads Yes. So this is not the keyless lite-api path; it needs a provisioned key. Worse, it is a SHARED bucket: "A mix of Swap, Price, and Token requests all count toward the same limit." Insidor already routes swap quotes through Jupiter (api/quote.js, api/swap.js) and DESIGN.md commits to Ultra /order to /execute. The coin lane therefore does not get 60 rpm — it gets 60 rpm minus every user-initiated quote. One user mashing the swap panel starves the board. Separately, legacy grandfathered portal rate limits expired 30 June 2026; today is 2026-07-26, so any allowance assumption inherited from older notes is already stale.
 
-2. "per-wallet organic classification" — FALSE, and this is the expensive error. Jupiter's own explainer states the score is computed per token; the organic/non-organic determination is "determined per-wallet, not per-trade" but that happens inside Jupiter. The API exposes only aggregates: organicScore, organicScoreLabel, and per-interval buyOrganicVolume / sellOrganicVolume / numOrganicBuyers. There is no wallet-level endpoint anywhere in Tokens V2. If ranking is meant to lean on smart-money or insider-wallet signal, Jupiter cannot supply it at ANY tier. And the repo already pays for exactly that: /Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/api/_lib/birdeye-trades.js derives per-wallet trades and top traders from Birdeye /defi/txs/token, consumed by api/toptraders.js, with BIRDEYE_API_KEY in .env.example. The premise "without a paid market-data vendor" is already false in the shipped codebase.
+2. "per-wallet organic classification" — FALSE, and this is the expensive error. Jupiter's own explainer states the score is computed per token; the organic/non-organic determination is "determined per-wallet, not per-trade" but that happens inside Jupiter. The API exposes only aggregates: organicScore, organicScoreLabel, and per-interval buyOrganicVolume / sellOrganicVolume / numOrganicBuyers. There is no wallet-level endpoint anywhere in Tokens V2. If ranking is meant to lean on smart-money or insider-wallet signal, Jupiter cannot supply it at ANY tier. And the repo already pays for exactly that: <repo>/api/_lib/birdeye-trades.js derives per-wallet trades and top traders from Birdeye /defi/txs/token, consumed by api/toptraders.js, with BIRDEYE_API_KEY in .env.example. The premise "without a paid market-data vendor" is already false in the shipped codebase.
 
 3. "5m/1h stats" — UNDERSTATED. V2 returns stats5m/1h/6h/24h, each a SwapStats object with 13 fields: priceChange, holderChange, liquidityChange, volumeChange, buyVolume, sellVolume, buyOrganicVolume, sellOrganicVolume, numBuys, numSells, numTraders, numOrganicBuyers, numNetBuyers. numNetBuyers plus the organic volume split at 5m is a stronger ranking primitive than the claim credits. The "5m too coarse" framing aims at the wrong failure mode.
 

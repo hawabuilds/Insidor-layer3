@@ -1,6 +1,6 @@
 # INSIDOR PROTOTYPE — INTERACTION & STATE MODEL
 
-Source files: `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/index.html` (markup lines 1023–1252; inline app script lines 1253–3671; Privy ES-module script lines 3673–3848), `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/live.js`, `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/tokenpage.js`, `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/config.js`. Target model: `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/docs/product/insidor-flow.html`. Planned comment layer: `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/docs/reference/insidor-social.html`.
+Source files: `<repo>/site/index.html` (markup lines 1023–1252; inline app script lines 1253–3671; Privy ES-module script lines 3673–3848), `<repo>/site/live.js`, `<repo>/site/tokenpage.js`, `<repo>/site/config.js`. Target model: `<repo>/docs/product/insidor-flow.html`. Planned comment layer: `<repo>/docs/reference/insidor-social.html`.
 
 ---
 

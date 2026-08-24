@@ -221,7 +221,7 @@
     },
     {
      "element": "Row 2 \u2014 `Recovery method`",
-     "shows": "`Google \u00b7 zain@\u2026` or `Email \u00b7 z\u2026@gmail.com` or `Passkey`",
+     "shows": "`Google \u00b7 user@\u2026` or `Email \u00b7 u\u2026@example.com` or `Passkey`",
      "source": "`usePrivy().user.google / .email / .passkey`",
      "interaction": "none"
     },

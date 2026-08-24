@@ -1,7 +1,7 @@
 ## INSIDOR — COMPONENT INVENTORY
 
-**Source of truth:** `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/index.html` (3,852 lines: CSS lines 16–1019, markup 1023–1252, app script 1253–3671, Privy module 3673–3848). Runtime helpers: `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/live.js`, `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/site/tokenpage.js`.
-**Secondary:** `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/design/insidor-prototype-v3.html` (parallel study, different token names `--bg-0/--fg-0/--act`; **do not** rebuild from it), `/Users/zainkhaliq/Desktop/Claude_Cowork/Insidor/docs/reference/insidor-social.html` (comment layer, same palette).
+**Source of truth:** `<repo>/site/index.html` (3,852 lines: CSS lines 16–1019, markup 1023–1252, app script 1253–3671, Privy module 3673–3848). Runtime helpers: `<repo>/site/live.js`, `<repo>/site/tokenpage.js`.
+**Secondary:** `<repo>/design/insidor-prototype-v3.html` (parallel study, different token names `--bg-0/--fg-0/--act`; **do not** rebuild from it), `<repo>/docs/reference/insidor-social.html` (comment layer, same palette).
 
 ---
 

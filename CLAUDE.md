@@ -5,7 +5,7 @@
 Four times now, an agent working here has used session messaging to look for the
 "owner" of a file, a migration ordinal or a half-finished change — and reached
 AgentQuantix, an unrelated Python trading project in the sibling directory
-`/Users/zainkhaliq/Desktop/Claude_Cowork/AgentQuantix`. It has no TypeScript in it
+`a sibling directory`. It has no TypeScript in it
 at all. Each time it had to verify it was not us and write back.
 
 There is no second session working on Insidor. If you find an unfamiliar change,
