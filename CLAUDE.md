@@ -42,7 +42,7 @@ in your report which ordinal and which policy fields you touched.
 | `check-vocabulary` | a platform, chain or vendor word in `contracts/` or `core/` |
 | `check-purity` | `Date.now`, `Math.random`, `fetch`, `await` inside `core/` |
 | `check-policy` | a bare number in `core/` outside `policy.ts` |
-| `check-app-vocabulary` | our internal words (`narrative`, `cluster`, `candidate`) reaching the app |
+| `check-app-vocabulary` | our internal words (`cluster`, `candidate`, `score`…) reaching `app/` or `mobile/`. `narrative` is allowed there as the product's name for a group of posts |
 | `check-python` | Python drifting outside `ml/train/` — it trains and never serves |
 | `check:boundaries` | `core` importing an adapter, the app importing `core` — plus a probe that writes a real violation and fails if the checker does not catch it |
 
