@@ -73,6 +73,7 @@ store/       the ONLY place SQL lives. Three schemas: public, internal, raw.
 services/    the wiring. runner · chainwatch · project · read · market · watchdog
      ↑
 app/         the UI. CANNOT import core or an adapter. Reads a projection only.
+mobile/      the phone UI. Same wall as app/, plus store and services. See mobile/README.md.
 
 wallet/      ← WALLET, its own package behind a port. The app never sees an SDK.
 ml/          ← MACHINE LEARNING.  train/ is Python, serve/ is TypeScript.
