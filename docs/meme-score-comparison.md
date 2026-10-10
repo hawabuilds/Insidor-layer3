@@ -241,56 +241,23 @@ which is why step 3 puts the backtest's limits into the `policy.ts` comment.
 
 ---
 
-## Decisions I need from you before step 2 and step 3
+## Decisions taken (2026-10-10)
 
-**A. The one-word rule.** Mercury's own examples are multi-word names ("chill guy", "green
-jacket guy"). Options:
-1. *(my suggestion)* "If you cannot give the subject a short name that could become a
-   ticker (one word, or a few words run together like CHILLGUY), it is not coinable."
-2. Strictly one word, as in your prompt. This turns "chill guy" style subjects into not
-   coinable.
+| | Question | Decision |
+|---|---|---|
+| A | The one-word rule | "One word, or a few words run together like CHILLGUY." Ported into `coinability-core.txt` as THE NAME TEST. |
+| B | The word "story" | Ported as "news, events and arguments", leaving Mercury's meaning of story alone. |
+| C | TikTok no-thumbnail cap | Not ported. A video the judge can't see is never sent; it comes back `unavailable` and qualify abstains (`adapters/judge/anthropic/src/to-judgement.ts`, `lookedAtFor`). |
+| D | Per-source bar | Keyed by what the judge looked at: `Policy.qualify.minJudgeConfidence` = text 0.70, videoFrame 0.75. 0.75 is marked not calibrated. Gate `Q10_judge_unsure` in `core/src/qualify/stage.ts`. |
+| E | Tests without a live call | Prompt-text and fixture tests for now (`fixtures/news-contrasts.json`, `src/news-contrasts.test.ts`), with the answers marked hand-written. |
 
-**B. The word "story".** I'll write your STORY rule as "news, events and arguments" so it
-doesn't collide with his meaning of story (the set of posts). OK?
+## Follow-ups (not part of this task)
 
-**C. The TikTok no-thumbnail cap.** Your old code gave a TikTok post with no thumbnail a
-score of 0.4, meaning "we couldn't look". In this repo a missing input stays missing: the
-judge returns `unavailable` and qualify abstains (`Q1_unjudged`), never scoring it. I
-recommend not porting the cap, and instead writing a test that a video-only story with no
-frame is never judged as if it had been seen. Port it anyway?
+1. **Record the news pairs live.** Once the judge client works, do one small recorded live run
+   of every case in `adapters/judge/anthropic/fixtures/news-contrasts.json`. Store the real
+   answers in place of the hand-written ones, set `answerSource` to `recorded`, and keep them
+   as test fixtures. That is the test that catches a prompt rewording the model reads
+   differently, which the current tests can't.
 
-**D. "Per source" in step 3.** Three facts make this harder than it sounds:
-1. `tools/check-vocabulary.mjs` bans platform names such as `tiktok` from `contracts/`
-   and `core/`, so `policy.ts` can't hold `{ tiktok: 0.75 }`. A bare `x` key would slip
-   past the check but break the rule's intent.
-2. Qualify judges a **story**, and a story can mix sources. Your old code handled this with
-   `memeMinForNarrative`: a TikTok-only narrative used the TikTok bar, mixed narratives got
-   the X bar minus 0.1, and everything else got the X bar.
-3. The code expresses source-dependent behaviour by *kind*, not by name. `admit` keys its
-   floors by `CounterKind`, and grouping keys its bars by representation space.
-
-Options:
-1. *(my suggestion)* Key the bar by **what the judge looked at**, which is the actual reason
-   TikTok needed a different bar: `minJudgeConfidence: { text: 0.70, videoFrame: 0.75 }`. A
-   story whose evidence includes video frames uses the stricter bar. No platform is named
-   anywhere in core or contracts.
-2. Key it by opaque source id (`Record<string, number>`) with a default, with the actual ids
-   supplied from configuration outside contracts. This puts the numbers somewhere other than
-   `policy.ts`, which step 3 forbids.
-3. One bar for everything at 0.75, the stricter of the two.
-
-**E. Tests for the news rules.** Step 2 asks for tests where "a future prompt edit that lets
-news back in fails a test", using recorded responses as his adapter tests do. His adapter
-tests use **hand-written** answers, not recorded ones, because the client has never made a
-call. Without a real call, the best a test can do is:
-- assert that each contrast pair is present in the prompt files, so deleting or watering
-  one down fails, and
-- keep a fixture file of the contrast cases with the answer each should get, plus decoding
-  tests over hand-written answers in the judge's format.
-
-That catches someone deleting the rules. It **cannot** catch a reworded prompt that the
-model reads differently. That needs real recorded responses, which needs one live call with
-a key and `SPEND=live`, which this task forbids. Is the text-and-fixture version enough for
-now?
-
-Nothing in the repo has been changed apart from this document.
+2. **The judge HTTP client is NotImplemented, so qualify will abstain on every story when the
+   feed goes live. Implementing it, metered and within the budget, is the next task.**
