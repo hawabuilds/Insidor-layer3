@@ -12,6 +12,12 @@
       "runtimeExecutable": "/opt/homebrew/opt/node@24/bin/pnpm",
       "runtimeArgs": ["--filter", "@insidor/app", "dev"],
       "port": 5173
+    },
+    {
+      "name": "insidor-mobile",
+      "runtimeExecutable": "corepack",
+      "runtimeArgs": ["pnpm", "--filter", "@insidor/mobile", "dev"],
+      "port": 5174
     }
   ]
 }
