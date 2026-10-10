@@ -8,6 +8,34 @@ value is needed, this file names the variable and where it is pasted; you paste 
 
 ---
 
+## ★ Live now (2026-10-10): the web, with no backend
+
+The plan changed to "web first, no backend". This is what is live:
+
+| Address | Vercel project | What it serves |
+|---|---|---|
+| **https://insidor.app** and **https://www.insidor.app** | `insidor-mobile` (root `mobile/`) | The phone app, built with `VITE_SAMPLE_DATA=on`: sample data behind the permanent "Sample data" notice. Also at https://insidor-mobile.vercel.app |
+| https://insidor-two.vercel.app | `insidor` (root `app/`) | The desktop app, same switch. No custom domain. |
+| `insidor-layer3` | (old project) | Not touched. Its five cron jobs are still registered; turning them off is in its Settings → Cron Jobs. |
+
+Both new projects: Node 24, Vite preset, install `pnpm install --frozen-lockfile`, build
+`pnpm build`, output `dist`, and two env vars, `VITE_SAMPLE_DATA=on` and
+`ENABLE_EXPERIMENTAL_COREPACK=1` (so the repo's pnpm 11 is used). No `VITE_READ_URL`, no
+secret. Deploys are by CLI upload from the repo root (`vercel deploy . --project <name>`);
+`.vercelignore` keeps every `.env` file out of the upload.
+
+DNS at Namecheap (copied from Vercel): `A @ 216.150.1.1`, `A @ 216.150.16.1`,
+`CNAME www 00ef20b6977e3de5.vercel-dns-016.com.`. Certificate: Let's Encrypt, issued and renewed by Vercel.
+
+**When the backend exists:** set `VITE_READ_URL` on each project to the read service's URL,
+REMOVE `VITE_SAMPLE_DATA` (the build fails if both are set), and redeploy.
+
+**Rollback for the domain:** delete the three records above at Namecheap (the domain then
+serves nothing, as it did before), or move `insidor.app` to another project in Vercel →
+that project → Settings → Domains. Nothing else depends on it.
+
+---
+
 ## 0. Read this first: what going live will and won't show
 
 **After go-live the board will still show only the seeded sample stories, with the "Sample
