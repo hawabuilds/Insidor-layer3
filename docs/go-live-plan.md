@@ -8,6 +8,10 @@ value is needed, this file names the variable and where it is pasted; you paste 
 
 ---
 
+> **Superseded 2026-10-13** by `docs/deploy-railway-vercel.md`. Sample data no longer exists in
+> either app, and both builds now **refuse** to run while `VITE_SAMPLE_DATA` is set: remove it
+> from `insidor-mobile` and `insidor` before their next deploy.
+
 ## ★ Live now (2026-10-10): the web, with no backend
 
 The plan changed to "web first, no backend". This is what is live:
