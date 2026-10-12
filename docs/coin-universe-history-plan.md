@@ -1,77 +1,137 @@
-# Coin universe: the history import (Part 3.2) — plan only
+# History: every pump.fun narrative that ever existed — plan only
 
-Nothing in this document has been run. There is no `DUNE_API_KEY` yet, and no history
-will be fetched until the founders say so, stage by stage.
+This replaces the coin-first 3.2–3.6 plan. Nothing here has been run. There is no
+`DUNE_API_KEY` yet, and no history is fetched until the founders say so, stage by stage.
 
-The queries are in [`tools/dune/`](../tools/dune). Each is paged by date, so a run can stop
-and resume, and each page is a known size.
+The goal is a database of **narratives**, not of coins. A coin matters to history only as
+evidence that a narrative existed and when. So the import pulls only the coins that were traded,
+groups them into narratives first, and then does the expensive work — finding where a narrative
+started — once per narrative instead of once per coin.
 
-## Order
+The queries are in [`tools/dune/`](../tools/dune). Each one is paged by date, so a run can stop
+and resume, and each page has a known size.
 
-| stage | what | query | then |
+## The six steps
+
+### 1. Pull past coins from Dune: traded coins only
+
+| stage | what | query | rows (estimate) |
 |---|---|---|---|
-| 0 | count every stage, before anything is fetched | `0_counts.sql` | the sizes below stop being guesses |
-| 1 | every **graduated** coin since launch | `1_graduated.sql` | metadata read by content id through our gateway, as in 3.1; status `not_checked_yet` |
-| 2 | coins that did **not** graduate but reached the market-cap bar, biggest first | `2_above_bar.sql` | as stage 1 |
-| 3 | every other coin, **name only** (searchable, `not_checked_yet`) | `3_name_only.sql` | only if asked |
+| 0 | count stage 1 before fetching it | `0_counts.sql` | 1 |
+| 1 | every coin that **bonded**, since launch | `1_graduated.sql` | **140,000–245,000** |
+| 2 | coins that did not bond but were **really traded**: at least 50 SOL through the curve from at least 50 wallets | `2_traded.sql` | **350,000–700,000** (the big unknown) |
 
-Checking where each coin came from (3.3 and 3.4) is a separate step after the import, and it
-is where the real money is. See "After the import" below.
+- **We store only** the name, ticker, metadata link, launch time and the picture, read from the
+  metadata through our own gateway, the same code as live (3.1). Creator wallets, volumes and
+  trader counts come back from Dune but are not kept.
+- **Zero-trade coins are skipped.** The old stage 3, every coin by name only (~15M rows, 4–6 GB),
+  is gone.
+- **Why both bars for stage 2.** One wallet pumping and dumping clears the volume bar alone, and
+  fifty wallets buying a cent each clear the trader bar alone; neither is a market. Holder counts
+  would be a better bar, but they need a scan of every token balance. Distinct traders gets the
+  same idea from the table the query already reads.
+- **Stage 2 is the expensive query.** It scans every trade on the curve, so it is paged one month
+  of launches at a time. Its first page (one month) is the measurement: it gives the real ratio
+  of traded to launched, which replaces the guess above before the other pages run.
+- **Coins pulled: about 0.5–0.95 million.**
+  - Inputs: about 11.9M launches by June 2026, plus about 42,000 a day since, which makes about
+    17.5M by now.
+  - Bonding rate: 0.8–1.4%.
+  - Traded but never bonded: guessed at 2–4% of launches.
 
-## Size and cost per stage — estimates until stage 0 runs
+### 2. Group the coins into historical narratives
 
-**Inputs (public figures, not ours):**
-- About **11.9 million** launches by June 2026, and about 42,000 a day since then, so roughly
-  **15 million** by now.
-- Graduation rate **0.8–1.4%**.
+This uses GROUP's own evidence, the same signals the live system uses:
+- **name and ticker variants**: free, pure logic;
+- **picture match**: Voyage embeddings of each coin's picture, with near-misses checked by the
+  same image-pair judge as live;
+- **shared linked posts**: two coins whose metadata links the same post are the same narrative.
+  This is free, because it is read from the metadata we already fetched.
 
-| stage | rows (estimate) | Dune result size | our database | metadata reads | Dune cost |
-|---|---|---|---|---|---|
-| 0 counts | 1 | tiny | — | — | the cheapest query here |
-| 1 graduated | **120,000–200,000** | ~50–80 MB over ~20 pages | ~150–250 MB (asset + metadata + indexes) | 120–200k gateway reads: **free**; ~2–4 days at the proposed cap of 50,000/day | small: one join of two decoded tables, ~20 executions |
-| 2 above $25k peak | **unknown: guess 300,000–750,000** | ~10–25 MB | ~300–750 MB | free, same gateway; 6–15 days at the cap | **the expensive one**: it scans every trade on the curve (billions of rows), paged by month (~30 executions) |
-| 3 name only | **~15,000,000** | ~2.3 GB | **~4–6 GB** | none | large export |
+Each group is stored as a historical narrative (a `public.story` with a new origin kind,
+`history`) with all its coins. It is searchable, but it is never on the live board.
 
-**Dune's dollar cost.** Dune bills each execution in credits, by engine size, plus credits for
-exporting the result. I'll turn these into dollars against your plan's rates after stage 0,
-which costs a few credits.
-- My expectation: stages 0 and 1 fit in a small monthly allowance.
-- Stage 2 probably needs a paid plan, or a narrower date range.
+**Expected narratives: about 150,000–475,000** (30–50% of coins). Most are a single coin. Only
+about **25,000–60,000 have two or more coins**, and those are the ones people search for.
 
-**Storage.**
-- Stages 1 and 2 fit in a small Postgres.
-- **Stage 3 does not fit Supabase's free tier** (500 MB), and needs the Pro plan's 8 GB.
-- My recommendation is to skip stage 3 until search over unchecked coins is actually wanted.
+### 3. Find the origin once per narrative
+
+Biggest narratives go first: by number of coins, then by peak market cap, inside a daily cap.
+
+1. **Creator links first (free reads).** The 3.3 checks for a promo post, an account link and an
+   influencer link, applied to every coin's metadata link in the narrative. The earliest proven
+   post wins.
+2. **Then one X search back** from just before the narrative's first coin. Picture and name checks
+   run on what comes back: a name pre-filter (free), picture embeddings of the results that have
+   media, and the judge on the few that survive, in batches of 10.
+3. **A post later than the first coin** (past the 10-minute launch allowance) is labelled
+   "viral after launch". It is kept and shown, and never counted as the origin.
+
+### 4. Store a timeline per narrative
+
+Each narrative stores the **earliest post found**, the **first coin**, the **biggest coin** and the
+**peak**. A gap is stored as a typed reason, never as a blank:
+
+- **origin not found**: searched, and nothing passed the checks;
+- **possibly deleted**: a creator linked a post that no longer resolves;
+- **TikTok not searchable yet**: the evidence points at TikTok, which has no search we can afford.
+
+This is the "first post, first coin, peak" line the Search tab already draws for a narrative
+that is not live (section C).
+
+### 5. Make historical narratives searchable
+
+The Search tab's narrative section (`services/read/src/search.ts`) already searches
+`public.story_view` by title and coin ticker. Historical narratives join it by being projected
+there with `history` provenance.
+- The search filter widens from `observed` to `observed` + `history`.
+- The live board and every surface that asserts liveness stay `observed` only.
+
+### 6. Re-estimate everything
+
+| | estimate | what settles it |
+|---|---|---|
+| **Coins pulled** | 0.5–0.95M (bonded 140–245k, traded 350–700k) | stage 0, then stage 2's first month |
+| **Narratives** | 150–475k, of which 25–60k have 2+ coins | grouping stage 1 alone, before stage 2 |
+| **Metadata reads** | 0.5–0.95M, free through our gateway; 10–19 days at 50,000 a day | — |
+| **Grouping cost** | **$100–200** one-off: ~1,450–1,800 tokens a picture at $0.12 per million ≈ $0.0002 a coin. Plus **$10–30** for the image-pair judge on near-misses | the first 10,000 pictures, measured |
+| **Origin search cost** | ≈ **$0.0067 a narrative**: one X search of 20 results ($0.003), pictures of ~8 results ($0.0016), the judge on ~3 survivors ($0.0021). Creator links add ~$11 in total | the first 1,000 narratives, measured |
+| — the top 50,000 narratives | **≈ $340**, 10 days at the proposed cap | |
+| — the top 100,000 | **≈ $670** | |
+| — every narrative (~300,000) | **≈ $2,000**. Not recommended: the long tail is single coins nobody searches for | |
+| **Database size** | **1.9–3.0 GB in total** — needs Supabase Pro (8 GB), not the free tier's 500 MB | |
+| — coins | 0.7–1.4 GB: 1.47 KB a coin, measured on the real schema (asset row 0.88 KB + metadata 0.59 KB) | |
+| — narratives and timelines | 0.17–0.5 GB: ~1.1 KB each, with the origin post where one is found | |
+| — picture vectors | 0.1–0.2 GB if one vector is kept per multi-coin narrative. Keeping one per coin is 2–4 GB plus its index, which is why it isn't | |
+| — the live universe | ~0.9 GB: 14 days of every coin, then the keep rule (item D) | |
+
+**Dune's own cost** is in credits per execution, plus credits for exporting results.
+- Stage 0 and stage 1 (about 20 pages, one join of decoded tables) should fit a small allowance.
+- Stage 2 scans every curve trade, about 30 monthly pages on a large engine, and probably needs a
+  paid month.
+- I'll turn credits into dollars against your plan after stage 0 and stage 2's first page, which
+  together cost a few credits.
 
 ## Proposed policy numbers (not yet in `policy.ts`)
 
 | field | proposed | why |
 |---|---|---|
-| `universe.history.marketCapBarUsd` | 25,000 | a third of the way to graduation; below it, almost nothing has a story |
+| `universe.history.volumeBarSol` | 50 | about $7–9k through the curve: a market, not a test |
+| `universe.history.traderBar` | 50 | fifty wallets: not one person and their friends |
+| `universe.history.pageMonths` | 1 | each Dune page a known, bounded size |
 | `universe.history.metadataPerDay` | 50,000 | a public gateway's comfortable rate; history never competes with live coins |
-| `universe.history.pageDays` | 7 (stage 1), 30 (stage 2) | each Dune page a known, bounded size |
+| `universe.history.originsPerDay` | 5,000 | ≈ $34 a day at most; the top 50,000 narratives in ten days |
+| `universe.history.searchResults` | 20 | one page of results from just before the first coin |
 
-## How the import runs (when it does)
+## How it runs, when it does
 
-- **Batches and resume.** One Dune page at a time. The last finished page is stored, so a
-  stopped run resumes there.
-- **Metadata reads.** Content id only, through our gateway, with retries and the daily cap.
-  This is the same code as live (3.1), so a historical coin and a new one are read identically.
-- **Cost log.** Each page records the credits Dune charged and the rows it returned.
-
-## After the import: checking where each coin came from (3.3 and 3.4)
-
-This is not part of 3.2, but it is the number that matters. For stage 1's ~150,000 graduated coins:
-
-| step | rough cost |
-|---|---|
-| creator posts read by id (~25% link a post) | ~40,000 × $0.00015 ≈ **$6** |
-| judge on what is left, batched by 10 | ~20,000 posts ≈ **$14** |
-| coin pictures embedded (only coins one of our posts names) | up to 150,000 ≈ **$26** at most |
-| **X search back in time**, one per coin, 20 results (3.4.2) | 150,000 × 20 × $0.00015 ≈ **$450** |
-
-The search back is where the money is. Before it runs, it should be limited, for example to
-coins whose creator link did not settle them, or to the biggest coins first, and priced again.
+- **One Dune page at a time.** The last finished page is stored, so a stopped run resumes there.
+  Each page records the credits it cost and the rows it returned.
+- **Grouping runs after stage 1, before stage 2 is fetched.** The narrative count from bonded
+  coins alone is the cheapest real number we can get, and it decides whether stage 2 is worth its
+  scan.
+- **Origins run biggest first, under the daily cap.** Each search is priced before it runs, like
+  every paid stage (`SPEND=live` and `--yes`, run by you).
 
 ## Sources for the inputs
 
