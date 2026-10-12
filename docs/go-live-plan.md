@@ -78,7 +78,7 @@ If anything is running, tell me before Stage 3. Pausing the old crons is your ca
 
 | Place | What | Why there |
 |---|---|---|
-| **Supabase** (a NEW project) | Postgres with pgvector: every table, role and migration (`store/migrations/0001`–`0026`) | Hosted Postgres. Your old Insidor Supabase project is not touched. |
+| **Supabase** (a NEW project) | Postgres with pgvector: every table, role and migration (`store/migrations/0001`–`0027`) | Hosted Postgres. Your old Insidor Supabase project is not touched. |
 | **Railway** (a NEW project) — always on | `services/read` (the API the apps read), `services/runner` (the pipeline loops and the judge), `services/chainwatch` (the mint websocket) | Each holds something open: an SSE live channel, a singleton advisory lock, a websocket. Serverless cannot. |
 | **Railway** — cron jobs | `db:market` (every 5 min), `db:project` (every 5 min), `db:pairs` (every 5 min), `db:sources` (every 5 min), `db:label` (hourly) | Each runs once and exits. `DEPLOY.md` suggests Vercel Cron, but Vercel Cron calls an HTTP endpoint and these are shell commands, so Railway's cron services fit without new code. Railway cron runs at most every 5 minutes, so the board rebuilds every 5 minutes, not every minute as `DEPLOY.md` suggests; the live channel still pushes changes in between. `db:decide` is NOT scheduled: the runner already runs every stage, and `db:decide` takes the same lock, so it would fail while the runner is up. |
 | **Vercel** — two projects | `app/` (desktop) and `mobile/` (phone), static builds | Static sites are what Vercel is for. |
