@@ -166,3 +166,11 @@ to roll back: the domain serves nothing today, and Stages 2–4 touch no live su
   `vercel.app` URL throughout, and can be given the domain back from its **Settings → Domains**.
 - **Stage 6** (spending): set `SPEND=dry` (or `DISCOVER=off`) on the Railway runner. The
   change takes effect on restart; nothing is sent after it.
+
+## 6. Not built yet
+
+- **The earliest post using a sound.** When a promoted narrative's posts share a TikTok
+  sound, its backfill should find the first post that used it. The TikTok adapter runs a
+  hashtag, feed or account search only, and cannot search back to a cutoff, so this is not
+  followed: the backfill logs `members share a sound or effect` with the story id and moves
+  on. It needs a sound-search actor input, a price for it, and a cutoff the actor honours.
