@@ -23,8 +23,9 @@ whoever writes second silently wins:
 
 1. **`store/migrations/NNNN_*.sql`** — ordinals must be contiguous from 0001;
    `store/src/migrations.test.ts` asserts it. Two agents both taking the next free
-   number produce a set that fails that test. The set currently runs `0001`–`0042`,
-   so the next free number is `0043`.
+   number produce a set that fails that test. See `store/migrations` for the highest
+   committed number; the next free number is one past it. (No number is written here:
+   it went stale every day it was.)
 2. **`contracts/src/policy.ts`** — the `version` string and the policy fields. Two
    agents adding fields concurrently is a lost update: the second reads the file
    before the first's write lands and clobbers it. The version bump is visible; the
